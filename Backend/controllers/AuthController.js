@@ -9,26 +9,22 @@ const User = require("../models/user");
 //@access public
 const registerUser = asyncHandler(async (req, res) => {
   try {
-    const { firstname, lastname, email, password, city, age, phonenumber } = req.body;
+    const { firstname, lastname, email, password } = req.body;
 
-    if (!firstname || !lastname || !email || !password || !city || !age || !phonenumber) {
+    if (!firstname || !lastname || !email || !password ) {
       res.status(400).json({ error: "All fields are mandatory!" });
       return;
     }
 
     const emailUser = await User.findOne({ email });
-    const phoneUser = await User.findOne({ phonenumber });
 
-    if (emailUser && phoneUser) {
-      res.status(400).json({ error: "Email and phone number already registered" });
+    if (emailUser ) {
+      res.status(400).json({ error: "Email  already registered" });
       return;
     } else if (emailUser) {
       res.status(400).json({ error: "User already registered with this email" });
       return;
-    } else if (phoneUser) {
-      res.status(400).json({ error: "User already registered with this phone number" });
-      return;
-    }
+    } 
 
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
