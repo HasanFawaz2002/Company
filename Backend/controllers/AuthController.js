@@ -100,7 +100,7 @@ const loginUser = asyncHandler(async (req, res) => {
         user: {
           email: user.email,
           id: user._id,
-          isAdmin:user.isAdmin
+          role:user.role
         },
       },
       process.env.ACCESS,

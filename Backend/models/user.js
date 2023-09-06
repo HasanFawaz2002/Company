@@ -46,7 +46,10 @@ const UserSchema = new mongoose.Schema({
             message: 'Password must be at least 6 characters long and contain at least one capital letter.'
         }
     },
-    
+    role: {
+        type: String,
+        default: 'user', // Set the default value to 'user'
+    },
     profilePicture: {
         type: String, // You can use a URL or store the image as Base64 data
     },
