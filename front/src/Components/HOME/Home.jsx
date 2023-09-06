@@ -8,7 +8,7 @@ const Home = () => {
             <div className="box1"></div>
             <div className="box2">
                 <div className="text">
-                    EXTREME<br/><span>UI</span> DESIGN
+                Discover <br/> Credentials
                 </div>
                 <div className="landpage-btn-container">
                 <button>Get Started</button>
