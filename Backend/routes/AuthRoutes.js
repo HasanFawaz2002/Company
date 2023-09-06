@@ -1,9 +1,11 @@
 const {Router} = require('express');
-const {registerUser, loginUser} = require('../controllers/AuthController');
+const {registerUser,upload, loginUser,} = require('../controllers/AuthController');
+
+
 
 const router = Router();
 
-router.post('/register', registerUser);
+router.post('/register', upload.single('profilePicture'), registerUser);
 router.post('/login', loginUser);
 
 
