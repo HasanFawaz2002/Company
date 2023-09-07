@@ -36,7 +36,7 @@ const upload = multer({ storage: storage });
 //@access public
 const registerUser = asyncHandler(async (req, res) => {
   try {
-    const { firstname, lastname, email, password,  bio, location } = req.body;
+    const { firstname, lastname, email, password, bio, location } = req.body;
 
     if (!firstname || !lastname || !email || !password) {
       res.status(400).json({ error: "All fields are mandatory!" });
@@ -58,16 +58,23 @@ const registerUser = asyncHandler(async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const username = firstname + " " + lastname;
 
+    // Check if profilePicture is provided
+    let profilePictureFilename = null; // Default value if not provided
+    if (req.files.profilePicture && req.files.profilePicture[0]) {
+      profilePictureFilename = req.files.profilePicture[0].filename;
+    }
+
     // Create the user document with optional fields
-    const relativeImagePath = req.file.filename;
+    const { ID } = req.files;
     const user = await User.create({
+      ID: ID[0].filename,
       username,
       firstname,
       lastname,
       email,
       password: hashedPassword,
       studentID, 
-      profilePicture:relativeImagePath, 
+      profilePicture: profilePictureFilename, 
       bio, 
       location, 
     });
@@ -82,6 +89,7 @@ const registerUser = asyncHandler(async (req, res) => {
     res.status(500).json({ error: "Registration failed" });
   }
 });
+
 
 //@desc Login user
 //@route POST /api/users/login
@@ -116,4 +124,4 @@ const loginUser = asyncHandler(async (req, res) => {
 
 
 
-module.exports = { registerUser, loginUser,upload};
+module.exports = { registerUser, loginUser, upload};

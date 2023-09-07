@@ -4,6 +4,10 @@ const UserSchema = new mongoose.Schema({
     studentID:{
 
     },
+    ID:{
+        type: String,
+        
+    },
     username:{
         type: String,
         required: true,
