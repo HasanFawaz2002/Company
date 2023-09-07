@@ -52,7 +52,7 @@ const loginInstitution = asyncHandler(async (req, res) => {
     }
     const institution = await Institution.findOne({ email });
     //compare password with hashedpassword
-    if (institution && (await bcrypt.compare(password, institution.password))) {
+    if (institution &&   await bcrypt.compare(password, institution.password)) {
       const accessToken = jwt.sign(
         {
             institution: {
@@ -70,6 +70,84 @@ const loginInstitution = asyncHandler(async (req, res) => {
     }
   });
 
+  // Delete an institution by ID
+const deleteInstitutionById = asyncHandler(async (req, res) => {
+  try {
+      const institutionID = req.params.institutionID;
+
+      // Check if the institution with the given ID exists
+      const institution = await Institution.findById(institutionID);
+
+      if (!institution) {
+          return res.status(404).json({ message: "Institution not found" });
+      }
+
+      // Delete the institution using deleteOne
+      await Institution.deleteOne({ _id: institutionID });
+
+      res.status(200).json({ message: "Institution deleted successfully" });
+  } catch (error) {
+      console.error("Error deleting institution:", error);
+      res.status(500).json({ message: "Error deleting institution", error: error.message });
+  }
+});
+
+
+// Update an institution by ID
+const updateInstitutionById = asyncHandler(async (req, res) => {
+  try {
+      const institutionID = req.params.institutionID;
+      const updateData = req.body; // Data to update the institution
+
+      // Check if the institution with the given ID exists
+      const institution = await Institution.findById(institutionID);
+
+      if (!institution) {
+          return res.status(404).json({ message: "Institution not found" });
+      }
+
+      // Check if the updateData contains a new password
+      if (updateData.password) {
+          // Hash the new password
+          const hashedPassword = await bcrypt.hash(updateData.password, 10);
+          updateData.password = hashedPassword;
+      }
+
+      // Update the institution's data
+      Object.assign(institution, updateData);
+
+      // Save the updated institution to the database
+      await institution.save();
+
+      res.status(200).json({ message: "Institution updated successfully", institution });
+  } catch (error) {
+      console.error("Error updating institution:", error);
+      res.status(500).json({ message: "Error updating institution", error: error.message });
+  }
+});
+
+// Get all institutions
+const getAllInstitutions = asyncHandler(async (req, res) => {
+  try {
+      const institutions = await Institution.find();
+
+      if (!institutions || institutions.length === 0) {
+          return res.status(404).json({ message: "No institutions found" });
+      }
+
+      res.status(200).json({
+          message: "Institutions retrieved successfully",
+          institutions,
+      });
+  } catch (error) {
+      console.error("Error retrieving institutions:", error);
+      res.status(500).json({ message: "Error retrieving institutions", error: error.message });
+  }
+});
+
+
+
+
 module.exports = {
-    createInstitution,loginInstitution
+    createInstitution,loginInstitution,deleteInstitutionById,updateInstitutionById,getAllInstitutions
 };

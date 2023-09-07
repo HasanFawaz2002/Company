@@ -1,7 +1,7 @@
 const express=require('express');
 const authRoute=require('../routes/AuthRoutes');
 const intitutionRoute = require('../routes/InstitutionRoutes')
-
+const formRoute = require('../routes/FormRoutes');
 
 const connect = require('./connect');
 const cors=require('cors');
@@ -13,7 +13,7 @@ const app=express();
 
 
 app.use(express.json(),cors());
-app.use(authRoute,intitutionRoute)
+app.use(authRoute,intitutionRoute,formRoute)
 
 
 app.listen(process.env.PORT,function(){
