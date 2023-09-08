@@ -1,0 +1,178 @@
+const asyncHandler = require("express-async-handler");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const Subscribtion = require('../models/subscription');
+const cron = require('node-cron');
+
+
+// Schedule a cron job to check for expired subscriptions and update their status
+cron.schedule('*/5 * * * *', async () => {
+    try {
+        // Get the current date
+        const currentDate = new Date();
+
+        // Find subscriptions where the expirationTime is less than or equal to the current date
+        const expiredSubscriptions = await Subscribtion.find({
+            expirationTime: { $lte: currentDate },
+            status: 'verified', // Assuming you have a 'status' field in your Subscription model
+        });
+
+        // Update the status of expired subscriptions to 'expired'
+        await Promise.all(expiredSubscriptions.map(async (subscription) => {
+            subscription.status = 'expired';
+            await subscription.save();
+        }));
+
+        console.log('Expired subscriptions checked and updated.');
+    } catch (error) {
+        console.error('Error checking and updating expired subscriptions:', error);
+    }
+});
+
+// Function to generate a random password of a given length
+function generateRandomPassword(minLength, maxLength) {
+    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    const passwordLength = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;
+    let password = "";
+    for (let i = 0; i < passwordLength; i++) {
+        const randomIndex = Math.floor(Math.random() * charset.length);
+        password += charset[randomIndex];
+    }
+    return password;
+}
+
+
+// Create an subscription with an auto-generated password
+const createsubscription = asyncHandler(async (req, res) => {
+    try {
+        // Generate a random password with a minimum length of 6 characters
+        const password = generateRandomPassword(6, 12);
+
+        // Calculate the expiration time (1 year from now)
+        const expirationTime = new Date();
+        expirationTime.setFullYear(expirationTime.getFullYear() + 1);
+
+        // Hash the generated password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Create the subscription with the generated password
+        const subscription = await Subscribtion.create({
+            institutionID:req.body.institutionID,
+            name: req.body.name,
+            location: req.body.location,
+            email: req.body.email,
+            password: hashedPassword,// Store the hashed password
+            position:req.body.position, 
+            expirationTime: expirationTime, // Set the expiration time
+            
+
+        });
+
+        // Return the Subscription data or a success message
+        res.status(201).json({
+            message: "Subscription created successfully",
+            subscription: subscription,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error creating Subscription", error });
+    }
+});
+
+// Controller to get subscriptions for a specific institution
+const getSubscriptionsByInstitution = asyncHandler(async (req, res) => {
+    try {
+        const institutionID = req.user.institution.id; // Assuming the institution ID 
+
+        // Find all subscriptions associated with the specified institution
+        const subscriptions = await Subscribtion.find({ institutionID });
+
+        // Return the subscriptions
+        res.status(200).json({
+            message: "Subscriptions retrieved successfully",
+            subscriptions,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error retrieving subscriptions", error });
+    }
+});
+
+
+// Controller to get all subscriptions
+const getAllSubscriptions = asyncHandler(async (req, res) => {
+    try {
+        // Find all subscriptions in the database
+        const subscriptions = await Subscribtion.find();
+
+        // Return the list of subscriptions
+        res.status(200).json({
+            message: "Subscriptions retrieved successfully",
+            subscriptions,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error retrieving subscriptions", error });
+    }
+});
+
+
+// Controller to update the status of a subscription to 'verified'
+const updateSubscriptionStatusToVerified = asyncHandler(async (req, res) => {
+    try {
+        const subscriptionID = req.params.subscriptionID; // Assuming the subscription ID is passed as a parameter
+
+        // Find the subscription by its ID
+        const subscription = await Subscribtion.findById(subscriptionID);
+
+        if (!subscription) {
+            return res.status(404).json({ message: "Subscription not found" });
+        }
+
+        // Update the status to 'verified'
+        subscription.status = 'verified';
+
+        // Save the updated subscription
+        await subscription.save();
+
+        // Return the updated subscription
+        res.status(200).json({
+            message: "Subscription status updated to 'verified'",
+            subscription,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error updating subscription status", error });
+    }
+});
+
+const loginSubscription = asyncHandler(async (req, res) => {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      res.status(400);
+      throw new Error("All fields are mandatory!");
+    }
+    const subscribtion = await Subscribtion.findOne({ email });
+    //compare password with hashedpassword
+    if (subscribtion &&   await bcrypt.compare(password, subscribtion.password)) {
+      const accessToken = jwt.sign(
+        {
+            subscription: {
+            email: subscribtion.email,
+            id: subscribtion._id,
+            role:subscribtion.role
+          },
+        },
+        process.env.ACCESS,
+        { expiresIn: "1d" }
+      );
+      res.status(200).json({ subscribtion,accessToken });
+    } else {
+      res.status(401).json({ error: "Email or Password is not valid" });
+    }
+  });
+
+
+module.exports = {
+    createsubscription,getSubscriptionsByInstitution,getAllSubscriptions,updateSubscriptionStatusToVerified,loginSubscription
+};
