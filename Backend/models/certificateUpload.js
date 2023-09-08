@@ -24,7 +24,11 @@ const CertificateUploadSchema = new mongoose.Schema({
     type: String,
     required: true,
     },
-    image:{
+    status:{
+     type: String,
+    default:"Pending"
+    },
+    certificateFile:{
     type: String,
     required: true,
     },
