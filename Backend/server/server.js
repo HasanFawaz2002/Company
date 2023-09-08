@@ -7,6 +7,8 @@ const connect = require('./connect');
 const cors=require('cors');
 require('dotenv').config();
 const app=express();
+const certificateRoutes = require('../routes/CertificateRoutes');
+
 
 
 
@@ -14,6 +16,8 @@ const app=express();
 
 app.use(express.json(),cors());
 app.use(authRoute,intitutionRoute,formRoute)
+app.use('/certificates', certificateRoutes);
+
 
 
 app.listen(process.env.PORT,function(){
