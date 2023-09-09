@@ -4,6 +4,7 @@ const intitutionRoute = require('../routes/InstitutionRoutes')
 const formRoute = require('../routes/FormRoutes');
 const subscriptionRoute = require('../routes/SubscriptionRoutes');
 const certificateRoute = require('../routes/CertificateRoutes');
+const certificateUploadRoute = require('../routes/CertificateUploadRoutes');
 
 const connect = require('./connect');
 const cors=require('cors');
@@ -16,8 +17,7 @@ const app=express();
 
 
 app.use(express.json(),cors());
-app.use(authRoute,intitutionRoute,formRoute,subscriptionRoute,certificateRoute)
-
+app.use(authRoute,intitutionRoute,formRoute,subscriptionRoute,certificateRoute,certificateUploadRoute)
 
 app.listen(process.env.PORT,function(){
     connect();

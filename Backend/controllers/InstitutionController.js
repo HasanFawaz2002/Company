@@ -23,14 +23,15 @@ const createInstitution = asyncHandler(async (req, res) => {
         const password = generateRandomPassword(6, 12);
 
         // Hash the generated password
-        const hashedPassword = await bcrypt.hash(password, 10);
+        // const hashedPassword = await bcrypt.hash(password, 10);
 
         // Create the institution with the generated password
         const institution = await Institution.create({
             name: req.body.name,
             location: req.body.location,
             email: req.body.email,
-            password: hashedPassword, // Store the hashed password
+            // password: hashedPassword, // Store the hashed password
+            password
         });
 
         // Return the institution data or a success message
@@ -109,8 +110,8 @@ const updateInstitutionById = asyncHandler(async (req, res) => {
       // Check if the updateData contains a new password
       if (updateData.password) {
           // Hash the new password
-          const hashedPassword = await bcrypt.hash(updateData.password, 10);
-          updateData.password = hashedPassword;
+        //   const hashedPassword = await bcrypt.hash(updateData.password, 10);
+        //   updateData.password = hashedPassword;
       }
 
       // Update the institution's data
