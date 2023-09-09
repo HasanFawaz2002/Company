@@ -50,9 +50,7 @@ const registerUser = asyncHandler(async (req, res) => {
       return;
     }
 
-    // Find the highest existing studentID and increment it
-    const highestStudent = await User.findOne({}, 'studentID').sort('-studentID');
-    const studentID = highestStudent ? highestStudent.studentID + 1 : 1;
+    
 
     // Hash password
     // const hashedPassword = await bcrypt.hash(password, 10);
@@ -73,7 +71,6 @@ const registerUser = asyncHandler(async (req, res) => {
       lastname,
       email,
       password,
-      studentID, 
       profilePicture: profilePictureFilename, 
       bio, 
       location, 
