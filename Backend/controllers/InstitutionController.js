@@ -30,7 +30,8 @@ const createInstitution = asyncHandler(async (req, res) => {
             name: req.body.name,
             location: req.body.location,
             email: req.body.email,
-            password: hashedPassword, // Store the hashed password
+            password: password,
+            //hashedPassword, // Store the hashed password
         });
 
         // Return the institution data or a success message
@@ -52,7 +53,7 @@ const loginInstitution = asyncHandler(async (req, res) => {
     }
     const institution = await Institution.findOne({ email });
     //compare password with hashedpassword
-    if (institution &&   await bcrypt.compare(password, institution.password)) {
+    if (institution &&   /*await bcrypt.compare*/(password, institution.password)) {
       const accessToken = jwt.sign(
         {
             institution: {

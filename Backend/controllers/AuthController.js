@@ -55,7 +55,7 @@ const registerUser = asyncHandler(async (req, res) => {
     const studentID = highestStudent ? highestStudent.studentID + 1 : 1;
 
     // Hash password
-    const hashedPassword = await bcrypt.hash(password, 10);
+    //const hashedPassword = await bcrypt.hash(password, 10);
     const username = firstname + " " + lastname;
 
     // Create the user document with optional fields
@@ -65,7 +65,7 @@ const registerUser = asyncHandler(async (req, res) => {
       firstname,
       lastname,
       email,
-      password: hashedPassword,
+      password: password,
       studentID, 
       profilePicture:relativeImagePath, 
       bio, 
@@ -79,6 +79,7 @@ const registerUser = asyncHandler(async (req, res) => {
     }
   } catch (error) {
     console.error("Registration failed:", error);
+    console.log(error);
     res.status(500).json({ error: "Registration failed" });
   }
 });
@@ -94,7 +95,7 @@ const loginUser = asyncHandler(async (req, res) => {
   }
   const user = await User.findOne({ email });
   //compare password with hashedpassword
-  if (user && (await bcrypt.compare(password, user.password))) {
+  if (user && /*(await bcrypt.compare*/(password, user.password)) {
     const accessToken = jwt.sign(
       {
         user: {
