@@ -52,7 +52,7 @@
     font-weight: bold;
 }
 .navbar-menu ul li a.active{
-    border-bottom:3px solid #1EBB90;
+    border-bottom:3px solid rgb(70, 241, 207);
 
 }
 @keyframes anim4{
