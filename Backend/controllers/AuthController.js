@@ -37,7 +37,7 @@ const upload = multer({ storage: storage });
 //@access public
 const registerUser = asyncHandler(async (req, res) => {
   try {
-    const { firstname, lastname, email, password,  bio, location } = req.body;
+    const { firstname, lastname, email, password, bio, location } = req.body;
 
     if (!firstname || !lastname || !email || !password) {
       res.status(400).json({ error: "All fields are mandatory!" });
@@ -51,24 +51,28 @@ const registerUser = asyncHandler(async (req, res) => {
       return;
     }
 
-    // Find the highest existing studentID and increment it
-    const highestStudent = await User.findOne({}, 'studentID').sort('-studentID');
-    const studentID = highestStudent ? highestStudent.studentID + 1 : 1;
+    
 
     // Hash password
-    //const hashedPassword = await bcrypt.hash(password, 10);
+    // const hashedPassword = await bcrypt.hash(password, 10);
     const username = firstname + " " + lastname;
 
+    // Check if profilePicture is provided
+    let profilePictureFilename = null; // Default value if not provided
+    if (req.files.profilePicture && req.files.profilePicture[0]) {
+      profilePictureFilename = req.files.profilePicture[0].filename;
+    }
+
     // Create the user document with optional fields
-    const relativeImagePath = req.file.filename;
+    const { ID } = req.files;
     const user = await User.create({
+      ID: ID[0].filename,
       username,
       firstname,
       lastname,
       email,
-      password: password,
-      studentID, 
-      profilePicture:relativeImagePath, 
+      password,
+      profilePicture: profilePictureFilename, 
       bio, 
       location, 
     });
@@ -77,13 +81,14 @@ const registerUser = asyncHandler(async (req, res) => {
       res.status(201).json({ _id: user.id, email: user.email });
     } else {
       res.status(400).json({ error: "User data is not valid" });
-    }
+    } 
   } catch (error) {
     console.error("Registration failed:", error);
     console.log(error);
     res.status(500).json({ error: "Registration failed" });
   }
 });
+
 
 //@desc Login user
 //@route POST /api/users/login
@@ -96,7 +101,7 @@ const loginUser = asyncHandler(async (req, res) => {
   }
   const user = await User.findOne({ email });
   //compare password with hashedpassword
-  if (user && /*(await bcrypt.compare*/(password, user.password)) {
+  if (user && (user.password)) {
     const accessToken = jwt.sign(
       {
         user: {

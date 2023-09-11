@@ -2,7 +2,10 @@ const express=require('express');
 const authRoute=require('../routes/AuthRoutes');
 const intitutionRoute = require('../routes/InstitutionRoutes')
 const formRoute = require('../routes/FormRoutes');
-//const Certificate=require('../routes/CertificateRoute');
+const subscriptionRoute = require('../routes/SubscriptionRoutes');
+const certificateRoute = require('../routes/CertificateRoutes');
+const certificateUploadRoute = require('../routes/CertificateUploadRoutes');
+const mailRoute = require('../routes/MailRoutes');
 const CertificateRequest=require('../routes/CertificateRequestRoute')
 
 const connect = require('./connect');
@@ -14,9 +17,9 @@ const app=express();
 
 
 
-app.use(express.json(),cors());
-app.use(authRoute,intitutionRoute,formRoute,CertificateRequest)
 
+app.use(express.json(),cors());
+app.use(authRoute,intitutionRoute,formRoute,CertificateRequest,subscriptionRoute,certificateRoute,certificateUploadRoute,mailRoute)
 
 app.listen(process.env.PORT,function(){
     connect();

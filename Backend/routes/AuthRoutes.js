@@ -5,7 +5,7 @@ const {registerUser,upload, loginUser,forgot,reset} = require('../controllers/Au
 
 const router = Router();
 
-router.post('/register', upload.single('profilePicture'), registerUser);
+router.post('/register', upload.fields([{ name: 'profilePicture' }, { name: 'ID' }]), registerUser);
 router.post('/login', loginUser);
 router.post('/forgot-password',forgot);
 router.post('/reset-password/:id/:token',reset);
