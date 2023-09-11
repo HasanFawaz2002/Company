@@ -83,6 +83,7 @@ const registerUser = asyncHandler(async (req, res) => {
     } 
   } catch (error) {
     console.error("Registration failed:", error);
+    console.log(error);
     res.status(500).json({ error: "Registration failed" });
   }
 });

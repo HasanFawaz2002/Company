@@ -27,13 +27,13 @@ const createInstitution = asyncHandler(async (req, res) => {
       // Hash the generated password
       const hashedPassword = await bcrypt.hash(password, 10);
 
-      // Create the institution with the generated password
-      const institution = await Institution.create({
-          name: req.body.name,
-          location: req.body.location,
-          email: req.body.email,
-          password: hashedPassword, // Store the hashed password
-      });
+        // Create the institution with the generated password
+        const institution = await Institution.create({
+            name: req.body.name,
+            location: req.body.location,
+            email: req.body.email,
+            password: hashedPassword, // Store the hashed password
+        });
 
       // Check if the institution was successfully created
       if (institution) {
