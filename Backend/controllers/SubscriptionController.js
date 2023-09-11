@@ -3,6 +3,8 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Subscribtion = require('../models/subscription');
 const cron = require('node-cron');
+const nodeMailer = require('nodemailer');
+
 
 
 // Schedule a cron job to check for expired subscriptions and update their status
@@ -41,8 +43,7 @@ function generateRandomPassword(minLength, maxLength) {
     return password;
 }
 
-
-// Create an subscription with an auto-generated password
+//Create Subscription
 const createsubscription = asyncHandler(async (req, res) => {
     try {
         // Generate a random password with a minimum length of 6 characters
@@ -57,27 +58,54 @@ const createsubscription = asyncHandler(async (req, res) => {
 
         // Create the subscription with the generated password
         const subscription = await Subscribtion.create({
-            institutionID:req.body.institutionID,
+            institutionID: req.body.institutionID,
             name: req.body.name,
             location: req.body.location,
             email: req.body.email,
-            password: hashedPassword,// Store the hashed password
-            position:req.body.position, 
+            password: hashedPassword, // Store the hashed password
+            position: req.body.position,
             expirationTime: expirationTime, // Set the expiration time
-            
-
         });
 
-        // Return the Subscription data or a success message
-        res.status(201).json({
-            message: "Subscription created successfully",
-            subscription: subscription,
-        });
+        // Check if the subscription was successfully created
+        if (subscription) {
+            const transporter = nodeMailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: process.env.EMAIL_USER,
+                    pass: process.env.EMAIL_PASS
+                }
+            });
+
+            const mailOptions = {
+                from: process.env.EMAIL_USER,
+                to: subscription.email,
+                subject: 'Your Subscription Account Information',
+                text: ` Your email: ${subscription.email} and password: ${password} for ${subscription.position}`
+            };
+
+            transporter.sendMail(mailOptions, function (err, info) {
+                if (err) {
+                    console.error(err);
+                    res.status(400).json(err);
+                } else {
+                    console.log("Email sent: " + info.response);
+                    res.status(201).json({
+                        message: "Subscription created successfully",
+                        subscription,
+                    });
+                }
+            });
+        } else {
+            // Handle the case where subscription creation failed
+            res.status(500).json({ message: "Error creating Subscription" });
+        }
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Error creating Subscription", error });
     }
 });
+
 
 // Controller to get subscriptions for a specific institution
 const getSubscriptionsByInstitution = asyncHandler(async (req, res) => {
@@ -132,6 +160,11 @@ const updateSubscriptionStatusToVerified = asyncHandler(async (req, res) => {
         // Update the status to 'verified'
         subscription.status = 'verified';
 
+        // Renew the expiration time to one year from the current date
+        const currentExpirationTime = new Date();
+        currentExpirationTime.setFullYear(currentExpirationTime.getFullYear() + 1);
+        subscription.expirationTime = currentExpirationTime;
+
         // Save the updated subscription
         await subscription.save();
 
@@ -160,7 +193,7 @@ const loginSubscription = asyncHandler(async (req, res) => {
             subscription: {
             email: subscribtion.email,
             id: subscribtion._id,
-            role:subscribtion.role
+            
           },
         },
         process.env.ACCESS,
