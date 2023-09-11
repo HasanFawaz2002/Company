@@ -25,6 +25,10 @@ router.post('/certificateUploadRoute/:institutionID', verify, upload.single('cer
 // Get a list of all certificate uploads
 router.get('/certificateUploadRoute',verify, CertificateUploadController.getCertificateUploadsByInstitution);
 
+router.get('/certificateUploadRoute/count',verify, CertificateUploadController.getCertificateUploadsByInstitutionCount);
+
+router.get('/certificateUploadRoute/totalcount',verify, CertificateUploadController.getCertificateUploadsTotal);
+
 // Get a single certificate upload by ID
 router.get('/certificateUploadRoute/:id', CertificateUploadController.getCertificateUploadById);
 

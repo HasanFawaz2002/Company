@@ -78,6 +78,70 @@ const getCertificateUploadsByInstitution = asyncHandler(async (req, res) => {
 });
 
 
+const getCertificateUploadsByInstitutionCount = asyncHandler(async (req, res) => {
+  try {
+    // Extract the institution ID from the JWT token
+    const institutionIDFromToken = req.user.institution.id;
+
+    // Count certificates with pending status for the institution
+    const pendingCount = await CertificateUpload.countDocuments({
+      institutionID: institutionIDFromToken,
+      status: 'Pending', // Replace with your specific status value
+    });
+
+    // Count certificates with rejected status for the institution
+    const rejectedCount = await CertificateUpload.countDocuments({
+      institutionID: institutionIDFromToken,
+      status: 'Rejected', // Replace with your specific status value
+    });
+
+    // Count certificates with approved status for the institution
+    const approvedCount = await CertificateUpload.countDocuments({
+      institutionID: institutionIDFromToken,
+      status: 'Approved', // Replace with your specific status value
+    });
+    const totalCount = await CertificateUpload.countDocuments({
+      institutionID: institutionIDFromToken,
+    });
+    res.status(200).json({
+      message: "Certificate uploads retrieved successfully",
+      certificateCounts: {
+        Pending: pendingCount,
+        Rejected: rejectedCount,
+        Approved: approvedCount,
+        totalCertificates: totalCount,
+      },
+    });
+  } catch (error) {
+    console.error("Error retrieving certificate uploads:", error);
+    res.status(500).json({
+      message: "Error retrieving certificate uploads",
+      error: error.message,
+    });
+  }
+});
+
+
+const getCertificateUploadsTotal = asyncHandler(async (req, res) => {
+  try {
+    // Count all certificate uploads in the database
+    const totalCount = await CertificateUpload.countDocuments();
+
+    res.status(200).json({
+      message: "Total certificate uploads retrieved successfully",
+      totalCertificates: totalCount,
+    });
+  } catch (error) {
+    console.error("Error retrieving total certificate uploads:", error);
+    res.status(500).json({
+      message: "Error retrieving total certificate uploads",
+      error: error.message,
+    });
+  }
+});
+
+
+
 
 // Get a single certificate upload by ID
 const getCertificateUploadById = async (req, res) => {
@@ -130,6 +194,8 @@ module.exports = {
   getCertificateUploadById,
   updateCertificateUploadById,
   deleteCertificateUploadById,
-  upload
+  upload,
+  getCertificateUploadsByInstitutionCount,
+  getCertificateUploadsTotal
 };
 
