@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Institution = require("../models/institution");
+const nodeMailer = require('nodemailer');
 
 
 // Function to generate a random password of a given length
@@ -16,14 +17,15 @@ function generateRandomPassword(minLength, maxLength) {
     return password;
 }
 
-// Create an institution with an auto-generated password
-const createInstitution = asyncHandler(async (req, res) => {
-    try {
-        // Generate a random password with a minimum length of 6 characters
-        const password = generateRandomPassword(6, 12);
 
-        // Hash the generated password
-        const hashedPassword = await bcrypt.hash(password, 10);
+//create institution
+const createInstitution = asyncHandler(async (req, res) => {
+  try {
+      // Generate a random password with a minimum length of 6 characters
+      const password = generateRandomPassword(6, 12);
+
+      // Hash the generated password
+      const hashedPassword = await bcrypt.hash(password, 10);
 
         // Create the institution with the generated password
         const institution = await Institution.create({
@@ -33,15 +35,44 @@ const createInstitution = asyncHandler(async (req, res) => {
             password: hashedPassword, // Store the hashed password
         });
 
-        // Return the institution data or a success message
-        res.status(201).json({
-            message: "Institution created successfully",
-            institution,
-        });
-    } catch (error) {
-        res.status(500).json({ message: "Error creating institution", error });
-    }
+      // Check if the institution was successfully created
+      if (institution) {
+          const transporter = nodeMailer.createTransport({
+              service: 'gmail',
+              auth: {
+                  user: process.env.EMAIL_USER,
+                  pass: process.env.EMAIL_PASS
+              }
+          });
+
+          const mailOptions = {
+              from: process.env.EMAIL_USER,
+              to: institution.email,
+              subject: 'Your Institution Account Information',
+              text: ` Your email: ${institution.email} and password: ${password}`
+          };
+
+          transporter.sendMail(mailOptions, function (err, info) {
+              if (err) {
+                  console.error(err);
+                  res.status(400).json(err);
+              } else {
+                  console.log("Email sent: " + info.response);
+                  res.status(201).json({
+                      message: "Institution created successfully",
+                      institution,
+                  });
+              }
+          });
+      } else {
+          // Handle the case where institution creation failed
+          res.status(500).json({ message: "Error creating institution" });
+      }
+  } catch (error) {
+      res.status(500).json({ message: "Error creating institution", error });
+  }
 });
+
 
 
 const loginInstitution = asyncHandler(async (req, res) => {
@@ -109,8 +140,8 @@ const updateInstitutionById = asyncHandler(async (req, res) => {
       // Check if the updateData contains a new password
       if (updateData.password) {
           // Hash the new password
-          const hashedPassword = await bcrypt.hash(updateData.password, 10);
-          updateData.password = hashedPassword;
+        //   const hashedPassword = await bcrypt.hash(updateData.password, 10);
+        //   updateData.password = hashedPassword;
       }
 
       // Update the institution's data

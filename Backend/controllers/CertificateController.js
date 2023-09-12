@@ -1,20 +1,47 @@
 const Certificate = require('../models/certificate');
-const jwt = require('jsonwebtoken');
+const path = require('path');
+const multer = require ('multer');
+const fs = require('fs');
+
+// Construct the full path to the uploads directory
+const uploadPath = path.join(__dirname, '..', 'server', 'uploads', 'usersImages');
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    try {
+      console.log('Uploading files ...');
+      fs.mkdirSync(uploadPath, { recursive: true });
+      cb(null, uploadPath); // Remove the extra concatenation here
+    } catch (error) {
+      console.error('Error:', error.message);
+    }
+  },
+  filename: (req, file, cb) => {
+    try {
+      cb(null, `${Date.now()}-${file.originalname}`);
+    } catch (error) {
+      console.error('Error:', error.message);
+    }
+  }
+});
+
+const upload = multer({ storage: storage });
 
 // Create a new certificate (requires a valid token with institutionID)
 const createCertificate = async (req, res) => {
   try {
-    const { name, description, image } = req.body;
-    
-    // Extract the institutionID from the token
-    const token = req.headers.authorization.split(' ')[1];
-    const decodedToken = jwt.verify(token, process.env.ACCESS);
-    const institutionID = decodedToken.institution.id;
+    const { name, description } = req.body;
+    const institutionID = req.user.institution.id;
+
+    // Check if req.file exists (uploaded image)
+    if (!req.file) {
+      return res.status(400).json({ error: 'Image file is required' });
+    }
 
     const certificate = new Certificate({
       name,
       description,
-      image,
+      image: req.file.filename, // Save the filename in the database
       institutionID,
     });
 
@@ -26,13 +53,12 @@ const createCertificate = async (req, res) => {
   }
 };
 
-// Get a list of certificates (requires a valid token with institutionID)
+// Get a list of certificates for an institution (requires a valid token with institutionID)
 const getCertificates = async (req, res) => {
   try {
     // Extract the institutionID from the token
-    const token = req.headers.authorization.split(' ')[1];
-    const decodedToken = jwt.verify(token, process.env.ACCESS);
-    const institutionID = decodedToken.institution.id;
+    
+    const institutionID = req.user.institution.id;
 
     const certificates = await Certificate.find({ institutionID });
 
@@ -49,9 +75,8 @@ const updateCertificateById = async (req, res) => {
     const { name, description, image } = req.body;
 
     // Extract the institutionID from the token
-    const token = req.headers.authorization.split(' ')[1];
-    const decodedToken = jwt.verify(token, process.env.ACCESS);
-    const institutionID = decodedToken.institution.id;
+    const institutionID = req.user.institution.id;
+
 
     // Check if the certificate with the given ID exists and belongs to the institution
     const certificate = await Certificate.findOne({ _id: certificateID, institutionID });
@@ -79,9 +104,8 @@ const deleteCertificateById = async (req, res) => {
     const certificateID = req.params.certificateID;
 
     // Extract the institutionID from the token
-    const token = req.headers.authorization.split(' ')[1];
-    const decodedToken = jwt.verify(token, process.env.ACCESS);
-    const institutionID = decodedToken.institution.id;
+    const institutionID = req.user.institution.id;
+
 
     // Check if the certificate with the given ID exists and belongs to the institution
     const certificate = await Certificate.findOne({ _id: certificateID, institutionID });
@@ -104,4 +128,5 @@ module.exports = {
   getCertificates,
   updateCertificateById,
   deleteCertificateById,
+  upload
 };

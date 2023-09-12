@@ -1,7 +1,7 @@
 import React,{useState} from "react";
 import './Navbar.css';
 import { NavLink,useLocation,useNavigate  } from "react-router-dom";
-
+import logo from '../../images/logo.png';
 
 const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -18,12 +18,12 @@ const Navbar = () => {
         <div className="box3">
         <div className="navbar">
             <div className="navbar-logo">
-                LOGO
+                <img src={logo} alt="" />
+                <h1>Zidyia</h1>
             </div>
             <div className="navbar-menu">
                 <ul>
                     <li><NavLink to='/'>HOME</NavLink></li>
-                    <li><NavLink to='/services'>SERVICES</NavLink></li>
                     <li><NavLink to='/about'>ABOUT</NavLink></li>
                     <li><NavLink to='/contact'>CONTACT</NavLink></li>
                     <li><NavLink to='/help'>HELP</NavLink></li>

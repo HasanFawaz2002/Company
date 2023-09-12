@@ -7,12 +7,11 @@ const Home = () => {
         <div className="landpage">
             <div className="box1"></div>
             <div className="box2">
-                <div className="text">
-                Discover <br/> Credentials
+                <div className="landpage-text">
+                Discover <br/> <span>Credentials</span>
                 </div>
                 <div className="landpage-btn-container">
                 <button>Get Started</button>
-                <button>Help</button>
                 </div>
             </div>
         </div>

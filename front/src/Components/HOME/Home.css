@@ -6,47 +6,47 @@
     }
     
     .box1{
-        width: 530px;
-        height: 625px;
-        background-image: url('../../images/Hand.png');
+        width: 790px;
+        height: 820px;
+        background-image: url('../../images/certificate2.png');
         position: absolute;
+        animation: anim 1.5s forwards, anim2 2s forwards 2s;
         bottom: -100%;
         left: 30%;
-        animation: anim 1.5s forwards, anim2 2s forwards 2s;
     }
     
     .box1::after{
         content:'';
         position: absolute;
-        width: 530px;
-        height: 625px;
-        background-image: url('../../images/Hand2.png');
-        left: 0px;
+        width: 790px;
+        height: 820px;
+        background-image: url('../../images/certificate.png');
         z-index: -1;
     }
+    
     @keyframes anim{
         from{
             bottom: -100%;
         }
         to{
-            bottom: 0%;
+            bottom: 30px;
         }
     }
     @keyframes anim2{
         from{
             left: 30%;
-            width: 530px;
+            width: 790px;
         }
         to{
             width: 0;
-            left: 50%;
+            left: 650px;
         }
     }
     .box2{
         width: 100%;
         height: auto;
         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        color: white;
+        color: #323F4E;
         font-size: 10em;
         font-weight: 500;
         line-height: 130px;
@@ -55,30 +55,28 @@
         left: 100px;
         overflow: hidden;
     }
-    .text{
+    .landpage-text{
         position: relative;
         left: -100%;
         animation: anim3 1.5s forwards 2s; 
     }
-    .text span{
-        color: rgb(255, 147, 255);
+    .landpage-text span{
+        color: #46f1cf;
     }
     .landpage-btn-container button{
         position: relative;
         left: -100%;
-        padding: 5px;
         font-size: 30px;
-        color: white;
         background-color: transparent;
         border: transparent;
         cursor: pointer;
-        transition: all ease 300ms;
-        border-radius: 10px;
         animation: anim3 1.5s forwards 2.5s; 
+        color: white;
+        background: linear-gradient(to  right, #29f47a , rgb(70, 241, 207) );
+        border-radius: 8px;
+        padding: 10px;
     }
-    .landpage-btn-container button:hover{
-        background: rgb(255, 147, 255);
-    }
+    
     .landpage-btn-container button:nth-child(2){
        margin-left: 30px;
     }
@@ -92,11 +90,22 @@
     }
      @media screen and (max-width:650px) {
         .box2{
-            font-size: 5em;
+            font-size: 4em;
             line-height: 85px;
             left: 30px;
         }
-        .box1{
-            left: -15% !important;
+        .landpage-text span{
+            color: #323F4E;
         }
+        .box1{
+            left: -270px !important;
+            background-image: url('../../images/certificate\ phone2.png');
+
+        }
+        .box1::after{
+            background-image: url('../../images/certificate\ phone.png');
+
+        }
+        
+        
      }

@@ -1,4 +1,12 @@
 
+@font-face {
+  font-family: 'Core';
+  src: url('../../Core/CoreRhino25Thin.otf') format('opentype'), /* Modern Browsers */
+       url('../../Core/CoreRhino25Thin.otf') format('opentype'); /* Older Browsers */
+  /* Add other font formats here if needed */
+}
+
+
 .navbar{
     width: 100%;
     position: absolute;
@@ -11,11 +19,18 @@
     float: left;
     margin-left: 100px;
     margin-top: 20px;
-    color: white;
+    color: #46505F;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.navbar-logo h1{
+  transform: translate(-50px,-20px);
+  font-family:'Core';
+  letter-spacing: 2px;
 }
 .navbar-menu{
     font-size: 14px;
-    color: white;
+    color: #323F4E;
     letter-spacing: 2px;
     margin-right: 150px;
     margin-top: 20px;
@@ -23,7 +38,7 @@
 }
 .navbar-menu ul{
     list-style: none;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family:'Core';
 }
 .navbar-menu ul li{
     display: inline-block;
@@ -31,12 +46,13 @@
 }
 .navbar-menu ul li a{
     text-decoration: none;
-    color: white;
+    color: #46505F;
     border: transparent;
     cursor: pointer;
+    font-weight: bold;
 }
 .navbar-menu ul li a.active{
-    border-bottom:1px solid rgb(255, 147, 255);
+    border-bottom:3px solid rgb(70, 241, 207);
 
 }
 @keyframes anim4{
@@ -131,7 +147,7 @@
   }
   .menu__item:hover {
     background-color: #CFD8DC;
-    color: rgb(255, 147, 255);
+    color: #1EBB90;
   }
 
 

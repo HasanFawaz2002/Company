@@ -23,7 +23,8 @@ const InstitutionSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        default: 'admin', // Set the default value to 'user'
+        enum: ['admin', 'superAdmin'], // Define the allowed enum values
+        default: 'admin', // Set the default value to 'admin'
     },
    
 },{ timestamps: true }
