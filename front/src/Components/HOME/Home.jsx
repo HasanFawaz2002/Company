@@ -1,6 +1,5 @@
 import React from "react";
 import './Home.css';
-import { Button } from "../Styles/Button";
 
 const Home = () => {
     return(
@@ -12,7 +11,7 @@ const Home = () => {
                 Discover <br/> <span>Credentials</span>
                 </div>
                 <div className="landpage-btn-container">
-                <Button>Get Started</Button>
+                <button>Get Started</button>
                 </div>
             </div>
         </div>

@@ -71,6 +71,10 @@
         border: transparent;
         cursor: pointer;
         animation: anim3 1.5s forwards 2.5s; 
+        color: white;
+        background: linear-gradient(to  right, #29f47a , rgb(70, 241, 207) );
+        border-radius: 8px;
+        padding: 10px;
     }
     
     .landpage-btn-container button:nth-child(2){
