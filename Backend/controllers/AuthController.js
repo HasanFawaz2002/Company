@@ -53,7 +53,7 @@ const registerUser = asyncHandler(async (req, res) => {
     
 
     // Hash password
-    // const hashedPassword = await bcrypt.hash(password, 10);
+     const hashedPassword = await bcrypt.hash(password, 10);
     const username = firstname + " " + lastname;
 
     // Check if profilePicture is provided
@@ -70,7 +70,7 @@ const registerUser = asyncHandler(async (req, res) => {
       firstname,
       lastname,
       email,
-      password,
+      password:hashedPassword,
       profilePicture: profilePictureFilename, 
       bio, 
       location, 
@@ -98,21 +98,24 @@ const loginUser = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("All fields are mandatory!");
   }
+  
   const user = await User.findOne({ email });
-  //compare password with hashedpassword
-  if (user && (user.password)) {
-    const accessToken = jwt.sign(
-      {
-        user: {
-          email: user.email,
-          id: user._id,
-          role:user.role
+  
+  if (user && (await bcrypt.compare(password, user.password))) {
+   
+      const accessToken = jwt.sign(
+        {
+          user: {
+            email: user.email,
+            id: user._id,
+            role: user.role
+          },
         },
-      },
-      process.env.ACCESS,
-      { expiresIn: "1d" }
-    );
-    res.status(200).json({ user,accessToken });
+        process.env.ACCESS,
+        { expiresIn: "1d" }
+      );
+      res.status(200).json({ user, accessToken });
+    
   } else {
     res.status(401).json({ error: "Email or Password is not valid" });
   }

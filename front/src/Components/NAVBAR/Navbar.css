@@ -1,8 +1,22 @@
 
 @font-face {
   font-family: 'Core';
-  src: url('../../Core/CoreRhino25Thin.otf') format('opentype'), /* Modern Browsers */
-       url('../../Core/CoreRhino25Thin.otf') format('opentype'); /* Older Browsers */
+  src: url('../../Core/CoreRhino45Regular.otf') format('opentype'), /* Modern Browsers */
+       url('../../Core/CoreRhino45Regular.otf') format('opentype'); /* Older Browsers */
+  /* Add other font formats here if needed */
+}
+
+@font-face {
+  font-family: 'Core-Heavy';
+  src: url('../../Core/CoreRhino75Heavy.otf') format('opentype'), /* Modern Browsers */
+       url('../../Core/CoreRhino75Heavy.otf') format('opentype'); /* Older Browsers */
+  /* Add other font formats here if needed */
+}
+
+@font-face {
+  font-family: 'Core-Bold';
+  src: url('../../Core/CoreRhino65Bold.otf') format('opentype'), /* Modern Browsers */
+       url('../../Core/CoreRhino65Bold.otf') format('opentype'); /* Older Browsers */
   /* Add other font formats here if needed */
 }
 
