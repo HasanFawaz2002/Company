@@ -1,0 +1,146 @@
+.register-container{
+    width: 80%;
+    margin: 0 auto;
+    
+}
+.flexSb{
+    display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+  .forgot{
+    color:#EDB71A;
+  }
+  .password{
+    position: relative;
+}
+    .fa-eye{
+        position: absolute;
+        right: 20px;
+        cursor: pointer;
+        top: 15px ;
+        font-size: 20px;
+        color:black;
+    }
+.register{
+    background-color: #d2faf1;
+    padding: 100px 0px;
+    height: 1000px;
+    position: relative;
+    opacity: 0.9;
+}
+.register .auth-par {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+.error-email-message,.error-password-message,.error-confirmpassword-message{
+    color:red;
+}
+
+.register-content{
+width: 40%;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%,-50%);
+background-color:white;
+padding: 30px 50px;
+border-radius: 20px;
+}
+       
+
+.register-content > p{
+text-align: center;
+font-size: 15px;
+font-weight: bold;
+            
+}
+
+.register-content input{
+width: 100%;
+border: 1px solid #ddd;
+border-radius: 5px;
+height: 50px;
+padding: 10px;
+margin-bottom: 12px;
+outline:none;
+}
+textarea{
+    width:100%;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+.register-content input::placeholder{
+font-size: 16px;
+text-transform: capitalize;
+}           
+       
+.parag {
+   
+text-align: center;
+margin-top: 10px;
+font-size: 15px !important;
+font-weight: 300;
+
+
+}
+.error-register-message,.error-login-message{
+   display: flex;
+   justify-content: center;
+    color:red;
+    font-size: 25px;
+}
+.submit{
+width: 50%;
+height: 50px;
+background-color: blue !important;
+color:whitesmoke;
+font-weight: bold;
+font-size: 20px;
+border-radius: 5px;
+border: 0px;
+margin-top: 5px;
+            
+}
+.centering{
+display: flex;
+justify-content: center;
+
+}
+.auth-header{
+    font-weight: bold;
+    text-align: center;
+}
+.auth-span{
+font-weight: bold;
+margin-left: 3px;
+text-decoration: none;
+color: black;
+}
+
+@media (max-width:1130px) {
+
+.register-content{
+    width: 70%;
+
+}
+}
+@media (max-width:930px) {
+
+.register-content{
+    width: 80%;
+
+}
+}
+
+
+@media (max-width:768px) {
+
+.register-content{
+    width: 90%;
+}
+.register .auth-par{
+    font-size: 14px;
+}
+}
