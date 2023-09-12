@@ -45,15 +45,24 @@
     .box2{
         width: 100%;
         height: auto;
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-family: 'Core-Heavy';
         color: #323F4E;
-        font-size: 10em;
+        font-size: 8em;
         font-weight: 500;
         line-height: 130px;
         position: absolute;
-        top: 250px;
+        top: 150px;
         left: 100px;
         overflow: hidden;
+    }
+    .landpage-subheading{
+        position: relative;
+        font-size: 30px;
+        left: -100%;
+        
+        bottom: 30px;
+        animation: anim3 1.5s forwards 2.3s; 
+
     }
     .landpage-text{
         position: relative;
@@ -66,6 +75,7 @@
     .landpage-btn-container button{
         position: relative;
         left: -100%;
+        bottom: 150px;
         font-size: 30px;
         background-color: transparent;
         border: transparent;
@@ -90,13 +100,20 @@
     }
      @media screen and (max-width:650px) {
         .box2{
-            font-size: 4em;
+            font-size: 3.5em;
             line-height: 85px;
             left: 30px;
         }
         .landpage-text span{
             color: #323F4E;
         }
+        .landpage-btn-container button{
+            bottom: 50px;
+        }
+        .landpage-subheading{
+            font-size: 20px;
+        }
+
         .box1{
             left: -270px !important;
             background-image: url('../../images/certificate\ phone2.png');

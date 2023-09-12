@@ -89,6 +89,50 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
+// update profile
+const updateProfile = asyncHandler(async (req, res) => {
+  const {  location, bio } = req.body;
+  const userId = req.params.id; 
+
+  // Check if profilePicture is provided
+  let profilePictureFilename = null; // Default value if not provided
+  if (req.file) {
+    profilePictureFilename = req.file.filename;
+  }
+
+
+  try {
+    // Find the user by ID
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+     // Update profilePicture, location, and bio if the values exist
+     if (profilePictureFilename) {
+      // Handle profile picture update logic (e.g., replace the existing picture)
+      user.profilePicture = profilePictureFilename;
+    }
+
+    if (location) {
+      user.location = location;
+    }
+
+    if (bio) {
+      user.bio = bio;
+    }
+
+    // Save the updated user document
+    const updatedUser = await user.save();
+
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    console.error("Profile update failed:", error);
+    res.status(500).json({ error: "Profile update failed" });
+  }
+});
+
 
 //@desc Login user
 //@route POST /api/users/login
@@ -196,4 +240,4 @@ const reset = asyncHandler(async (req, res) =>  {
 
 
 
-module.exports = { registerUser, loginUser,upload,forgot,reset};
+module.exports = { registerUser, loginUser,upload,forgot,reset,updateProfile};

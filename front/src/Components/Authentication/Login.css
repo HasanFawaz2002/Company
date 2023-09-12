@@ -1,18 +1,22 @@
 .register-container{
     width: 80%;
     margin: 0 auto;
-    
 }
+
 .flexSb{
     display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 10px;
 }
   .forgot{
-    color:#EDB71A;
+    color:#323F4E;
   }
   .password{
     position: relative;
+}
+#email{
+    width: 96.5% !important;
 }
     .fa-eye{
         position: absolute;
@@ -66,11 +70,7 @@ padding: 10px;
 margin-bottom: 12px;
 outline:none;
 }
-textarea{
-    width:100%;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-}
+
 .register-content input::placeholder{
 font-size: 16px;
 text-transform: capitalize;
@@ -94,7 +94,7 @@ font-weight: 300;
 .submit{
 width: 50%;
 height: 50px;
-background-color: blue !important;
+background-color: rgb(70, 241, 207) !important;
 color:whitesmoke;
 font-weight: bold;
 font-size: 20px;

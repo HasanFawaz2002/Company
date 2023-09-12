@@ -1,12 +1,10 @@
 footer{
-    margin-top: 200px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     place-items: center;
     padding-left: 100px;
     padding-right:100px ;
     padding-top: 50px;
-    background-color: #d2faf1;
 }
 
 .footer-container:nth-child(1) p{
@@ -16,9 +14,13 @@ footer{
 }
 
 .footer-bottom {
-    grid-column: 1 / span 4; 
+    grid-column: 1 / span 4;
+    text-align: center;
     font-family: 'Core';
     color: #46505F;
+    border-top: 1px solid #46505F;
+    width: 115%;
+    margin-top: 100px;
   }
 
 .footer-container{
@@ -49,4 +51,70 @@ footer{
 .footer-container-social{
     display: flex;
     justify-content: space-between;
+}
+.footer-container-social a{
+    text-decoration: none;
+    font-size: x-large;
+    margin-right: 40px;
+}
+
+
+
+.facebook-icon {
+    color: #1877f2; /* Facebook blue color */
+  }
+  
+  .twitter-icon {
+    color: #1da1f2; /* Twitter blue color */
+  }
+  
+  .linkedin-icon {
+    color: #0077b5; /* LinkedIn blue color */
+  }
+
+  /* Responsive styles for screens up to 768px wide */
+@media screen and (max-width: 768px) {
+    footer {
+        padding: 10px;
+    }
+     .footer-container:nth-child(1){
+        grid-column: 1 / span 4;
+     }
+
+     .footer-container:nth-child(2){
+        grid-row: 2 / span 4;
+        grid-column: 0 / span 4;
+     }
+     .footer-container:nth-child(3){
+        grid-row: 2 / span 4;
+        grid-column: 3 / span 4;
+
+     }
+     
+     .footer-container:nth-child(4){
+        grid-row: 5.5 / span 4;
+        grid-column: 1 / span 4;
+        display: flex;
+     }
+     
+     .footer-container:nth-child(4) .footer-container-sub:nth-child(1){
+        transform: translateX(-70px);
+     }
+     .footer-container:nth-child(4) .footer-container-sub:nth-child(2){
+        transform: translateX(50px);
+     }
+
+
+    .footer-container:nth-child(1) p {
+        width: 350px;
+    }
+
+    .footer-bottom {
+        width: 100%;
+        margin-top: 60px;
+    }
+
+    .footer-container-social a {
+        margin-right: 20px;
+    }
 }

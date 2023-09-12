@@ -84,6 +84,7 @@
 
 .hamburger-menu{
     display: none;
+    height: 0;
 }
 
 
@@ -105,9 +106,9 @@
     left: 0 !important;
   }
   .menu__btn {
-    position: fixed;
+    position: absolute;
     top: 20px;
-    left: 20px;
+    right: 20px;
     width: 26px;
     height: 26px;
     cursor: pointer;
@@ -143,7 +144,7 @@
     margin: 0;
     padding: 80px 0;
     list-style: none;
-    background-color: rgba(255, 255, 255, .2);
+    background-color: rgb(70, 241, 207);
     box-shadow: 2px 2px 6px rgba(0, 0, 0, .4);
     transition-duration: .25s;
     z-index: 1;

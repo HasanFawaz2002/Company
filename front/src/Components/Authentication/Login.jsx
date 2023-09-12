@@ -77,7 +77,7 @@ function Login() {
         console.log(response);
         localStorage.setItem("access_token", response.data.accessToken);
         localStorage.setItem("userId", response.data.user._id);
-        localStorage.setItem("isAdmin", response.data.user.role);
+        localStorage.setItem("role", response.data.user.role);
         navigate('/');
       })
       .catch((error) => {
