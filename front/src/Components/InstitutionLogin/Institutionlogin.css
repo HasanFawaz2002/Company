@@ -1,0 +1,54 @@
+
+.Institutecontainer{
+     display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 100vh;
+
+
+
+}
+
+.Institutionform{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 70px;
+    align-items: center;
+    justify-content: center ;
+    padding: 10px;
+    background-color: darkcyan;
+    height: 50%;
+    border-radius: 4px;
+
+}
+.institute-email,
+.institute-password,
+.institutesubmit {
+ width: 100%;
+  margin-bottom: 20px;  
+  height: 5vh;
+  padding: 10px;
+  border-radius: 5px;
+}
+.institutesubmit{
+         position: relative;
+          width: 100%;
+            height: 7vh;
+
+
+        font-size: 20px;
+        background-color: transparent;
+        border: transparent;
+        cursor: pointer;
+        color: white;
+        background: linear-gradient(to  right, #29f47a , rgb(70, 241, 207) );
+        border-radius: 8px;
+        padding: 10px;
+
+}
+.Institutelogin label{
+    color: white;
+    margin-top: 5px;
+    font-size: 22px;
+}
