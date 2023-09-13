@@ -20,7 +20,7 @@ const formFieldSchema = new mongoose.Schema({
 const customizableFormSchema = new mongoose.Schema({
   formName: {
     type: String,
-    required: true,
+    default:"Certificate Request Form",
   },
   institutionID: {
     type: mongoose.Schema.Types.ObjectId,
