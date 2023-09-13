@@ -1,0 +1,52 @@
+.create-subscription-container{
+    margin-top: 200px;
+    display: grid;
+    justify-content: center;
+    text-align: center;
+    
+}
+.create-subscription-container form{
+    
+    width: 500px;    
+    margin: 10px;
+    padding: 20px;
+}
+
+.create-subscription-container form .create-subscription-container-form-container label{
+    font-size: larger;
+}
+
+.create-subscription-container form .create-subscription-container-form-container input{
+    font-size: larger;
+    
+}
+
+.create-subscription-container form button{
+    margin-top: 30px;
+    background-color: green;
+    border: transparent;
+    border-radius: 10px;
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+    font-size: large;
+}
+
+.create-subscription-container form button:active{
+    transform: scale(0.9);
+}
+
+.error-message{
+    color: red;
+    font-size: large;
+}
+.create-subscription-container-form-container{
+    display: grid;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.create-subscription-container-form-container select{
+    font-size: larger;
+
+}

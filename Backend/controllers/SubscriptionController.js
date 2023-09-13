@@ -45,6 +45,15 @@ function generateRandomPassword(minLength, maxLength) {
 
 //Create Subscription
 const createsubscription = asyncHandler(async (req, res) => {
+
+    // Check if the email already exists in the database
+    const existingSubscription = await Subscribtion.findOne({ email: req.body.email });
+
+    if (existingSubscription) {
+      // Send a specific error response for duplicate email
+      return res.status(400).json({ message: 'Email already exists. Please use a different email.' });
+    }
+
     try {
         // Generate a random password with a minimum length of 6 characters
         const password = generateRandomPassword(6, 12);
@@ -193,7 +202,7 @@ const loginSubscription = asyncHandler(async (req, res) => {
             subscription: {
             email: subscribtion.email,
             id: subscribtion._id,
-            
+            role: subscribtion.role
           },
         },
         process.env.ACCESS,

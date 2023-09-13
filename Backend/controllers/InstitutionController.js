@@ -21,6 +21,14 @@ function generateRandomPassword(minLength, maxLength) {
 //create institution
 const createInstitution = asyncHandler(async (req, res) => {
   try {
+
+    // Check if the email already exists in the database
+    const existingInstitution = await Institution.findOne({ email: req.body.email });
+
+    if (existingInstitution) {
+      // Send a specific error response for duplicate email
+      return res.status(400).json({ message: 'Email already exists. Please use a different email.' });
+    }
       // Generate a random password with a minimum length of 6 characters
       const password = generateRandomPassword(6, 12);
 

@@ -1,0 +1,47 @@
+.create-institution-container{
+    margin-top: 200px;
+    display: grid;
+    justify-content: center;
+    text-align: center;
+    
+}
+.create-institution-container form{
+    
+    width: 500px;    
+    margin: 10px;
+    padding: 20px;
+}
+
+.create-institution-container form .create-institution-container-form-container label{
+    font-size: larger;
+}
+
+.create-institution-container form .create-institution-container-form-container input{
+    font-size: larger;
+    
+}
+
+.create-institution-container form button{
+    margin-top: 30px;
+    background-color: green;
+    border: transparent;
+    border-radius: 10px;
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+    font-size: large;
+}
+
+.create-institution-container form button:active{
+    transform: scale(0.9);
+}
+
+.error-message{
+    color: red;
+    font-size: large;
+}
+.create-institution-container-form-container{
+    display: grid;
+    width: 100%;
+    margin-bottom: 10px;
+}

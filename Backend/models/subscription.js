@@ -35,6 +35,10 @@ const SubcriptionSchema = new mongoose.Schema({
     password:{
 
     },
+    role:{
+        type: String,
+        default:'subscriber',
+    },
     position: {
         type: String,
         enum: ['HR', 'Admin', 'Hiring manager'],
