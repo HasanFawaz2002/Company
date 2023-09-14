@@ -1,4 +1,4 @@
-.register-container{
+.createcertificate-container{
     width: 80%;
     margin: 0 auto;
 }
@@ -15,34 +15,27 @@
   .password{
     position: relative;
 }
-#email{
-    width: 96.5% !important;
+#name{
+    width:96% !important;
 }
-    .fa-eye{
-        position: absolute;
-        right: 20px;
-        cursor: pointer;
-        top: 20px ;
-        font-size: 20px;
-        color:black;
-    }
-.register{
+
+.createcertificate{
     background-color: #d2faf1;
     padding: 100px 0px;
     height: 1000px;
     position: relative;
     opacity: 0.9;
 }
-.register .auth-par {
+.createcertificate .auth-par {
     font-size: 15px;
     font-weight: 600;
     margin-bottom: 15px;
 }
-.error-email-message,.error-password-message,.error-confirmpassword-message{
+.error-name-message,.error-description-message,.error-image-message{
     color:red;
 }
 
-.register-content{
+.createcertificate-content{
 width: 40%;
 position: absolute;
 top: 50%;
@@ -54,15 +47,15 @@ border-radius: 20px;
 }
        
 
-.register-content > p{
+.createcertificate-content > p{
 text-align: center;
 font-size: 15px;
 font-weight: bold;
             
 }
 
-.register-content input{
-width: 100%;
+.createcertificate-content input{
+width: 96%;
 border: 1px solid #ddd;
 border-radius: 5px;
 height: 40px;
@@ -71,7 +64,7 @@ margin-bottom: 12px;
 outline:none;
 }
 
-.register-content input::placeholder{
+.createcertificate-content input::placeholder{
 font-size: 16px;
 text-transform: capitalize;
 }           
@@ -82,15 +75,8 @@ text-align: center;
 margin-top: 10px;
 font-size: 15px !important;
 font-weight: 300;
-
-
 }
-.error-register-message,.error-login-message{
-   display: flex;
-   justify-content: center;
-    color:red;
-    font-size: 25px;
-}
+
 .submit{
 width: 50%;
 height: 50px;
@@ -100,9 +86,9 @@ font-weight: bold;
 font-size: 20px;
 border-radius: 5px;
 border: 0px;
-margin-top: 5px;
-            
+margin-top: 5px;         
 }
+
 .centering{
 display: flex;
 justify-content: center;
@@ -121,14 +107,14 @@ color: black;
 
 @media (max-width:1130px) {
 
-.register-content{
+.createcertificate-content{
     width: 70%;
 
 }
 }
 @media (max-width:930px) {
 
-.register-content{
+.createcertificate-content{
     width: 80%;
 
 }
@@ -137,10 +123,10 @@ color: black;
 
 @media (max-width:768px) {
 
-.register-content{
+.createcertificate-content{
     width: 90%;
 }
-.register .auth-par{
+.createcertificate .auth-par{
     font-size: 14px;
 }
 }

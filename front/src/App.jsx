@@ -9,6 +9,7 @@ import Register from "./Components/Authentication/Register"
 import Login from "./Components/Authentication/Login";
 import ForgotPassword from "./Components/Authentication/forgotpassword";
 import Resetpassword from "./Components/Authentication/Resetpassword";
+import CreateCertificate from "./Components/CreateCertificate/CreateCertificate";
 
 const App = () => {
     return (
@@ -19,11 +20,11 @@ const App = () => {
             <Route path="/about" element={<About/>}></Route>
             <Route path="/Institutionlogin" element={<Institutionlogin/>}></Route>
             <Route path="/InstituteHome" element={<InstituteHome/>}></Route>
-
             <Route path="/Register" element={<Register/>}></Route>
             <Route path="/login" element={<Login/>}></Route>
             <Route path="/forgot-password" element={<ForgotPassword />}></Route>
             <Route path="/reset_password/:id/:token" element={<Resetpassword />}></Route>
+            <Route path="/CreateCertificate" element={<CreateCertificate />}></Route>
         </Routes>
         </>
     )
