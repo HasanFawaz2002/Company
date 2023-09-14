@@ -34,8 +34,10 @@ const Institutionlogin = () => {
         );
 
         if (response.status === 200) {
-          // Login successful
-          const { institution, accessToken } = response.data;
+          localStorage.setItem("access_token", response.data.accessToken);
+          localStorage.setItem("userId", response.data.institution._id);
+          localStorage.setItem("role", response.data.institution.role);
+          //const { institution, accessToken } = response.data;
              setLoading(false);
 
           history("/InstituteHome");
