@@ -1,11 +1,12 @@
 body{
-    margin: 0;
-    padding: 0;
+    
     background-color: white;
+
     /*rgb(70, 241, 207) aqua */
     /*#323F4E Heading*/
     /*#46505F Text*/
-    /* background-color #2D3741 */
+    /*Button background #5DD3B3*/
+    /* background-color #2D3741 black*/
     /* background-color #d2faf1 */
     /* background-color for hover #5DD3B3 */
 }

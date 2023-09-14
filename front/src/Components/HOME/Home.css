@@ -83,7 +83,7 @@
         cursor: pointer;
         animation: anim3 1.5s forwards 2.5s; 
         color: white;
-        background: linear-gradient(to  right, #29f47a ,rgb(69, 217, 187), rgb(69, 217, 187) );
+        background: #5DD3B3;
         border-radius: 8px;
         padding: 10px;
     }

@@ -1,0 +1,47 @@
+import axios from 'axios';
+import React,{useState,useEffect,Fragment} from 'react'
+import { Link,useParams } from 'react-router-dom';
+import './EmailVerify.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+
+function EmailVerify() {
+    const [validUrl, setValidUrl] = useState(false);
+    const param = useParams();
+    console.log(param.id)
+    console.log(param.token)
+
+
+    useEffect(() => {
+        const verifyEmailUrl = async() => {
+            try{
+                const url = `http://localhost:3001/users/${param.id}/verify/${param.token}`;
+                const {data} = await axios.get(url);
+                console.log(data);
+                setValidUrl(true);
+            }catch(error){
+                console.log(error);
+                setValidUrl(false);
+            }
+        };
+        verifyEmailUrl()
+    },[param])
+  return (
+    <Fragment>
+        <div className='email-verify-container'>
+            <div className='email-verify-container-content'>
+        {validUrl ? (
+            <>
+            <h1><FontAwesomeIcon icon={faCheck}  /></h1>
+            <h1>SUCCESS</h1>
+            </>
+        ): (
+            <h1>404 Not Fount</h1>
+        )}
+        </div>
+        </div>
+    </Fragment>
+  )
+}
+
+export default EmailVerify

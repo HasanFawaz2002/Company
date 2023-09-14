@@ -7,6 +7,9 @@ const User = require("../models/user");
 const path = require('path');
 const multer = require ('multer');
 const fs = require('fs');
+const Token = require('../models/token');
+const emailVerification = require('../controllers/verificationEmail');
+const crypto = require('crypto');
 
 // Construct the full path to the uploads directory
 const uploadPath = path.join(__dirname, '..', 'server', 'uploads', 'usersImages');
@@ -51,10 +54,8 @@ const registerUser = asyncHandler(async (req, res) => {
       return;
     }
 
-    
-
     // Hash password
-     const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
     const username = firstname + " " + lastname;
 
     // Check if profilePicture is provided
@@ -71,23 +72,42 @@ const registerUser = asyncHandler(async (req, res) => {
       firstname,
       lastname,
       email,
-      password:hashedPassword,
-      profilePicture: profilePictureFilename, 
-      bio, 
-      location, 
+      password: hashedPassword,
+      profilePicture: profilePictureFilename,
+      bio,
+      location,
     });
 
-    if (user) {
-      res.status(201).json({ _id: user.id, email: user.email });
-    } else {
+    if (!user) {
       res.status(400).json({ error: "User data is not valid" });
-    } 
+      return;
+    }
+
+    // Create the verification token
+    const token = await Token.create({
+      userID: user._id,
+      token: crypto.randomBytes(32).toString("hex"),
+    });
+
+    if (!token) {
+      res.status(500).json({ error: "Token creation failed" });
+      return;
+    }
+
+    // Generate the verification URL and send the email
+    const url = `${process.env.BASE_URL}users/${user._id}/verify/${token.token}`;
+    await emailVerification(user.email, "Verify Email", url);
+
+    res
+      .status(201)
+      .json({ message: "An Email has been sent to your account. Please verify." });
   } catch (error) {
     console.error("Registration failed:", error);
-    console.log(error);
     res.status(500).json({ error: "Registration failed" });
   }
-});
+}); 
+
+
 
 // update profile
 const updateProfile = asyncHandler(async (req, res) => {
@@ -133,6 +153,35 @@ const updateProfile = asyncHandler(async (req, res) => {
   }
 });
 
+const verifyEmail = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const tokenValue = req.params.token;
+
+    // Find the user by ID
+    const user = await User.findOne({ _id: userId });
+    if (!user) {
+      return res.status(400).json({ message: "Invalid link: User not found" });
+    }
+
+    // Find the corresponding token and delete it
+    await Token.deleteOne({
+      userID: user._id,
+      token: tokenValue,
+    });
+
+    // Update the user's verification status
+    await User.updateOne({ _id: user._id }, { verified: true });
+
+    res.status(200).json({ message: "Email verified" });
+  } catch (error) {
+    console.error("Error in verifyEmail:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+
+
 
 //@desc Login user
 //@route POST /api/users/login
@@ -143,28 +192,36 @@ const loginUser = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("All fields are mandatory!");
   }
-  
+
   const user = await User.findOne({ email });
-  
+
   if (user && (await bcrypt.compare(password, user.password))) {
-   
-      const accessToken = jwt.sign(
-        {
-          user: {
-            email: user.email,
-            id: user._id,
-            role: user.role
-          },
+    if (!user.verified) {
+      try {
+       
+        return res.status(400).json({ message: "Please Verify your Account" });
+      } catch (error) {
+        return res.status(500).json({ error: "Email verification failed" });
+      }
+    }
+
+    const accessToken = jwt.sign(
+      {
+        user: {
+          email: user.email,
+          id: user._id,
+          role: user.role,
         },
-        process.env.ACCESS,
-        { expiresIn: "1d" }
-      );
-      res.status(200).json({ user, accessToken });
-    
+      },
+      process.env.ACCESS,
+      { expiresIn: "1d" }
+    );
+    res.status(200).json({ user, accessToken });
   } else {
     res.status(401).json({ error: "Email or Password is not valid" });
   }
 });
+
 
 const forgot = asyncHandler(async (req, res) => {
   const { email } = req.body;
@@ -240,4 +297,4 @@ const reset = asyncHandler(async (req, res) =>  {
 
 
 
-module.exports = { registerUser, loginUser,upload,forgot,reset,updateProfile};
+module.exports = { registerUser, loginUser,upload,forgot,reset,updateProfile,verifyEmail};

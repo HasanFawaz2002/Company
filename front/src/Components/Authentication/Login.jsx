@@ -86,6 +86,8 @@ function Login() {
           console.log("Backend error response:", data);
           if (data.error && data.error === "Email or Password is not valid") {
             setloginError('"Email or Password is not valid"');
+          }else if (data.message && data.message === "Please Verify your Account") {
+            setloginError("Please verify your Account");
           } else {
             console.error("login failed:", error);
           }

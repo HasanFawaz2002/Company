@@ -60,6 +60,10 @@ const UserSchema = new mongoose.Schema({
     },
     location: {
         type: String,
+    },
+    verified:{
+        type: Boolean,
+        default: false,
     }
 },{ timestamps: true }
 );

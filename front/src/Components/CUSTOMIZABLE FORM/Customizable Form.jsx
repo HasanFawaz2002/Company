@@ -12,6 +12,7 @@ const CustomizableForm = () => {
     const [fetchedFormData, setFetchedFormData] = useState(null); // State to hold fetched form data
     const token = localStorage.getItem('access_token');
     const role = localStorage.getItem('role');
+    const userId = localStorage.getItem('userId');
 
     const navigate = useNavigate();
 
@@ -24,7 +25,7 @@ const CustomizableForm = () => {
         const fetchFormData = async () => {
           try {
             const response = await axios.get(
-              'http://localhost:3001/getCustomizableFormByInstitution/6501ee6c7fb6da45c046662b');
+              `http://localhost:3001/getCustomizableFormByInstitution/${userId}`);
       
             if (response.status === 200) {
               // Set the fetched form data in state
@@ -103,7 +104,7 @@ const CustomizableForm = () => {
         // Use Axios to send a POST request
         const response = await axios.post('http://localhost:3001/createCustomizableForm', formData, {
           headers: {
-            token: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbnN0aXR1dGlvbiI6eyJlbWFpbCI6Imhhc2FuLmYyMDAyQGdtYWlsLmNvbSIsImlkIjoiNjUwMWVlNmM3ZmI2ZGE0NWMwNDY2NjJiIiwicm9sZSI6ImFkbWluIn0sImlhdCI6MTY5NDYzNTI1MCwiZXhwIjoxNjk0NzIxNjUwfQ.O2G-Gqq98euLcHBRfkVnx-S_R395RsuVQvZCTTT4qBc`,
+            token: `Bearer ${token}`,
           },
         });
   
@@ -131,7 +132,7 @@ const CustomizableForm = () => {
             // Use Axios to send a delete request
             const response = await axios.delete('http://localhost:3001/deleteCustomizableFormByInstitution',  {
               headers: {
-                token: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbnN0aXR1dGlvbiI6eyJlbWFpbCI6Imhhc2FuLmYyMDAyQGdtYWlsLmNvbSIsImlkIjoiNjUwMWVlNmM3ZmI2ZGE0NWMwNDY2NjJiIiwicm9sZSI6ImFkbWluIn0sImlhdCI6MTY5NDYzNTI1MCwiZXhwIjoxNjk0NzIxNjUwfQ.O2G-Gqq98euLcHBRfkVnx-S_R395RsuVQvZCTTT4qBc`,
+                token: `Bearer ${token}`,
               },
             });
       

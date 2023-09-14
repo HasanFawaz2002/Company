@@ -27,7 +27,6 @@ function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  
 
   function togglePasswordVisibility() {
     setShowPassword((prevState) => !prevState);
@@ -119,7 +118,7 @@ function Register() {
         .then((response) => {
           console.log("Registration successful!");
           localStorage.clear(); // Clear localStorage here
-          navigate("/login");
+          navigate(`/EmailSent/${email}`)
         })
         .catch((error) => {
           if (error.response) {

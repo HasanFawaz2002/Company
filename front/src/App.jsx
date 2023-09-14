@@ -1,5 +1,5 @@
 import React from "react";
-import {Routes,Route,Outlet} from 'react-router-dom'
+import {Routes,Route,Outlet,useLocation } from 'react-router-dom'
 import Home from "./Components/HOME/Home";
 import Navbar from "./Components/NAVBAR/Navbar";
 import About from "./Components/ABOUT/About";
@@ -10,11 +10,19 @@ import Login from "./Components/Authentication/Login";
 import ForgotPassword from "./Components/Authentication/forgotpassword";
 import Resetpassword from "./Components/Authentication/Resetpassword";
 import CreateCertificate from "./Components/CreateCertificate/CreateCertificate";
+import EmailVerify from "./Components/Authentication/EmailVerify";
+import EmailSent from "./Components/Authentication/EmailSent";
 
 const App = () => {
+    const location = useLocation();
+  const hideNavbarRoutes = ["/EmailSent", "/users"]; 
+
+  const isNavbarHidden = hideNavbarRoutes.some((route) =>
+    location.pathname.startsWith(route)
+  );
     return (
         <>
-        <Navbar/>
+        {!isNavbarHidden && <Navbar />} 
         <Routes>
             <Route path="/" element={<Home/>}></Route>
             <Route path="/about" element={<About/>}></Route>
@@ -25,6 +33,8 @@ const App = () => {
             <Route path="/forgot-password" element={<ForgotPassword />}></Route>
             <Route path="/reset_password/:id/:token" element={<Resetpassword />}></Route>
             <Route path="/CreateCertificate" element={<CreateCertificate />}></Route>
+            <Route path="/users/:id/verify/:token" element={<EmailVerify/>}></Route>
+            <Route path="/EmailSent/:email" element={<EmailSent />}></Route>
         </Routes>
         </>
     )
