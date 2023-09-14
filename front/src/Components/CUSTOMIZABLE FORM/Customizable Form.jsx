@@ -1,24 +1,35 @@
 import React, { useState,useEffect } from 'react';
 import axios from 'axios'; 
 import './Customizable Form.css';
+import { useNavigate } from 'react-router-dom';
 
 const CustomizableForm = () => {
     const [numberOfRows, setNumberOfRows] = useState(1);
     const [formFields, setFormFields] = useState([]); // Initialize with an empty array
+    const [isFormDataFetched, setIsFormDataFetched] = useState(false);
 
     const [nameError, setNameError] = useState('');
     const [fetchedFormData, setFetchedFormData] = useState(null); // State to hold fetched form data
+    const token = localStorage.getItem('access_token');
+    const role = localStorage.getItem('role');
+
+    const navigate = useNavigate();
+
+    if(role !=='admin'){
+      navigate('/');
+    }
 
     useEffect(() => {
         // Fetch form data when the component mounts
         const fetchFormData = async () => {
           try {
             const response = await axios.get(
-              'http://localhost:3001/getCustomizableFormByInstitution/65017fbfce786520a22d2f0f');
+              'http://localhost:3001/getCustomizableFormByInstitution/6501ee6c7fb6da45c046662b');
       
             if (response.status === 200) {
               // Set the fetched form data in state
               setFetchedFormData(response.data);
+              setIsFormDataFetched(true); // Set the flag to true when data is fetched
               console.log(response.data);
             } else {
               console.error('Error fetching form data');
@@ -92,7 +103,7 @@ const CustomizableForm = () => {
         // Use Axios to send a POST request
         const response = await axios.post('http://localhost:3001/createCustomizableForm', formData, {
           headers: {
-            token: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbnN0aXR1dGlvbiI6eyJlbWFpbCI6Imhhc2FuLmYyMDAyQGdtYWlsLmNvbSIsImlkIjoiNjUwMTdmYmZjZTc4NjUyMGEyMmQyZjBmIiwicm9sZSI6ImFkbWluIn0sImlhdCI6MTY5NDYwMjI0NywiZXhwIjoxNjk0Njg4NjQ3fQ.wqFegdNjbqXGlypeVNruGycMHfRZVBTcpeTvA8Qgy-w`,
+            token: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbnN0aXR1dGlvbiI6eyJlbWFpbCI6Imhhc2FuLmYyMDAyQGdtYWlsLmNvbSIsImlkIjoiNjUwMWVlNmM3ZmI2ZGE0NWMwNDY2NjJiIiwicm9sZSI6ImFkbWluIn0sImlhdCI6MTY5NDYzNTI1MCwiZXhwIjoxNjk0NzIxNjUwfQ.O2G-Gqq98euLcHBRfkVnx-S_R395RsuVQvZCTTT4qBc`,
           },
         });
   
@@ -120,7 +131,7 @@ const CustomizableForm = () => {
             // Use Axios to send a delete request
             const response = await axios.delete('http://localhost:3001/deleteCustomizableFormByInstitution',  {
               headers: {
-                token: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbnN0aXR1dGlvbiI6eyJlbWFpbCI6Imhhc2FuLmYyMDAyQGdtYWlsLmNvbSIsImlkIjoiNjUwMTdmYmZjZTc4NjUyMGEyMmQyZjBmIiwicm9sZSI6ImFkbWluIn0sImlhdCI6MTY5NDYwNjgwMiwiZXhwIjoxNjk0NjkzMjAyfQ.QAN3zZ-lZiB-8z_qFkLesUYb_aZ7LAcbBz7sudxiIkM`,
+                token: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbnN0aXR1dGlvbiI6eyJlbWFpbCI6Imhhc2FuLmYyMDAyQGdtYWlsLmNvbSIsImlkIjoiNjUwMWVlNmM3ZmI2ZGE0NWMwNDY2NjJiIiwicm9sZSI6ImFkbWluIn0sImlhdCI6MTY5NDYzNTI1MCwiZXhwIjoxNjk0NzIxNjUwfQ.O2G-Gqq98euLcHBRfkVnx-S_R395RsuVQvZCTTT4qBc`,
               },
             });
       
@@ -165,12 +176,14 @@ const CustomizableForm = () => {
                       type="text"
                       value={field.fieldName}
                       onChange={(e) => handleFieldChange(index, 'fieldName', e.target.value)}
+                      disabled={isFormDataFetched}
                     />
                   </td>
                   <td>
                     <select
                       value={field.fieldType}
                       onChange={(e) => handleFieldChange(index, 'fieldType', e.target.value)}
+                      disabled={isFormDataFetched}
                     >
                       <option value="text">text</option>
                       <option value="number">number</option>
@@ -183,6 +196,7 @@ const CustomizableForm = () => {
                     <select
                       value={field.isRequired ? 'true' : 'false'}
                       onChange={(e) => handleFieldChange(index, 'isRequired', e.target.value === 'true')}
+                      disabled={isFormDataFetched}
                     >
                       <option value="true">True</option>
                       <option value="false">False</option>
