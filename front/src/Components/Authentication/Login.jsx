@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./Login.css"; 
 import { useNavigate, Link } from "react-router-dom";
+import "./Handlelogin.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye,faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
-function Login() {
-  const navigate = useNavigate();
+function LogintoZidyia(){
+    const navigate = useNavigate();
   const api = "http://localhost:3001";
   const [contact, setContact] = useState({
     email: "",
@@ -44,7 +44,7 @@ function Login() {
     });
   }
 
-  function hsn(e) {
+  function handlelogin(e) {
     e.preventDefault();
 
     setEmailError('');
@@ -98,59 +98,62 @@ function Login() {
     }
   }
 
-  return (
-    <section className="register">
-      <div className="register-container">
-        <div className="register-content">
-          <h2 className="center auth-header">LOGIN</h2>
-          <p className="center auth-par">PLEASE ENTER YOUR INFORMATION TO SIGN IN.</p>
-          <form onSubmit={hsn}>
-            <input
-              type="text"
-              name="email"
-              placeholder="Email Address"
-              id="email"
-              value={contact.email}
-              onChange={handleChange}
-            />
-            {emailError && (
-              <span className="error-email-message">{emailError}</span>
-            )}
-            <div className="flexSb password">
-            <input
-              type={showPassword ? "text" : "password"} 
-              name="password"
-              id="password"
-              placeholder="Password"
-              value={contact.password}
-              onChange={handleChange}
-            />
-            <FontAwesomeIcon
-               icon={showPassword ? faEyeSlash : faEye} 
-               className="fa-eye"
-               onClick={togglePasswordVisibility}
-            />
-            
+
+    return(
+       <>
+        
+        <div className="logintozidyia-parent">
+            <div className="logintozidyia-contentWithform">
+               <form className="logintozidyia-loginform" onSubmit={handlelogin}>
+               <h1 className="logintozidyia-headone">My Wallet</h1>
+                <div className="directiontocolumn">
+                <label className="logintozidyia-label">Email:</label>
+               <input
+                 type="text"
+                 name="email"
+                 placeholder="Email Address"
+                 id="loginemail"
+                 className="logintozidyia-input"
+                 value={contact.email}
+                 onChange={handleChange}
+               />
+                </div>
+               <div className="directiontocolumn">
+               <label className="logintozidyia-label">Password:</label>
+               <div className="inputwithicon">
+               <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="Password"
+                  className="logintozidyia-input"
+                  value={contact.password}
+                  onChange={handleChange}
+               />
+               </div>
+             
+               </div>
+               <div className="checkboxandforgot">
+               <div className="checkboxwithlebel">
+               <input 
+                  type="checkbox"
+               />
+               <label className="rememberme-label">Remember me</label>
+               </div>
+               <p><Link to="/forgot-password" className="logintozidyia-forgotpass">Forgot password?</Link></p>
+               </div>
+             
+                 <button className="Signinbutton">Sign In</button>
+              
+              
+              
+               
+               </form>
             </div>
-            {passworderror && (
-              <span className="error-password-message">{passworderror}</span>
-            )}
-          
-            <p><Link to="/forgot-password" className="forgot">Forgot password?</Link></p>
-            <div className="centering">
-              <button className="submit">Login</button>
-            </div>
-            <p className="parag ">
-              Not a member? <Link to='/register'><span className="auth-span">Register</span></Link>
-            </p>
-            {loginError && (
-              <span className="error-login-message">{loginError}</span>
-            )}
-          </form>
         </div>
-      </div>
-    </section>
-  );
+      
+       </> 
+    )
 }
 
-export default Login;
+export default LogintoZidyia;

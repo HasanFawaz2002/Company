@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye,faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import "./Login.css"; 
+import "./register.css"; 
 
 function Register() {
   const navigate = useNavigate();
@@ -49,7 +49,7 @@ function Register() {
     return passwordPattern.test(password);
   }
 
-  function hsn(e) {
+  function handleregister(e) {
     e.preventDefault();
 
     setNameError("");
@@ -141,12 +141,12 @@ function Register() {
     <section className="register">
       <div className="register-container">
         <div className="register-content">
-          <h2 className="center auth-header">Create Your Account</h2>
-          <p className="center auth-par">
-            PLEASE ENTER YOUR INFORMATION TO SIGN UP.
+          <h2 className="register-center auth-header">Create a Wallet</h2>
+          <p className="register-center auth-par">
+            Already have one?
           </p>
-          <form onSubmit={hsn}>
-            <div className="flexSb gap-2">
+          <form onSubmit={handleregister}>
+            <label className="registerlabel">First Name <span className="star">*</span></label>
               <input
                 type="text"
                 name="firstname"
@@ -155,6 +155,10 @@ function Register() {
                 value={firstname}
                 onChange={(e) => setrFirstname(e.target.value)}
               />
+              {nameError && (
+                <span className="error-password-message">{nameError}</span>
+              )}
+              <label className="registerlabel">Last Name <span className="star">*</span></label>
               <input
                 type="text"
                 name="lastname"
@@ -163,17 +167,12 @@ function Register() {
                 className="left"
                 value={lastname}
                 onChange={(e) => setLastname(e.target.value)}
-              />
-            </div>
-            <div className="flexSb">
-              {nameError && (
-                <span className="error-password-message">{nameError}</span>
-              )}
+              />              
               {lastNameError && (
                 <span className="error-password-message">{lastNameError}</span>
               )}
-            </div>
-            <div className="flexSb  gap-2">
+          
+          <label className="registerlabel">Student ID <span className="star">*</span></label>
               <input
                 type="file"
                 name="ID"
@@ -184,14 +183,13 @@ function Register() {
                 />
 
             
-            </div>
-            <div className="flexSb">
+            
               {IDError && (
                 <span className="error-password-message">{IDError}</span>
               )}
               
-            </div>
-            
+         
+              <label className="registerlabel">Email <span className="star">*</span></label>
             <input
               type="text"
               name="email"
@@ -203,7 +201,8 @@ function Register() {
             {emailError && (
               <span className="error-password-message">{emailError}</span>
             )}
-            <div className="flexSb password">
+              <label className="registerlabel">Password <span className="star">*</span></label>
+            <div className=" password">
             <input
               type={showPassword ? "text" : "password"} 
               name="password"
@@ -222,7 +221,8 @@ function Register() {
             {passwordError && (
               <span className="error-password-message">{passwordError}</span>
             )}
-          <div className="flexSb password">
+              <label className="registerlabel">Confirm Password <span className="star">*</span></label>
+          <div className=" password">
           <input
                   type={showConfirmPassword ? "text" : "password"} 
               name="confirmPassword"
@@ -245,16 +245,11 @@ function Register() {
             )}
 
             <div className="centering">
-              <button type="submit" className="submit">
-                Register
+              <button type="submit" className="register-create-wallet">
+                create a wallet
               </button>
             </div>
-            <p className="parag ">
-              Already a member?{" "}
-              <Link to="/login" className="auth-span">
-                Login
-              </Link>
-            </p>
+           
             {registerError && (
               <span className="error-register-message">{registerError}</span>
             )}
