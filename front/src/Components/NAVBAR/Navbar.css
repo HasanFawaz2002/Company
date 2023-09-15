@@ -33,7 +33,7 @@
     float: left;
     margin-left: 100px;
     margin-top: 20px;
-    color: #46505F;
+    color: #323F4E;
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
@@ -60,7 +60,7 @@
 }
 .navbar-menu ul li a{
     text-decoration: none;
-    color: #46505F;
+    color: #323F4E;
     border: transparent;
     cursor: pointer;
     font-weight: bold;
