@@ -17,6 +17,19 @@
     display: flex;
     flex-direction: column;
 }
+
+.faEye{
+    position: absolute;
+    top: 340px;
+    right: 570px;
+}
+.faEyeSlash{
+    position: absolute;
+    top: 340px;
+    right: 570px;
+    color: white;
+    font-size: larger;
+}
 .logintozidyia-label{
     margin-bottom: 3px;
     color: white;
@@ -61,5 +74,17 @@
 
 
 @media (max-width:768px) {
-   
+
+    .faEye{
+        right: 50px;
+    }
+    .faEyeSlash{
+        right: 50px;
+    }
+    .Signinbutton{
+        position: absolute;
+        bottom: 10%;
+        left: 50%;
+        transform: translate(-50%);
+    }
     }

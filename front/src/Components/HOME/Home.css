@@ -155,14 +155,36 @@
         padding-left: 100px;
         align-items: flex-start;
      }
+     .aboutus-section-content2{
+        display: flex;
+        padding-right: 100px;
+        align-items: flex-start;
+     }
      
      .aboutus-section-content img{
         height: 400px;
         width: 500px;
         transform: translateX(-100px);
      }
+     .aboutus-section-content2 img{
+        height: 400px;
+        width: 500px;
+        transform: translateX(100px);
+     }
      .aboutus-section-content-right{
         text-align: start;
+     }
+     .aboutus-section-content2-left{
+        text-align: start;
+     }
+     .aboutus-section-content2-left h1{
+        color: rgb(70, 241, 207);
+        font-size: 45px;
+     }
+     .aboutus-section-content2-left{
+        font-size: larger;
+        font-family: 'Core-Bold';
+        color:white;
      }
      .aboutus-section-content-right h1{
         color: rgb(70, 241, 207);
@@ -178,6 +200,16 @@
         list-style: none;
         width: 100%;
      }
+     .aboutus-section-content2-left li{
+        margin-bottom: 40px;
+        list-style: none;
+        width: 100%;
+     }
+     .aboutus-section-content2-left li svg{
+        color: #46f1cf;
+        margin-right: 20px;
+        font-size: larger;
+     }
      .aboutus-section-content-right li svg{
         color: #46f1cf;
         margin-right: 20px;
@@ -188,7 +220,6 @@
         
         .aboutus-section-content{
             flex-direction: column;
-            
             padding: 0;
             width: 100%;
         }
@@ -205,4 +236,20 @@
         .aboutus-section h1{
             font-size: 30px;
         }
+        .aboutus-section-content2{
+            flex-direction:column-reverse;
+            padding: 0;
+            width: 100%;
+        }
+        .aboutus-section-content2 img{
+            width: 110%;
+            transform: translateX(0px);
+            height: 300px;
+            width: 350px;
+            align-self: center;
+        }
+        .aboutus-section-content2-left{
+            padding-left: 20px;
+        }
+        
      }

@@ -120,17 +120,26 @@ function LogintoZidyia(){
                 </div>
                <div className="directiontocolumn">
                <label className="logintozidyia-label">Password:</label>
-               <div className="inputwithicon">
+
                <input
-                  type="password"
-                  name="password"
+                 type={showPassword ? "text" : "password"}
+                 name="password"
                   id="password"
                   placeholder="Password"
                   className="logintozidyia-input"
                   value={contact.password}
                   onChange={handleChange}
                />
-               </div>
+               {showPassword ? <FontAwesomeIcon
+               icon={ faEyeSlash } 
+               className="faEyeSlash"
+               onClick={togglePasswordVisibility}
+              /> : <FontAwesomeIcon
+               icon={ faEye} 
+              className="faEye"
+               onClick={togglePasswordVisibility}
+              />}
+               
              
                </div>
                <div className="checkboxandforgot">

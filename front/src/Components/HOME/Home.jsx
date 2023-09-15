@@ -44,9 +44,8 @@ const Home = () => {
 
         <div className="aboutus-section">
            
-            <div className="aboutus-section-content">
-                <img src={Image1} alt="" />
-                <div className="aboutus-section-content-right">
+            <div className="aboutus-section-content2">
+                <div className="aboutus-section-content2-left">
                     <h1>Simple</h1>
                     <p>Zidyia provides an easy to use platform with the best user experience</p>
                         <li><FontAwesomeIcon icon={faCheck}  />
@@ -56,8 +55,12 @@ const Home = () => {
                             Data and insights to analyze integration with course content.
                         </li>
                 </div>
+                <img src={Image1} alt="" />
+
             </div>
         </div>
+
+        
         </>
     )
 }
