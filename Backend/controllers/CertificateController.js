@@ -27,7 +27,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// Create a new certificate (requires a valid token with institutionID)
 const createCertificate = async (req, res) => {
   try {
     const { name, description } = req.body;
@@ -35,8 +34,11 @@ const createCertificate = async (req, res) => {
 
     // Check if req.file exists (uploaded image)
     if (!req.file) {
+      console.log('No file uploaded'); // Add this log
       return res.status(400).json({ error: 'Image file is required' });
     }
+
+    console.log('Received file:', req.file); // Add this log to see file details
 
     const certificate = new Certificate({
       name,
@@ -45,13 +47,19 @@ const createCertificate = async (req, res) => {
       institutionID,
     });
 
+    console.log('Certificate data:', certificate); // Add this log to see certificate data
+
     await certificate.save();
+
+    console.log('Certificate saved successfully'); // Add this log
 
     res.status(201).json({ certificate });
   } catch (error) {
+    console.error('Error:', error); // Add this log to see any errors
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
 
 // Get a list of certificates for an institution (requires a valid token with institutionID)
 const getCertificates = async (req, res) => {

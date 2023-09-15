@@ -1,0 +1,65 @@
+.logintozidyia-parent{
+ background-color: #2D3741;
+ min-height: 100vh;
+ overflow: hidden;
+}
+.logintozidyia-headone{
+    color:white;
+}
+.logintozidyia-contentWithform{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 150px;
+}
+.directiontocolumn{
+    display: flex;
+    flex-direction: column;
+}
+.logintozidyia-label{
+    margin-bottom: 3px;
+    color: white;
+}
+.logintozidyia-input{
+    width:400px;
+    border: 1px solid #ddd;
+    background-color:#2D3741;
+    border-radius: 1.5635rem;
+    height: 30px;
+    padding: 10px;
+    outline:none;
+    color:rgb(203, 195, 195);
+}
+.checkboxandforgot{
+    display: flex;
+    justify-content: space-between;
+}
+.rememberme-label{
+    color:white;
+    margin-left: 3px;
+}
+.checkboxwithlebel{
+    margin-top: 15px;
+}
+.logintozidyia-forgotpass{
+    color:#5DD3B3;
+    text-decoration: none;
+}
+.directiontocolumn input::placeholder{
+    color:rgb(203, 195, 195);
+}
+.Signinbutton{
+    width:420px;
+    height: 2.125rem;
+    background-color: #5DD3B3;
+    border-radius: 1.5635rem;
+    border: 0px;
+    color:white;
+    padding: 10px;
+}
+
+
+@media (max-width:768px) {
+   
+    }

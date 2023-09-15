@@ -2,78 +2,78 @@
     width: 80%;
     margin: 0 auto;
 }
-
+.register{
+    background-color: #2D3741;
+    padding: 200px 0px;
+    height: 600px;
+    position: relative;
+    opacity: 0.9;
+}
+.register-content{
+    width: 40%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    padding: 30px 50px;
+    border-radius: 20px;
+}
+ .register-content input{
+    width: 96% !important;
+    border: 1px solid #ddd;
+    background-color:#2D3741;
+    border-radius: 1.5635rem;
+    height: 30px;
+    padding: 10px;
+    margin-bottom: 12px;
+    outline:none;
+    color:rgb(203, 195, 195);
+}
 .flexSb{
     display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
+    justify-content: space-between;
+    align-items: center;
 }
+
   .forgot{
     color:#323F4E;
   }
   .password{
     position: relative;
 }
-#email{
-    width: 96.5% !important;
+
+.fa-eye{
+    position: absolute;
+    right: 20px;
+    cursor: pointer;
+    top: 15px ;
+    font-size: 20px;
+    color:white;
 }
-    .fa-eye{
-        position: absolute;
-        right: 20px;
-        cursor: pointer;
-        top: 20px ;
-        font-size: 20px;
-        color:black;
-    }
-.register{
-    background-color: #d2faf1;
-    padding: 100px 0px;
-    height: 1000px;
-    position: relative;
-    opacity: 0.9;
-}
+
 .register .auth-par {
     font-size: 15px;
     font-weight: 600;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
+    color:#5DD3B3;
+    position: relative;
+bottom: 10px;
 }
 .error-email-message,.error-password-message,.error-confirmpassword-message{
     color:red;
 }
-
-.register-content{
-width: 40%;
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%,-50%);
-background-color:white;
-padding: 30px 50px;
-border-radius: 20px;
-}
-       
-
+    
 .register-content > p{
-text-align: center;
+
 font-size: 15px;
 font-weight: bold;
             
 }
 
-.register-content input{
-width: 100%;
-border: 1px solid #ddd;
-border-radius: 5px;
-height: 40px;
-padding: 10px;
-margin-bottom: 12px;
-outline:none;
-}
-
 .register-content input::placeholder{
 font-size: 16px;
 text-transform: capitalize;
+color:rgb(203, 195, 195);
 }           
        
 .parag {
@@ -83,22 +83,24 @@ margin-top: 10px;
 font-size: 15px !important;
 font-weight: 300;
 
-
 }
+
 .error-register-message,.error-login-message{
    display: flex;
    justify-content: center;
     color:red;
     font-size: 25px;
 }
-.submit{
-width: 50%;
-height: 50px;
-background-color: rgb(70, 241, 207) !important;
+
+.register-create-wallet{
+    margin-top: 20px !important;
+width: 100%;
+height: 2.125rem;
+background-color: #5DD3B3 !important;
 color:whitesmoke;
 font-weight: bold;
 font-size: 20px;
-border-radius: 5px;
+border-radius: 1.5635rem;
 border: 0px;
 margin-top: 5px;
             
@@ -110,13 +112,23 @@ justify-content: center;
 }
 .auth-header{
     font-weight: bold;
-    text-align: center;
+    text-align:start !important;
+    color: white;
 }
 .auth-span{
 font-weight: bold;
 margin-left: 3px;
 text-decoration: none;
 color: black;
+}
+.registerlabel{
+ color:white;
+position: relative;
+bottom: 5px;
+}
+
+.star{
+    color:#5DD3B3;
 }
 
 @media (max-width:1130px) {
