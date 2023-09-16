@@ -42,7 +42,10 @@ const CertificateUploadSchema = new mongoose.Schema({
             },
             message: 'Institution does not exist.'
         }
-    }
+    },
+    reason:{
+        type:String,
+       }
   
 });
 

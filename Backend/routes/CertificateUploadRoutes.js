@@ -3,21 +3,8 @@ const router = express.Router();
 const multer = require('multer'); // Import multer
 const CertificateUploadController = require('../controllers/CertificateUploadController');
 const verify = require('../Controllers/verifytoken');
+const {upload} = require('../controllers/CertificateUploadController');
 
-// Configure Multer to handle file uploads
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    // Define your destination folder here
-    // For example, if you want to save uploads in the 'uploads/' folder:
-    cb(null, 'uploads/');
-  },
-  filename: (req, file, cb) => {
-    // Define the filename logic here, for example:
-    cb(null, `${Date.now()}-${file.originalname}`);
-  },
-});
-
-const upload = multer({ storage }); // Create a multer instance with the defined storage
 
 // Create a new certificate upload
 router.post('/certificateUploadRoute/:institutionID', verify, upload.single('certificateFile'), CertificateUploadController.createCertificateUpload);
@@ -37,5 +24,9 @@ router.put('/certificateUploadRoute/:id', CertificateUploadController.updateCert
 
 // Delete a certificate upload by ID
 router.delete('/certificateUploadRoute/:id', CertificateUploadController.deleteCertificateUploadById);
+
+//Get certificate Upload Photo
+router.get("/certificateUploadPhoto/:certificateUploadID/photo", CertificateUploadController.getCertificateUploadPhoto);
+
 
 module.exports = router;

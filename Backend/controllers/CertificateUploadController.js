@@ -3,9 +3,13 @@ const CertificateUpload = require("../models/certificateUpload");
 const path = require('path');
 const multer = require ('multer');
 const asyncHandler = require("express-async-handler");
+const fs = require('fs');
 
 
-const uploadPath = path.join(__dirname, '..', 'server', 'uploads', 'usersImages');
+
+const uploadPath = path.join(__dirname, '..', 'server', 'uploads');
+
+
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -27,6 +31,40 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
+
+
+
+const getCertificateUploadPhoto = async (req, res) => {
+  try {
+    const certificateUpload = await CertificateUpload.findById(req.params.certificateUploadID);
+    if (!certificateUpload) {
+      return res.status(404).json({ error: 'certificateUpload not found.' });
+    }
+
+    // Use the imagePath directly as it should be a relative path
+    const relativeImagePath = certificateUpload.certificateFile;
+
+    // Get the absolute path to the image file
+    const absoluteImagePath = path.join(uploadPath, relativeImagePath);
+
+    // Check if the file exists
+    if (!fs.existsSync(absoluteImagePath)) {
+      return res.status(404).json({ error: 'File not found.', imagePath: absoluteImagePath });
+    }
+
+    // Send the product's photo as a response
+    res.sendFile(absoluteImagePath);
+  } catch (err) {
+    // Log the error including the error message and stack trace
+    console.error('Error retrieving certificateUpload photo:', err);
+
+    // Respond with a more detailed error message
+    res.status(500).json({ error: 'Internal Server Error', errorMessage: err.message });
+  }
+};
+
+
+
 // Create a new certificate upload
 const createCertificateUpload = async (req, res) => {
   try {
@@ -43,7 +81,7 @@ const createCertificateUpload = async (req, res) => {
       institutionID,
       name: req.body.name,
       description: req.body.description,
-      certificateFile: certificateFile.path,
+      certificateFile: certificateFile.filename,
     });
     // const certificateUpload = new CertificateUpload(req.body);
     await certificateUpload.save();
@@ -194,8 +232,9 @@ module.exports = {
   getCertificateUploadById,
   updateCertificateUploadById,
   deleteCertificateUploadById,
-  upload,
   getCertificateUploadsByInstitutionCount,
-  getCertificateUploadsTotal
+  getCertificateUploadsTotal,
+  getCertificateUploadPhoto,
+  upload
 };
 

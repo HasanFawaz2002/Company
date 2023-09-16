@@ -24,7 +24,7 @@ const Home = () => {
         </div>
 
 
-        <div className="aboutus-section">
+        <div className="first-aboutus-section ">
             <h3>The Power of Zidyia Passport</h3>
             <h1>A next gen Certificate management system</h1>
             <div className="aboutus-section-content">
@@ -42,7 +42,7 @@ const Home = () => {
             </div>
         </div>
 
-        <div className="aboutus-section">
+        <div className="aboutus-section2">
            
             <div className="aboutus-section-content2">
                 <div className="aboutus-section-content2-left">
@@ -57,6 +57,23 @@ const Home = () => {
                 </div>
                 <img src={Image1} alt="" />
 
+            </div>
+        </div>
+
+        <div className="aboutus-section">
+            
+            <div className="aboutus-section-content">
+                <img src={Image1} alt="" />
+                <div className="aboutus-section-content-right">
+                    <h1>Simple</h1>
+                    <p>Zidyia provides an easy to use platform with the best user experience</p>
+                        <li><FontAwesomeIcon icon={faCheck}  />
+                            Engaging course content composed of quizzes and grades.
+                        </li>
+                        <li><FontAwesomeIcon icon={faCheck}  />
+                            Data and insights to analyze integration with course content.
+                        </li>
+                </div>
             </div>
         </div>
 

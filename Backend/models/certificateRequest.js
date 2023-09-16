@@ -54,9 +54,12 @@ const CertificateRequestSchema = new mongoose.Schema({
   },
    status:{
     type:String,
-    default:'pending',
+    default:'Pending',
+   },
+   reason:{
+    type:String,
    }
-  
+
 });
 
 const CertificateRequest = mongoose.model('CertificateRequest', CertificateRequestSchema);

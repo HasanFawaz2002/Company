@@ -2,7 +2,7 @@ const {Router} = require('express');
 const {
       createCertificateRequest,getCertificateRequestsByUser,deleteCertificateRequest,getCertificateRequestsByInstitution,
       updateCertificateStatusToVerified,updateCertificateStatusToRejected,
-      getPendingCertificateRequestsCount,getVerifiedCertificateRequestsCount,getRejectedCertificateRequestsCount,getCertificateCount,
+      getCertificateRequestsCount,
       getAllPendingCertificateRequestsCount,getAllVerifiedCertificateRequestsCount,getAllRejectedCertificateRequestsCount,getAllCertificateCount
       } 
       = require('../controllers/CertificateRequest');
@@ -21,10 +21,8 @@ router.put('/updateCertificateStatusToVerified/:requestID', verify, updateCertif
 router.put('/updateCertificateStatusToRejected/:requestID', verify, updateCertificateStatusToRejected);
 
 
-router.get('/getPendingCertificateRequestsCount', verify, getPendingCertificateRequestsCount);
-router.get('/getVerifiedCertificateRequestsCount', verify, getVerifiedCertificateRequestsCount);
-router.get('/getRejectedCertificateRequestsCount', verify, getRejectedCertificateRequestsCount);
-router.get('/getCertificateCount', verify, getCertificateCount);
+router.get('/getCertificateRequestsCount', verify, getCertificateRequestsCount);
+
 
 //SuperAdmin
 router.get('/getAllPendingCertificateRequestsCount', verify, getAllPendingCertificateRequestsCount);

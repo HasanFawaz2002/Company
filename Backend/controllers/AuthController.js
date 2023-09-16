@@ -12,7 +12,7 @@ const emailVerification = require('../controllers/verificationEmail');
 const crypto = require('crypto');
 
 // Construct the full path to the uploads directory
-const uploadPath = path.join(__dirname, '..', 'server', 'uploads', 'usersImages');
+const uploadPath = path.join(__dirname, '..', 'server', 'uploads');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -34,6 +34,35 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
+
+const getUserPhoto = async (req, res) => {
+  try {
+    const userUpload = await User.findById(req.params.userUploadID);
+    if (!userUpload) {
+      return res.status(404).json({ error: 'certificateUpload not found.' });
+    }
+
+    // Use the imagePath directly as it should be a relative path
+    const relativeImagePath = userUpload.profilePicture;
+
+    // Get the absolute path to the image file
+    const absoluteImagePath = path.join(uploadPath, relativeImagePath);
+
+    // Check if the file exists
+    if (!fs.existsSync(absoluteImagePath)) {
+      return res.status(404).json({ error: 'File not found.', imagePath: absoluteImagePath });
+    }
+
+    // Send the product's photo as a response
+    res.sendFile(absoluteImagePath);
+  } catch (err) {
+    // Log the error including the error message and stack trace
+    console.error('Error retrieving certificateUpload photo:', err);
+
+    // Respond with a more detailed error message
+    res.status(500).json({ error: 'Internal Server Error', errorMessage: err.message });
+  }
+};
 
 //@desc Register a user
 //@route POST /api/users/register
@@ -297,4 +326,4 @@ const reset = asyncHandler(async (req, res) =>  {
 
 
 
-module.exports = { registerUser, loginUser,upload,forgot,reset,updateProfile,verifyEmail};
+module.exports = { registerUser, loginUser,upload,forgot,reset,updateProfile,verifyEmail,getUserPhoto};

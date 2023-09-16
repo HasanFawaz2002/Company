@@ -9,13 +9,14 @@ import Register from "./Components/Authentication/Register"
 import LogintoZidyia from "./Components/Authentication/Login";
 import ForgotPassword from "./Components/Authentication/forgotpassword";
 import Resetpassword from "./Components/Authentication/Resetpassword";
-import CreateCertificate from "./Components/CreateCertificate/CreateCertificate";
 import EmailVerify from "./Components/Authentication/EmailVerify";
 import EmailSent from "./Components/Authentication/EmailSent";
+import AdminDashboard from "./Components/ADMIN/AdminDashboard";
+
 
 const App = () => {
     const location = useLocation();
-  const hideNavbarRoutes = ["/EmailSent", "/users"]; 
+  const hideNavbarRoutes = ["/EmailSent", "/users","/admin"]; 
 
   const isNavbarHidden = hideNavbarRoutes.some((route) =>
     location.pathname.startsWith(route)
@@ -32,10 +33,10 @@ const App = () => {
             <Route path="/login" element={<LogintoZidyia/>}></Route>
             <Route path="/forgot-password" element={<ForgotPassword />}></Route>
             <Route path="/reset_password/:id/:token" element={<Resetpassword />}></Route>
-            <Route path="/CreateCertificate" element={<CreateCertificate />}></Route>
             <Route path="/users/:id/verify/:token" element={<EmailVerify/>}></Route>
             <Route path="/EmailSent/:email" element={<EmailSent />}></Route>
-        </Routes>
+            <Route path="/admin/*" element={<AdminDashboard />} />
+          </Routes>
         </>
     )
 }
