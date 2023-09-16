@@ -1,6 +1,7 @@
 .createcertificate-admin-parent{
     background-color: #2D3741;
     min-height: 100vh;
+    grid-area: main;
     overflow: hidden;
    }
    .createcertificate-admin-headone{

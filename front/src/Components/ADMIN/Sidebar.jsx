@@ -10,7 +10,7 @@ function Sidebar({openSidebarToggle, OpenSidebar}) {
     <aside id="sidebar" className={openSidebarToggle ? "sidebar-responsive": ""}>
         <div className='sidebar-title'>
             <div className='sidebar-brand'>
-                <BsCart3  className='icon_header'/> SHOP
+                <BsCart3  className='icon_header'/> Zidyia
             </div>
             <span className='icon close_icon' onClick={OpenSidebar}>X</span>
         </div>
@@ -32,14 +32,14 @@ function Sidebar({openSidebarToggle, OpenSidebar}) {
                 </NavLink>
             </li>
             <li className='sidebar-list-item'>
-                <a href="">
+                <NavLink to="/admin/RequestedCertificate">
                     <BsFileEarmarkText className='icon'/> Requested Certificate
-                </a>
+                </NavLink>
             </li>
             <li className='sidebar-list-item'>
-                <a href="">
+                <NavLink to="/admin/UploadedCertificate">
                     <BsFileEarmarkCheck className='icon'/> Uploaded Certificate
-                </a>
+                </NavLink>
             </li>
             <li className='sidebar-list-item'>
                 <a href="">

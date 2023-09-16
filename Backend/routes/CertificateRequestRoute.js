@@ -3,7 +3,8 @@ const {
       createCertificateRequest,getCertificateRequestsByUser,deleteCertificateRequest,getCertificateRequestsByInstitution,
       updateCertificateStatusToVerified,updateCertificateStatusToRejected,
       getCertificateRequestsCount,
-      getAllPendingCertificateRequestsCount,getAllVerifiedCertificateRequestsCount,getAllRejectedCertificateRequestsCount,getAllCertificateCount
+      getAllPendingCertificateRequestsCount,getAllVerifiedCertificateRequestsCount,getAllRejectedCertificateRequestsCount,getAllCertificateCount,
+      getCertificateRequestsByStatusAndInstitution
       } 
       = require('../controllers/CertificateRequest');
 
@@ -19,6 +20,7 @@ router.delete('/deleteCertificateRequest/:requestID',verify, deleteCertificateRe
 router.get('/certificateRequestsByInstitution', verify, getCertificateRequestsByInstitution);
 router.put('/updateCertificateStatusToVerified/:requestID', verify, updateCertificateStatusToVerified);
 router.put('/updateCertificateStatusToRejected/:requestID', verify, updateCertificateStatusToRejected);
+router.get('/getCertificateRequestsByStatusAndInstitution/:status', verify, getCertificateRequestsByStatusAndInstitution);
 
 
 router.get('/getCertificateRequestsCount', verify, getCertificateRequestsCount);

@@ -263,6 +263,48 @@ const createCertificateRequest = async (req, res) => {
       res.status(500).json({ message: 'Internal server error' });
     }
   };
+
+  const getCertificateRequestsByStatusAndInstitution = async (req, res) => {
+    try {
+      const institutionID = req.user.institution.id; // Get the institution ID from the token
+      const { status } = req.params; // Get the status from the URL parameter
+  
+      // Validate if the institution exists
+      const institutionExists = await InstitutionModel.exists({ _id: institutionID });
+  
+      if (!institutionExists) {
+        return res.status(404).json({ message: 'Institution does not exist.' });
+      }
+  
+      // Define valid status values (you can customize this)
+      const validStatusValues = ['Pending', 'Approved', 'Rejected', 'All'];
+  
+      // Check if the provided status is valid
+      if (!validStatusValues.includes(status)) {
+        return res.status(400).json({ message: 'Invalid status value.' });
+      }
+  
+      let query = { institutionID };
+  
+      // Handle the case when status is "All"
+      if (status !== 'All') {
+        query.status = status;
+      }
+  
+      // Find certificate requests based on the query and populate the 'user' and 'certificate' fields
+      const certificateRequests = await CertificateRequest.find(query)
+        .populate('studentID') // Populate the 'user' field
+        .populate('certificateID'); // Populate the 'certificate' field
+  
+      res.status(200).json(certificateRequests);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  };
+  
+  
+  
   
   
 
@@ -271,6 +313,7 @@ const createCertificateRequest = async (req, res) => {
     deleteCertificateRequest,getCertificateRequestsByInstitution,
     updateCertificateStatusToVerified,updateCertificateStatusToRejected,
     getCertificateRequestsCount,getAllPendingCertificateRequestsCount,getAllVerifiedCertificateRequestsCount,
-    getAllRejectedCertificateRequestsCount,getAllCertificateCount
+    getAllRejectedCertificateRequestsCount,getAllCertificateCount,
+    getCertificateRequestsByStatusAndInstitution
 };
 
