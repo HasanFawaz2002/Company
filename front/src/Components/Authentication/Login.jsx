@@ -117,6 +117,9 @@ function LogintoZidyia(){
                  value={contact.email}
                  onChange={handleChange}
                />
+                {emailError && (
+              <span className="error-image-message">{emailError}</span>
+            )}
                 </div>
                <div className="directiontocolumn">
                <label className="logintozidyia-label">Password:</label>
@@ -130,6 +133,9 @@ function LogintoZidyia(){
                   value={contact.password}
                   onChange={handleChange}
                />
+                 {passworderror && (
+              <span className="error-image-message">{passworderror}</span>
+            )}
                {showPassword ? <FontAwesomeIcon
                icon={ faEyeSlash } 
                className="faEyeSlash"
@@ -153,8 +159,7 @@ function LogintoZidyia(){
                </div>
              
                  <button className="Signinbutton">Sign In</button>
-              
-              
+            
               
                
                </form>

@@ -23,7 +23,7 @@ function CreateCertificate() {
 
 
 
-  function hsn(e) {
+  function CreateCertificatefromadmin(e) {
     e.preventDefault();
 
     setnameError('');
@@ -75,14 +75,18 @@ function CreateCertificate() {
   }
 
   return (
-    <section className="createcertificate">
-      <div className="createcertificate-container">
-        <div className="createcertificate-content">
-          <h2 className="center auth-header">Create Certificate</h2>
-         
-          <form onSubmit={hsn}>
+    <>
+        
+    <div className="createcertificate-admin-parent">
+        <div className="createcertificate-admin-contentWithform">
+        <h1 className="createcertificate-admin-headone">Create Certificate</h1>
+           <form className="createcertificate-admin-createform" onSubmit={CreateCertificatefromadmin}>
+        
+            <div className="directiontocolumn">
+            <label className="createcertificate-admin-label">Name:</label>
             <input
               type="text"
+              className="createcertificate-admin-input"
               name="name"
               placeholder="name"
               id="name"
@@ -92,8 +96,13 @@ function CreateCertificate() {
             {nameError && (
               <span className="error-name-message">{nameError}</span>
             )}
-            <input
+            </div>
+           <div className="directiontocolumn">
+           <label className="createcertificate-admin-label">Description:</label>
+
+           <input
               type="text"
+              className="createcertificate-admin-input"
               name="description"
               id="description"
               placeholder="description"
@@ -103,25 +112,35 @@ function CreateCertificate() {
             {descriptionError && (
               <span className="error-description-message">{descriptionError}</span>
             )}
-             <input
+           </div>
+           <div className="directiontocolumn">
+           <label className="createcertificate-admin-label">Image:</label>
+
+           <input
               type="file"
+              className="createcertificate-admin-input"
               name="image"
               id="image"
               accept="image/*"
               placeholder="image"
-              onChange={(e) => handleImageChange(e)}
-            />    
+              onChange={(e) => handleImageChange(e)}            />    
             {imageError && (
               <span className="error-image-message">{imageError}</span>
             )}
-            <div className="centering">
-              <button className="submit">Create</button>
-            </div>
+           </div>
+         <div className="centerthebutton">
+              <button className="createbutton">Create</button>
+         </div>
            
-          </form>
+          
+          
+          
+           
+           </form>
         </div>
-      </div>
-    </section>
+    </div>
+  
+   </> 
   );
 }
 

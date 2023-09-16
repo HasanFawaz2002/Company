@@ -1,132 +1,65 @@
-.createcertificate-container{
-    width: 80%;
-    margin: 0 auto;
-}
-
-.flexSb{
+.createcertificate-admin-parent{
+    background-color: #2D3741;
+    min-height: 100vh;
+    overflow: hidden;
+   }
+   .createcertificate-admin-headone{
+       color:white;
+   }
+   .createcertificate-admin-contentWithform{
+       display: flex;
+       justify-content: center;
+       flex-direction: column;
+       align-items: center;
+       margin-top: 150px;
+   }
+   .directiontocolumn{
+       display: flex;
+       flex-direction: column;
+   }
+      .createcertificate-admin-label{
+       margin-bottom: 3px;
+       color: white;
+   }
+   .createcertificate-admin-input{
+       width:400px;
+       border: 1px solid #ddd;
+       background-color:#2D3741;
+       border-radius: 1.5635rem;
+       height: 30px;
+       padding: 10px;
+       outline:none;
+       color:rgb(203, 195, 195);
+       margin: 4px;
+   }
+   .directiontocolumn input::placeholder{
+       color:rgb(203, 195, 195);
+   }
+   .createbutton{
+       width:50%;
+       height: 2.125rem;
+       background-color: #5DD3B3;
+       border-radius: 1.5635rem;
+       border: 0px;
+       color:white;
+       padding: 10px;
+       margin-top: 15px;
+   }
+   .centerthebutton{
     display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-}
-  .forgot{
-    color:#323F4E;
-  }
-  .password{
-    position: relative;
-}
-#name{
-    width:96% !important;
-}
-
-.createcertificate{
-    background-color: #d2faf1;
-    padding: 100px 0px;
-    height: 1000px;
-    position: relative;
-    opacity: 0.9;
-}
-.createcertificate .auth-par {
-    font-size: 15px;
-    font-weight: 600;
-    margin-bottom: 15px;
-}
-.error-name-message,.error-description-message,.error-image-message{
-    color:red;
-}
-
-.createcertificate-content{
-width: 40%;
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%,-50%);
-background-color:white;
-padding: 30px 50px;
-border-radius: 20px;
-}
-       
-
-.createcertificate-content > p{
-text-align: center;
-font-size: 15px;
-font-weight: bold;
-            
-}
-
-.createcertificate-content input{
-width: 96%;
-border: 1px solid #ddd;
-border-radius: 5px;
-height: 40px;
-padding: 10px;
-margin-bottom: 12px;
-outline:none;
-}
-
-.createcertificate-content input::placeholder{
-font-size: 16px;
-text-transform: capitalize;
-}           
-       
-.parag {
+    justify-content: center;
+   }
+   .error-name-message,.error-description-message,.error-image-message{
+     color:red;
+   }
    
-text-align: center;
-margin-top: 10px;
-font-size: 15px !important;
-font-weight: 300;
-}
-
-.submit{
-width: 50%;
-height: 50px;
-background-color: rgb(70, 241, 207) !important;
-color:whitesmoke;
-font-weight: bold;
-font-size: 20px;
-border-radius: 5px;
-border: 0px;
-margin-top: 5px;         
-}
-
-.centering{
-display: flex;
-justify-content: center;
-
-}
-.auth-header{
-    font-weight: bold;
-    text-align: center;
-}
-.auth-span{
-font-weight: bold;
-margin-left: 3px;
-text-decoration: none;
-color: black;
-}
-
-@media (max-width:1130px) {
-
-.createcertificate-content{
-    width: 70%;
-
-}
-}
-@media (max-width:930px) {
-
-.createcertificate-content{
-    width: 80%;
-
-}
-}
-
-
-@media (max-width:768px) {
-
-.createcertificate-content{
-    width: 90%;
-}
-.createcertificate .auth-par{
-    font-size: 14px;
-}
-}
+   
+   @media (max-width:650px) {
+   
+    .createcertificate-admin-input{
+        width:300px;
+    }
+    .createbutton{
+        margin-top: 25px;
+    }
+       }

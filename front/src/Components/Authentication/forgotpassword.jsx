@@ -48,23 +48,23 @@ function Forgotpassword() {
   }
 
   return (
-    <section className="forgot-password">
-      <div className="forgot-password-container">
-        <div className="forgot-password-container-content">
-          <h2 className="center forgot-password-container-header2">Forgot Password</h2>
-          <p className="center forgot-password-container-par">PLEASE ENTER YOUR EMAIL TO RESET YOUR PASSWORD.</p>
-          <form onSubmit={handleforgot}>
-            <input type="text" name="email" placeholder="Email Address" id="email" value={email}    onChange={(e) => setEmail(e.target.value)} />
+   <>
+   <div className="zidyiaforgotpass-parent">
+     <div className="zidyiaforgotpass-contentandform">
+     <h2 className="zidyiaforgotpass-header">Forgot Password</h2>
+        <p className="zidyiaforgotpass-paragone">PLEASE ENTER YOUR EMAIL TO RESET YOUR PASSWORD</p>   
+      <form className="zidyiaforgotpass-frogotform" onSubmit={handleforgot}>
+               
+        <input type="text" name="email" placeholder="Email Address"  className="zidyiaforgotpass-input" id="email" value={email}    onChange={(e) => setEmail(e.target.value)} />
             {emailError && (
-                        <span className="error-message">{emailError}</span>
-                      )}
-            <div className="centering">
-              <button type="submit" className="forgot-password-btn">Send</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </section>
+              <span className="error-message">{emailError}</span>
+            )}
+       <button type="submit" className="zidyiaforgotpass">Send</button>
+        
+      </form>
+     </div>
+   </div>
+   </>
   );
 }
 
