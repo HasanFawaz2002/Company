@@ -75,6 +75,9 @@
     font-weight: 700;
     font-family: 'Core-Heavy';
     color: white;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
   }
   
   .sidebar-list {
