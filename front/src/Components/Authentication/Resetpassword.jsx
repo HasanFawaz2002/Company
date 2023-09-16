@@ -50,33 +50,28 @@ function Resetpassword() {
 
    
   return (
-    <section className="reset-password">
-    <div className="reset-password-container">
-      <div className="reset-password-container-content">
-          <h2 className="center reset-password-container-header2">RESET PASSWORD</h2>
-          <p className="center reset-password-container-par">ENTER A NEW PASSWORD.</p>
-          <form onSubmit={handlereset}>
-          <div className="flexSb password">
-            <input type={showPassword ? "text" : "password"} 
-             name="password" placeholder="Enter password"
-              id="password" value={password}
-                onChange={(e) => setPassword(e.target.value)} />
-                 <FontAwesomeIcon
-               icon={showPassword ? faEyeSlash : faEye} 
-               className="fa-eye"
-               onClick={togglePasswordVisibility}
-            />
-            </div>
-            {passwordError && (
+    <>
+    <div className="zidyiaresetpass-parent">
+      <div className="zidyiaresetpass-contentandform">
+      <h2 className="zidyiaresetpass-header">Reset Password</h2>
+         <p className="zidyiaresetpass-paragone">PLEASE ENTER A NEW PASSWORD</p>   
+       <form className="zidyiaresetpass-frogotform" onSubmit={handlereset}>
+                
+       <input
+           type="password"
+           className="zidyiaresetpass-input" 
+           name="password" placeholder="Enter password"
+           id="password" value={password}
+            onChange={(e) => setPassword(e.target.value)} />
+         {passwordError && (
                         <span className="error-message">{passwordError}</span>
                       )}
-            <div className="centering">
-              <button type="submit" className="reset-password-btn">Update</button>
-            </div>
-          </form>
-        </div>
+        <button type="submit" className="zidyiaresetpass">Send</button>
+         
+       </form>
       </div>
-    </section>
+    </div>
+    </>
   );
 }
 

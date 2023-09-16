@@ -37,9 +37,9 @@ function Sidebar({openSidebarToggle, OpenSidebar}) {
                 </NavLink>
             </li>
             <li className='sidebar-list-item'>
-                <a href="">
+                <NavLink to="/admin/UploadedCertificate">
                     <BsFileEarmarkCheck className='icon'/> Uploaded Certificate
-                </a>
+                </NavLink>
             </li>
             <li className='sidebar-list-item'>
                 <a href="">

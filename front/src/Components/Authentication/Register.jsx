@@ -155,10 +155,13 @@ function Register() {
                 value={firstname}
                 onChange={(e) => setrFirstname(e.target.value)}
               />
+              <div className="flexdirect">
               {nameError && (
-                <span className="error-password-message">{nameError}</span>
+                <span className="error-firstname-notify">{nameError}</span>
               )}
               <label className="registerlabel">Last Name <span className="star">*</span></label>
+              </div>
+              
               <input
                 type="text"
                 name="lastname"
@@ -167,12 +170,14 @@ function Register() {
                 className="left"
                 value={lastname}
                 onChange={(e) => setLastname(e.target.value)}
-              />              
+              />    
+              <div className="flexdirect">       
               {lastNameError && (
-                <span className="error-password-message">{lastNameError}</span>
+                <span className="error-lastname-notify">{lastNameError}</span>
               )}
           
           <label className="registerlabel">Student ID <span className="star">*</span></label>
+          </div>   
               <input
                 type="file"
                 name="ID"
@@ -182,14 +187,14 @@ function Register() {
                 onChange={(e) => setID(e.target.files[0])}
                 />
 
-            
-            
+          <div className="flexdirect">  
               {IDError && (
-                <span className="error-password-message">{IDError}</span>
+                <span className="error-studentid-notify">{IDError}</span>
               )}
               
          
               <label className="registerlabel">Email <span className="star">*</span></label>
+              </div>
             <input
               type="text"
               name="email"
@@ -198,10 +203,12 @@ function Register() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               />
+                <div className="flexdirect">  
             {emailError && (
-              <span className="error-password-message">{emailError}</span>
+              <span className="error-email-notify">{emailError}</span>
             )}
               <label className="registerlabel">Password <span className="star">*</span></label>
+              </div>
             <div className=" password">
             <input
               type={showPassword ? "text" : "password"} 
@@ -217,11 +224,12 @@ function Register() {
                onClick={togglePasswordVisibility}
             />
             </div>
-           
+            <div className="flexdirect">  
             {passwordError && (
-              <span className="error-password-message">{passwordError}</span>
+              <span className="error-password-notify">{passwordError}</span>
             )}
               <label className="registerlabel">Confirm Password <span className="star">*</span></label>
+              </div>
           <div className=" password">
           <input
                   type={showConfirmPassword ? "text" : "password"} 
@@ -239,7 +247,7 @@ function Register() {
           </div>
            
             {confirmPasswordError && (
-              <span className="error-confirmpassword-message">
+              <span className="error-confirmpassword-notify">
                 {confirmPasswordError}
               </span>
             )}

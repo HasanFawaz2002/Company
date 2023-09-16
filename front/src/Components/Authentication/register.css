@@ -59,10 +59,7 @@
     position: relative;
 bottom: 10px;
 }
-.error-email-message,.error-password-message,.error-confirmpassword-message{
-    color:red;
-}
-    
+   
 .register-content > p{
 
 font-size: 15px;
@@ -128,6 +125,16 @@ bottom: 5px;
 
 .star{
     color:#5DD3B3;
+}
+.flexdirect{
+    display: flex;
+    flex-direction: column;
+}
+.error-firstname-notify,.error-lastname-notify,.error-studentid-notify,.error-email-notify,.error-password-notify,.error-confirmpassword-notify{
+    color:red;
+    font-size: 15px;
+    position: relative;
+    bottom: 7px;
 }
 
 @media (max-width:1130px) {
