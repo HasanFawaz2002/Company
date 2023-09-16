@@ -1,6 +1,7 @@
 .requested-certificate-container{
     grid-area: main;
     overflow-y: auto;
+    overflow-x: hidden;
     padding: 20px 20px;
     position: relative;
     display: flex;
@@ -18,7 +19,7 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    width: 350px;
+    width: 390px;
     max-width: 100%;
     height: 300px;
     background: white;
@@ -28,7 +29,7 @@
 }
 
 .requested-certificate-container .requested-ceritificate-card:hover {
-    height: 400px;
+    height: 350px;
 }
 
 .requested-certificate-container .requested-ceritificate-card .img-box {
@@ -48,6 +49,13 @@
     top: -25px;
     scale: 0.75;
     box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+}
+
+.loading{
+    grid-area: main;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .requested-certificate-container .requested-ceritificate-card .img-box img {
@@ -75,9 +83,8 @@
     height: 250px;
 }
 
-.requested-certificate-container .requested-ceritificate-card .content h2 {
-    font-size: 1.5rem;
-    font-weight: 700;
+.requested-certificate-container .requested-ceritificate-card .content h3 {
+    
     font-family: 'Core-Bold';
 }
 
@@ -124,6 +131,16 @@
     margin-left: 10px;
 }
 
+.blue-text{
+    color: blue;
+}
+.red-text{
+    color: red;
+}
+.green-text{
+    color: green;
+}
+
 .second-button:hover{
     color: red !important;
     background-color: transparent !important;
@@ -132,12 +149,12 @@
 
 @media (max-width: 480px) {
     .requested-certificate-container .requested-ceritificate-card {
-        width: 230px;
+        width: 350px;
         border-radius: 15px;
     }
 
     .requested-certificate-container .requested-ceritificate-card .img-box {
-        width: 185px;
+        width: 250px;
         border-radius: 10px;
     }
 
@@ -147,13 +164,12 @@
 
     .requested-certificate-container .requested-ceritificate-card .content button {
         font-size: 0.9rem;
-        margin: 0;
     }
     .first-button{
         margin-bottom: 20px !important;
     }
     .requested-certificate-container .requested-ceritificate-card:hover {
-        height: 470px;
+        height: 380px;
     }
     .requested-certificate-container .requested-ceritificate-card:hover .content{
         height: 500px;

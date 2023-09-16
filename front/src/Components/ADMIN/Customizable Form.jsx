@@ -14,6 +14,7 @@ const CustomizableForm = () => {
     const token = localStorage.getItem('access_token');
     const role = localStorage.getItem('role');
     const userId = localStorage.getItem('userId');
+    const [isLoading, setIsLoading] = useState(true); // State for loading
 
     const navigate = useNavigate();
 
@@ -30,6 +31,8 @@ const CustomizableForm = () => {
               // Set the fetched form data in state
               setFetchedFormData(response.data);
               setIsFormDataFetched(true); // Set the flag to true when data is fetched
+              setIsLoading(false); // Error occurred, set isLoading to false
+
               console.log(response.data);
             } else {
               console.error('Error fetching form data');

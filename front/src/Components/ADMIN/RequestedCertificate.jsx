@@ -1,90 +1,101 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import './RequestedCertificate.css';
-import image from '../../images/image1.png'
+import image from '../../images/image1.png';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { CirclesWithBar } from 'react-loader-spinner';
 
-function RequestedCertificate() {
+
+function RequestedCertificate(props) { 
+  const [certificateRequests, setCertificateRequests] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); 
+
+  const token = localStorage.getItem('access_token');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const status = props.selectedStatus; // Use props.selectedStatus to get the selected status
+
+    axios
+      .get(`http://localhost:3001/getCertificateRequestsByStatusAndInstitution/${status}`, {
+        headers: {
+          token: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setCertificateRequests(response.data);
+        setIsLoading(false); 
+
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 403) {
+          console.log('Token is not valid!');
+          navigate('/Institutionlogin');
+        } else {
+          console.error('Error Fetching Data:', error);
+        }
+      });
+  }, [props.selectedStatus]); 
+
+  if (isLoading) {
+    return <div className='loading'><CirclesWithBar
+    height="100"
+    width="100"
+    color="rgb(70, 241, 207)"
+    wrapperStyle={{}}
+    wrapperClass=""
+    visible={true}
+    outerCircleColor=""
+    innerCircleColor=""
+    barColor=""
+    ariaLabel='circles-with-bar-loading'
+    /></div>;
+  }
+
   return (
     <>
-    <div className='requested-certificate-container'>
-        <div class="requested-ceritificate-card" >
-                <div className="img-box">
-                    <img src={image}/>
-                </div>
-                <div class="content">
-                    <h2>Certificate name</h2>
-                    <div className="list">
-                    
-                    <li>
-                        <strong>_Requested By:</strong> Hasan
-                    </li>
-                    <li>
-                       <strong>_Student email:</strong> hasan.f2002@gmail.com
-                    </li>
-                    <li>
-                       <strong>_Status:</strong><span>Accepted</span>
-                    </li>
-                    </div>
-                    
-                    <button className='first-button'>Read More</button>
-                    <button className='second-button'>Read More</button>
-                </div>
+      <div className="requested-certificate-container">
+        {certificateRequests.map((item, index) => (
+          <div class="requested-ceritificate-card" key={index}>
+            <div className="img-box">
+              <img src={`http://localhost:3001/getCertificatePhoto/${item.certificateID._id}/photo`} alt={`${item.certificateID.id}`} />
             </div>
-            <div class="requested-ceritificate-card" >
-                <div className="img-box">
-                    <img src={image}/>
-                </div>
-                <div class="content">
-                    <h2>Certificate name</h2>
-                    <div className="list">
-                    
-                    <li>
-                        <strong>_Requested By:</strong> Hasan
-                    </li>
-                    <li>
-                       <strong>_Student email:</strong> hasan.f2002@gmail.com
-                    </li>
-                    <li>
-                       <strong>_Status:</strong><span>Accepted</span>
-                    </li>
-                    </div>
-                    
-                    <button className='first-button'>Read More</button>
-                    <button className='second-button'>Read More</button>
-                </div>
+            <div class="content">
+              <h3>{item.certificateID.name}</h3>
+              <div className="list">
+                <li>
+                  <strong>_Requested By:</strong> {item.studentID.username}
+                </li>
+                <li>
+                  <strong>_Student email:</strong> {item.studentID.email}
+                </li>
+                <li>
+                  <strong>_Status:</strong>
+                  <span className={getStatusColorClass(item.status)}>{item.status}</span>
+                </li>
+              </div>
+              <button className="first-button">Approve</button>
+              <button className="second-button">Reject</button>
             </div>
-            <div class="requested-ceritificate-card" >
-                <div className="img-box">
-                    <img src={image}/>
-                </div>
-                <div class="content">
-                    <h2>Certificate name</h2>
-                    <div className="list">
-                    
-                    <li>
-                        <strong>_Requested By:</strong> Hasan
-                    </li>
-                    <li>
-                       <strong>_Student email:</strong> hasan.f2002@gmail.com
-                    </li>
-                    <li>
-                       <strong>_Status:</strong><span>Accepted</span>
-                    </li>
-                    </div>
-                    
-                    <button className='first-button'>Read More</button>
-                    <button className='second-button'>Read More</button>
-                </div>
-            </div>
-            
-           
-            
-           
-            
-            
-            
-    </div>
+          </div>
+        ))}
+      </div>
     </>
-  )
+  );
+
+  // Function to get the appropriate class for the status
+  function getStatusColorClass(status) {
+    switch (status) {
+      case 'Pending':
+        return 'blue-text';
+      case 'Rejected':
+        return 'red-text';
+      case 'Approved':
+        return 'green-text';
+      default:
+        return '';
+    }
+  }
 }
 
-export default RequestedCertificate
+export default RequestedCertificate;

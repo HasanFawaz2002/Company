@@ -40,7 +40,6 @@ const createCertificateRequest = async (req, res) => {
       institutionID,
       formID,
       certificateID,
-      status: 'pending', // You can set the default status here
     });
 
     // Save the certificate request
