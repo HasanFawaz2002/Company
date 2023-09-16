@@ -60,7 +60,7 @@ const CertificateRequestSchema = new mongoose.Schema({
     type:String,
    }
 
-});
+},{ timestamps: true });
 
 const CertificateRequest = mongoose.model('CertificateRequest', CertificateRequestSchema);
 

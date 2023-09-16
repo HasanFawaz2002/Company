@@ -7,6 +7,7 @@ import Sidebar from "./Sidebar";
 import './AdminHome.css';
 import CreateCerticate from './CreateCertificate';
 import CustomizableForm from './Customizable Form';
+import RequestedCertificate from "./RequestedCertificate";
 const AdminDashboard = () => {
 
 
@@ -36,6 +37,7 @@ const AdminDashboard = () => {
         <Route path="/" element={<AdminHome />} />
         <Route path="/createcertificate" element={<CreateCerticate />} />
         <Route path="/CustomizableForm" element={<CustomizableForm />}></Route>
+        <Route path="/RequestedCertificate" element={<RequestedCertificate />}></Route>
         {/* Define more routes for admin components here */}
       </Routes>
     </div>
