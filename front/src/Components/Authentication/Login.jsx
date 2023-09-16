@@ -159,7 +159,10 @@ function LogintoZidyia(){
                </div>
              
                  <button className="Signinbutton">Sign In</button>
-            
+              
+                 {loginError && (
+              <span className="error-image-message">{loginError}</span>
+            )}
               
                
                </form>
