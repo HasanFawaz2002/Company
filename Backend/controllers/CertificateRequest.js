@@ -112,7 +112,7 @@ const createCertificateRequest = async (req, res) => {
       // Find the certificate request by ID, institution ID, and update its status
       const updatedRequest = await CertificateRequest.findOneAndUpdate(
         { _id: requestID, institutionID },
-        { status: 'verified' },
+        { status: 'Approved' },
         { new: true } // To get the updated document
       );
   
@@ -131,11 +131,12 @@ const createCertificateRequest = async (req, res) => {
     try {
       const { requestID } = req.params;
       const institutionID = req.user.institution.id;
+      const {  reason } = req.body;
   
       // Find the certificate request by ID, institution ID, and update its status
       const updatedRequest = await CertificateRequest.findOneAndUpdate(
         { _id: requestID, institutionID },
-        { status: 'rejected' },
+        { status: 'Rejected',reason },
         { new: true } // To get the updated document
       );
   
@@ -150,62 +151,49 @@ const createCertificateRequest = async (req, res) => {
     }
   };
   
-  const getPendingCertificateRequestsCount = async (req, res) => {
+  const getCertificateRequestsCount = asyncHandler(async (req, res) => {
     try {
-      const institutionID = req.user.institution.id;
+      // Extract the institution ID from the JWT token
+      const institutionIDFromToken = req.user.institution.id;
   
-      // Count the number of certificate requests with a "pending" status for the institution
-      const pendingCount = await CertificateRequest.countDocuments({ institutionID, status: 'pending' });
+      // Define valid status values (you can customize this)
+      const validStatusValues = ['Pending', 'Approved', 'Rejected'];
   
-      res.status(200).json({ pendingCount });
+      // Count requests with different status values for the institution
+      const counts = {};
+  
+      for (const status of validStatusValues) {
+        counts[status] = await CertificateRequest.countDocuments({
+          institutionID: institutionIDFromToken,
+          status: status,
+        });
+      }
+  
+      // Count all requests for the institution
+      const totalCount = await CertificateRequest.countDocuments({
+        institutionID: institutionIDFromToken,
+      });
+  
+      // Construct the response object
+      const response = {
+        message: "Certificate requests retrieved successfully",
+        requestCounts: {
+          ...counts,
+          totalRequests: totalCount,
+        },
+      };
+  
+      res.status(200).json(response);
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Internal server error' });
+      console.error("Error retrieving certificate requests:", error);
+      res.status(500).json({
+        message: "Error retrieving certificate requests",
+        error: error.message,
+      });
     }
-  };
-
-  const getVerifiedCertificateRequestsCount = async (req, res) => {
-    try {
-      const institutionID = req.user.institution.id;
+  });
   
-      // Count the number of certificate requests with a "verified" status for the institution
-      const verifiedCount = await CertificateRequest.countDocuments({ institutionID, status: 'verified' });
   
-      res.status(200).json({ verifiedCount });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Internal server error' });
-    }
-  };
-
-  const getRejectedCertificateRequestsCount = async (req, res) => {
-    try {
-      const institutionID = req.user.institution.id;
-  
-      // Count the number of certificate requests with a "rejected" status for the institution
-      const rejectedCount = await CertificateRequest.countDocuments({institutionID, status: 'rejected' });
-  
-      res.status(200).json({ rejectedCount });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Internal server error' });
-    }
-  };
- 
-  //the number of certificate for every institution
-  const getCertificateCount = async (req, res) => {
-    try {
-      const institutionID = req.user.institution.id;
-  
-      // Count the number of certificate requests with a "rejected" status for the institution
-      const Countofcertificate = await CertificateModel.countDocuments({ institutionID });
-  
-      res.status(200).json({ Countofcertificate });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Internal server error' });
-    }
-  };
   
   //For SuperAdmin--------
   const getAllPendingCertificateRequestsCount = async (req, res) => {
@@ -282,8 +270,7 @@ const createCertificateRequest = async (req, res) => {
     createCertificateRequest,getCertificateRequestsByUser,
     deleteCertificateRequest,getCertificateRequestsByInstitution,
     updateCertificateStatusToVerified,updateCertificateStatusToRejected,
-    getPendingCertificateRequestsCount,getVerifiedCertificateRequestsCount,
-    getRejectedCertificateRequestsCount,getCertificateCount,getAllPendingCertificateRequestsCount,getAllVerifiedCertificateRequestsCount,
+    getCertificateRequestsCount,getAllPendingCertificateRequestsCount,getAllVerifiedCertificateRequestsCount,
     getAllRejectedCertificateRequestsCount,getAllCertificateCount
 };
 

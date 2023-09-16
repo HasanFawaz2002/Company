@@ -9,7 +9,7 @@ const formFieldSchema = new mongoose.Schema({
   fieldType: {
     type: String,
     required: true,
-    enum: ['text', 'number', 'email', 'password','radio'],
+    enum: ['text', 'number', 'email', 'password','file'],
   },
   isRequired: {
     type: Boolean,

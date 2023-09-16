@@ -4,7 +4,7 @@ const multer = require ('multer');
 const fs = require('fs');
 
 // Construct the full path to the uploads directory
-const uploadPath = path.join(__dirname, '..', 'server', 'uploads', 'usersImages');
+const uploadPath = path.join(__dirname, '..', 'server', 'uploads');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -131,7 +131,23 @@ const deleteCertificateById = async (req, res) => {
   }
 };
 
+const countTotalCertificates = async (req, res) => {
+  try {
+    // Extract the institutionID from the token
+    const institutionID = req.user.institution.id;
+
+    // Count the number of certificates for the institution
+    const totalCertificates = await Certificate.countDocuments({ institutionID });
+
+    res.status(200).json({ totalCertificates });
+  } catch (error) {
+    console.error('Error counting total certificates:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
 module.exports = {
+  countTotalCertificates,
   createCertificate,
   getCertificates,
   updateCertificateById,

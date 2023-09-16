@@ -4,6 +4,7 @@ import { Link,useParams } from 'react-router-dom';
 import './EmailVerify.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { Bars } from 'react-loader-spinner';
 
 function EmailVerify() {
     const [validUrl, setValidUrl] = useState(false);
@@ -36,7 +37,15 @@ function EmailVerify() {
             <h1>SUCCESS</h1>
             </>
         ): (
-            <h1>404 Not Fount</h1>
+            <Bars
+            height="250"
+            width="250"
+            color="#5DD3B3"
+            ariaLabel="bars-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={true}
+          />
         )}
         </div>
         </div>
