@@ -33,12 +33,14 @@
   /* Header  */
   .header {
     grid-area: header;
+    background-color: #2D3741;
     height: 60px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 30px 0 30px;
     box-shadow: 0 6px 7px -3px rgba(0, 0, 0, 0.35);
+    border-bottom: 2px solid white;
   }
   
   .menu-icon {
@@ -79,8 +81,8 @@
   #sidebar {
     grid-area: sidebar;
     height: 100%;
-    background-color:#263043;
-    border-right: 1px solid white;
+    background-color:#2D3741;
+    border-right: 2px solid #fff;
     overflow-y: auto;
     transition: all 0.5s;
     -webkit-transition: all 0.5s;
@@ -103,7 +105,7 @@
     font-size: 20px;
     font-weight: 700;
     font-family: 'Core-Heavy';
-    color: white;
+    color:#5DD3B3;
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
@@ -117,17 +119,23 @@
   .sidebar-list-item {
     padding: 20px 20px 20px 20px;
     font-size: 18px;
+    transition: all ease 350ms;
   }
   
   .sidebar-list-item:hover {
-    background-color:#5DD3B3;
+    background-color:white;
     cursor: pointer;
   }
+
+  .sidebar-list-item:hover  a{
+    color: #2D3741;
+  }
+
  
   
   .sidebar-list-item > a {
     text-decoration: none;
-    color: white;
+    color:#5DD3B3;
   }
   
   
@@ -154,11 +162,12 @@
     overflow-y: auto;
     padding: 20px 20px;
     color: rgba(255, 255, 255, 0.95);
+    background-color: #2D3741;
   }
   
   .main-title {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     color: #5DD3B3;
     font-size: 20px;
     font-family: "Core-Bold";
@@ -188,12 +197,11 @@
   }
   
   .card:nth-child(3) {
-    background-color: #5DD3B3;
+    background-color: white;
+    color: #2D3741;
   }
   
-  .card:nth-child(4) {
-    background-color: #5DD3B3;
-  }
+  
   
   .card-inner {
     display: flex;
@@ -215,7 +223,7 @@
   }
 
   .people-container{
-    background-color:#263043;
+    background-color:#5DD3B3;
     width: 95%;
     height: 95%;
     display: flex;
@@ -223,17 +231,24 @@
     align-items: center;
     flex-direction: column;
     border-radius: 5px;
+    border: 2px white dashed;
   }
   .people-container-profile{
     width: 95%;
     height: 28%;
     border-radius: 5px;
-    background-color:#5DD3B3;
+    background-color:rgba(255, 255, 255, 0.25);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
     margin: 5px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 5px;
+    transition: all ease 300ms;
+  }
+  .people-container-profile:hover{
+    transform: scale(1.02) translateX(5px);
+
   }
   .people-container-profile-img{
     height: 90%;

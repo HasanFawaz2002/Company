@@ -15,6 +15,8 @@ function RequestedCertificate(props) {
   const [rejectReasonRequired, setRejectReasonRequired] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [selectedCertificateId, setSelectedCertificateId] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [imageModalOpen, setImageModalOpen] = useState(false);
   const api= "http://localhost:3001";
 
 
@@ -104,6 +106,15 @@ function RequestedCertificate(props) {
     }
   };
 
+  const handleImageClick = (imageUrl) => {
+    setSelectedImage(imageUrl);
+    setImageModalOpen(true);
+  };
+
+  const closeImageModal = () => {
+    setImageModalOpen(false);
+  };
+
   if (isLoading) {
     return (
       <div className='loading'>
@@ -130,11 +141,11 @@ function RequestedCertificate(props) {
       ) : (
         <div className="requested-certificate-container">
           {certificateRequests.map((item, index) => (
-            <div class="requested-ceritificate-card" key={index}>
-              <div className="img-box">
+            <div className="requested-ceritificate-card" key={index}>
+              <div className="img-box" onClick={() => handleImageClick(`${api}/getCertificatePhoto/${item.certificateID._id}/photo`)}>
                 <img src={`http://localhost:3001/getCertificatePhoto/${item.certificateID._id}/photo`} alt={`${item.certificateID.id}`} />
               </div>
-              <div class="content">
+              <div className="content">
                 <h3>{item.certificateID.name}</h3>
                 <div className="list">
                   <li>
@@ -165,6 +176,15 @@ function RequestedCertificate(props) {
           ))}
         </div>
       )}
+
+{imageModalOpen && (
+  <div className="image-modal">
+    <span className="close-image-modal" onClick={closeImageModal}>
+      x
+    </span>
+    <img src={selectedImage} alt="Certificate" className="modal-image" />
+  </div>
+)}
 
 {firstshowModal && (
         <div className="modal">
