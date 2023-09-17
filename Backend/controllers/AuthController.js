@@ -39,7 +39,7 @@ const getUserPhoto = async (req, res) => {
   try {
     const userUpload = await User.findById(req.params.userUploadID);
     if (!userUpload) {
-      return res.status(404).json({ error: 'certificateUpload not found.' });
+      return res.status(404).json({ error: 'user not found.' });
     }
 
     // Use the imagePath directly as it should be a relative path
@@ -57,7 +57,7 @@ const getUserPhoto = async (req, res) => {
     res.sendFile(absoluteImagePath);
   } catch (err) {
     // Log the error including the error message and stack trace
-    console.error('Error retrieving certificateUpload photo:', err);
+    console.error('Error retrieving user photo:', err);
 
     // Respond with a more detailed error message
     res.status(500).json({ error: 'Internal Server Error', errorMessage: err.message });

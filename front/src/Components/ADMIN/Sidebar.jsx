@@ -6,16 +6,26 @@ import {
   BsFileEarmarkPlusFill,
   BsFileEarmarkText,
   BsFileEarmarkCheck,
-  BsPersonFill ,
-  BsFillGearFill,
+  BsBoxArrowLeft,
 } from 'react-icons/bs';
 import logo from '../../images/logo.png';
+import { useNavigate } from 'react-router-dom';
 
 function Sidebar({ openSidebarToggle, OpenSidebar }) {
+  const navigate = useNavigate();
   const closeSidebar = () => {
     if (openSidebarToggle) {
       OpenSidebar();
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('role');
+
+    navigate('/');
+
   };
 
   return (
@@ -54,9 +64,9 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
           </NavLink>
         </li>
         
-        <li className='sidebar-list-item'>
+        <li className='sidebar-list-item' onClick={handleLogout}>
           <a href="" onClick={closeSidebar}>
-            <BsFillGearFill className='icon' /> Setting
+            <BsBoxArrowLeft className='icon' /> Logout
           </a>
         </li>
       </ul>

@@ -155,6 +155,14 @@
     outline: none;
     border-radius: 5px;
   }
+  .new-password-input{
+    width: 50%;
+    outline: none;
+    border-radius: 5px;
+    height: 50px;
+    padding-left: 20px;
+    font-size: large;
+  }
   
   /* Add a color to the cancel button */
   .cancelbtn {

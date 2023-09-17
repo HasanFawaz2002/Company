@@ -43,7 +43,7 @@ const AdminDashboard = () => {
           path="/RequestedCertificate"
           element={<RequestedCertificate selectedStatus={selectedStatus} />} 
         />
-        <Route path="/UploadedCertificate" element={<UploadedCertificate />} />
+        <Route path="/UploadedCertificate" element={<UploadedCertificate selectedStatus={selectedStatus} />} />
         {/* Define more routes for admin components here */}
       </Routes>
     </div>

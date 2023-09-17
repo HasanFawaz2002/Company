@@ -1,13 +1,13 @@
 import React,{useState,useEffect} from 'react'
 import 
-{ BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill}
+{ BsFillArchiveFill, BsFillGrid3X3GapFill, BsPersonFill, BsFillBellFill}
  from 'react-icons/bs'
  import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
  import { useNavigate } from 'react-router-dom';
  import axios from 'axios';
  import { CirclesWithBar } from 'react-loader-spinner';
  import {motion} from 'framer-motion';
-
+import defaultImage from '../../images/download.png'
 
 
 
@@ -17,9 +17,50 @@ const Home = () => {
     const [certificateData, setCertificateData] = useState([]);
     const [certificateData2, setCertificateData2] = useState([]);
     const [certificateData3, setCertificateData3] = useState(0);
+    const [certificateRequests, setCertificateRequests] = useState([]);
+    const [showModal, setShowModal] = useState(false);
+
+    const [newPassword, setNewPassword] = useState('');
+  const [newPasswordRequired, setNewPasswordRequired] = useState(false);
+
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  // Function to close the modal
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
     const navigate = useNavigate();
 
     const [institutionData, setInstitutionData] = useState('');
+
+    const handleNavigate = () => {
+      navigate('/admin/requestedCertificate')
+    }
+
+    useEffect(() => {
+  
+      axios
+        .get(`http://localhost:3001/getLatestCertificateRequestsByStatusAndInstitution/All`, {
+          headers: {
+            token: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          setCertificateRequests(response.data);
+          console.log(response.data);
+        })
+        .catch((error) => {
+          if (error.response && error.response.status === 403) {
+            console.log('Token is not valid!');
+            navigate('/Institutionlogin');
+          } else {
+            console.error('Error Fetching Data:', error);
+          }
+        });
+    }, []);
 
 
   useEffect(() => {
@@ -33,6 +74,9 @@ const Home = () => {
       .then(response => {
         setInstitutionData(response.data.institution);
         console.log(response.data.institution);
+        if (!response.data.institution.notified) {
+          openModal(); // Open the modal when notified is false
+        }
       })
       .catch(error => {
         console.error('Error fetching institution data:', error);
@@ -134,6 +178,28 @@ const Home = () => {
     
       fetchData();
     }, []);
+
+    const updatePassword = async ( newPassword) => {
+      try {
+        // Make a PUT request to update the certificate status with a reason
+        const response = await axios.put(
+          `http://localhost:3001/updateInstitutionPasswordById`,
+          { newPassword }, 
+          {
+            headers: {
+              token: `Bearer ${token}`,
+            },
+        }
+        );
+    
+        if (response.status === 200) {
+          closeModal();
+        }
+      } catch (error) {
+        console.error('Error Updatine Password:', error);
+        // Handle the error (e.g., show an error message to the user)
+      }
+    };
     
 
 
@@ -224,7 +290,7 @@ const Home = () => {
             transition={{duration:0.5,delay:0.8}}
             >
             <div className='card-inner'>
-                <h3>Profile</h3>
+                <h3> <BsPersonFill style={{marginRight:5}}/>Profile</h3>
                 <h2 className='card-icon'>{institutionData.name}</h2>
             </div>
             <div className="card-inner">
@@ -262,10 +328,81 @@ const Home = () => {
               <Bar dataKey="total" fill="#b3d450" />
             </BarChart>
           )}
-            
-          
         </ResponsiveContainer>
+
+        <motion.div className="people-container" 
+        variants={{
+          hidden:{opacity: 0,x: 75},
+          visible:{opacity: 1,x: 0},
+        }}
+        initial="hidden"
+        animate="visible"
+        transition={{duration:0.5,delay:1}}
+        >
+          {certificateRequests.length === 0 ? (
+            <h1>No Requests</h1>
+          ): (
+            <>
+             {certificateRequests.map((item, index) => (
+              <div key={index} className="people-container-profile">
+          
+          <div className='people-container-profile-img'>
+          {item.studentID.profilePicture ? (
+            <img src={`http://localhost:3001/getUserPhoto/${item.studentID._id}/photo`} alt="" />
+          ) : (
+            <img src={defaultImage} alt="Default Profile" />
+          )}          </div>
+          <div className='people-container-profile-content'>
+            <h2>{item.studentID.username}</h2>
+            <h2>{item.studentID.email}</h2>
+          </div>
+          <div className='people-container-profile-requested'>
+            <button onClick={handleNavigate}>View</button>
+          </div>
+        </div>
+             ))}
+          
+        </>
+          )}
+        
+        
+
+
+        </motion.div>
       </div>
+
+
+      {showModal && (
+        <div className="modal">
+          
+          <form className="modal-content">
+            <div className="container">
+              <h1 style={{color:'black'}}> Create New Password</h1>
+              
+              <input placeholder='newPassword' className='new-password-input'  value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}/>
+{newPasswordRequired && (
+  <div className="error-message">The New Password is required.</div>
+)}
+              <div className="clearfix">
+                
+                <button type="button" className="deletebtn"  onClick={() => {
+              if (newPassword) {
+                updatePassword(newPassword);
+              }else {
+                // Show the "reason is required" message
+                setNewPasswordRequired(true);
+              }
+             
+            }}>
+                  Submit
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      )}
+
 
     </main>
   )

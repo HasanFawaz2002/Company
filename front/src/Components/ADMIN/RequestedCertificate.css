@@ -122,7 +122,9 @@
     justify-content: center;
     align-items: center;
     font-family: 'Core-Bold';
-    font-size: x-large;
+    font-size: xx-large;
+    background-color: #2D3741;
+    color: white;
 }
 
 .first-button{

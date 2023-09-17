@@ -3,7 +3,7 @@ import axios from "axios"
 import './UploadedCertificate.css'
 import image from "../../images/image1.png"
 
-function UploadedCertificate() {
+function UploadedCertificate(props) {
   const [certificates, setCertificates] = useState([]);
   const [firstshowModal, firstsetShowModal] = useState(false);
   const [rejectReason, setRejectReason] = useState('');
@@ -15,9 +15,11 @@ function UploadedCertificate() {
   const token = localStorage.getItem('access_token');
 
   useEffect(() => {
+    const status = props.selectedStatus;
+
     const fetchCertificates = async () => {
       try {
-        const response = await axios.get(`${api}/getUploadRequestsByStatusAndInstitution/All`,
+        const response = await axios.get(`${api}/getUploadRequestsByStatusAndInstitution/${status}`,
         {
           headers: {
             token: `Bearer ${token}`,
@@ -31,7 +33,7 @@ function UploadedCertificate() {
     };
 
     fetchCertificates();
-  }, []); // Empty dependency array to run the effect only once
+  }, [props.selectedStatus]); // Empty dependency array to run the effect only once
 
   const openModal = () => {
     setShowModal(true);
@@ -123,11 +125,15 @@ function UploadedCertificate() {
                 <button className={`uploaded-first-button ${certificate.status === 'Approved' || certificate.status === 'Rejected' ? 'disabled' : ''}`}  onClick={() => {
     setSelectedCertificateId(certificate._id);
     firstopenModal();
-  }}>Accept</button>
+  }}
+  disabled={certificate.status === 'Approved' || certificate.status === 'Rejected'}
+  >Accept</button>
                 <button className={`uploaded-second-button ${certificate.status === 'Approved' || certificate.status === 'Rejected' ? 'disabled' : ''}`} onClick={() => {
     setSelectedCertificateId(certificate._id);
     openModal();
-  }}>Reject</button>
+  }}
+  disabled={certificate.status === 'Approved' || certificate.status === 'Rejected'}
+  >Reject</button>
               </div>
             </div>
           ))}

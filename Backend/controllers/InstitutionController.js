@@ -203,32 +203,33 @@ const getInstitutionById = asyncHandler(async (req, res) => {
   }
 });
 
-// Update the password of an institution by ID
+// Update the password and set notified to true for an institution by ID
 const updateInstitutionPasswordById = asyncHandler(async (req, res) => {
   try {
     const institutionID = req.user.institution.id;
-    const {  newPassword } = req.body;
+    const { newPassword } = req.body;
 
     // Check if the institution with the given ID exists
     const institution = await Institution.findById(institutionID);
 
     if (!institution) {
-      return res.status(404).json({ message: "Institution not found" });
+      return res.status(404).json({ message: 'Institution not found' });
     }
-
-    
 
     // Hash the new password
     const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-    // Update the institution's password in the database
+    // Update the institution's password and set notified to true in the database
     institution.password = hashedPassword;
+    institution.notified = true;
+    
+    // Save the updated institution document
     await institution.save();
 
-    res.status(200).json({ message: "Password updated successfully" });
+    res.status(200).json({ message: 'Password updated successfully', institution });
   } catch (error) {
-    console.error("Error updating password:", error);
-    res.status(500).json({ message: "Error updating password", error: error.message });
+    console.error('Error updating password:', error);
+    res.status(500).json({ message: 'Error updating password', error: error.message });
   }
 });
 
