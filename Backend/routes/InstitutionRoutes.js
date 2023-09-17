@@ -1,5 +1,7 @@
 const {Router} = require('express');
-const {createInstitution,loginInstitution,deleteInstitutionById,updateInstitutionById,getAllInstitutions} = require('../controllers/InstitutionController');
+const {createInstitution,loginInstitution,deleteInstitutionById,updateInstitutionById,getAllInstitutions,getInstitutionById,
+    updateInstitutionPasswordById
+} = require('../controllers/InstitutionController');
 const verify = require('../Controllers/verifytoken');
 
 
@@ -12,5 +14,6 @@ router.post('/loginInstitution', loginInstitution);
 router.delete('/deleteInstitution/:institutionID', deleteInstitutionById);
 router.put('/updateInstitution/:institutionID', updateInstitutionById);
 router.get('/getAllInstitutions',getAllInstitutions)
-
+router.get('/getInstitution',verify,getInstitutionById)
+router.put('/updateInstitutionPasswordById',verify,updateInstitutionPasswordById);
 module.exports = router;

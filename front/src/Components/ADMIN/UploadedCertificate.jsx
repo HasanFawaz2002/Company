@@ -120,11 +120,11 @@ function UploadedCertificate() {
                     <strong>Status:</strong> <span className={`status-${certificate.status}`}>{certificate.status}</span>
                   </li>
                 </div>
-                <button className='uploaded-first-button'  onClick={() => {
+                <button className={`uploaded-first-button ${certificate.status === 'Approved' || certificate.status === 'Rejected' ? 'disabled' : ''}`}  onClick={() => {
     setSelectedCertificateId(certificate._id);
     firstopenModal();
   }}>Accept</button>
-                <button className='uploaded-second-button' onClick={() => {
+                <button className={`uploaded-second-button ${certificate.status === 'Approved' || certificate.status === 'Rejected' ? 'disabled' : ''}`} onClick={() => {
     setSelectedCertificateId(certificate._id);
     openModal();
   }}>Reject</button>

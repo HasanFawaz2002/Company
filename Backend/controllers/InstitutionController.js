@@ -184,9 +184,56 @@ const getAllInstitutions = asyncHandler(async (req, res) => {
   }
 });
 
+// Get an institution by ID
+const getInstitutionById = asyncHandler(async (req, res) => {
+  try {
+    const institutionID = req.user.institution.id;
+
+    // Check if the institution with the given ID exists
+    const institution = await Institution.findById(institutionID);
+
+    if (!institution) {
+      return res.status(404).json({ message: "Institution not found" });
+    }
+
+    res.status(200).json({ message: "Institution retrieved successfully", institution });
+  } catch (error) {
+    console.error("Error retrieving institution:", error);
+    res.status(500).json({ message: "Error retrieving institution", error: error.message });
+  }
+});
+
+// Update the password of an institution by ID
+const updateInstitutionPasswordById = asyncHandler(async (req, res) => {
+  try {
+    const institutionID = req.user.institution.id;
+    const {  newPassword } = req.body;
+
+    // Check if the institution with the given ID exists
+    const institution = await Institution.findById(institutionID);
+
+    if (!institution) {
+      return res.status(404).json({ message: "Institution not found" });
+    }
+
+    
+
+    // Hash the new password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    // Update the institution's password in the database
+    institution.password = hashedPassword;
+    await institution.save();
+
+    res.status(200).json({ message: "Password updated successfully" });
+  } catch (error) {
+    console.error("Error updating password:", error);
+    res.status(500).json({ message: "Error updating password", error: error.message });
+  }
+});
 
 
 
 module.exports = {
-    createInstitution,loginInstitution,deleteInstitutionById,updateInstitutionById,getAllInstitutions
+    createInstitution,loginInstitution,deleteInstitutionById,updateInstitutionById,getAllInstitutions,getInstitutionById,updateInstitutionPasswordById
 };

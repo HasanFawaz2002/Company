@@ -6,7 +6,7 @@ import {
   BsFileEarmarkPlusFill,
   BsFileEarmarkText,
   BsFileEarmarkCheck,
-  BsMenuButtonWideFill,
+  BsPersonFill ,
   BsFillGearFill,
 } from 'react-icons/bs';
 import logo from '../../images/logo.png';
@@ -53,11 +53,7 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
             <BsFileEarmarkCheck className='icon' /> Uploaded Certificate
           </NavLink>
         </li>
-        <li className='sidebar-list-item'>
-          <a href="" onClick={closeSidebar}>
-            <BsMenuButtonWideFill className='icon' /> Reports
-          </a>
-        </li>
+        
         <li className='sidebar-list-item'>
           <a href="" onClick={closeSidebar}>
             <BsFillGearFill className='icon' /> Setting

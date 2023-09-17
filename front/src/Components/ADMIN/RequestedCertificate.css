@@ -9,6 +9,7 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 20px;
+    background-color: #2D3741;
 }
 
 
@@ -56,6 +57,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #2D3741;
 }
 
 .requested-certificate-container .requested-ceritificate-card .img-box img {
@@ -138,6 +140,10 @@
     background-color: red !important;
     margin-left: 10px;
 }
+.disabled {
+    opacity: 0.5; 
+    cursor: not-allowed !important;
+  }
 
 .blue-text{
     color: blue;

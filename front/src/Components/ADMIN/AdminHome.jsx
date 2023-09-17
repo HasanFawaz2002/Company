@@ -19,6 +19,26 @@ const Home = () => {
     const [certificateData3, setCertificateData3] = useState(0);
     const navigate = useNavigate();
 
+    const [institutionData, setInstitutionData] = useState('');
+
+
+  useEffect(() => {
+    const config = {
+      headers: {
+        token: `Bearer ${token}`,
+      },
+    };
+
+    axios.get('http://localhost:3001/getInstitution', config)
+      .then(response => {
+        setInstitutionData(response.data.institution);
+        console.log(response.data.institution);
+      })
+      .catch(error => {
+        console.error('Error fetching institution data:', error);
+      });
+  }, []);
+
     const [isLoadingData, setIsLoadingData] = useState(true); // Separate loading state for data
   
     // Function to fetch certificate uploads count for intitution from the server
@@ -204,10 +224,13 @@ const Home = () => {
             transition={{duration:0.5,delay:0.8}}
             >
             <div className='card-inner'>
-                <h3>Alerts</h3>
-                <BsFillBellFill className='card-icon'/>
+                <h3>Profile</h3>
+                <h2 className='card-icon'>{institutionData.name}</h2>
             </div>
-            <h1>300</h1>
+            <div className="card-inner">
+            <h2>{institutionData.email}</h2>
+            <h2>{institutionData.location}</h2>
+            </div>
             </motion.div>
             
         </div>
