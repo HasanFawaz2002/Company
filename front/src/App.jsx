@@ -12,6 +12,7 @@ import Resetpassword from "./Components/Authentication/Resetpassword";
 import CreateCertificate from "./Components/CreateCertificate/CreateCertificate";
 import EmailVerify from "./Components/Authentication/EmailVerify";
 import EmailSent from "./Components/Authentication/EmailSent";
+import Contactus from "./Components/Contactus/Contactus";
 
 const App = () => {
     const location = useLocation();
@@ -26,6 +27,7 @@ const App = () => {
         <Routes>
             <Route path="/" element={<Home/>}></Route>
             <Route path="/about" element={<About/>}></Route>
+            <Route path="/Contact" element={<Contactus/>}></Route>
             <Route path="/Institutionlogin" element={<Institutionlogin/>}></Route>
             <Route path="/InstituteHome" element={<InstituteHome/>}></Route>
             <Route path="/Register" element={<Register/>}></Route>
