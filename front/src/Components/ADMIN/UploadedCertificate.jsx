@@ -1,7 +1,7 @@
 import React ,{ useState,useEffect } from 'react'
 import axios from "axios"
 import './UploadedCertificate.css'
-import image from "../../images/image1.png"
+
 
 function UploadedCertificate() {
   const [certificates, setCertificates] = useState([]);
@@ -10,6 +10,9 @@ function UploadedCertificate() {
   const [rejectReasonRequired, setRejectReasonRequired] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [selectedCertificateId, setSelectedCertificateId] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
+const [imageModalOpen, setImageModalOpen] = useState(false);
+
 
   const api= "http://localhost:3001";
   const token = localStorage.getItem('access_token');
@@ -97,6 +100,15 @@ function UploadedCertificate() {
       // Handle the error (e.g., show an error message to the user)
     }
   };
+
+  const handleImageClick = (imageUrl) => {
+    setSelectedImage(imageUrl);
+    setImageModalOpen(true);
+  };
+
+  const closeImageModal = () => {
+    setImageModalOpen(false);
+  };
   
 
   return (
@@ -104,9 +116,9 @@ function UploadedCertificate() {
         <div className='uploaded-certificate-container'>
           {certificates.map((certificate) => (
             <div className="uploaded-ceritificate-card" key={certificate._id}>
-              <div className="uploadedimg-box">
-                <img src={`${api}/certificateUploadPhoto/${certificate._id}/photo`} alt="Certificate" />
-              </div>
+              <div className="uploadedimg-box" onClick={() => handleImageClick(`${api}/certificateUploadPhoto/${certificate._id}/photo`)}>
+  <img src={`${api}/certificateUploadPhoto/${certificate._id}/photo`} alt="Certificate" />
+</div>
               <div className="uploaded-content">
                 <h3>{certificate.name}</h3>
                 <div className="uploaded-list">
@@ -120,7 +132,9 @@ function UploadedCertificate() {
                     <strong>Status:</strong> <span className={`status-${certificate.status}`}>{certificate.status}</span>
                   </li>
                 </div>
+                
                 <button className={`uploaded-first-button ${certificate.status === 'Approved' || certificate.status === 'Rejected' ? 'disabled' : ''}`}  onClick={() => {
+                   console.log('Certificate Status:', certificate.status);
     setSelectedCertificateId(certificate._id);
     firstopenModal();
   }}>Accept</button>
@@ -132,6 +146,15 @@ function UploadedCertificate() {
             </div>
           ))}
         </div>
+        {imageModalOpen && (
+  <div className="image-modal">
+    <span className="close-image-modal" onClick={closeImageModal}>
+      x
+    </span>
+    <img src={selectedImage} alt="Certificate" className="modal-image" />
+  </div>
+)}
+
       {firstshowModal && (
         <div className="modal">
           <span className="close" title="Close Modal" onClick={firstcloseModal}>
@@ -139,7 +162,7 @@ function UploadedCertificate() {
           </span>
           <form className="modal-content">
             <div className="container">
-              <h1>Accept Certificate</h1>
+              <h1 className='modal-header'>Accept Certificate</h1>
               <p>Are you sure you want to accept this certificate?</p>
 
               <div className="clearfix">
@@ -166,7 +189,7 @@ function UploadedCertificate() {
           </span>
           <form className="modal-content">
             <div className="container">
-              <h1>Reject Certificate</h1>
+              <h1 className='modal-header'>Reject Certificate</h1>
               <p>Are you sure you want to reject this certificate?</p>
               <textarea placeholder='reason' className='reject-textarea'  value={rejectReason}
           onChange={(e) => setRejectReason(e.target.value)}/>

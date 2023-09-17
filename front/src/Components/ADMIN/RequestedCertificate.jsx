@@ -148,13 +148,13 @@ function RequestedCertificate(props) {
                     <span className={getStatusColorClass(item.status)}>{item.status}</span>
                   </li>
                 </div>
-                <button className={`first-button ${item.status === 'Approved' || item.status === 'Rejected' ? 'disabled' : ''}`}onClick={() => {
+                <button className={`uploaded-first-button ${item.status === 'Approved' || item.status === 'Rejected' ? 'disabled' : ''}`}onClick={() => {
     setSelectedCertificateId(item._id);
     firstopenModal();
   }}
   disabled={item.status === 'Approved' || item.status === 'Rejected'}
   >Approve</button>
-                <button className={`second-button ${item.status === 'Approved' || item.status === 'Rejected' ? 'disabled' : ''}`}onClick={() => {
+                <button className={`uploaded-second-button ${item.status === 'Approved' || item.status === 'Rejected' ? 'disabled' : ''}`}onClick={() => {
     setSelectedCertificateId(item._id);
     openModal();
   }}
