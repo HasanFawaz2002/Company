@@ -101,7 +101,6 @@ function UploadedCertificate() {
 
   return (
     <>
-    <div className='uploaded-certificate-parent'>
         <div className='uploaded-certificate-container'>
           {certificates.map((certificate) => (
             <div className="uploaded-ceritificate-card" key={certificate._id}>
@@ -109,7 +108,7 @@ function UploadedCertificate() {
                 <img src={`${api}/certificateUploadPhoto/${certificate._id}/photo`} alt="Certificate" />
               </div>
               <div className="uploaded-content">
-                <h2>{certificate.name}</h2>
+                <h3>{certificate.name}</h3>
                 <div className="uploaded-list">
                   <li>
                     <strong>Requested By:</strong> {certificate.studentID.firstname}
@@ -133,7 +132,6 @@ function UploadedCertificate() {
             </div>
           ))}
         </div>
-      </div>
       {firstshowModal && (
         <div className="modal">
           <span className="close" title="Close Modal" onClick={firstcloseModal}>

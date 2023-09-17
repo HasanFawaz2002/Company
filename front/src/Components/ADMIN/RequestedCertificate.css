@@ -114,6 +114,14 @@
     transition: all ease 400ms;
     cursor: pointer;
 }
+.no-requests-message{
+    grid-area: main;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Core-Bold';
+    font-size: x-large;
+}
 
 .first-button{
     background-color: green !important;
