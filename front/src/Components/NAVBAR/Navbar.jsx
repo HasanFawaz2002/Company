@@ -4,6 +4,8 @@ import { NavLink,useLocation,useNavigate  } from "react-router-dom";
 import logo from '../../images/logo.png';
 
 const Navbar = () => {
+  const location = useLocation();
+
     const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -13,20 +15,23 @@ const Navbar = () => {
   const closeMenu = () => {
     setMenuOpen(false);
   };
+
+  const isInstitutionsRoute = location.pathname.startsWith('/institutions'); // Check if the current route starts with '/admin'
+
     return (
         <>
-        <div className="box3">
+        <div className={`box3 ${isInstitutionsRoute ? 'institution-route' : ''}`}>
         <div className="navbar">
             <div className="navbar-logo">
                 <img src={logo} alt="" />
                 <h1>Zidyia</h1>
             </div>
             <div className="navbar-menu">
-                <ul>
-                    <li><NavLink to='/'>HOME</NavLink></li>
-                    <li><NavLink to='/about'>ABOUT</NavLink></li>
-                    <li><NavLink to='/contact'>CONTACT</NavLink></li>
-                    <li><NavLink to='/help'>HELP</NavLink></li>
+                <ul >
+                    <li ><NavLink  className={isInstitutionsRoute ? 'white-link' : ''} to='/'>HOME</NavLink></li>
+                    <li><NavLink className={isInstitutionsRoute ? 'white-link' : ''} to='/admin'>Dashboard</NavLink></li>
+                    <li><NavLink className={isInstitutionsRoute ? 'white-link' : ''} to='/contact'>CONTACT</NavLink></li>
+                    <li><NavLink className={isInstitutionsRoute ? 'white-link' : ''} to='/institutions'>Institutions</NavLink></li>
                 </ul>
             </div>
         </div>

@@ -40,7 +40,7 @@ const Institutionlogin = () => {
           //const { institution, accessToken } = response.data;
              setLoading(false);
 
-          history("/InstituteHome");
+          history("/admin");
         } else {
           // Handle login failure
           console.error("Login failed");

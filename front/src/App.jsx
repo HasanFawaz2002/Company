@@ -4,7 +4,6 @@ import Home from "./Components/HOME/Home";
 import Navbar from "./Components/NAVBAR/Navbar";
 import About from "./Components/ABOUT/About";
 import Institutionlogin from "./Components/InstitutionLogin/Institutionlogin";
-import InstituteHome from "./Components/InstitutionLogin/InstituteHome";
 import Register from "./Components/Authentication/Register"
 import LogintoZidyia from "./Components/Authentication/Login";
 import ForgotPassword from "./Components/Authentication/forgotpassword";
@@ -12,7 +11,7 @@ import Resetpassword from "./Components/Authentication/Resetpassword";
 import EmailVerify from "./Components/Authentication/EmailVerify";
 import EmailSent from "./Components/Authentication/EmailSent";
 import AdminDashboard from "./Components/ADMIN/AdminDashboard";
-
+import Institutions from "./Components/INSTITUTIONS/Institutions";
 
 const App = () => {
     const location = useLocation();
@@ -28,7 +27,6 @@ const App = () => {
             <Route path="/" element={<Home/>}></Route>
             <Route path="/about" element={<About/>}></Route>
             <Route path="/Institutionlogin" element={<Institutionlogin/>}></Route>
-            <Route path="/InstituteHome" element={<InstituteHome/>}></Route>
             <Route path="/Register" element={<Register/>}></Route>
             <Route path="/login" element={<LogintoZidyia/>}></Route>
             <Route path="/forgot-password" element={<ForgotPassword />}></Route>
@@ -36,6 +34,7 @@ const App = () => {
             <Route path="/users/:id/verify/:token" element={<EmailVerify/>}></Route>
             <Route path="/EmailSent/:email" element={<EmailSent />}></Route>
             <Route path="/admin/*" element={<AdminDashboard />} />
+            <Route path="/institutions" element={<Institutions />}></Route>
           </Routes>
         </>
     )

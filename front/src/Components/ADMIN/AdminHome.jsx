@@ -245,7 +245,7 @@ const Home = () => {
         <div className='main-cards'
         >
 
-            <motion.div className="card"
+            <motion.div className="main-cards-card"
             variants={{
               hidden:{opacity: 0,x: 75},
               visible:{opacity: 1,x: 0},
@@ -261,7 +261,7 @@ const Home = () => {
             <h1>{certificateData3.totalCertificates}</h1>
             </motion.div>
 
-            <motion.div className="card"
+            <motion.div className="main-cards-card"
             variants={{
               hidden:{opacity: 0,x: 75},
               visible:{opacity: 1,x: 0},
@@ -279,7 +279,7 @@ const Home = () => {
 
             
 
-            <motion.div className="card"
+            <motion.div className="main-cards-card"
             variants={{
               hidden:{opacity: 0,x: 75},
               visible:{opacity: 1,x: 0},
