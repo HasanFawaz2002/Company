@@ -41,7 +41,7 @@ const App = () => {
             <Route path="/admin/*" element={<AdminDashboard />} />
             <Route path="/institutions" element={<Institutions />}></Route>
             <Route path="/CertificateUpload" element={<CertificateUpload />} />
-            <Route path="/CertificateRequest" element={<CertificateRequest />}></Route>
+            <Route path="/CertificateRequest/:institutionID" element={<CertificateRequest />}></Route>
           </Routes>
         </>
     )

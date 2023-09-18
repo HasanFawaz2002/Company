@@ -17,13 +17,35 @@
     justify-content: center;
 margin-top: 0%;
     flex-direction: column;
-    padding: 0rem 1.19rem 0rem 1.19rem;
+    padding: 0rem 1.19rem 1.19rem 1.19rem;
 transform: translateY(10rem);
 width: 40%;
 height: fit-content;
 border-radius: 1.25rem;
 background: var(--Card-Flat, #384450);
 }
+.required-span{
+    color: rgb(253, 35, 35);
+}
+.custom-select {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+  
+  /* Style the select element inside the custom dropdown */
+  .custom-select select {
+    width: 90%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #333;
+    appearance: none; /* Hide default arrow icon in some browsers */
+  }
+  
+  
 
 @media (max-width: 768px) {
     /* Styles for screens with a maximum width of 768px */

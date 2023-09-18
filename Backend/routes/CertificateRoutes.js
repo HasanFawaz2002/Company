@@ -5,6 +5,7 @@ const {createCertificate,
   deleteCertificateById,
   countTotalCertificates,
   getCertificatePhoto,
+  getCertificatesbyInstitution,
 upload} = require('../controllers/CertificateController');
 const verify = require('../Controllers/verifytoken');
 
@@ -18,7 +19,7 @@ router.get('/getCertificates',verify, getCertificates);
 router.delete('/deleteCertificateById/:certificateID',verify, deleteCertificateById);
 router.put('/updateCertificateById/:certificateID',verify, updateCertificateById);
 router.get('/countTotalCertificates',verify,countTotalCertificates);
-
+router.get('/getCertificatesbyInstitution/:institutionID',getCertificatesbyInstitution);
 //Get User  Photo
 router.get("/getCertificatePhoto/:certificatePhotoID/photo", getCertificatePhoto);
 

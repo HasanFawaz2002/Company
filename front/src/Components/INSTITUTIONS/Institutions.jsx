@@ -7,6 +7,7 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import Footer from "../Footer/Footer";
 import { FaUpload, FaRegHandPointer,FaArrowRight  } from "react-icons/fa";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const useParallaxBanner = (setScrollPosition) => {
   const handleScroll = () => setScrollPosition(window.pageYOffset);
@@ -84,7 +85,8 @@ function Institutions() {
                   <FaUpload /> Upload
                 </button>
                 <button>
-                  <FaRegHandPointer /> Request
+                  <Link to={`/CertificateRequest/${institution._id}`} ><FaRegHandPointer /> Request</Link>
+                  
                 </button>
                 
               </div>

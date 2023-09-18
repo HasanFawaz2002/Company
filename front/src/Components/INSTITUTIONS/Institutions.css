@@ -93,10 +93,17 @@ padding: 40px;
     color: white;
     transition: all ease 300ms;
   }
+  .parents-container .card .buttons-container button a{
+    text-decoration: none;
+    color: white;
+  }
+
+  .parents-container .card .buttons-container button:hover a{
+    color: aqua;
+  }
 
   .parents-container .card .buttons-container button:hover{
    background-color:#2D3741;
-   color: aqua;
    border: transparent;
   }
 
