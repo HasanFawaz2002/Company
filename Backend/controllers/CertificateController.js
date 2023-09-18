@@ -105,6 +105,23 @@ const getCertificates = async (req, res) => {
   }
 };
 
+
+// Get a list of certificates for an institution (requires a valid token with institutionID)
+const getCertificatesbyInstitution = async (req, res) => {
+  try {
+    // Extract the institutionID from the token
+    
+    const institutionID = req.params.institutionID;
+
+    const certificates = await Certificate.find({ institutionID });
+
+    res.status(200).json({ certificates });
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+
 // Update a certificate by ID (requires a valid token with institutionID)
 const updateCertificateById = async (req, res) => {
   try {
@@ -182,5 +199,6 @@ module.exports = {
   updateCertificateById,
   deleteCertificateById,
   upload,
-  getCertificatePhoto
+  getCertificatePhoto,
+  getCertificatesbyInstitution
 };

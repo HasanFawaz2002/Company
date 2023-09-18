@@ -13,6 +13,7 @@ import EmailSent from "./Components/Authentication/EmailSent";
 import AdminDashboard from "./Components/ADMIN/AdminDashboard";
 import CertificateUpload from "./Components/CertificateUpload/CertificateUpload";
 import StudentViewSubs from "./Components/StudentViewSubs/StudentViewSubs";
+import CertificateRequest from "./Components/CERTIFICATE REQUEST/CertificateRequest";
 
 import Institutions from "./Components/INSTITUTIONS/Institutions";
 import Contactus from "./Components/Contactus/Contactus";
@@ -42,6 +43,7 @@ const App = () => {
             <Route path="/institutions" element={<Institutions />}></Route>
             <Route path="/CertificateUpload/:institutionID?" element={<CertificateUpload />} />
             <Route path="/StudentViewSubs" element={<StudentViewSubs />} />
+            <Route path="/CertificateRequest/:institutionID" element={<CertificateRequest />}></Route>
           </Routes>
         </>
     )

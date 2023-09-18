@@ -1,20 +1,9 @@
 const mongoose = require('mongoose');
-const InstitutionModel = require('../models/institution');
 
 
 const SubcriptionSchema = new mongoose.Schema({
 
-    institutionID: {
-        type: mongoose.Schema.Types.ObjectId,
-            ref: 'Institution',
-            validate: {
-                validator: async function (value) {
-                    const institutionExists = await InstitutionModel.exists({ _id: value });
-                    return institutionExists;
-                },
-                message: 'Institution does not exist.'
-            }
-      },
+   
    
     name: {
         type: String,
