@@ -12,6 +12,8 @@ import Resetpassword from "./Components/Authentication/Resetpassword";
 import EmailVerify from "./Components/Authentication/EmailVerify";
 import EmailSent from "./Components/Authentication/EmailSent";
 import AdminDashboard from "./Components/ADMIN/AdminDashboard";
+import CertificateUpload from "./Components/CertificateUpload/CertificateUpload";
+
 
 
 const App = () => {
@@ -36,6 +38,7 @@ const App = () => {
             <Route path="/users/:id/verify/:token" element={<EmailVerify/>}></Route>
             <Route path="/EmailSent/:email" element={<EmailSent />}></Route>
             <Route path="/admin/*" element={<AdminDashboard />} />
+            <Route path="/CertificateUpload" element={<CertificateUpload />} />
           </Routes>
         </>
     )

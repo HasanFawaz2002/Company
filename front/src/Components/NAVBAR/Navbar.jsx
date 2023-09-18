@@ -1,11 +1,16 @@
 import React,{useState} from "react";
 import './Navbar.css';
-import { NavLink,useLocation,useNavigate  } from "react-router-dom";
+import { NavLink,useLocation,useNavigate, useRoutes  } from "react-router-dom";
 import logo from '../../images/logo.png';
 
 const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
-
+    const location = useLocation();
+    console.log(location.pathname);
+  let navbarColor;
+  if (location.pathname === '/CertificateUpload') {
+    navbarColor = '#fff';
+  }
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
@@ -19,14 +24,14 @@ const Navbar = () => {
         <div className="navbar">
             <div className="navbar-logo">
                 <img src={logo} alt="" />
-                <h1>Zidyia</h1>
+                <h1 style={{ color: navbarColor }}>Zidyia</h1>
             </div>
             <div className="navbar-menu">
                 <ul>
-                    <li><NavLink to='/'>HOME</NavLink></li>
-                    <li><NavLink to='/about'>ABOUT</NavLink></li>
-                    <li><NavLink to='/contact'>CONTACT</NavLink></li>
-                    <li><NavLink to='/help'>HELP</NavLink></li>
+                    <li><NavLink style={{ color: navbarColor }} to='/'>HOME</NavLink></li>
+                    <li><NavLink style={{ color: navbarColor }} to='/about'>ABOUT</NavLink></li>
+                    <li><NavLink style={{ color: navbarColor }} to='/contact'>CONTACT</NavLink></li>
+                    <li><NavLink style={{ color: navbarColor }} to='/help'>HELP</NavLink></li>
                 </ul>
             </div>
         </div>
