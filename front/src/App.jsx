@@ -39,7 +39,7 @@ const App = () => {
             <Route path="/EmailSent/:email" element={<EmailSent />}></Route>
             <Route path="/admin/*" element={<AdminDashboard />} />
             <Route path="/institutions" element={<Institutions />}></Route>
-            <Route path="/CertificateUpload" element={<CertificateUpload />} />
+            <Route path="/CertificateUpload/:institutionID?" element={<CertificateUpload />} />
           </Routes>
         </>
     )
