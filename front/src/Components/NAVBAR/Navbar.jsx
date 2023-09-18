@@ -1,13 +1,14 @@
 import React,{useState} from "react";
 import './Navbar.css';
-import { NavLink,useLocation,useNavigate  } from "react-router-dom";
+import { NavLink,useLocation,useNavigate, useRoutes  } from "react-router-dom";
 import logo from '../../images/logo.png';
 
 const Navbar = () => {
-  const location = useLocation();
 
     const [menuOpen, setMenuOpen] = useState(false);
-
+    const location = useLocation();
+    console.log(location.pathname);
+  
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
@@ -16,8 +17,8 @@ const Navbar = () => {
     setMenuOpen(false);
   };
 
-  const isInstitutionsRoute = location.pathname.startsWith('/institutions') || location.pathname.startsWith('/Institutionlogin'); // Check if the current route starts with '/admin'
-  const isInstitutionLogin = location.pathname.startsWith('/Institutionlogin')
+  const isInstitutionsRoute = location.pathname.startsWith('/institutions') || location.pathname.startsWith('/Institutionlogin') || location.pathname.startsWith('/CertificateUpload'); // Check if the current route starts with '/admin'
+  const isInstitutionLogin = location.pathname.startsWith('/Institutionlogin') || location.pathname.startsWith('/CertificateUpload');
     return (
         <>
         <div className={`box3 ${isInstitutionsRoute ? 'institution-route' : ''}`}>
