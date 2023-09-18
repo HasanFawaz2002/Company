@@ -18,13 +18,13 @@
     display: flex;
     color: #fff;
     justify-content: center;
-margin-top: -5%;
+margin-top: 0%;
     flex-direction: column;
     padding: 0rem 1.19rem 0rem 1.19rem;
 transform: translateY(10rem);
 width: 40%;
 /* min-width: 20rem; */
-height: 35rem;
+height: 30rem;
 border-radius: 1.25rem;
 background: var(--Card-Flat, #384450);
 
@@ -32,7 +32,7 @@ background: var(--Card-Flat, #384450);
 @media (max-width: 768px) {
     /* Styles for screens with a maximum width of 768px */
     .Certificate-upload-form-container {
-margin-top: -15%;
+margin-top: -10%;
 width: 80%;
 /* height: 70%; */
     }
@@ -40,7 +40,7 @@ width: 80%;
 @media (max-width: 506px) {
     /* Styles for screens with a maximum width of 768px */
     .Certificate-upload-form-container {
-margin-top: -28%;
+margin-top: -15%;
 width: 70%;
 /* height: 80%; */
     }
@@ -66,6 +66,8 @@ margin: 0.62rem 1.19rem 0.62rem 1.19rem;
     height: 2.8125rem;
     border-radius: 0.625rem;
     border: 1px solid #576371;
+    line-height: 2.8125rem;
+    font-size: 1rem;
 outline: none;
 background: var(--Card-Flat, #384450);
 margin: 0.62rem 1.19rem 0.62rem 1.19rem;
@@ -113,6 +115,7 @@ width: 85%;
 
   .inputInstitutionIDCU{
     width: 91%;
+    font-size: 1rem;
     color: #fff;
     font-family: 'core';
     height: 3.3rem;

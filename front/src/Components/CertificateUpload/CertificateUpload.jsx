@@ -163,12 +163,12 @@ const CertificateUpload = () => {
       <div className="Certificate-upload-form-container">
         <h2>Certificate Upload Form</h2>
         <form onSubmit={handleSubmit}>
-        <div className="form-group">
+        {/* <div className="form-group">
           <label htmlFor="name">Name:</label>
           <input type="text" id="name" name="name"  className="inputNameCU"  onChange={handleNameChange}  />
           {errors.name && (
               <span className="error-name-message">{errors.name}</span>)}
-              </div>
+              </div> */}
 
         <div className="form-group">
           <label htmlFor="description">Description:</label>
