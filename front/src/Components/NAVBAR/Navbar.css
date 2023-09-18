@@ -69,6 +69,14 @@
     border-bottom:3px solid rgb(70, 241, 207);
 
 }
+
+.white-link{
+  color: white;
+}
+
+.navbar-menu ul li .white-link  {
+  color: white; /* Change the color to white for the /admin route */
+}
 @keyframes anim4{
     from{
         top: -100%;

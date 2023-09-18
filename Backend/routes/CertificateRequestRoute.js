@@ -4,7 +4,8 @@ const {
       updateCertificateStatusToVerified,updateCertificateStatusToRejected,
       getCertificateRequestsCount,
       getAllPendingCertificateRequestsCount,getAllVerifiedCertificateRequestsCount,getAllRejectedCertificateRequestsCount,getAllCertificateCount,
-      getCertificateRequestsByStatusAndInstitution
+      getCertificateRequestsByStatusAndInstitution,
+      getLatestCertificateRequestsByStatusAndInstitution
       } 
       = require('../controllers/CertificateRequest');
 
@@ -21,6 +22,7 @@ router.get('/certificateRequestsByInstitution', verify, getCertificateRequestsBy
 router.put('/updateCertificateStatusToVerified/:requestID', verify, updateCertificateStatusToVerified);
 router.put('/updateCertificateStatusToRejected/:requestID', verify, updateCertificateStatusToRejected);
 router.get('/getCertificateRequestsByStatusAndInstitution/:status', verify, getCertificateRequestsByStatusAndInstitution);
+router.get('/getLatestCertificateRequestsByStatusAndInstitution/:status', verify, getLatestCertificateRequestsByStatusAndInstitution);
 
 
 router.get('/getCertificateRequestsCount', verify, getCertificateRequestsCount);

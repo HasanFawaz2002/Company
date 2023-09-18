@@ -50,6 +50,10 @@ const SubcriptionSchema = new mongoose.Schema({
     expirationTime: {
         type: Date,
         required: true,
+    },
+    notified:{
+        type: Boolean, 
+        default: false,
     }
 
    

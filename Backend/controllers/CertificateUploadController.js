@@ -1,5 +1,6 @@
 // const asyncHandler = require("express-async-handler");
 const CertificateUpload = require("../models/certificateUpload");
+const InstitutionModel=require("../models/institution");
 const path = require('path');
 const multer = require ('multer');
 const asyncHandler = require("express-async-handler");
@@ -79,7 +80,6 @@ const createCertificateUpload = async (req, res) => {
     const certificateUpload = new CertificateUpload({
       studentID,
       institutionID,
-      name: req.body.name,
       description: req.body.description,
       certificateFile: certificateFile.filename,
     });
@@ -226,6 +226,92 @@ const deleteCertificateUploadById = async (req, res) => {
   }
 };
 
+const getUploadRequestsByStatusAndInstitution = async (req, res) => {
+  try {
+    const institutionID = req.user.institution.id; // Get the institution ID from the token
+    const { status } = req.params; // Get the status from the URL parameter
+
+    // Validate if the institution exists
+    const institutionExists = await InstitutionModel.exists({ _id: institutionID });
+
+    if (!institutionExists) {
+      return res.status(404).json({ message: 'Institution does not exist.' });
+    }
+
+    // Define valid status values (you can customize this)
+    const validStatusValues = ['Pending', 'Approved', 'Rejected', 'All'];
+
+    // Check if the provided status is valid
+    if (!validStatusValues.includes(status)) {
+      return res.status(400).json({ message: 'Invalid status value.' });
+    }
+
+    let query = { institutionID };
+
+    // Handle the case when status is "All"
+    if (status !== 'All') {
+      query.status = status;
+    }
+
+    // Find certificate requests based on the query and populate the 'user' and 'certificate' fields
+    const certificateRequests = await CertificateUpload.find(query)
+      .populate('studentID') // Populate the 'user' field
+      
+
+    res.status(200).json(certificateRequests);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+const updateuploadCertificateStatusToVerified = async (req, res) => {
+  try {
+    const { requestID } = req.params;
+    const institutionID = req.user.institution.id;
+
+    // Find the certificate request by ID, institution ID, and update its status
+    const updatedRequest = await CertificateUpload.findOneAndUpdate(
+      { _id: requestID, institutionID },
+      { status: 'Approved' },
+      { new: true } // To get the updated document
+    );
+
+    if (!updatedRequest) {
+      return res.status(404).json({ message: 'Certificate upload not found or unauthorized.' });
+    }
+
+    res.status(200).json({ message: 'Certificate upload status updated to verified.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+const updateuploadCertificateStatusToRejected = async (req, res) => {
+  try {
+    const { requestID } = req.params;
+    const institutionID = req.user.institution.id;
+    const {  reason } = req.body;
+
+    // Find the certificate request by ID, institution ID, and update its status
+    const updatedRequest = await CertificateUpload.findOneAndUpdate(
+      { _id: requestID, institutionID },
+      { status: 'Rejected',reason },
+      { new: true } // To get the updated document
+    );
+
+    if (!updatedRequest) {
+      return res.status(404).json({ message: 'Certificate request not found or unauthorized.' });
+    }
+
+    res.status(200).json({ message: 'Certificate request status updated to rejected.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
 module.exports = {
   createCertificateUpload,
   getCertificateUploadsByInstitution,
@@ -235,6 +321,9 @@ module.exports = {
   getCertificateUploadsByInstitutionCount,
   getCertificateUploadsTotal,
   getCertificateUploadPhoto,
+  getUploadRequestsByStatusAndInstitution,
+  updateuploadCertificateStatusToVerified,
+  updateuploadCertificateStatusToRejected,
   upload
 };
 

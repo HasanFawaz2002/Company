@@ -75,8 +75,9 @@ const Home = () => {
                         </li>
                 </div>
             </div>
+           
         </div>
-
+        <Footer />
         
         </>
     )

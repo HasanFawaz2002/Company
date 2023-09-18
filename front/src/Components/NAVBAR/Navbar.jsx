@@ -4,13 +4,11 @@ import { NavLink,useLocation,useNavigate, useRoutes  } from "react-router-dom";
 import logo from '../../images/logo.png';
 
 const Navbar = () => {
+
     const [menuOpen, setMenuOpen] = useState(false);
     const location = useLocation();
     console.log(location.pathname);
-  let navbarColor;
-  if (location.pathname === '/CertificateUpload') {
-    navbarColor = '#fff';
-  }
+  
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
@@ -18,20 +16,23 @@ const Navbar = () => {
   const closeMenu = () => {
     setMenuOpen(false);
   };
+
+  const isInstitutionsRoute = location.pathname.startsWith('/institutions') || location.pathname.startsWith('/Institutionlogin') || location.pathname.startsWith('/CertificateUpload'); // Check if the current route starts with '/admin'
+  const isInstitutionLogin = location.pathname.startsWith('/Institutionlogin') || location.pathname.startsWith('/CertificateUpload');
     return (
         <>
-        <div className="box3">
+        <div className={`box3 ${isInstitutionsRoute ? 'institution-route' : ''}`}>
         <div className="navbar">
             <div className="navbar-logo">
                 <img src={logo} alt="" />
-                <h1 style={{ color: navbarColor }}>Zidyia</h1>
+                <h1 className={isInstitutionLogin ? 'white-link' : ''}>Zidyia</h1>
             </div>
             <div className="navbar-menu">
-                <ul>
-                    <li><NavLink style={{ color: navbarColor }} to='/'>HOME</NavLink></li>
-                    <li><NavLink style={{ color: navbarColor }} to='/about'>ABOUT</NavLink></li>
-                    <li><NavLink style={{ color: navbarColor }} to='/contact'>CONTACT</NavLink></li>
-                    <li><NavLink style={{ color: navbarColor }} to='/help'>HELP</NavLink></li>
+                <ul >
+                    <li ><NavLink  className={isInstitutionsRoute ? 'white-link' : ''} to='/'>HOME</NavLink></li>
+                    <li><NavLink className={isInstitutionsRoute ? 'white-link' : ''} to='/admin'>Dashboard</NavLink></li>
+                    <li><NavLink className={isInstitutionsRoute ? 'white-link' : ''} to='/contact'>CONTACT</NavLink></li>
+                    <li><NavLink className={isInstitutionsRoute ? 'white-link' : ''} to='/institutions'>Institutions</NavLink></li>
                 </ul>
             </div>
         </div>

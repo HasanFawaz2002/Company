@@ -28,5 +28,12 @@ router.delete('/certificateUploadRoute/:id', CertificateUploadController.deleteC
 //Get certificate Upload Photo
 router.get("/certificateUploadPhoto/:certificateUploadID/photo", CertificateUploadController.getCertificateUploadPhoto);
 
+router.get('/getUploadRequestsByStatusAndInstitution/:status', verify, CertificateUploadController.getUploadRequestsByStatusAndInstitution);
+
+router.put('/updateuploadCertificateStatusToVerified/:requestID', verify, CertificateUploadController.updateuploadCertificateStatusToVerified);
+
+router.put('/updateuploadCertificateStatusToRejected/:requestID', verify, CertificateUploadController.updateuploadCertificateStatusToRejected);
+
+
 
 module.exports = router;

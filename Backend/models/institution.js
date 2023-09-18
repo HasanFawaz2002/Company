@@ -26,6 +26,10 @@ const InstitutionSchema = new mongoose.Schema({
         enum: ['admin', 'superAdmin'], // Define the allowed enum values
         default: 'admin', // Set the default value to 'admin'
     },
+    notified:{
+        type: Boolean, 
+        default: false,
+    }
    
 },{ timestamps: true }
 );

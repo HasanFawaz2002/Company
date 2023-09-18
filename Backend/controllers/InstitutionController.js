@@ -184,9 +184,77 @@ const getAllInstitutions = asyncHandler(async (req, res) => {
   }
 });
 
+// Get an institution by ID
+const getInstitutionById = asyncHandler(async (req, res) => {
+  try {
+    const institutionID = req.user.institution.id;
+
+    // Check if the institution with the given ID exists
+    const institution = await Institution.findById(institutionID);
+
+    if (!institution) {
+      return res.status(404).json({ message: "Institution not found" });
+    }
+
+    res.status(200).json({ message: "Institution retrieved successfully", institution });
+  } catch (error) {
+    console.error("Error retrieving institution:", error);
+    res.status(500).json({ message: "Error retrieving institution", error: error.message });
+  }
+});
+
+// Update the password and set notified to true for an institution by ID
+const updateInstitutionPasswordById = asyncHandler(async (req, res) => {
+  try {
+    const institutionID = req.user.institution.id;
+    const { newPassword } = req.body;
+
+    // Check if the institution with the given ID exists
+    const institution = await Institution.findById(institutionID);
+
+    if (!institution) {
+      return res.status(404).json({ message: 'Institution not found' });
+    }
+
+    // Hash the new password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    // Update the institution's password and set notified to true in the database
+    institution.password = hashedPassword;
+    institution.notified = true;
+    
+    // Save the updated institution document
+    await institution.save();
+
+    res.status(200).json({ message: 'Password updated successfully', institution });
+  } catch (error) {
+    console.error('Error updating password:', error);
+    res.status(500).json({ message: 'Error updating password', error: error.message });
+  }
+});
+
+// Get the last three institutions
+const getLastThreeInstitutions = asyncHandler(async (req, res) => {
+  try {
+    const institutions = await Institution.find()
+      .sort({ createdAt: -1 }) // Sort by createdAt field in descending order (newest first)
+      .limit(3); // Limit the result to three institutions
+
+    res.status(200).json({
+      message: "Last three institutions retrieved successfully",
+      institutions,
+    });
+  } catch (error) {
+    console.error("Error retrieving last three institutions:", error);
+    res.status(500).json({
+      message: "Error retrieving last three institutions",
+      error: error.message,
+    });
+  }
+});
 
 
 
 module.exports = {
-    createInstitution,loginInstitution,deleteInstitutionById,updateInstitutionById,getAllInstitutions
+  getLastThreeInstitutions,createInstitution,loginInstitution,deleteInstitutionById,updateInstitutionById,getAllInstitutions,getInstitutionById,updateInstitutionPasswordById
 };
