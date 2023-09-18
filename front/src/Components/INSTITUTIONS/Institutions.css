@@ -126,22 +126,22 @@ padding: 40px;
   }
 
   .view-all-button{
-    background-color: transparent;
+    background-color: lightgray;
     padding: 10px;
     font-size: large;
     border-radius: 5px;
-    border: 1px solid lightgray;
-    color: lightgray;
+    color: white;
     display: flex;
+    border: transparent;
     width: 10%;
     justify-content: space-around;
     cursor: pointer;
     transition: all ease 300ms;
   }
   .view-all-button:hover{
-    background-color: lightgray;
-    color: white;
-    border: transparent;
+    background-color: white;
+    color: lightgray;
+    border: 0.5px solid lightgray;
   }
 
   @media screen and (max-width: 768px) {

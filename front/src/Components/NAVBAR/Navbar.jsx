@@ -16,15 +16,15 @@ const Navbar = () => {
     setMenuOpen(false);
   };
 
-  const isInstitutionsRoute = location.pathname.startsWith('/institutions'); // Check if the current route starts with '/admin'
-
+  const isInstitutionsRoute = location.pathname.startsWith('/institutions') || location.pathname.startsWith('/Institutionlogin'); // Check if the current route starts with '/admin'
+  const isInstitutionLogin = location.pathname.startsWith('/Institutionlogin')
     return (
         <>
         <div className={`box3 ${isInstitutionsRoute ? 'institution-route' : ''}`}>
         <div className="navbar">
             <div className="navbar-logo">
                 <img src={logo} alt="" />
-                <h1>Zidyia</h1>
+                <h1 className={isInstitutionLogin ? 'white-link' : ''}>Zidyia</h1>
             </div>
             <div className="navbar-menu">
                 <ul >

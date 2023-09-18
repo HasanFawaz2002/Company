@@ -12,6 +12,7 @@ import EmailVerify from "./Components/Authentication/EmailVerify";
 import EmailSent from "./Components/Authentication/EmailSent";
 import AdminDashboard from "./Components/ADMIN/AdminDashboard";
 import Institutions from "./Components/INSTITUTIONS/Institutions";
+import Contactus from "./Components/Contactus/Contactus";
 
 const App = () => {
     const location = useLocation();
@@ -26,6 +27,7 @@ const App = () => {
         <Routes>
             <Route path="/" element={<Home/>}></Route>
             <Route path="/about" element={<About/>}></Route>
+            <Route path="/Contact" element={<Contactus/>}></Route>
             <Route path="/Institutionlogin" element={<Institutionlogin/>}></Route>
             <Route path="/Register" element={<Register/>}></Route>
             <Route path="/login" element={<LogintoZidyia/>}></Route>
