@@ -161,16 +161,16 @@ const CertificateUpload = () => {
   return (
     <div className="backgroundCU">
       <div className="Certificate-upload-form-container">
-        <h2>Certificate Upload Form</h2>
+        <h2 className='headerCU'>Certificate Upload Form</h2>
         <form onSubmit={handleSubmit}>
-        {/* <div className="form-group">
+        {/* <div className="form-groupCU">
           <label htmlFor="name">Name:</label>
           <input type="text" id="name" name="name"  className="inputNameCU"  onChange={handleNameChange}  />
           {errors.name && (
               <span className="error-name-message">{errors.name}</span>)}
               </div> */}
 
-        <div className="form-group">
+        <div className="form-groupCU">
           <label htmlFor="description">Description:</label>
           <textarea
           
@@ -183,7 +183,7 @@ const CertificateUpload = () => {
         {errors.description && (
               <span className="error-name-message">{errors.description}</span>)}
        
-        <div className="form-group">
+        <div className="form-groupCU">
           <label htmlFor="institutionID">Institution:</label>
           {console.log('institutions:', institutions)} {/* Log institutions */}
   {console.log('selectedInstitution:', selectedInstitution)}
@@ -206,7 +206,7 @@ const CertificateUpload = () => {
     {errors.institutionID && (
                 <span style={{ marginTop:"-1.5rem" }} className="error-name-message">{errors.institutionID}</span>)}
 
-<div className="form-group1 ">
+<div className="form-groupCU1 ">
           <label htmlFor="certificateFile" className="custom-file-upload">Certificate File: <span className="choose-file-textCU">{selectedFile ? selectedFile.name : 'Choose a File'}</span>
           </label>
           <input
