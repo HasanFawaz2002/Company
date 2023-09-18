@@ -26,7 +26,6 @@ const FormValuesSchema = new mongoose.Schema(
         message: 'Form does not exist.'
       }
     },
-    // Use the Mixed type to allow dynamic fields
     dynamicFields: mongoose.Schema.Types.Mixed
   }
 );

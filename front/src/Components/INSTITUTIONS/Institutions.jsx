@@ -96,7 +96,6 @@ function Institutions() {
         <button className="view-all-button">View All <FaArrowRight  /></button>
       </div>
 
-      <Footer />
     </>
   );
 }
