@@ -1,6 +1,7 @@
 import React from "react";
 import "./Footer.css";
 import logo from "../../images/logo2.png";
+import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebook,
@@ -9,8 +10,12 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 
 const Footer = () => {
+  const location = useLocation();
+  const isHomeRoute = location.pathname === "/";
+  const footerClassName = isHomeRoute ? "footer-home" : "";
+
   return (
-    <footer>
+    <footer className={footerClassName}>
       {/*First section*/}
       <div className="footer-container">
         <div className="footer-container-logo">

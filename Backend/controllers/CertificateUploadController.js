@@ -80,7 +80,6 @@ const createCertificateUpload = async (req, res) => {
     const certificateUpload = new CertificateUpload({
       studentID,
       institutionID,
-      name: req.body.name,
       description: req.body.description,
       certificateFile: certificateFile.filename,
     });

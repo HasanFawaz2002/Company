@@ -16,10 +16,7 @@ const CertificateUploadSchema = new mongoose.Schema({
                 message: 'User does not exist.'
             }
       },
-    name: {
-    type: String,
-    required: true,
-    },
+    
     description:{
     type: String,
     required: true,

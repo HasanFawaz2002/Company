@@ -7,6 +7,10 @@ footer{
     padding-top: 50px;
 }
 
+.footer-home{
+    transform: translateY(750px);
+}
+
 .footer-container:nth-child(1) p{
     font-size: large;
     color: #46505F;

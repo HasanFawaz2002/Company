@@ -233,8 +233,28 @@ const updateInstitutionPasswordById = asyncHandler(async (req, res) => {
   }
 });
 
+// Get the last three institutions
+const getLastThreeInstitutions = asyncHandler(async (req, res) => {
+  try {
+    const institutions = await Institution.find()
+      .sort({ createdAt: -1 }) // Sort by createdAt field in descending order (newest first)
+      .limit(3); // Limit the result to three institutions
+
+    res.status(200).json({
+      message: "Last three institutions retrieved successfully",
+      institutions,
+    });
+  } catch (error) {
+    console.error("Error retrieving last three institutions:", error);
+    res.status(500).json({
+      message: "Error retrieving last three institutions",
+      error: error.message,
+    });
+  }
+});
+
 
 
 module.exports = {
-    createInstitution,loginInstitution,deleteInstitutionById,updateInstitutionById,getAllInstitutions,getInstitutionById,updateInstitutionPasswordById
+  getLastThreeInstitutions,createInstitution,loginInstitution,deleteInstitutionById,updateInstitutionById,getAllInstitutions,getInstitutionById,updateInstitutionPasswordById
 };
