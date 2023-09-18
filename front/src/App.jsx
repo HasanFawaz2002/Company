@@ -12,6 +12,7 @@ import EmailVerify from "./Components/Authentication/EmailVerify";
 import EmailSent from "./Components/Authentication/EmailSent";
 import AdminDashboard from "./Components/ADMIN/AdminDashboard";
 import CertificateUpload from "./Components/CertificateUpload/CertificateUpload";
+import CertificateRequest from "./Components/CERTIFICATE REQUEST/CertificateRequest";
 
 import Institutions from "./Components/INSTITUTIONS/Institutions";
 import Contactus from "./Components/Contactus/Contactus";
@@ -40,6 +41,7 @@ const App = () => {
             <Route path="/admin/*" element={<AdminDashboard />} />
             <Route path="/institutions" element={<Institutions />}></Route>
             <Route path="/CertificateUpload" element={<CertificateUpload />} />
+            <Route path="/CertificateRequest" element={<CertificateRequest />}></Route>
           </Routes>
         </>
     )
