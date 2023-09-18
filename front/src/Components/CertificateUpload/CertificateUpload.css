@@ -199,7 +199,7 @@ padding-left: 1rem;
 }
 
 /* Style for the overlay background */
-.image-modal {
+.image-upload-modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -214,7 +214,7 @@ padding-left: 1rem;
   }
   
   /* Style for the image inside the modal */
-  .image-modal img {
+  .image-upload-modal img {
     max-width: 90%; /* Limit the image width to 90% of the modal width */
     max-height: 90%; /* Limit the image height to 90% of the modal height */
     object-fit: contain; /* Maintain image aspect ratio while fitting inside the modal */
