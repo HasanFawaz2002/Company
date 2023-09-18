@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 // import Select from 'react-select';
 import axios from 'axios';
 import './CertificateUpload.css';
-
+import { useParams } from 'react-router-dom';
 const CertificateUpload = () => {
     
         const [selectedFile, setSelectedFile] = useState(null);
@@ -13,6 +13,7 @@ const CertificateUpload = () => {
         const [name, setName] = useState('');
         const [description, setDescription] = useState('');
         const [errors, setErrors] = useState({});
+        const { institutionID } = useParams();
 
         const handleFileChange = (e) => {
             const file = e.target.files[0];
@@ -61,38 +62,30 @@ const CertificateUpload = () => {
           };}
 
           useEffect(() => {
+            // Fetch institutions and set selectedInstitution based on institutionID
             async function fetchInstitutions() {
-                try {
-                  const response = await axios.get('http://localhost:3001/getAllInstitutions');
-                  console.log(response.data.institutions);
-                  setInstitutions(response.data.institutions);
-                } catch (error) {
-                  console.error('Error fetching data:', error);
+              try {
+                const response = await axios.get('http://localhost:3001/getAllInstitutions');
+                setInstitutions(response.data.institutions);
+        
+                // Set selectedInstitution to institutionID if it's present
+                if (institutionID) {
+                  setSelectedInstitution(institutionID);
                 }
+              } catch (error) {
+                console.error('Error fetching data:', error);
               }
-              fetchInstitutions();
-
-              
-            // async function postCertificateUpload() {
-            //     try {
-            //       const response = await axios.get('http://localhost:3001/certificateUploadRoute/:institutionID');
-            //       console.log(response.data);
-            //       setInstitutions(response.data);
-            //     } catch (error) {
-            //       console.error('Error fetching data:', error);
-            //     }
-            //   }
-            //   postCertificateUpload();
-              
-          }, []);
+            }
+            fetchInstitutions();
+          }, [institutionID]);
           
-          const handleNameChange = (e) => {
-            const value = e.target.value;
-    setName(value);
-    if (value.trim()) {
-        clearError('name');
-      }
-          };
+    //       const handleNameChange = (e) => {
+    //         const value = e.target.value;
+    // setName(value);
+    // if (value.trim()) {
+    //     clearError('name');
+    //   }
+          // };
         
           const handleDescriptionChange = (e) => {
             const value = e.target.value;
@@ -109,9 +102,9 @@ const CertificateUpload = () => {
 
           const validateForm = () => {
             const errors = {};
-            if (!name.trim()) {
-              errors.name = 'Name is required*';
-            }
+            // if (!name.trim()) {
+            //   errors.name = 'Name is required*';
+            // }
             if (!description.trim()) {
               errors.description = 'Description is required*';
             }
@@ -130,7 +123,7 @@ const CertificateUpload = () => {
             e.preventDefault();
             if (validateForm()) {
             const formData = new FormData();
-            formData.append('name', name);
+            // formData.append('name', name);
             formData.append('description', description);
             formData.append('certificateFile', selectedFile);
             formData.append('institutionID', selectedInstitution);
@@ -141,6 +134,8 @@ const CertificateUpload = () => {
             console.log('Access Token:', token); // Log the token
           
             try {
+            console.log('Sending request to:', `http://localhost:3001/certificateUploadRoute/${selectedInstitution}`);
+
               const response = await axios.post(
                 `http://localhost:3001/certificateUploadRoute/${selectedInstitution}`,
                 formData,
@@ -161,16 +156,16 @@ const CertificateUpload = () => {
   return (
     <div className="backgroundCU">
       <div className="Certificate-upload-form-container">
-        <h2>Certificate Upload Form</h2>
+        <h2 className='headerCU'>Certificate Upload Form</h2>
         <form onSubmit={handleSubmit}>
-        {/* <div className="form-group">
+        {/* <div className="form-groupCU">
           <label htmlFor="name">Name:</label>
           <input type="text" id="name" name="name"  className="inputNameCU"  onChange={handleNameChange}  />
           {errors.name && (
               <span className="error-name-message">{errors.name}</span>)}
               </div> */}
 
-        <div className="form-group">
+        <div className="form-groupCU">
           <label htmlFor="description">Description:</label>
           <textarea
           
@@ -183,7 +178,7 @@ const CertificateUpload = () => {
         {errors.description && (
               <span className="error-name-message">{errors.description}</span>)}
        
-        <div className="form-group">
+        <div className="form-groupCU">
           <label htmlFor="institutionID">Institution:</label>
           {console.log('institutions:', institutions)} {/* Log institutions */}
   {console.log('selectedInstitution:', selectedInstitution)}
@@ -206,7 +201,7 @@ const CertificateUpload = () => {
     {errors.institutionID && (
                 <span style={{ marginTop:"-1.5rem" }} className="error-name-message">{errors.institutionID}</span>)}
 
-<div className="form-group1 ">
+<div className="form-groupCU1 ">
           <label htmlFor="certificateFile" className="custom-file-upload">Certificate File: <span className="choose-file-textCU">{selectedFile ? selectedFile.name : 'Choose a File'}</span>
           </label>
           <input

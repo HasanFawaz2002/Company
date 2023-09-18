@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Institutions.css";
 import { BsThreeDots } from "react-icons/bs";
 import Image1 from "../../images/image1.png";
@@ -22,7 +23,7 @@ function Institutions() {
   const [scrollPosition, setScrollPosition] = useState(0);
 
   const [institutions, setInstitutions] = useState([]); // Initialize as an empty array
-
+  const navigate = useNavigate();
   // Fetch the list of institutions from the API
   useEffect(() => {
     axios
@@ -38,7 +39,9 @@ function Institutions() {
         setInstitutions([]);
       });
   }, []);
-
+  const handleUploadButtonClick = (institutionID) => {
+    navigate(`/CertificateUpload/${institutionID}`);
+  };
   useParallaxBanner(setScrollPosition);
   return (
     <>
@@ -81,7 +84,7 @@ function Institutions() {
               <h3 className="second-text">{institution.email}</h3>
               <h3 className="second-text">{institution.location}</h3>
               <div className="buttons-container">
-                <button>
+                <button onClick={() => handleUploadButtonClick(institution._id)}>
                   <FaUpload /> Upload
                 </button>
                 <button>

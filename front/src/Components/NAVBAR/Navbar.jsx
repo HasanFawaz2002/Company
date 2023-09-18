@@ -8,7 +8,7 @@ const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const location = useLocation();
     console.log(location.pathname);
-  
+
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
@@ -17,8 +17,8 @@ const Navbar = () => {
     setMenuOpen(false);
   };
 
-  const isInstitutionsRoute = location.pathname.startsWith('/institutions') || location.pathname.startsWith('/Institutionlogin') || location.pathname.startsWith('/CertificateUpload') || location.pathname.startsWith('/CertificateRequest'); 
-  const isInstitutionLogin = location.pathname.startsWith('/Institutionlogin') || location.pathname.startsWith('/CertificateUpload') || location.pathname.startsWith('/CertificateRequest');
+  const isInstitutionsRoute = location.pathname.startsWith('/institutions') || location.pathname.startsWith('/Institutionlogin') || location.pathname.startsWith('/CertificateUpload') || location.pathname === "/StudentViewSubs" || location.pathname.startsWith('/CertificateRequest'); 
+  const isInstitutionLogin = location.pathname.startsWith('/Institutionlogin') || location.pathname.startsWith('/CertificateUpload') || location.pathname.startsWith('/CertificateRequest') || location.pathname === "/StudentViewSubs";
     return (
         <>
         <div className={`box3 ${isInstitutionsRoute ? 'institution-route' : ''}`}>
