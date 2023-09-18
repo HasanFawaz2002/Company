@@ -86,9 +86,7 @@ function Institutions() {
                 <button>
                   <FaRegHandPointer /> Request
                 </button>
-                <button>
-                  More <BsThreeDots className="third" />{" "}
-                </button>
+                
               </div>
             </div>
           ))}

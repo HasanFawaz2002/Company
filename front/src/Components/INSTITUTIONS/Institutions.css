@@ -162,4 +162,7 @@ padding: 40px;
         width: 95%;
         margin-left: 0;
     }
+    .view-all-button{
+      width: 30%;
+    }
   }
