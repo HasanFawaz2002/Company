@@ -2,18 +2,27 @@ import React, { useState, useEffect } from 'react';
 // import Select from 'react-select';
 import axios from 'axios';
 import './CertificateUpload.css';
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
 const CertificateUpload = () => {
     
         const [selectedFile, setSelectedFile] = useState(null);
         const [preview, setPreview] = useState(null);
         const [showModal, setShowModal] = useState(false);
-        const [institutions, setInstitutions] = useState([]); 
-        const [selectedInstitution, setSelectedInstitution] = useState('');
         const [name, setName] = useState('');
         const [description, setDescription] = useState('');
         const [errors, setErrors] = useState({});
         const { institutionID } = useParams();
+        const navigate = useNavigate();
+
+        useEffect(() => {
+          // Check for token and role when the component mounts
+          const token = localStorage.getItem('access_token');
+          const role = localStorage.getItem('role');
+      
+          if (!token || role !== 'user') {
+            navigate('/login');
+          }
+        }, [navigate]);
 
         const handleFileChange = (e) => {
             const file = e.target.files[0];
@@ -53,39 +62,17 @@ const CertificateUpload = () => {
           
           
 
-        const handleInstitutionChange = (e) => {
-            const value = e.target.value;
-            setSelectedInstitution(value);
-        
-            if (value.trim()) {
-              clearError('institutionID');
-          };}
+       
 
-          useEffect(() => {
-            // Fetch institutions and set selectedInstitution based on institutionID
-            async function fetchInstitutions() {
-              try {
-                const response = await axios.get('http://localhost:3001/getAllInstitutions');
-                setInstitutions(response.data.institutions);
-        
-                // Set selectedInstitution to institutionID if it's present
-                if (institutionID) {
-                  setSelectedInstitution(institutionID);
-                }
-              } catch (error) {
-                console.error('Error fetching data:', error);
-              }
-            }
-            fetchInstitutions();
-          }, [institutionID]);
           
-    //       const handleNameChange = (e) => {
-    //         const value = e.target.value;
-    // setName(value);
-    // if (value.trim()) {
-    //     clearError('name');
-    //   }
-          // };
+          
+          const handleNameChange = (e) => {
+            const value = e.target.value;
+    setName(value);
+    if (value.trim()) {
+        clearError('name');
+      }
+          };
         
           const handleDescriptionChange = (e) => {
             const value = e.target.value;
@@ -102,18 +89,16 @@ const CertificateUpload = () => {
 
           const validateForm = () => {
             const errors = {};
-            // if (!name.trim()) {
-            //   errors.name = 'Name is required*';
-            // }
+            if (!name.trim()) {
+              errors.name = 'Name is required*';
+            }
             if (!description.trim()) {
               errors.description = 'Description is required*';
             }
             if (!selectedFile) {
               errors.certificateFile = 'Certificate file is required*';
             }
-            if (!selectedInstitution) {
-              errors.institutionID = 'Choose an Institution*';
-            }
+            
             setErrors(errors);
             return Object.keys(errors).length === 0;
           };
@@ -123,21 +108,21 @@ const CertificateUpload = () => {
             e.preventDefault();
             if (validateForm()) {
             const formData = new FormData();
-            // formData.append('name', name);
+            formData.append('name', name);
             formData.append('description', description);
             formData.append('certificateFile', selectedFile);
-            formData.append('institutionID', selectedInstitution);
           
             console.log('Form Data:', formData); // Log the form data
           
             const token = localStorage.getItem("access_token");
+            const role = localStorage.getItem("role");
             console.log('Access Token:', token); // Log the token
           
             try {
-            console.log('Sending request to:', `http://localhost:3001/certificateUploadRoute/${selectedInstitution}`);
+            console.log('Sending request to:', `http://localhost:3001/certificateUploadRoute/${institutionID}`);
 
               const response = await axios.post(
-                `http://localhost:3001/certificateUploadRoute/${selectedInstitution}`,
+                `http://localhost:3001/certificateUploadRoute/${institutionID}`,
                 formData,
                 {
                   headers: {
@@ -148,7 +133,12 @@ const CertificateUpload = () => {
               console.log('Response Data:', response.data); // Log the response data
               console.log('Upload successful:', response.data);
             } catch (error) {
-              console.error('Error uploading certificate:', error);
+              if (error.response && error.response.status === 403) {
+                console.log("Token is not valid!");
+                navigate('/login');
+              } else {
+                console.error("Cart Add failed:", error);
+              }
             }
           };
         }
@@ -158,12 +148,12 @@ const CertificateUpload = () => {
       <div className="Certificate-upload-form-container">
         <h2 className='headerCU'>Certificate Upload Form</h2>
         <form onSubmit={handleSubmit}>
-        {/* <div className="form-groupCU">
+        <div className="form-groupCU">
           <label htmlFor="name">Name:</label>
           <input type="text" id="name" name="name"  className="inputNameCU"  onChange={handleNameChange}  />
           {errors.name && (
               <span className="error-name-message">{errors.name}</span>)}
-              </div> */}
+              </div>
 
         <div className="form-groupCU">
           <label htmlFor="description">Description:</label>
@@ -179,25 +169,7 @@ const CertificateUpload = () => {
               <span className="error-name-message">{errors.description}</span>)}
        
         <div className="form-groupCU">
-          <label htmlFor="institutionID">Institution:</label>
-          {console.log('institutions:', institutions)} {/* Log institutions */}
-  {console.log('selectedInstitution:', selectedInstitution)}
-          {/* {institutions.length > 0 ? ( */}
-  <select
-    id="institutionID"
-    name="institutionID"
-    className={`inputInstitutionIDCU ${errors.institutionID ? 'input-error' : ''}`}
-    value={selectedInstitution}
-    onChange={handleInstitutionChange}
-  >
-    <option className='inputInstitutionIDCU' value="">Select an institution</option>
-    {institutions.map((institution) => (
-    <option className='inputInstitutionIDCU' style={{height:"3rem"}} key={institution._id} value={institution._id}>
-      {institution.name}
-      </option>
-    ))}
-  </select>
-
+          
     {errors.institutionID && (
                 <span style={{ marginTop:"-1.5rem" }} className="error-name-message">{errors.institutionID}</span>)}
 
@@ -234,7 +206,7 @@ const CertificateUpload = () => {
       </div>
             <div>
       {showModal && (
-        <div className="image-modal" onClick={() => setShowModal(false)}>
+        <div className="image-upload-modal" onClick={() => setShowModal(false)}>
           {/* Add the image to be displayed in the modal */}
           {selectedFile && <img src={URL.createObjectURL(selectedFile)} alt="Certificate Preview" />}
         </div>
