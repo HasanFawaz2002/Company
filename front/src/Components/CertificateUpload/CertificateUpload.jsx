@@ -149,7 +149,7 @@ const CertificateUpload = () => {
         <h2 className='headerCU'>Certificate Upload Form</h2>
         <form onSubmit={handleSubmit}>
         <div className="form-groupCU">
-          <label htmlFor="name">Name:</label>
+          <label htmlFor="name"> Certificate name:</label>
           <input type="text" id="name" name="name"  className="inputNameCU"  onChange={handleNameChange}  />
           {errors.name && (
               <span className="error-name-message">{errors.name}</span>)}
