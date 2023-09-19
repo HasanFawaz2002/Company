@@ -1,6 +1,9 @@
 import axios from 'axios';
 import './StudentViewSubs.css'
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import Tooltip from '../tooltip/tooltip';
+// import {  ReactComponent as SvgUpload } from "../../images/icons"
+const SvgUpload = require("../../images/icons/upload_1.svg").ReactComponent
 
 const StudentViewSubs = () => {
 const [organizations, setOrganizations]= useState([])
@@ -21,10 +24,19 @@ const [organizations, setOrganizations]= useState([])
       }, []);
   return (
     <div className="backgroundSS">
+      <div className="scrollable-containerSS">
 <div className='gridSS'>
 {organizations.map((organization) => (
 <div className='cardSS'>
 <div className='orgNameRow'>{organization.name}</div>
+<div className='orgLocRow'> Located in: {organization.location}</div>
+<div className='orgEmailRow'>Email: {organization.email}</div>
+<div className='buttonRowSS'>
+
+<Tooltip  text="Share your QR code">
+<div className='buttonRowSS'><SvgUpload/></div>
+</Tooltip>
+</div>
 
 </div>
 ))}
@@ -35,6 +47,7 @@ const [organizations, setOrganizations]= useState([])
 
 
 
+    </div>
     </div>
   )
 }

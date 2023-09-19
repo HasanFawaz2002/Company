@@ -66,13 +66,13 @@ const CertificateUpload = () => {
 
           
           
-    //       const handleNameChange = (e) => {
-    //         const value = e.target.value;
-    // setName(value);
-    // if (value.trim()) {
-    //     clearError('name');
-    //   }
-          // };
+          const handleNameChange = (e) => {
+            const value = e.target.value;
+    setName(value);
+    if (value.trim()) {
+        clearError('name');
+      }
+          };
         
           const handleDescriptionChange = (e) => {
             const value = e.target.value;
@@ -89,9 +89,9 @@ const CertificateUpload = () => {
 
           const validateForm = () => {
             const errors = {};
-            // if (!name.trim()) {
-            //   errors.name = 'Name is required*';
-            // }
+            if (!name.trim()) {
+              errors.name = 'Name is required*';
+            }
             if (!description.trim()) {
               errors.description = 'Description is required*';
             }
@@ -108,7 +108,7 @@ const CertificateUpload = () => {
             e.preventDefault();
             if (validateForm()) {
             const formData = new FormData();
-            // formData.append('name', name);
+            formData.append('name', name);
             formData.append('description', description);
             formData.append('certificateFile', selectedFile);
           
@@ -148,12 +148,12 @@ const CertificateUpload = () => {
       <div className="Certificate-upload-form-container">
         <h2 className='headerCU'>Certificate Upload Form</h2>
         <form onSubmit={handleSubmit}>
-        {/* <div className="form-groupCU">
+        <div className="form-groupCU">
           <label htmlFor="name">Name:</label>
           <input type="text" id="name" name="name"  className="inputNameCU"  onChange={handleNameChange}  />
           {errors.name && (
               <span className="error-name-message">{errors.name}</span>)}
-              </div> */}
+              </div>
 
         <div className="form-groupCU">
           <label htmlFor="description">Description:</label>

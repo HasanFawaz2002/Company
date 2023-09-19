@@ -73,11 +73,12 @@ const createCertificateUpload = async (req, res) => {
       return res.status(400).json({ error: 'Certificate file is missing.' });
     }
     const studentID = req.user.user.id;
-
+    const { name } = req.body; 
     // Get the institution ID from the request parameters
     const { institutionID } = req.params;
     const certificateFile = req.file;
     const certificateUpload = new CertificateUpload({
+      name,
       studentID,
       institutionID,
       description: req.body.description,
