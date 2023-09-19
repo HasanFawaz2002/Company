@@ -42,10 +42,13 @@ const createCertificateRequest = async (req, res) => {
       certificateID,
     });
 
-    // Save the certificate request
-    await certificateRequest.save();
+    // Save the certificate request and capture the _id
+    const savedRequest = await certificateRequest.save();
 
-    res.status(201).json({ message: 'Certificate request submitted successfully.' });
+    res.status(201).json({
+      message: 'Certificate request submitted successfully.',
+      _id: savedRequest._id, // Include the certificateRequestID in the response
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });

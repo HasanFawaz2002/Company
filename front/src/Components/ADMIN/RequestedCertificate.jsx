@@ -4,6 +4,7 @@ import image from '../../images/image1.png';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { CirclesWithBar } from 'react-loader-spinner';
+import { BsThreeDots } from "react-icons/bs";
 
 function RequestedCertificate(props) {
   const [certificateRequests, setCertificateRequests] = useState([]);
@@ -17,6 +18,8 @@ function RequestedCertificate(props) {
   const [selectedCertificateId, setSelectedCertificateId] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [imageModalOpen, setImageModalOpen] = useState(false);
+  const [studentModalOpen, setStudentModalOpen] = useState(false);
+  const[studentIformation, setStudentIformation] = useState(null);
   const api= "http://localhost:3001";
 
 
@@ -60,6 +63,17 @@ function RequestedCertificate(props) {
   const firstcloseModal = () => {
     firstsetShowModal(false);
   };
+
+  const studentopenModal = () => {
+    setStudentModalOpen(true);
+  };
+
+  // Function to close the modal
+  const studentcloseModal = () => {
+    setStudentModalOpen(false);
+    setStudentIformation(null);
+  };
+
 
   const acceptCertificate = async (certificateId) => {
     try {
@@ -115,6 +129,33 @@ function RequestedCertificate(props) {
     setImageModalOpen(false);
   };
 
+ 
+
+    const fetchStudentInformation = (certificateID, studentID,certificateRequestID) => {
+      studentopenModal()
+      axios
+        .get(`${api}/getFormValuesByStudentID/${studentID}/${certificateID}/${certificateRequestID}`, {
+          headers: {
+            token: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          console.log(response.data); // Log the entire response
+          if (Array.isArray(response.data.dynamicFields)) {
+            setStudentIformation(response.data.dynamicFields);
+          }
+        })
+        .catch((error) => {
+          if (error.response && error.response.status === 403) {
+            console.log('Token is not valid!');
+            navigate('/Institutionlogin');
+          } else {
+            console.error('Error Fetching Data:', error);
+          }
+        });
+  }
+
+
   if (isLoading) {
     return (
       <div className='loading'>
@@ -142,6 +183,7 @@ function RequestedCertificate(props) {
         <div className="requested-certificate-container">
           {certificateRequests.map((item, index) => (
             <div className="requested-ceritificate-card" key={index}>
+              <button className='request-more-btn' onClick={() => fetchStudentInformation(item.certificateID._id, item.studentID._id,item._id)}><BsThreeDots /></button>
               <div className="img-box" onClick={() => handleImageClick(`${api}/getCertificatePhoto/${item.certificateID._id}/photo`)}>
                 <img src={`http://localhost:3001/getCertificatePhoto/${item.certificateID._id}/photo`} alt={`${item.certificateID.id}`} />
               </div>
@@ -213,6 +255,29 @@ function RequestedCertificate(props) {
           </form>
         </div>
       )}
+
+{studentModalOpen && (
+  <div className="modal">
+    <span className="close" title="Close Modal" onClick={studentcloseModal}>
+      x
+    </span>
+    <form className="modal-content">
+      <div className="container">
+        <h1>Student Information</h1>
+        {Array.isArray(studentIformation) && (
+          studentIformation.map((item, index) => (
+            <div key={index} className='user-request-more-information'>
+              <div className='user-request-more-information-one'>
+                <label htmlFor="">{item.key}:</label>
+                <h3>{item.value}</h3>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+    </form>
+  </div>
+)}
       {showModal && (
         <div className="modal">
           <span className="close" title="Close Modal" onClick={closeModal}>

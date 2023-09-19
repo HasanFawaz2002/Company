@@ -14,6 +14,7 @@ import AdminDashboard from "./Components/ADMIN/AdminDashboard";
 import CertificateUpload from "./Components/CertificateUpload/CertificateUpload";
 import CertificateRequest from "./Components/CERTIFICATE REQUEST/CertificateRequest";
 import StudentViewSubs from "./Components/StudentViewSubs/StudentViewSubs";
+import AllInstitutions from "./Components/AllINSTITUTIONS/AllInstitutions";
 
 import Institutions from "./Components/INSTITUTIONS/Institutions";
 import Contactus from "./Components/Contactus/Contactus";
@@ -44,6 +45,7 @@ const App = () => {
             <Route path="/CertificateUpload/:institutionID?" element={<CertificateUpload />} />
             <Route path="/CertificateRequest/:institutionID" element={<CertificateRequest />}></Route>
             <Route path="/StudentViewSubs" element={<StudentViewSubs />} />
+            <Route path="/AllInstitutions" element={<AllInstitutions />}></Route>
           </Routes>
         </>
     )

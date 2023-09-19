@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Institutions.css";
-import { BsThreeDots } from "react-icons/bs";
 import Image1 from "../../images/image1.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
@@ -43,6 +42,10 @@ function Institutions() {
     navigate(`/CertificateUpload/${institutionID}`);
   };
   useParallaxBanner(setScrollPosition);
+
+  const AllinstitutionNavigate = () => {
+    navigate('/AllInstitutions');
+  }
   return (
     <>
       <section
@@ -96,7 +99,7 @@ function Institutions() {
             </div>
           ))}
         </div>
-        <button className="view-all-button">View All <FaArrowRight  /></button>
+        <button onClick={AllinstitutionNavigate} className="view-all-button">View All <FaArrowRight  /></button>
       </div>
 
     </>

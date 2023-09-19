@@ -1,0 +1,105 @@
+
+
+.all-institutions-container{
+    display: flex;
+    align-content: center;
+    justify-content: space-evenly;
+    gap: 20px;
+    flex-wrap: wrap;
+    width: 100%;
+    padding-top: 100px;
+
+}
+
+.all-institutions-container .red {
+    background-color: #2D3741;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.9);
+  }
+  
+  
+  
+  .all-institutions-container .card {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding-left: 20px;
+    height: 250px;
+    width: 25%;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 400ms;
+    word-break: break-all;
+  }
+
+  .all-institutions-container .card .buttons-container{
+    display: flex;
+    justify-content: space-between ;
+    margin-left: 25px;
+    width: 80%;
+    margin-top: 20px;
+  }
+  .all-institutions-container .card .buttons-container button{
+    padding: 5px;
+    border: 1px solid white;
+    border-radius: 10px;
+    font-size: larger;
+    background-color: transparent;
+    color: white;
+    transition: all ease 300ms;
+  }
+  .all-institutions-container .card .buttons-container button a{
+    text-decoration: none;
+    color: white;
+  }
+
+  .all-institutions-container .card .buttons-container button:hover a{
+    color: aqua;
+  }
+
+  .all-institutions-container .card .buttons-container button:hover{
+   background-color:white;
+   border: transparent;
+   color: #2D3741;
+  }
+
+  .all-institutions-container .card .buttons-container button svg{
+    margin-right: 10px;
+  }
+  .all-institutions-container .card .buttons-container button svg.third{
+    margin-right: 0;
+    margin-left: 5px;
+    transform: translateY(10px);
+  }
+  
+  .all-institutions-container .card h1.tip {
+   margin-bottom: 10px;
+   color: white;
+
+  }
+  
+  .all-institutions-container .card h3.second-text {
+    color: white;
+
+  }
+  
+  .all-institutions-container .card:hover {
+    transform: scale(1.05, 1.05);
+  }
+  
+  
+
+  @media screen and (max-width: 768px) {
+    .all-institutions-container{
+        flex-direction: column;
+        gap: 20px;
+    }
+    .all-institutions-container .card{
+        width: 90%;
+    }
+    .all-institutions-container .card .buttons-container{
+        width: 95%;
+        margin-left: 0;
+    }
+    
+  }
