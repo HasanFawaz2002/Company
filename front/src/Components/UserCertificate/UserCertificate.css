@@ -1,0 +1,41 @@
+
+.UserCertificate-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 150px;
+    background-color: #2D3741;
+    flex-wrap: wrap;
+}
+.UserCertificate-card{
+    background-color: white;
+    width: 250px;
+    margin: 10px;
+    border-radius: 15px;
+}
+.UserCertificate-card-image{
+    height: 170px;
+    margin-bottom: 15px;
+    background-size: cover;
+    background-image: url('../../images/1600w-_A_NvKtzEzc.webp');
+    border-radius: 15px 15px 0 0;
+}
+.UserCertificate-card-headtwo,.UserCertificate-card-firstp{
+    padding: 10px;
+}
+.UserCertificate-cancel{
+text-align: center;
+ padding: 10px;
+ margin: 10px;
+ width: 100px;
+ border-radius:5px ;
+ background-color: red;
+border: none;
+color: white;
+}
+.UserCertificate-cancel:hover{
+    cursor: pointer;
+}
+.UserCertificatebtn{
+  display: flex;
+  justify-content: center;
+}

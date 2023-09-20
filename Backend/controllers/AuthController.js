@@ -10,6 +10,8 @@ const fs = require('fs');
 const Token = require('../models/token');
 const emailVerification = require('../controllers/verificationEmail');
 const crypto = require('crypto');
+const CertificateRequest = require('../models/certificateRequest');
+const CertificateUpload = require('../models/certificateUpload');
 
 // Construct the full path to the uploads directory
 const uploadPath = path.join(__dirname, '..', 'server', 'uploads');
@@ -151,16 +153,13 @@ const updateProfile = asyncHandler(async (req, res) => {
 
 
   try {
-    // Find the user by ID
     const user = await User.findById(userId);
 
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
 
-     // Update profilePicture, location, and bio if the values exist
      if (profilePictureFilename) {
-      // Handle profile picture update logic (e.g., replace the existing picture)
       user.profilePicture = profilePictureFilename;
     }
 
@@ -172,7 +171,6 @@ const updateProfile = asyncHandler(async (req, res) => {
       user.bio = bio;
     }
 
-    // Save the updated user document
     const updatedUser = await user.save();
 
     res.status(200).json(updatedUser);
@@ -324,6 +322,22 @@ const reset = asyncHandler(async (req, res) =>  {
   })
 })
 
+const getcertificaterequestoruploaded= asyncHandler(async (req, res) => {
+  const userId = req.user.user.id;
+
+  try {
+    // Fetch requested certificates for the user
+    const requestedCertificates = await CertificateRequest.find({ studentID: userId });
+
+    // Fetch uploaded certificates for the user
+    const uploadedCertificates = await CertificateUpload.find({ studentID: userId });
+
+    res.json({ requestedCertificates, uploadedCertificates });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
 
-module.exports = { registerUser, loginUser,upload,forgot,reset,updateProfile,verifyEmail,getUserPhoto};
+module.exports = { registerUser, loginUser,upload,forgot,reset,updateProfile,verifyEmail,getUserPhoto,getcertificaterequestoruploaded};

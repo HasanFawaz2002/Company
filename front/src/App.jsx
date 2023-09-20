@@ -12,9 +12,10 @@ import EmailVerify from "./Components/Authentication/EmailVerify";
 import EmailSent from "./Components/Authentication/EmailSent";
 import AdminDashboard from "./Components/ADMIN/AdminDashboard";
 import CertificateUpload from "./Components/CertificateUpload/CertificateUpload";
-
 import Institutions from "./Components/INSTITUTIONS/Institutions";
 import Contactus from "./Components/Contactus/Contactus";
+import CompleteInformation from "./Components/CompleteInformation/CompleteInformation";
+import UserCertificate from "./Components/UserCertificate/UserCertificate";
 
 const App = () => {
     const location = useLocation();
@@ -40,6 +41,8 @@ const App = () => {
             <Route path="/admin/*" element={<AdminDashboard />} />
             <Route path="/institutions" element={<Institutions />}></Route>
             <Route path="/CertificateUpload" element={<CertificateUpload />} />
+            <Route path="/CompleteInformation" element={<CompleteInformation />} />
+            <Route path="/UserCertificate" element={<UserCertificate />} />
           </Routes>
         </>
     )
