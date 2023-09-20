@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import './Modal.css';
 import axios from 'axios';
+import { ReactComponent as SvgBackIcon } from '../../images/icons/Arrow.svg';
 
-
-const Modal = () => {
+const Modal = ({onClose, onSave}) => {
     const [certificateUploads, setCertificateUploads]= useState([]);
     const [certificateRequests, setCertificateRequests]= useState([]);
+    const [checkedCertificates, setCheckedCertificates] = useState({});
 
+    const toggleCheckbox = (certificateId) => {
+        setCheckedCertificates((prevCheckedCertificates) => ({
+          ...prevCheckedCertificates,
+          [certificateId]: !prevCheckedCertificates[certificateId],
+        }));
+      };
     const token = localStorage.getItem("access_token");
     const role = localStorage.getItem("role");
 
@@ -41,24 +48,56 @@ const Modal = () => {
     <div className='ModalOverlaySS'>
         <div className='ModalContentSS'>
             <div className='ModalWrapperSS'>
-                <div className='ModalFlexBodySS'>
-                    <ul>
+                <div className='CloseIconSS'>
+<SvgBackIcon style={{ cursor:'pointer' }} onClick={onClose} />
+                </div>
+                <div  className='ModalFlexBodySS'>
+                    <div className='TitleRowSS'>
+                        <div>
+                            select
+                        </div>
+                        <div className='ColoredTextSS'>
+                        Certificates
+                    </div>
+                    </div>
+                   
+                    <div>
  {certificateUploads.map((certificateUpload) => (
 
-<li key={certificateUpload.id} className='CertificateHolderSS'>
+<label className={`CertificatesHolderSS ${
+                    checkedCertificates[certificateUpload.id] ? 'CustomBorderColor' : ''
+                  }`} key={certificateUpload.id}>
+<input type='checkbox' className='HiddenCheckbox' checked={checkedCertificates[certificateUpload.id] || false}
+                    onChange={() => toggleCheckbox(certificateUpload.id)} />
+<img
+  className='ImageModalSS'
+  src={`http://localhost:3001/certificateUploadPhoto/${certificateUpload._id}/photo`}
+  alt={`${certificateUpload.id}`}
+/>
 {certificateUpload.name}: {certificateUpload.description}
-</li>
+</label>
   ))}
-</ul>
-                    <ul>
+</div>
+                    <div>
  {certificateRequests.map((certificateRequest) => (
 
-<li key={certificateRequest.id} className='CertificateHolderSS'>
+<label className={`CertificatesHolderSS ${
+                    checkedCertificates[certificateRequest.id] ? 'CustomBorderColor' : ''}`} key={certificateRequest.id}>
+<input type='checkbox' className='HiddenCheckbox'  checked={checkedCertificates[certificateRequest.id] || false}
+                    onChange={() => toggleCheckbox(certificateRequest.id)} />
+<img
+  className='ImageModalSS'
+  src={`http://localhost:3001/getCertificatePhoto/${certificateRequest.certificateID._id}/photo`}
+  alt={`${certificateRequest.certificateID.id}`}
+/>
 {certificateRequest.certificateID.name}: {certificateRequest.certificateID.description}
-<img src={`http://localhost:3001/getCertificatePhoto/${certificateRequest.certificateID._id}/photo`} alt={`${certificateRequest.certificateID.id}`} />
-</li>
+</label>
   ))}
-</ul>
+  <div className='ButtonsRowSS' >
+<button className='ButtonsSS'>Send</button>
+
+  </div>
+</div>
 
                 </div>
 

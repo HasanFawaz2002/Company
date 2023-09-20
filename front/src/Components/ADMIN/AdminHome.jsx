@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import 
-{ BsFillArchiveFill, BsFillGrid3X3GapFill, BsPersonFill, BsFillBellFill}
+{  BsPersonFill}
  from 'react-icons/bs'
  import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
  import { useNavigate } from 'react-router-dom';
@@ -8,7 +8,7 @@ import
  import { CirclesWithBar } from 'react-loader-spinner';
  import {motion} from 'framer-motion';
 import defaultImage from '../../images/download.png'
-
+import { FaUser, FaCertificate } from 'react-icons/fa';
 
 
 const Home = () => {
@@ -19,6 +19,7 @@ const Home = () => {
     const [certificateData3, setCertificateData3] = useState(0);
     const [certificateRequests, setCertificateRequests] = useState([]);
     const [showModal, setShowModal] = useState(false);
+    const [studentCount, setStudentCount] = useState(null);
 
     const [newPassword, setNewPassword] = useState('');
   const [newPasswordRequired, setNewPasswordRequired] = useState(false);
@@ -62,8 +63,31 @@ const Home = () => {
         });
     }, []);
 
+    useEffect(() => {
+  
+      axios
+        .get(`http://localhost:3001/getStudentCountsForInstitution`, {
+          headers: {
+            token: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          setStudentCount(response.data.totalStudentCount);
+          console.log(studentCount)
+        })
+        .catch((error) => {
+          if (error.response && error.response.status === 403) {
+            console.log('Token is not valid!');
+            navigate('/Institutionlogin');
+          } else {
+            console.error('Error Fetching Data:', error);
+          }
+        });
+    }, []);
+
 
   useEffect(() => {
+    const role = localStorage.getItem('role');
     const config = {
       headers: {
         token: `Bearer ${token}`,
@@ -75,7 +99,10 @@ const Home = () => {
         setInstitutionData(response.data.institution);
         console.log(response.data.institution);
         if (!response.data.institution.notified) {
-          openModal(); // Open the modal when notified is false
+          openModal(); 
+        }
+        if(response.data.institution.role !== role){
+          navigate('/Institutionlogin');
         }
       })
       .catch(error => {
@@ -256,7 +283,7 @@ const Home = () => {
             >
             <div className='card-inner'>
                 <h3>Certificates</h3>
-                <BsFillArchiveFill className='card-icon'/>
+                <FaCertificate className='card-icon'/>
             </div>
             <h1>{certificateData3.totalCertificates}</h1>
             </motion.div>
@@ -271,10 +298,10 @@ const Home = () => {
             transition={{duration:0.5,delay:0.4}}
             >
             <div className='card-inner'>
-                <h3>Category</h3>
-                <BsFillGrid3X3GapFill className='card-icon'/>
+                <h3>Students</h3>
+                <FaUser className='card-icon'/>
             </div>
-            <h1>300</h1>
+            <h1>{studentCount}</h1>
             </motion.div>
 
             
