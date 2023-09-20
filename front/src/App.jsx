@@ -14,9 +14,9 @@ import AdminDashboard from "./Components/ADMIN/AdminDashboard";
 import CertificateUpload from "./Components/CertificateUpload/CertificateUpload";
 import CertificateRequest from "./Components/CERTIFICATE REQUEST/CertificateRequest";
 import StudentViewSubs from "./Components/StudentViewSubs/StudentViewSubs";
-
 import Institutions from "./Components/INSTITUTIONS/Institutions";
 import Contactus from "./Components/Contactus/Contactus";
+import Scanner from "./Components/scanner/Scanner";
 
 const App = () => {
     const location = useLocation();
@@ -44,6 +44,7 @@ const App = () => {
             <Route path="/CertificateUpload/:institutionID?" element={<CertificateUpload />} />
             <Route path="/CertificateRequest/:institutionID" element={<CertificateRequest />}></Route>
             <Route path="/StudentViewSubs" element={<StudentViewSubs />} />
+            <Route path="/Scanner" element={<Scanner />} />
           </Routes>
         </>
     )

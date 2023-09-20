@@ -12,6 +12,11 @@
     color: #fff;
 }
 
+.backgroundSS::-webkit-scrollbar {
+  width: 0.5rem; /* Adjust the width as needed */
+  background-color: transparent; /* Set the background color to transparent */
+}
+
 @media screen and (max-width: 768px) {
     .backgroundSS{
         overflow-x: hidden;
@@ -24,12 +29,17 @@
         justify-content: center;
         align-items: center;
         gap: 1rem;
-        width: 175%;
+  display: flex; /* Use flex layout for seamless looping */
+  flex-direction: row; /* Arrange conten  
         /* background-color: white; */
         height: 100vh;
-        transition: transform 0.5s ease-in-out;
-    }
+        overflow-x: scroll;
 
+    }
+    .gridSS::-webkit-scrollbar {
+      width: 0.5rem; /* Adjust the width as needed */
+      background-color: transparent; /* Set the background color to transparent */
+    }
     .cardSS{
         display: flex;
         flex-direction: column;
@@ -67,33 +77,44 @@ justify-content: center;
     
 
 .scrollable-containerSS{
-  /* overflow-x: hidden; Hide the horizontal scrollbar */
-  width: 100%;
-  white-space: nowrap;
-  overflow-y: hidden; /* Hide the vertical scrollbar */
-  position: relative;
-  /* margin-left: 10rem; */
+  display: flex;
+  justify-content: center;
+  /* overflow: hidden; */
+
   }
  
-  /* CSS for scroll arrows */
-.scroll-button {
-  width: 40px;
-  height: 40px;
-  background-color: #f5f5f5; /* Background color */
-  border: 1px solid #ccc; /* Border color */
-  border-radius: 50%; /* Rounded shape */
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  font-size: 24px;
-  color: #333; /* Text color */
-  transition: background-color 0.3s, color 0.3s; /* Smooth transition */
-}
+  .content {
+    width: fit-content; /* Set the width to fit the content */
+    display: flex; /* Use flex layout for seamless looping */
+    flex-direction: row; 
+  }
+  
+  /* Keyframes animation for scrolling */
+ 
+  .formSS{
+position: relative;
+top: 10rem;
+display: flex;
+justify-content: center;
+align-self: center;
+z-index: 2;
+  }
+  .inputSS{
 
-/* Hover effect */
-.scroll-button:hover {
-  background-color: #333; /* Background color on hover */
-  color: #fff; /* Text color on hover */
-}
+    width: 23.625rem;
+    height: 3.125rem;
+    border-radius: 6.25rem;
+    border: 1px solid #576371;
+    background-color: transparent;
+    outline: none;
+    padding-left: 1rem;
+    color: #fff;
+    font-family: "CORE";
+    font-size: 1rem;
+  }
+
+  @media screen and (max-width: 768px) {
+    .inputSS{
+     width: 100%;
+    }
+  }
