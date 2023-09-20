@@ -7,6 +7,7 @@ const {createCertificate,
   getCertificatePhoto,
   getCertificatesbyInstitution,
   getStudentCountsForInstitution,
+  countTotalCertificatesForAllInstitutions,
 upload} = require('../controllers/CertificateController');
 const verify = require('../Controllers/verifytoken');
 
@@ -22,6 +23,8 @@ router.put('/updateCertificateById/:certificateID',verify, updateCertificateById
 router.get('/countTotalCertificates',verify,countTotalCertificates);
 router.get('/getCertificatesbyInstitution/:institutionID',getCertificatesbyInstitution);
 router.get('/getStudentCountsForInstitution',verify,getStudentCountsForInstitution);
+router.get('/countTotalCertificatesForAllInstitutions',countTotalCertificatesForAllInstitutions);
+
 //Get User  Photo
 router.get("/getCertificatePhoto/:certificatePhotoID/photo", getCertificatePhoto);
 

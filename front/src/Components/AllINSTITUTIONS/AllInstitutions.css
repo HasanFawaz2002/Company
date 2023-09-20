@@ -7,9 +7,30 @@
     gap: 20px;
     flex-wrap: wrap;
     width: 100%;
-    padding-top: 100px;
+    padding-top: 50px;
 
 }
+.search-institutions{
+   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    
+}
+
+.search-institutions input{
+    padding: 5px;
+    font-size: larger;
+    margin-left: 10px;
+    outline: none;
+    border: 1px solid black;
+}
+
+.search-institutions svg{
+    font-size: larger;
+}
+
 
 .all-institutions-container .red {
     background-color: #2D3741;

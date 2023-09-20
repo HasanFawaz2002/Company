@@ -18,10 +18,11 @@ import AllInstitutions from "./Components/AllINSTITUTIONS/AllInstitutions";
 
 import Institutions from "./Components/INSTITUTIONS/Institutions";
 import Contactus from "./Components/Contactus/Contactus";
+import SuperAdminDashboard from "./Components/SUPERADMIN/SuperAdminDashboard";
 
 const App = () => {
     const location = useLocation();
-  const hideNavbarRoutes = ["/EmailSent", "/users","/admin"]; 
+  const hideNavbarRoutes = ["/EmailSent", "/users","/admin","/superadmin"]; 
 
   const isNavbarHidden = hideNavbarRoutes.some((route) =>
     location.pathname.startsWith(route)
@@ -46,6 +47,7 @@ const App = () => {
             <Route path="/CertificateRequest/:institutionID" element={<CertificateRequest />}></Route>
             <Route path="/StudentViewSubs" element={<StudentViewSubs />} />
             <Route path="/AllInstitutions" element={<AllInstitutions />}></Route>
+            <Route path="/superadmin/*" element={<SuperAdminDashboard />}></Route>
           </Routes>
         </>
     )

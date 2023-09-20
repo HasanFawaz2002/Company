@@ -23,6 +23,7 @@ const Navbar = () => {
 
     const isAdmin = token && role === 'admin';
     const isUser = token && role === 'user';
+    const isSuperAdmin = token && role === 'superAdmin';
 
   const isInstitutionsRoute = location.pathname.startsWith('/institutions') || location.pathname.startsWith('/Institutionlogin') || location.pathname.startsWith('/CertificateUpload') || location.pathname === "/StudentViewSubs" || location.pathname.startsWith('/CertificateRequest') || location.pathname.startsWith('/login'); 
   const isInstitutionLogin = location.pathname.startsWith('/Institutionlogin') || location.pathname.startsWith('/CertificateUpload') || location.pathname.startsWith('/CertificateRequest') || location.pathname === "/StudentViewSubs" || location.pathname.startsWith('/login');
@@ -38,6 +39,7 @@ const Navbar = () => {
                 <ul >
                     <li ><NavLink  className={isInstitutionsRoute ? 'white-link' : ''} to='/'>HOME</NavLink></li>
                     {isAdmin && <li><NavLink className={isInstitutionsRoute ? 'white-link' : ''} to='/admin'>Dashboard</NavLink></li>}
+                    {isSuperAdmin && <li><NavLink className={isInstitutionsRoute ? 'white-link' : ''} to='/superadmin'>Dashboard</NavLink></li>}
                     {isUser && <li><NavLink className={isInstitutionsRoute ? 'white-link' : ''} to='/wallet'>Wallet</NavLink></li>}
                     <li><NavLink className={isInstitutionsRoute ? 'white-link' : ''} to='/contact'>CONTACT</NavLink></li>
                     <li><NavLink className={isInstitutionsRoute ? 'white-link' : ''} to='/institutions'>Institutions</NavLink></li>

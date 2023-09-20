@@ -5,7 +5,10 @@ const {
       getCertificateRequestsCount,
       getAllPendingCertificateRequestsCount,getAllVerifiedCertificateRequestsCount,getAllRejectedCertificateRequestsCount,getAllCertificateCount,
       getCertificateRequestsByStatusAndInstitution,
-      getLatestCertificateRequestsByStatusAndInstitution
+      getLatestCertificateRequestsByStatusAndInstitution,
+      getLatestCertificateRequestsByStatusForAllInstitutions,
+      countCertificateRequestsForAllInstitutions,
+      getCertificateRequestsByStatusForAllInstitutions
       } 
       = require('../controllers/CertificateRequest');
 
@@ -23,9 +26,12 @@ router.put('/updateCertificateStatusToVerified/:requestID', verify, updateCertif
 router.put('/updateCertificateStatusToRejected/:requestID', verify, updateCertificateStatusToRejected);
 router.get('/getCertificateRequestsByStatusAndInstitution/:status', verify, getCertificateRequestsByStatusAndInstitution);
 router.get('/getLatestCertificateRequestsByStatusAndInstitution/:status', verify, getLatestCertificateRequestsByStatusAndInstitution);
+router.get('/getLatestCertificateRequestsByStatusForAllInstitutions/:status', getLatestCertificateRequestsByStatusForAllInstitutions);
+router.get('/getCertificateRequestsByStatusForAllInstitutions/:status',  getCertificateRequestsByStatusForAllInstitutions);
 
 
 router.get('/getCertificateRequestsCount', verify, getCertificateRequestsCount);
+router.get('/countCertificateRequestsForAllInstitutions', countCertificateRequestsForAllInstitutions);
 
 
 //SuperAdmin

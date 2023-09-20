@@ -194,6 +194,19 @@ const countTotalCertificates = async (req, res) => {
   }
 };
 
+const countTotalCertificatesForAllInstitutions = async (req, res) => {
+  try {
+    // Count the total number of certificates for all institutions
+    const totalCertificates = await Certificate.countDocuments();
+
+    res.status(200).json({ totalCertificates });
+  } catch (error) {
+    console.error('Error counting total certificates for all institutions:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
 
 
 const getStudentCountsForInstitution = async (req, res) => {
@@ -224,6 +237,10 @@ const getStudentCountsForInstitution = async (req, res) => {
 
 
 
+
+
+
+
 module.exports = {
   countTotalCertificates,
   createCertificate,
@@ -233,5 +250,6 @@ module.exports = {
   upload,
   getCertificatePhoto,
   getCertificatesbyInstitution,
-  getStudentCountsForInstitution
+  getStudentCountsForInstitution,
+  countTotalCertificatesForAllInstitutions
 };
