@@ -1,31 +1,35 @@
-
+.bg{
+    background-color: #2D3741;
+    min-height: 100vh;
+}
 .UserCertificate-container{
     display: flex;
     justify-content: center;
-    margin-top: 150px;
-    background-color: #2D3741;
+    padding-top: 150px;
     flex-wrap: wrap;
 }
 .UserCertificate-card{
     background-color: white;
-    width: 250px;
+    width: 300px;
     margin: 10px;
     border-radius: 15px;
 }
 .UserCertificate-card-image{
     height: 170px;
     margin-bottom: 15px;
-    background-size: cover;
-    background-image: url('../../images/1600w-_A_NvKtzEzc.webp');
     border-radius: 15px 15px 0 0;
+    width: 100%;
 }
 .UserCertificate-card-headtwo,.UserCertificate-card-firstp{
     padding: 10px;
 }
+.UserCertificate-card-headtwo{
+    text-align: center;
+}
 .UserCertificate-cancel{
 text-align: center;
  padding: 10px;
- margin: 10px;
+ margin: 8px 0; 
  width: 100px;
  border-radius:5px ;
  background-color: red;
@@ -39,3 +43,97 @@ color: white;
   display: flex;
   justify-content: center;
 }
+
+
+
+.cancelbtn, .deletebtn {
+    height: 40px;
+    border: none;
+      width: 20%;
+      border-radius: 5px;
+      margin: 10px;
+    }
+    .acceptbtn{
+      background-color: #5DD3B3;
+      height: 40px;
+    border: none;
+      width: 20%;
+      border-radius: 5px;
+      margin: 10px;
+    }
+    .reject-textarea{
+      width: 50%;
+      outline: none;
+      border-radius: 5px;
+    }
+    .new-password-input{
+      width: 50%;
+      outline: none;
+      border-radius: 5px;
+      height: 50px;
+      padding-left: 20px;
+      font-size: large;
+    }
+    
+    /* Add a color to the cancel button */
+    .cancelbtn {
+      background-color: #ccc;
+      color: black;
+    }
+    
+    
+    /* Add a color to the delete button */
+    .deletebtn {
+      background-color: red;
+    }
+    
+    /* Add padding and center-align text to the container */
+    .container {
+      padding: 16px;
+      text-align: center;
+    }
+    
+    /* The Modal (background) */
+    .modal {
+       /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgba(71, 78, 93, 0.8);
+      padding-top: 50px;
+    }
+    
+    /* Modal Content/Box */
+    .modal-content {
+      background-color: #fefefe;
+      margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+      border: 1px solid #888;
+      width: 40%; /* Could be more or less, depending on screen size */
+      border-radius: 10px;
+    }
+    
+    /* Style the horizontal ruler */
+    hr {
+      border: 1px solid #f1f1f1;
+      margin-bottom: 25px;
+    }
+     
+    /* The Modal Close Button (x) */
+    .close {
+      position: absolute;
+      right: 35px;
+      top: 15px;
+      font-size: 40px;
+      font-weight: bold;
+      color: #f1f1f1;
+    }
+    
+    .close:hover,
+    .close:focus {
+      color: #f44336;
+      cursor: pointer;
+    }

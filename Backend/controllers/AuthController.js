@@ -327,7 +327,7 @@ const getcertificaterequestoruploaded= asyncHandler(async (req, res) => {
 
   try {
     // Fetch requested certificates for the user
-    const requestedCertificates = await CertificateRequest.find({ studentID: userId });
+    const requestedCertificates = await CertificateRequest.find({ studentID: userId }).populate('certificateID');
 
     // Fetch uploaded certificates for the user
     const uploadedCertificates = await CertificateUpload.find({ studentID: userId });

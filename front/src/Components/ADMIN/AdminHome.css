@@ -82,7 +82,7 @@
     grid-area: sidebar;
     height: 100%;
     background-color:#2D3741;
-    border-right: 2px solid #fff;
+    border-right: 2px solid #5DD3B3;
     overflow-y: auto;
     transition: all 0.5s;
     -webkit-transition: all 0.5s;

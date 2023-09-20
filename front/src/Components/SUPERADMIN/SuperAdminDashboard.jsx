@@ -6,10 +6,10 @@ import AdminHome from './AdminHome';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import './AdminHome.css';
-import CreateCerticate from './CreateCertificate';
-import CustomizableForm from './Customizable Form';
 import RequestedCertificate from './RequestedCertificate';
 import UploadedCertificate from './UploadedCertificate';
+import CreateInstitutionForm from './Create Institution Form';
+import CreateSubscription from './Create Subscription';
 
 const SuperAdminDashboard = () => {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
@@ -37,8 +37,8 @@ const SuperAdminDashboard = () => {
       <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar} />
       <Routes>
         <Route path="/" element={<AdminHome />} />
-        <Route path="/createcertificate" element={<CreateCerticate />} />
-        <Route path="/CustomizableForm" element={<CustomizableForm />} />
+        <Route path="/CreateInstitutionForm" element={<CreateInstitutionForm />} />
+        <Route path="/CreateSubscription" element={<CreateSubscription />} />
         <Route
           path="/RequestedCertificate"
           element={<RequestedCertificate selectedStatus={selectedStatus} />} 
