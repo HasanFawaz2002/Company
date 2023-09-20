@@ -14,6 +14,9 @@ router.get('/certificateUploadRoute',verify, CertificateUploadController.getCert
 
 router.get('/certificateUploadRoute/count',verify, CertificateUploadController.getCertificateUploadsByInstitutionCount);
 
+router.get('/getAllInstitutionsCertificateUploadCounts/count' , CertificateUploadController.getAllInstitutionsCertificateUploadCounts);
+
+
 router.get('/certificateUploadRoute/totalcount',verify, CertificateUploadController.getCertificateUploadsTotal);
 
 // Get a single certificate upload by ID
@@ -29,6 +32,8 @@ router.delete('/certificateUploadRoute/:id', CertificateUploadController.deleteC
 router.get("/certificateUploadPhoto/:certificateUploadID/photo", CertificateUploadController.getCertificateUploadPhoto);
 
 router.get('/getUploadRequestsByStatusAndInstitution/:status', verify, CertificateUploadController.getUploadRequestsByStatusAndInstitution);
+router.get('/getUploadRequestsByStatusForAllInstitutions/:status',  CertificateUploadController.getUploadRequestsByStatusForAllInstitutions);
+
 
 router.put('/updateuploadCertificateStatusToVerified/:requestID', verify, CertificateUploadController.updateuploadCertificateStatusToVerified);
 

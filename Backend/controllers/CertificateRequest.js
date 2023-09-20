@@ -42,10 +42,13 @@ const createCertificateRequest = async (req, res) => {
       certificateID,
     });
 
-    // Save the certificate request
-    await certificateRequest.save();
+    // Save the certificate request and capture the _id
+    const savedRequest = await certificateRequest.save();
 
-    res.status(201).json({ message: 'Certificate request submitted successfully.' });
+    res.status(201).json({
+      message: 'Certificate request submitted successfully.',
+      _id: savedRequest._id, // Include the certificateRequestID in the response
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
@@ -191,6 +194,42 @@ const createCertificateRequest = async (req, res) => {
       });
     }
   });
+
+
+  const countCertificateRequestsForAllInstitutions = async (req, res) => {
+    try {
+      // Define valid status values (you can customize this)
+      const validStatusValues = ['Pending', 'Approved', 'Rejected'];
+    
+      // Count requests with different status values for all institutions
+      const counts = {};
+  
+      for (const status of validStatusValues) {
+        counts[status] = await CertificateRequest.countDocuments({ status });
+      }
+    
+      // Count all requests for all institutions
+      const totalCount = await CertificateRequest.countDocuments();
+    
+      // Construct the response object
+      const response = {
+        message: "Certificate requests retrieved successfully",
+        requestCounts: {
+          ...counts,
+          totalRequests: totalCount,
+        },
+      };
+    
+      res.status(200).json(response);
+    } catch (error) {
+      console.error("Error retrieving certificate requests for all institutions:", error);
+      res.status(500).json({
+        message: "Error retrieving certificate requests for all institutions",
+        error: error.message,
+      });
+    }
+  };
+  
   
   
   
@@ -301,6 +340,34 @@ const createCertificateRequest = async (req, res) => {
       res.status(500).json({ message: 'Internal server error' });
     }
   };
+
+
+  const getCertificateRequestsByStatusForAllInstitutions = async (req, res) => {
+    try {
+      const { status } = req.params; // Get the status from the URL parameter
+    
+      // Validate the status
+      const validStatusValues = ['Pending', 'Approved', 'Rejected', 'All'];
+      if (!validStatusValues.includes(status)) {
+        return res.status(400).json({ message: 'Invalid status value.' });
+      }
+    
+      // Create a query based on the status (including the case for "All")
+      const query = status === 'All' ? {} : { status };
+    
+      // Find certificate requests based on the query and populate the 'student' and 'certificate' fields
+      const certificateRequests = await CertificateRequest.find(query)
+        .populate('studentID') // Populate the 'student' field
+        .populate('certificateID')
+        .populate('institutionID'); // Populate the 'certificate' field
+    
+      res.status(200).json(certificateRequests);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  };
+  
   
   const getLatestCertificateRequestsByStatusAndInstitution = async (req, res) => {
     try {
@@ -342,6 +409,41 @@ const createCertificateRequest = async (req, res) => {
       res.status(500).json({ message: 'Internal server error' });
     }
   };
+
+  const getLatestCertificateRequestsByStatusForAllInstitutions = async (req, res) => {
+    try {
+      const { status } = req.params; // Get the status from the URL parameter
+  
+      // Define valid status values (you can customize this)
+      const validStatusValues = ['Pending', 'Approved', 'Rejected', 'All'];
+  
+      // Check if the provided status is valid
+      if (!validStatusValues.includes(status)) {
+        return res.status(400).json({ message: 'Invalid status value.' });
+      }
+  
+      let query = {}; // An empty query to fetch requests for all institutions
+  
+      // Handle the case when status is "All"
+      if (status !== 'All') {
+        query.status = status;
+      }
+  
+      // Find the latest three certificate requests based on the query and populate the 'student' and 'certificate' fields
+      const certificateRequests = await CertificateRequest.find(query)
+        .populate('studentID') // Populate the 'student' field
+        .populate('certificateID') // Populate the 'certificate' field
+        .sort({ createdAt: -1 }) // Sort by createdAt in descending order (latest first)
+        .limit(3); // Limit to the latest three requests
+  
+      res.status(200).json(certificateRequests);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error });
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  };
+  
   
   
   
@@ -355,6 +457,9 @@ const createCertificateRequest = async (req, res) => {
     getCertificateRequestsCount,getAllPendingCertificateRequestsCount,getAllVerifiedCertificateRequestsCount,
     getAllRejectedCertificateRequestsCount,getAllCertificateCount,
     getCertificateRequestsByStatusAndInstitution,
-    getLatestCertificateRequestsByStatusAndInstitution
+    getLatestCertificateRequestsByStatusAndInstitution,
+    getLatestCertificateRequestsByStatusForAllInstitutions,
+    countCertificateRequestsForAllInstitutions,
+    getCertificateRequestsByStatusForAllInstitutions
 };
 

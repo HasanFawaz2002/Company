@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Institutions.css";
-import { BsThreeDots } from "react-icons/bs";
 import Image1 from "../../images/image1.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import Footer from "../Footer/Footer";
 import { FaUpload, FaRegHandPointer,FaArrowRight  } from "react-icons/fa";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const useParallaxBanner = (setScrollPosition) => {
   const handleScroll = () => setScrollPosition(window.pageYOffset);
@@ -21,7 +22,7 @@ function Institutions() {
   const [scrollPosition, setScrollPosition] = useState(0);
 
   const [institutions, setInstitutions] = useState([]); // Initialize as an empty array
-
+  const navigate = useNavigate();
   // Fetch the list of institutions from the API
   useEffect(() => {
     axios
@@ -37,8 +38,14 @@ function Institutions() {
         setInstitutions([]);
       });
   }, []);
-
+  const handleUploadButtonClick = (institutionID) => {
+    navigate(`/CertificateUpload/${institutionID}`);
+  };
   useParallaxBanner(setScrollPosition);
+
+  const AllinstitutionNavigate = () => {
+    navigate('/AllInstitutions');
+  }
   return (
     <>
       <section
@@ -80,20 +87,19 @@ function Institutions() {
               <h3 className="second-text">{institution.email}</h3>
               <h3 className="second-text">{institution.location}</h3>
               <div className="buttons-container">
-                <button>
+                <button onClick={() => handleUploadButtonClick(institution._id)}>
                   <FaUpload /> Upload
                 </button>
                 <button>
-                  <FaRegHandPointer /> Request
+                  <Link to={`/CertificateRequest/${institution._id}`} ><FaRegHandPointer /> Request</Link>
+                  
                 </button>
-                <button>
-                  More <BsThreeDots className="third" />{" "}
-                </button>
+                
               </div>
             </div>
           ))}
         </div>
-        <button className="view-all-button">View All <FaArrowRight  /></button>
+        <button onClick={AllinstitutionNavigate} className="view-all-button">View All <FaArrowRight  /></button>
       </div>
 
     </>

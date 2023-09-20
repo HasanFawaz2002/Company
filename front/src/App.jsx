@@ -12,14 +12,18 @@ import EmailVerify from "./Components/Authentication/EmailVerify";
 import EmailSent from "./Components/Authentication/EmailSent";
 import AdminDashboard from "./Components/ADMIN/AdminDashboard";
 import CertificateUpload from "./Components/CertificateUpload/CertificateUpload";
-import Institutions from "./Components/INSTITUTIONS/Institutions";
-import Contactus from "./Components/Contactus/Contactus";
 import CompleteInformation from "./Components/CompleteInformation/CompleteInformation";
 import UserCertificate from "./Components/UserCertificate/UserCertificate";
+import CertificateRequest from "./Components/CERTIFICATE REQUEST/CertificateRequest";
+import StudentViewSubs from "./Components/StudentViewSubs/StudentViewSubs";
+import AllInstitutions from "./Components/AllINSTITUTIONS/AllInstitutions";
+import Institutions from "./Components/INSTITUTIONS/Institutions";
+import Contactus from "./Components/Contactus/Contactus";
+import SuperAdminDashboard from "./Components/SUPERADMIN/SuperAdminDashboard";
 
 const App = () => {
     const location = useLocation();
-  const hideNavbarRoutes = ["/EmailSent", "/users","/admin"]; 
+  const hideNavbarRoutes = ["/EmailSent", "/users","/admin","/superadmin"]; 
 
   const isNavbarHidden = hideNavbarRoutes.some((route) =>
     location.pathname.startsWith(route)
@@ -43,6 +47,11 @@ const App = () => {
             <Route path="/CertificateUpload" element={<CertificateUpload />} />
             <Route path="/CompleteInformation" element={<CompleteInformation />} />
             <Route path="/UserCertificate" element={<UserCertificate />} />
+            <Route path="/CertificateUpload/:institutionID?" element={<CertificateUpload />} />
+            <Route path="/CertificateRequest/:institutionID" element={<CertificateRequest />}></Route>
+            <Route path="/StudentViewSubs" element={<StudentViewSubs />} />
+            <Route path="/AllInstitutions" element={<AllInstitutions />}></Route>
+            <Route path="/superadmin/*" element={<SuperAdminDashboard />}></Route>
           </Routes>
         </>
     )

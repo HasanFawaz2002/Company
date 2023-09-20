@@ -73,11 +73,12 @@ const createCertificateUpload = async (req, res) => {
       return res.status(400).json({ error: 'Certificate file is missing.' });
     }
     const studentID = req.user.user.id;
-
+    const { name } = req.body; 
     // Get the institution ID from the request parameters
     const { institutionID } = req.params;
     const certificateFile = req.file;
     const certificateUpload = new CertificateUpload({
+      name,
       studentID,
       institutionID,
       description: req.body.description,
@@ -265,6 +266,32 @@ const getUploadRequestsByStatusAndInstitution = async (req, res) => {
   }
 };
 
+const getUploadRequestsByStatusForAllInstitutions = async (req, res) => {
+  try {
+    const { status } = req.params; // Get the status from the URL parameter
+
+    // Validate the status
+    const validStatusValues = ['Pending', 'Approved', 'Rejected', 'All'];
+    if (!validStatusValues.includes(status)) {
+      return res.status(400).json({ message: 'Invalid status value.' });
+    }
+
+    // Create a query based on the status (including the case for "All")
+    const query = status === 'All' ? {} : { status };
+
+    // Find upload requests based on the query and populate the 'student' field
+    const certificateUploads = await CertificateUpload.find(query)
+      .populate('studentID') // Populate the 'student' field
+      .populate('institutionID')
+
+    res.status(200).json(certificateUploads);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
 const updateuploadCertificateStatusToVerified = async (req, res) => {
   try {
     const { requestID } = req.params;
@@ -312,6 +339,49 @@ const updateuploadCertificateStatusToRejected = async (req, res) => {
   }
 };
 
+
+const getAllInstitutionsCertificateUploadCounts = asyncHandler(async (req, res) => {
+  try {
+    // Count certificates with pending status for all institutions
+    const pendingCount = await CertificateUpload.countDocuments({
+      status: 'Pending', // Replace with your specific status value
+    });
+
+    // Count certificates with rejected status for all institutions
+    const rejectedCount = await CertificateUpload.countDocuments({
+      status: 'Rejected', // Replace with your specific status value
+    });
+
+    // Count certificates with approved status for all institutions
+    const approvedCount = await CertificateUpload.countDocuments({
+      status: 'Approved', // Replace with your specific status value
+    });
+
+    // Count total certificates for all institutions
+    const totalCount = await CertificateUpload.countDocuments();
+
+    res.status(200).json({
+      message: "Certificate uploads retrieved successfully",
+      certificateCounts: {
+        Pending: pendingCount,
+        Rejected: rejectedCount,
+        Approved: approvedCount,
+        totalCertificates: totalCount,
+      },
+    });
+  } catch (error) {
+    console.error("Error retrieving certificate uploads:", error);
+    res.status(500).json({
+      message: "Error retrieving certificate uploads",
+      error: error.message,
+    });
+  }
+});
+
+
+
+
+
 module.exports = {
   createCertificateUpload,
   getCertificateUploadsByInstitution,
@@ -324,6 +394,8 @@ module.exports = {
   getUploadRequestsByStatusAndInstitution,
   updateuploadCertificateStatusToVerified,
   updateuploadCertificateStatusToRejected,
+  getAllInstitutionsCertificateUploadCounts,
+  getUploadRequestsByStatusForAllInstitutions,
   upload
 };
 

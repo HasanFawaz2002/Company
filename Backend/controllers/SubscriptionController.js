@@ -67,7 +67,6 @@ const createsubscription = asyncHandler(async (req, res) => {
 
         // Create the subscription with the generated password
         const subscription = await Subscribtion.create({
-            institutionID: req.body.institutionID,
             name: req.body.name,
             location: req.body.location,
             email: req.body.email,
@@ -116,24 +115,7 @@ const createsubscription = asyncHandler(async (req, res) => {
 });
 
 
-// Controller to get subscriptions for a specific institution
-const getSubscriptionsByInstitution = asyncHandler(async (req, res) => {
-    try {
-        const institutionID = req.user.institution.id; // Assuming the institution ID 
 
-        // Find all subscriptions associated with the specified institution
-        const subscriptions = await Subscribtion.find({ institutionID });
-
-        // Return the subscriptions
-        res.status(200).json({
-            message: "Subscriptions retrieved successfully",
-            subscriptions,
-        });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Error retrieving subscriptions", error });
-    }
-});
 
 
 // Controller to get all subscriptions
@@ -214,7 +196,31 @@ const loginSubscription = asyncHandler(async (req, res) => {
     }
   });
 
+  const countTotalSubscribers = async () => {
+    try {
+      // Count the total number of subscribers in the Subscribtion collection
+      const totalSubscribers = await Subscribtion.countDocuments();
+  
+      return totalSubscribers;
+    } catch (error) {
+      console.error('Error counting total subscribers:', error);
+      return 0; // Return 0 in case of an error
+    }
+  };
+  
+  const getTotalSubscribers = asyncHandler(async (req, res) => {
+    try {
+      // Get the total number of subscribers
+      const totalSubscribers = await countTotalSubscribers();
+  
+      res.status(200).json({ total: totalSubscribers });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Error retrieving total subscribers', error });
+    }
+  });
+
 
 module.exports = {
-    createsubscription,getSubscriptionsByInstitution,getAllSubscriptions,updateSubscriptionStatusToVerified,loginSubscription
+    createsubscription,getAllSubscriptions,updateSubscriptionStatusToVerified,loginSubscription,getTotalSubscribers
 };
