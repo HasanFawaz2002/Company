@@ -87,6 +87,7 @@ const Home = () => {
 
 
   useEffect(() => {
+    const role = localStorage.getItem('role');
     const config = {
       headers: {
         token: `Bearer ${token}`,
@@ -98,7 +99,10 @@ const Home = () => {
         setInstitutionData(response.data.institution);
         console.log(response.data.institution);
         if (!response.data.institution.notified) {
-          openModal(); // Open the modal when notified is false
+          openModal(); 
+        }
+        if(response.data.institution.role !== role){
+          navigate('/Institutionlogin');
         }
       })
       .catch(error => {
