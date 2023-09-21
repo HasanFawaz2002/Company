@@ -5,7 +5,7 @@ import { ReactComponent as SvgBackIcon } from '../../images/icons/Arrow.svg';
 import { FaShare } from 'react-icons/fa'; 
 import QRCode from 'qrcode';
 import { ToastContainer, toast } from 'react-toastify';
-
+import Sound from "../../mp3/Send.wav"
 
 import { useNavigate } from 'react-router-dom';
 
@@ -124,7 +124,7 @@ const Modal = ({onClose, onSave,organizationId}) => {
           }
         };
         
-
+        const audio = new Audio(Sound);
 
   return (
     <>
@@ -158,7 +158,12 @@ const Modal = ({onClose, onSave,organizationId}) => {
 <div>
 {certificateUpload.name}: {certificateUpload.description} 
 </div>
-<button onClick={() => handleShareUploaded(certificateUpload._id, certificateUpload.status)}><FaShare /></button>
+<button onClick={() => {
+  audio.play(); // Play the sound
+  handleShareUploaded(certificateUpload._id, certificateUpload.status);
+}}>
+  <FaShare />
+</button>
 
 </div>
 
@@ -175,7 +180,12 @@ const Modal = ({onClose, onSave,organizationId}) => {
 <div>
 {certificateRequest.certificateID.name}: {certificateRequest.certificateID.description} 
 </div>
-<button onClick={() => handleShareRequested(certificateRequest._id, certificateRequest.status)}><FaShare /></button>
+<button onClick={() => {
+  audio.play(); // Play the sound
+  handleShareRequested(certificateRequest._id, certificateRequest.status);
+}}>
+  <FaShare />
+</button>
 </div>
 
   ))}
