@@ -9,6 +9,8 @@ function UserCertificate(){
     const [uploadedcertificates, setuploadedCertificates] = useState([]);
   const [requestedcertificates, setrequestedCertificates] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [imageModalOpen, setImageModalOpen] = useState(false);  
   const [selectedCertificate, setSelectedCertificate] = useState(null); // Step 1
   const api = 'http://localhost:3001';
   const token = localStorage.getItem('access_token');
@@ -68,6 +70,15 @@ function UserCertificate(){
     }
   };
 
+  const handleImageClick = (imageUrl) => {
+    setSelectedImage(imageUrl);
+    setImageModalOpen(true);
+  };
+
+  const closeImageModal = () => {
+    setImageModalOpen(false);
+  };
+
     return(
         <>
         <div className='bg'>
@@ -76,13 +87,16 @@ function UserCertificate(){
         <div className='UserCertificate-card'  key={uploadedcertificate._id}>
             <img src={`${api}/certificateUploadPhoto/${uploadedcertificate._id}/photo`} 
             alt="uploadCertificate" className='UserCertificate-card-image' 
+             onClick={() => handleImageClick(`${api}/certificateUploadPhoto/${uploadedcertificate._id}/photo`)}
            />        
-            <h3 className='UserCertificate-card-headtwo'>{uploadedcertificate.name}</h3>
-            <li className='UserCertificate-card-firstp'>Description:{uploadedcertificate.description}</li>
-            <li className='UserCertificate-card-firstp'>Status:{uploadedcertificate.status}</li>
-            <li className='UserCertificate-card-firstp'>Type:Uploaded</li>
+            <h2 className='UserCertificate-card-headtwo'>"Uploaded Certificate"</h2>
+            <li className='UserCertificate-card-firstp'>Name: '{uploadedcertificate.name}'</li>
+            <li className='UserCertificate-card-firstp'>Description: '{uploadedcertificate.description}'</li>
+            <li className='UserCertificate-card-firstp'>Status: <span className={`statuscard-${uploadedcertificate.status}`}>'{uploadedcertificate.status}'</span></li>
+           
             <div className='UserCertificatebtn'>
-               <button className='UserCertificate-cancel' onClick={() => openDeleteModal({ certificateID: uploadedcertificate._id, type: 'upload' })}>Cancel</button>
+               <button className={`UserCertificate-cancel ${uploadedcertificate.status === 'Approved' || uploadedcertificate.status === 'Rejected' ? 'disabled' : ''}`} onClick={() => openDeleteModal({ certificateID: uploadedcertificate._id, type: 'upload' })} 
+               disabled={uploadedcertificate.status === 'Approved' || uploadedcertificate.status === 'Rejected'}>Cancel</button>
             </div>
         </div>
        
@@ -92,16 +106,19 @@ function UserCertificate(){
 {requestedcertificates.map((requestedcertificate) => (
         <div className='UserCertificate-card' key={requestedcertificate.certificateID._id}>
          
-         <img src={`http://localhost:3001/getCertificatePhoto/${requestedcertificate.certificateID._id}/photo`} alt={`${requestedcertificate.certificateID.id}`} 
+         <img src={`http://localhost:3001/getCertificatePhoto/${requestedcertificate.certificateID._id}/photo`} 
+         alt={`${requestedcertificate.certificateID.id}`} 
+         onClick={() => handleImageClick(`${api}/getCertificatePhoto/${requestedcertificate.certificateID._id}/photo`)}
          className='UserCertificate-card-image' 
          />
            
-            <h3 className='UserCertificate-card-headtwo'>{requestedcertificate.certificateID.name}</h3>
-            <li className='UserCertificate-card-firstp'>Description:{requestedcertificate.certificateID.description}</li>
-            <li className='UserCertificate-card-firstp'>Status:{requestedcertificate.status}</li>
-            <li className='UserCertificate-card-firstp'>Type:Requested</li>
+            <h2 className='UserCertificate-card-headtwo'>"Requested Certificate"</h2>
+            <li className='UserCertificate-card-firstp'>Name: '{requestedcertificate.certificateID.name}'</li>
+            <li className='UserCertificate-card-firstp'>Description: '{requestedcertificate.certificateID.description}'</li>
+            <li className='UserCertificate-card-firstp'>Status:  <span className={`statuscard-${requestedcertificate.status}`}>'{requestedcertificate.status}'</span></li>
             <div className='UserCertificatebtn'>
-               <button className='UserCertificate-cancel' onClick={() => openDeleteModal({ requestID: requestedcertificate._id, type: 'request' })}>Cancel</button>
+               <button className={`UserCertificate-cancel ${requestedcertificate.status === 'Approved' || requestedcertificate.status === 'Rejected' ? 'disabled' : ''}`} onClick={() => openDeleteModal({ requestID: requestedcertificate._id, type: 'request' })}
+               disabled={requestedcertificate.status === 'Approved' || requestedcertificate.status === 'Rejected'}>Cancel</button>
             </div>
           
         </div>
@@ -110,6 +127,14 @@ function UserCertificate(){
       
         </section>
         </div>
+        {imageModalOpen && (
+  <div className="image-modal">
+    <span className="close-image-modal" onClick={closeImageModal}>
+      x
+    </span>
+    <img src={selectedImage} alt="Certificate" className="modal-image" />
+  </div>
+)}
         {showDeleteModal && (
         <div className="modal">
           <span className="close" title="Close Modal" onClick={closeDeleteModal}>
