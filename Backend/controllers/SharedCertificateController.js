@@ -77,7 +77,7 @@ const createSharedCertificate = async (req, res) => {
             // Save the shared certificate record to the database
             await sharedCertificate.save();
 
-            res.status(201).json({ message: 'Shared certificate created successfully', sharedCertificate });
+            res.status(200).json({ message: 'Shared certificate created successfully', sharedCertificate });
     } catch (error) {
         console.error('Error creating shared certificate:', error);
         res.status(500).json({ error: 'Error creating shared certificate', errorMessage: error.message });

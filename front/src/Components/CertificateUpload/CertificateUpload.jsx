@@ -125,7 +125,7 @@ const CertificateUpload = () => {
                 `http://localhost:3001/certificateUploadRoute/${institutionID}`,
                 formData,
                 {
-                  headers: {
+                  headers: { 
                     token: `Bearer ${token}`,
                   },
                 }

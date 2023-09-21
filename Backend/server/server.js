@@ -11,6 +11,7 @@ const FormValuesRoute=require('../routes/FormValuesRoute');
 const sharedCertificateRoutes = require('../routes/SharedCertificateRoutes'); 
 
 
+const AllVerifiedCertificates = require('../routes/AllVerifiedCertificates')
 const connect = require('./connect');
 const cors=require('cors');
 require('dotenv').config();
@@ -22,7 +23,7 @@ const app=express();
 
 
 app.use(express.json(),cors());
-app.use(authRoute,intitutionRoute,formRoute,sharedCertificateRoutes,CertificateRequest,subscriptionRoute,certificateRoute,certificateUploadRoute,mailRoute,FormValuesRoute)
+app.use(authRoute,intitutionRoute,formRoute,sharedCertificateRoutes,CertificateRequest,subscriptionRoute,certificateRoute,certificateUploadRoute,mailRoute,FormValuesRoute,AllVerifiedCertificates)
 
 app.listen(process.env.PORT,function(){
     connect();
