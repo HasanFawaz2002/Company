@@ -36,6 +36,11 @@ padding-left: 1rem;
 overflow-y: scroll;
 }
 
+.ModalWrapperSS::-webkit-scrollbar {
+    width: 0.5rem; /* Adjust the width as needed */
+    background-color: transparent; /* Set the background color to transparent */
+  }
+
 .ModalFlexBodySS{
     display: flex;
     flex-direction:column ;
