@@ -28,20 +28,19 @@ color: #fff;
 
 .ModalWrapperSS{
     width: 100%;
-    height: 100%;
+    height: 40rem;
     border-radius: 0rem 0.625rem 0.625rem 0rem;
     background: #384450;
 padding-top: 1rem;
-padding-left: 0.5rem;
+padding-left: -2rem;
+overflow-y: scroll;
 }
 
 .ModalFlexBodySS{
     display: flex;
     flex-direction:column ;
     gap:0.63rem;
-    padding: 1.88rem 1.69rem 1.38rem 2.38rem ;
-   
-
+    padding: 0.5rem 1.69rem 1.38rem 2.38rem ;
 }
 
 .CertificatesHolderSS{
