@@ -128,7 +128,7 @@ theme="colored"
               onMouseLeave={handleCardLeave}>
 <div className='orgNameRow'>{organization.name}</div>
 <div className='orgLocRow'> Located in: {organization.location}</div>
-<div className='orgEmailRow'>Email: {organization.email}</div>
+<div className='orgEmailRow'>{organization.position} Email: {organization.email}</div>
 <div className='buttonRowSS'>
 
 <Tooltip  text="Share your QR code">
