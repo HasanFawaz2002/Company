@@ -141,11 +141,6 @@ theme="colored"
 {isModalVisible && <Modal onClose={closeModal}
               organizationId={selectedOrganizationId}  />}
 
-
-
-
-
-
     </div>
     </div>
 </>

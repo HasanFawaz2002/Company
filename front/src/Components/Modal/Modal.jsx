@@ -156,7 +156,7 @@ const Modal = ({onClose, onSave,organizationId}) => {
   alt={`${certificateUpload.id}`}
 />
 <div>
-{certificateUpload.name}: {certificateUpload.description} Uploaded
+{certificateUpload.name}: {certificateUpload.description} 
 </div>
 <button onClick={() => handleShareUploaded(certificateUpload._id, certificateUpload.status)}><FaShare /></button>
 
@@ -173,7 +173,7 @@ const Modal = ({onClose, onSave,organizationId}) => {
   alt={`${certificateRequest.certificateID.id}`}
 />
 <div>
-{certificateRequest.certificateID.name}: {certificateRequest.certificateID.description} Requested
+{certificateRequest.certificateID.name}: {certificateRequest.certificateID.description} 
 </div>
 <button onClick={() => handleShareRequested(certificateRequest._id, certificateRequest.status)}><FaShare /></button>
 </div>
