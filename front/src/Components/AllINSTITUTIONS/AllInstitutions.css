@@ -1,7 +1,7 @@
 .all-instituions-section1{
   display: flex;
   align-items: center;
-  padding: 20px 60px 60px 80px;
+  padding: 20px 60px 20px 80px;
   height: 90vh;
   justify-content: center;
 }
@@ -15,12 +15,14 @@
   background-color: rgb(219, 238, 245);
   z-index: -1;
 }
+
 .absolute-color2{
   position: absolute;
   bottom: 0;
   width: 200px;
   height: 200px;
   border-top-right-radius: 100px;
+  border-bottom-left-radius: 50px;
   background-color: rgb(219, 238, 245);
   z-index: -1;
 }
@@ -96,6 +98,8 @@
 }
 
 .all-institutions-container{
+  position: relative;
+
     display: flex;
     align-content: center;
     justify-content: space-evenly;
@@ -103,15 +107,17 @@
     flex-wrap: wrap;
     width: 100%;
     padding-top: 50px;
-
+    padding-bottom: 50px;
+    background-color: aliceblue;
 }
 .search-institutions{
-   
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 100px;
-    
+    margin-top: 50px;
+    background-color: aliceblue;
+    padding-top: 50px;
+
 }
 
 .search-institutions input{
@@ -128,10 +134,92 @@
 
 
 .all-institutions-container .red {
-    background-color: #2D3741;
-    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.9);
+    background-color: rgba(255, 255, 255,0.6);
+  }
+
+  .position-absolute4{
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background-color: aqua;
+    position: absolute;
+    left: 5%;
+    z-index: 1;
+    filter: blur(5px);
+    animation: circularFloatAnimation 7s linear infinite;
+
+  }
+  .position-absolute5{
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background-color: aqua;
+    position: absolute;
+    right: 5%;
+    z-index: 1;
+    filter: blur(5px);
+    animation: circularFloatAnimation 6s linear infinite;
+
+  }
+  .position-absolute6{
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background-color: aqua;
+    position: absolute;
+    left: 40%;
+    z-index: 1;
+    filter: blur(5px);
+    animation: circularFloatAnimation 8s linear infinite;
+
+  }
+  .position-absolute7{
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background-color: aqua;
+    position: absolute;
+    left: 25%;
+    bottom: 10%;
+    z-index: 1;
+    filter: blur(5px);
+    animation: circularFloatAnimation 7s linear infinite;
+
+  }
+  .position-absolute8{
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background-color: aqua;
+    position: absolute;
+    right: 25%;
+    bottom: 10%;
+    z-index: 1;
+    filter: blur(5px);
+    animation: circularFloatAnimation 6s linear infinite;
+
+  }
+  .hide-on-search {
+    display: none;
   }
   
+  @keyframes circularFloatAnimation {
+    0% {
+      transform: translateX(0) translateY(0) rotate(0deg);
+    }
+    25% {
+      transform: translateX(20px) translateY(-20px) rotate(45deg);
+    }
+    50% {
+      transform: translateX(0) translateY(0) rotate(90deg);
+    }
+    75% {
+      transform: translateX(-20px) translateY(-20px) rotate(135deg);
+    }
+    100% {
+      transform: translateX(0) translateY(0) rotate(180deg);
+    }
+  }
   
   
   .all-institutions-container .card {
@@ -146,6 +234,8 @@
     cursor: pointer;
     transition: 400ms;
     word-break: break-all;
+    z-index: 2;
+
   }
 
   .all-institutions-container .card .buttons-container{
@@ -161,16 +251,16 @@
     border-radius: 10px;
     font-size: larger;
     background-color: transparent;
-    color: white;
+    color: #2D3741;
     transition: all ease 300ms;
   }
   .all-institutions-container .card .buttons-container button a{
     text-decoration: none;
-    color: white;
+    color: #2D3741;
   }
 
   .all-institutions-container .card .buttons-container button:hover a{
-    color: aqua;
+    color: #2D3741;
   }
 
   .all-institutions-container .card .buttons-container button:hover{
@@ -190,13 +280,24 @@
   
   .all-institutions-container .card h1.tip {
    margin-bottom: 10px;
-   color: white;
+   color: #2D3741;
 
   }
   
   .all-institutions-container .card h3.second-text {
-    color: white;
+    color: #2D3741;
 
+  }
+
+  .all-institutions-container .card:hover {
+    transform: scale(1.05, 1.05);
+    box-shadow: 5px 5px 10px rgba(255, 255, 255, 0.9);
+
+  }
+  
+  .all-institutions-container:hover > .card:not(:hover) {
+    filter: blur(5px);
+    transform: scale(0.9, 0.9);
   }
   
   .all-institutions-container .card:hover {
@@ -258,5 +359,8 @@
     .all-instituions-section1-left-statistiques-item p{
       font-size: 15px;
       padding: 0;
+    }
+    .position-absolute4, .position-absolute5, .position-absolute6, .position-absolute7, .position-absolute8{
+      display: none;
     }
   }

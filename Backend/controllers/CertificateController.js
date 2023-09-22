@@ -36,24 +36,22 @@ const getCertificatePhoto = async (req, res) => {
       return res.status(404).json({ error: 'certificatePhoto not found.' });
     }
 
-    // Use the imagePath directly as it should be a relative path
     const relativeImagePath = certificatePhoto.image;
 
-    // Get the absolute path to the image file
     const absoluteImagePath = path.join(uploadPath, relativeImagePath);
 
-    // Check if the file exists
+    
     if (!fs.existsSync(absoluteImagePath)) {
       return res.status(404).json({ error: 'File not found.', imagePath: absoluteImagePath });
     }
 
-    // Send the product's photo as a response
+    
     res.sendFile(absoluteImagePath);
   } catch (err) {
-    // Log the error including the error message and stack trace
+    
     console.error('Error retrieving certificateUpload photo:', err);
 
-    // Respond with a more detailed error message
+    
     res.status(500).json({ error: 'Internal Server Error', errorMessage: err.message });
   }
 };

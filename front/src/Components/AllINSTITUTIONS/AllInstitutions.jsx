@@ -8,6 +8,9 @@ import image from '../../images/building2.jpg'
 import { motion } from "framer-motion";
 
 
+
+
+
 function AllInstitutions() {
     const [institutions, setInstitutions] = useState([]); 
     const [searchInput, setSearchInput] = useState("");
@@ -15,8 +18,9 @@ function AllInstitutions() {
     const [studentCount, setStudentCount] = useState(null);
     const [institutionCount, setInstitutionCount] = useState(null);
     const [certificateData3, setCertificateData3] = useState(0);
+    
 
-
+    
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -106,38 +110,129 @@ function AllInstitutions() {
         fetchData();
       }, []);
 
+      const hideAbsolutePositions = searchInput.length > 0;
+
+    
+
   return (
     <>
     <div className="all-instituions-section1">
       <div className="all-instituions-section1-left">
-      <motion.div className="absolute-color"></motion.div>
-      <motion.div className="absolute-color2"></motion.div>
+      <motion.div className="absolute-color" 
+      variants={{
+        hidden:{opacity: 0,y: -175},
+        visible:{opacity: 1,y: 0},
+      }}
+      initial="hidden"
+      animate="visible"
+      transition={{
+        duration: 0.8,
+        delay:0.8
+      }}
+      ></motion.div>
+      <motion.div className="absolute-color2"
+      variants={{
+        hidden:{opacity: 0,y: 175},
+        visible:{opacity: 1,y: 0},
+      }}
+      initial="hidden"
+      animate="visible"
+      transition={{
+        duration: 0.8,
+        delay:0.8
 
-        <motion.h1>Welcome to our <span>Institutions</span> Hub</motion.h1>
-        <motion.div className="all-instituions-section1-left-content">
+      }}
+      ></motion.div>
+
+        <motion.h1 
+        variants={{
+          hidden:{opacity: 0,x: -175},
+          visible:{opacity: 1,x: 0},
+        }}
+        initial="hidden"
+        animate="visible"
+        transition={{
+          duration: 0.8,
+        }}
+        >Welcome to our <span>Institutions</span> Hub</motion.h1>
+        <motion.div className="all-instituions-section1-left-content"
+        variants={{
+          hidden:{opacity: 0,x: -175},
+          visible:{opacity: 1,x: 0},
+        }}
+        initial="hidden"
+        animate="visible"
+        transition={{
+          duration: 0.8,
+          delay:0.2
+        }}
+        >
           <p>Discover a world of  possibilities</p>
         </motion.div>
         <div className="all-instituions-section1-left-statistiques">
 
-        <div className="all-instituions-section1-left-statistiques-item">
+        <motion.div className="all-instituions-section1-left-statistiques-item" 
+        variants={{
+          hidden:{opacity: 0,x: -175},
+          visible:{opacity: 1,x: 0},
+        }}
+        initial="hidden"
+        animate="visible"
+        transition={{
+          duration: 0.8,
+          delay:0.4
+        }}
+        >
           <div className="svgnumber"><FaCertificate/>{certificateData3.totalCertificates}</div>
           <p> certificates</p>
-        </div>
-        <div className="all-instituions-section1-left-statistiques-item">
+        </motion.div>
+        <motion.div className="all-instituions-section1-left-statistiques-item" 
+        variants={{
+          hidden:{opacity: 0,x: -175},
+          visible:{opacity: 1,x: 0},
+        }}
+        initial="hidden"
+        animate="visible"
+        transition={{
+          duration: 0.8,
+          delay:0.5
+        }}
+        >
           <div className="svgnumber"><FaUniversity  />{institutionCount}</div>
           <p> institutions</p>
-        </div>
-        <div className="all-instituions-section1-left-statistiques-item">
+        </motion.div>
+        <motion.div className="all-instituions-section1-left-statistiques-item" 
+        variants={{
+          hidden:{opacity: 0,x: -175},
+          visible:{opacity: 1,x: 0},
+        }}
+        initial="hidden"
+        animate="visible"
+        transition={{
+          duration: 0.8,
+          delay:0.6
+        }}
+        >
           <div className="svgnumber"><FaUserGraduate />{studentCount}</div>
           <p> Students</p>
-        </div>
+        </motion.div>
         </div>
         {/* END OF STATISTIQUES*/ }
       </div>
       {/* END OF LEFT SECTION*/ }
-      <div className="all-instituions-section1-right">
+      <motion.div className="all-instituions-section1-right" 
+      variants={{
+        hidden:{opacity: 0,x: 175},
+        visible:{opacity: 1,x: 0},
+      }}
+      initial="hidden"
+      animate="visible"
+      transition={{
+        duration: 0.8,
+      }}
+      >
         <img src={image} alt="" />
-      </div>
+      </motion.div>
       {/* END OF Right SECTION*/ }
     </div>
     {/* END OF  SECTION*/ }
@@ -168,7 +263,19 @@ function AllInstitutions() {
             </div>
           ))}
 
+        <div className={`position-absolute4 ${hideAbsolutePositions ? 'hide-on-search' : ''}`}></div>
+        <div className={`position-absolute5 ${hideAbsolutePositions ? 'hide-on-search' : ''}`}></div>
+        <div className={`position-absolute6 ${hideAbsolutePositions ? 'hide-on-search' : ''}`}></div>
+        <div className={`position-absolute7 ${hideAbsolutePositions ? 'hide-on-search' : ''}`}></div>
+        <div className={`position-absolute8 ${hideAbsolutePositions ? 'hide-on-search' : ''}`}></div>
+        <div className={`position-absolute9 ${hideAbsolutePositions ? 'hide-on-search' : ''}`}></div>
+          
+
     </div>
+
+    
+
+    
     </>
   )
 }
