@@ -100,9 +100,10 @@ const getSharedCertificateBySubscriber = async (req, res) => {
         })
         .populate({
           path: 'certificateUploadID',
-          populate: {
-            path: 'institutionID', 
-          },
+          populate:[ 
+            {path: 'institutionID' },
+            {path: 'studentID' }
+          ],
         })
         .exec();
   
