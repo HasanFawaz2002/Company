@@ -324,6 +324,18 @@ const reset = asyncHandler(async (req, res) =>  {
   })
 })
 
+const getTotalUserCount = asyncHandler(async (req, res) => {
+  try {
+    // Count the total number of users in the User collection
+    const totalUsers = await User.countDocuments();
+
+    res.status(200).json({ totalUsers });
+  } catch (error) {
+    console.error('Error counting total users:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
 
-module.exports = { registerUser, loginUser,upload,forgot,reset,updateProfile,verifyEmail,getUserPhoto};
+
+module.exports = { registerUser, loginUser,upload,forgot,reset,updateProfile,verifyEmail,getUserPhoto,getTotalUserCount};

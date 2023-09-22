@@ -1,5 +1,5 @@
 const {Router} = require('express');
-const {createsubscription,getAllSubscriptions,updateSubscriptionStatusToVerified,loginSubscription} = require('../controllers/SubscriptionController');
+const {createsubscription,getAllSubscriptions,updateSubscriptionStatusToVerified,loginSubscription,getTotalSubscribers} = require('../controllers/SubscriptionController');
 const verify = require('../Controllers/verifytoken');
 
 
@@ -11,6 +11,7 @@ router.post('/createsubscription', createsubscription);
 router.get('/getAllSubscriptions', getAllSubscriptions);
 router.put('/updateSubscriptionStatusToVerified/:subscriptionID', updateSubscriptionStatusToVerified);
 router.post('/loginSubscription', loginSubscription);
+router.get('/countTotalSubscribers', getTotalSubscribers);
 
 
 module.exports = router;

@@ -2,6 +2,8 @@ const Certificate = require('../models/certificate');
 const path = require('path');
 const multer = require ('multer');
 const fs = require('fs');
+const CertificateRequest = require('../models/certificateRequest');
+const CertificateUpload = require('../models/certificateUpload');
 
 // Construct the full path to the uploads directory
 const uploadPath = path.join(__dirname, '..', 'server', 'uploads');
@@ -192,6 +194,53 @@ const countTotalCertificates = async (req, res) => {
   }
 };
 
+const countTotalCertificatesForAllInstitutions = async (req, res) => {
+  try {
+    // Count the total number of certificates for all institutions
+    const totalCertificates = await Certificate.countDocuments();
+
+    res.status(200).json({ totalCertificates });
+  } catch (error) {
+    console.error('Error counting total certificates for all institutions:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
+
+
+const getStudentCountsForInstitution = async (req, res) => {
+  try {
+    // Extract the institutionID from req.user
+    const institutionID = req.user.institution.id;
+
+    // Get the distinct user IDs who have requested certificates
+    const requestedStudents = await CertificateRequest.distinct('studentID', {
+      institutionID: institutionID,
+    });
+
+    // Get the distinct user IDs who have uploaded certificates
+    const uploadedStudents = await CertificateUpload.distinct('studentID', {
+      institutionID: institutionID,
+    });
+
+    // Combine the distinct user IDs from both requests and uploads
+    const distinctUserIDs = [...new Set([...requestedStudents, ...uploadedStudents])];
+
+    res.status(200).json({ totalStudentCount: distinctUserIDs.length });
+  } catch (error) {
+    console.error('Error counting total students:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
+
+
+
+
+
+
 module.exports = {
   countTotalCertificates,
   createCertificate,
@@ -200,5 +249,7 @@ module.exports = {
   deleteCertificateById,
   upload,
   getCertificatePhoto,
-  getCertificatesbyInstitution
+  getCertificatesbyInstitution,
+  getStudentCountsForInstitution,
+  countTotalCertificatesForAllInstitutions
 };

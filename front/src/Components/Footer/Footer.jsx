@@ -20,10 +20,10 @@ const Footer = () => {
       <div className="footer-container">
         <div className="footer-container-logo">
           <img src={logo} alt="" />
-          <h1>Zidyia</h1>
+          <h1>Zidyia Passport</h1>
         </div>
         <p>
-          ZIDYIA is a next gen learning management system design
+          ZIDYIA PASSPORT is a next gen learning management system design
           <br /> to personalize learning, empower teaching and
           <br /> transform education.
         </p>

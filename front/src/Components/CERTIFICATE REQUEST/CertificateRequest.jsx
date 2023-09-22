@@ -87,27 +87,31 @@ function CertificateRequest() {
     });
   };
 
+
+
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const token = localStorage.getItem('access_token');
-
+  
     if (!selectedCertificateID) {
       setErrorMessage('Please select a certificate.');
       return;
     }
-
+  
     const requiredFields = fetchedFormData.filter((field) => field.isRequired);
     const missingFields = requiredFields.filter(
       (field) => !inputFieldValues[field.fieldName]
     );
-
+  
     if (missingFields.length > 0) {
       setErrorMessage('Please fill out all required fields.');
       return;
     }
-
+  
     try {
-      const certificateRequestPromise = axios.post(
+      // Create the certificate request
+      const certificateRequestResponse = await axios.post(
         `http://localhost:3001/createCertificateRequest/${institutionID}/${formID}/${selectedCertificateID}`,
         {},
         {
@@ -116,45 +120,50 @@ function CertificateRequest() {
           },
         }
       );
+  
+      if (certificateRequestResponse.status === 201) {
+       
+        console.log('Captured certificateRequestID:', certificateRequestResponse.data._id);
+        console.log('Certificate Request Response:', certificateRequestResponse);
+        const certificateRequestID = certificateRequestResponse.data._id;
 
-      const inputFieldValuesRequestPromise = axios.post(
-        `http://localhost:3001/store-values/${formID}`,
-        inputFieldValues,
-        {
-          headers: {
-            token: `Bearer ${token}`,
-          },
+        // Make sure certificateRequestID is not undefined or empty
+        if (!certificateRequestResponse.data._id) {
+          console.error('Error: certificateRequestID is missing or empty.');
+          return;
         }
-      );
-
-      const [certificateResponse, valuesResponse] = await Promise.all([
-        certificateRequestPromise,
-        inputFieldValuesRequestPromise,
-      ]);
-
-      if (certificateResponse.status === 201) {
-        console.log('Certificate request created successfully');
-        setErrorMessage(null); // Clear any previous error messages
-        window.location.reload();
+  
+       
+  
+        // Save form values along with the certificateRequestID
+        const formValuesResponse = await axios.post(
+          `http://localhost:3001/store-values/${formID}/${selectedCertificateID}/${certificateRequestID}`,
+          inputFieldValues,
+          {
+            headers: {
+              token: `Bearer ${token}`,
+            },
+          }
+        );
+  
+        if (formValuesResponse.status === 201) {
+          console.log('Input field values stored successfully');
+          window.location.reload();
+        } else {
+          console.error('Error storing input field values:', formValuesResponse.status);
+          setErrorMessage('Error storing input field values.');
+        }
       } else {
-        console.error('Error creating certificate request:', certificateResponse.status);
+        console.error('Error creating certificate request:', certificateRequestResponse.status);
         setErrorMessage('Error creating certificate request.');
       }
-
-      if (valuesResponse.status === 201) {
-        console.log('Input field values stored successfully');
-        window.location.reload();
-      } else {
-        console.error('Error storing input field values:', valuesResponse.status);
-        setErrorMessage('Error storing input field values.');
-      }
     } catch (error) {
-        if (error.response && error.response.status === 403) {
-            console.log("Token is not valid!");
-            navigate('/login');
-          } else {
-            console.error("Cart Add failed:", error);
-          }
+      if (error.response && error.response.status === 403) {
+        console.log("Token is not valid!");
+        navigate('/login');
+      } else {
+        console.error("Certificate request failed:", error);
+      }
     }
   };
 

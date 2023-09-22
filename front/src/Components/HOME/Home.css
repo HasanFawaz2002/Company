@@ -186,11 +186,14 @@
         height: 400px;
         width: 500px;
         transform: translateX(-100px);
+        border-radius: 15px;
+
      }
      .aboutus-section-content2 img{
         height: 400px;
         width: 500px;
         transform: translateX(100px);
+        border-radius: 15px;
      }
      .aboutus-section-content-right{
         text-align: start;
@@ -246,13 +249,15 @@
         }
         .aboutus-section-content img{
             width: 110%;
-            transform: translateX(0px);
+            transform: translateX(0px) !important;
             height: 300px;
             width: 350px;
             align-self: center;
         }
         .aboutus-section-content-right{
             padding-left: 20px;
+            transform: translateX(0) !important;
+
         }
         .first-aboutus-section h1{
             font-size: 30px;

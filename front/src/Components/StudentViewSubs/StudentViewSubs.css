@@ -12,6 +12,11 @@
     color: #fff;
 }
 
+.backgroundSS::-webkit-scrollbar {
+  width: 0.5rem; /* Adjust the width as needed */
+  background-color: transparent; /* Set the background color to transparent */
+}
+
 @media screen and (max-width: 768px) {
     .backgroundSS{
         overflow-x: hidden;
@@ -20,14 +25,25 @@
     }
    
     .gridSS{
-        display: grid;
+        display: flex;
         justify-content: center;
         align-items: center;
+        gap: 1rem;
+  display: flex; /* Use flex layout for seamless looping */
+  flex-direction: row; /* Arrange conten  
         /* background-color: white; */
         height: 100vh;
-    }
+        overflow-x: scroll;
 
+    }
+    .gridSS::-webkit-scrollbar {
+      width: 0.5rem; /* Adjust the width as needed */
+      background-color: transparent; /* Set the background color to transparent */
+    }
     .cardSS{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
         width: 20.25rem;
 height: 15.25rem;
 flex-shrink: 0;
@@ -40,4 +56,63 @@ font-size: larger;
 font-family: "CORE-BOLD";
 text-align: center;
 }
+
+
+
+.buttonRowSS{
+    display: flex;
+    width: 1.875rem;
+    height: 1.875rem;
+    flex-shrink: 0;
+background-color: #2F3B48;
+border-radius: 50%;
+align-self: center;
+align-items: center;
+justify-content: center;
+
+/* background: url(../../images/icons/upload_1.png) no-repeat center; */
+}
     
+
+.scrollable-containerSS{
+  display: flex;
+  justify-content: center;
+  /* overflow: hidden; */
+
+  }
+ 
+  .content {
+    width: fit-content; /* Set the width to fit the content */
+    display: flex; /* Use flex layout for seamless looping */
+    flex-direction: row; 
+  }
+  
+  /* Keyframes animation for scrolling */
+ 
+  .formSS{
+position: relative;
+top: 10rem;
+display: flex;
+justify-content: center;
+align-self: center;
+z-index: 2;
+  }
+  .inputSS{
+
+    width: 23.625rem;
+    height: 3.125rem;
+    border-radius: 6.25rem;
+    border: 1px solid #576371;
+    background-color: transparent;
+    outline: none;
+    padding-left: 1rem;
+    color: #fff;
+    font-family: "CORE";
+    font-size: 1rem;
+  }
+
+  @media screen and (max-width: 768px) {
+    .inputSS{
+     width: 100%;
+    }
+  }

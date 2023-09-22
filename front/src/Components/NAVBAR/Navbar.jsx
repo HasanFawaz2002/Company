@@ -2,6 +2,7 @@ import React,{useState} from "react";
 import './Navbar.css';
 import { NavLink,useLocation,useNavigate, useRoutes  } from "react-router-dom";
 import logo from '../../images/logo.png';
+import DropDown from "../DROPDOWN/Dropdown";
 
 const Navbar = () => {
 
@@ -17,8 +18,15 @@ const Navbar = () => {
     setMenuOpen(false);
   };
 
-  const isInstitutionsRoute = location.pathname.startsWith('/institutions') || location.pathname.startsWith('/Institutionlogin') || location.pathname.startsWith('/CertificateUpload') || location.pathname === "/StudentViewSubs" || location.pathname.startsWith('/CertificateRequest') || location.pathname.startsWith('/login'); 
-  const isInstitutionLogin = location.pathname.startsWith('/Institutionlogin') || location.pathname.startsWith('/CertificateUpload') || location.pathname.startsWith('/CertificateRequest') || location.pathname === "/StudentViewSubs" || location.pathname.startsWith('/login');
+    const token = localStorage.getItem('access_token');
+    const role = localStorage.getItem('role');
+
+    const isAdmin = token && role === 'admin';
+    const isUser = token && role === 'user';
+    const isSuperAdmin = token && role === 'superAdmin';
+
+  const isInstitutionsRoute = location.pathname.startsWith('/institutions') || location.pathname.startsWith('/Institutionlogin') || location.pathname.startsWith('/CertificateUpload') || location.pathname === "/StudentViewSubs" || location.pathname.startsWith('/CertificateRequest') || location.pathname.startsWith('/login') || location.pathname.startsWith('/register'); 
+  const isInstitutionLogin = location.pathname.startsWith('/Institutionlogin') || location.pathname.startsWith('/CertificateUpload') || location.pathname.startsWith('/CertificateRequest') || location.pathname === "/StudentViewSubs" || location.pathname.startsWith('/login') || location.pathname.startsWith('/register');
     return (
         <>
         <div className={`box3 ${isInstitutionsRoute ? 'institution-route' : ''}`}>
@@ -30,9 +38,12 @@ const Navbar = () => {
             <div className="navbar-menu">
                 <ul >
                     <li ><NavLink  className={isInstitutionsRoute ? 'white-link' : ''} to='/'>HOME</NavLink></li>
-                    <li><NavLink className={isInstitutionsRoute ? 'white-link' : ''} to='/admin'>Dashboard</NavLink></li>
+                    {isAdmin && <li><NavLink className={isInstitutionsRoute ? 'white-link' : ''} to='/admin'>Dashboard</NavLink></li>}
+                    {isSuperAdmin && <li><NavLink className={isInstitutionsRoute ? 'white-link' : ''} to='/superadmin'>Dashboard</NavLink></li>}
+                    {isUser && <li><NavLink className={isInstitutionsRoute ? 'white-link' : ''} to='/wallet'>Wallet</NavLink></li>}
                     <li><NavLink className={isInstitutionsRoute ? 'white-link' : ''} to='/contact'>CONTACT</NavLink></li>
                     <li><NavLink className={isInstitutionsRoute ? 'white-link' : ''} to='/institutions'>Institutions</NavLink></li>
+                    <li className={isInstitutionsRoute ? 'white-link' : ''}>  <DropDown /></li>
                 </ul>
             </div>
         </div>
@@ -56,25 +67,34 @@ const Navbar = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/about" className="menu__item" onClick={closeMenu}>
-            About
+          <NavLink to="/Contact" className="menu__item" onClick={closeMenu}>
+          CONTACT
           </NavLink>
         </li>
         <li>
-          <NavLink className="menu__item" onClick={closeMenu}>
-            Team
+          <NavLink to="/institutions" className="menu__item" onClick={closeMenu}>
+          Institutions
           </NavLink>
         </li>
+        {isAdmin && (
+          <li>
+          <NavLink to="/admin" className="menu__item" onClick={closeMenu}>
+          Dashboard
+          </NavLink>
+        </li>
+        )}
+        {isUser && (
+          <li>
+          <NavLink to="/wallet" className="menu__item" onClick={closeMenu}>
+          wallet
+          </NavLink>
+        </li>
+        )}
         <li>
-          <NavLink className="menu__item" onClick={closeMenu}>
-            Contact
-          </NavLink>
+          <DropDown className="menu__item" closeMenu={closeMenu}/>
+          
         </li>
-        <li>
-          <NavLink className="menu__item" onClick={closeMenu}>
-            Twitter
-          </NavLink>
-        </li>
+        
       </ul>
     </div>
         </>

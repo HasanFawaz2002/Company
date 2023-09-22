@@ -127,6 +127,29 @@
     color: white;
 }
 
+.request-more-btn{
+    color: black ;
+    position: absolute ;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 5% ;
+    right: 2% ;
+    background-color: white;
+    border: transparent;
+    font-size: larger;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.user-request-more-information-one h3{
+    display: inline;
+    margin-left: 10px;
+}
+.user-request-more-information-one label{
+    font-size: x-large;
+}
+
 .first-button{
     background-color: green !important;
     margin-right: 10px;

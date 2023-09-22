@@ -196,7 +196,31 @@ const loginSubscription = asyncHandler(async (req, res) => {
     }
   });
 
+  const countTotalSubscribers = async () => {
+    try {
+      // Count the total number of subscribers in the Subscribtion collection
+      const totalSubscribers = await Subscribtion.countDocuments();
+  
+      return totalSubscribers;
+    } catch (error) {
+      console.error('Error counting total subscribers:', error);
+      return 0; // Return 0 in case of an error
+    }
+  };
+  
+  const getTotalSubscribers = asyncHandler(async (req, res) => {
+    try {
+      // Get the total number of subscribers
+      const totalSubscribers = await countTotalSubscribers();
+  
+      res.status(200).json({ total: totalSubscribers });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Error retrieving total subscribers', error });
+    }
+  });
+
 
 module.exports = {
-    createsubscription,getAllSubscriptions,updateSubscriptionStatusToVerified,loginSubscription
+    createsubscription,getAllSubscriptions,updateSubscriptionStatusToVerified,loginSubscription,getTotalSubscribers
 };

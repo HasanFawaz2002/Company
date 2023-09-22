@@ -254,7 +254,33 @@ const getLastThreeInstitutions = asyncHandler(async (req, res) => {
 });
 
 
+const countTotalInstitutions = async () => {
+  try {
+    // Count the total number of institutions in the Institution collection
+    const totalInstitutions = await Institution.countDocuments();
+
+    return totalInstitutions;
+  } catch (error) {
+    console.error('Error counting total institutions:', error);
+    return 0; // Return 0 in case of an error
+  }
+};
+
+// Controller to get the total count of institutions
+const getTotalInstitutions = asyncHandler(async (req, res) => {
+  try {
+    // Get the total number of institutions
+    const totalInstitutions = await countTotalInstitutions();
+
+    res.status(200).json({ total: totalInstitutions });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error retrieving total institutions', error });
+  }
+});
+
+
 
 module.exports = {
-  getLastThreeInstitutions,createInstitution,loginInstitution,deleteInstitutionById,updateInstitutionById,getAllInstitutions,getInstitutionById,updateInstitutionPasswordById
+  getLastThreeInstitutions,createInstitution,loginInstitution,deleteInstitutionById,updateInstitutionById,getAllInstitutions,getInstitutionById,updateInstitutionPasswordById,getTotalInstitutions
 };
