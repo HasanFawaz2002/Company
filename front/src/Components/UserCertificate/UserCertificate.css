@@ -5,7 +5,7 @@
 .UserCertificate-container{
     display: flex;
     justify-content: center;
-    padding-top: 150px;
+    padding-top: 120px;
     flex-wrap: wrap;
 }
 .UserCertificate-card{
@@ -13,6 +13,9 @@
     width: 350px;
     margin: 20px;
     border-radius: 15px;
+}
+.UserCertificate-card:hover{
+  transform: scale(1.05);
 }
 .UserCertificate-card-image{
     height: 170px;
@@ -173,3 +176,9 @@ color: white;
       .close-image-modal:hover {
         color: #ccc;
       }
+.pagi{
+
+  display: flex;
+  justify-content: center;
+}
+     
