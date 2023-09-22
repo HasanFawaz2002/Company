@@ -129,13 +129,15 @@ const CreateSubscription = () => {
   return (
     <>
       <div className='create-subscription-container'>
-        <h1>Create Subscription</h1>
+       
         {serverError && <div className='error-message'>{serverError}</div>}
         <form onSubmit={handleSubmit}>
+        <h1 className='createsubscriptionh1'>Create Subscription</h1>
           <div className='create-subscription-container-form-container'>
             <label htmlFor='name'>Name</label>
             <input
               type='text'
+              placeholder='Name'
               name='name'
               value={formData.name}
               onChange={handleInputChange}
@@ -146,6 +148,7 @@ const CreateSubscription = () => {
             <label htmlFor='location'>Location:</label>
             <input
               type='text'
+              placeholder='Subscribtion'
               name='location'
               value={formData.location}
               onChange={handleInputChange}
@@ -156,6 +159,7 @@ const CreateSubscription = () => {
             <label htmlFor='email'>Email:</label>
             <input
               type='email'
+              placeholder='Email'
               name='email'
               value={formData.email}
               onChange={handleInputChange}
@@ -166,6 +170,7 @@ const CreateSubscription = () => {
             <label htmlFor='position'>Position:</label>
             <select
               name='position'
+              className='designselect'
               value={formData.position}
               onChange={handleInputChange}
             >
@@ -180,6 +185,7 @@ const CreateSubscription = () => {
             <label htmlFor='selectedInstitution'>Select an Institution:</label>
             <select
               name='institutionID'
+              className='designselect'
               value={formData.selectedInstitution}
               onChange={handleInputChange}
             >

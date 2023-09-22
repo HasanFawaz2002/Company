@@ -92,14 +92,16 @@ const CreateInstitutionForm = () => {
   return (
     <>
       <div className='create-institution-container'>
-        <h1>Create Institution</h1>
+       
         {serverError && <div className='error-message'>{serverError}</div>}
         <form onSubmit={handleSubmit}>
+        <h1 className='createinstitutionh1'>Create Institution</h1>
           <div className='create-institution-container-form-container'>
-            <label htmlFor='name'>Name</label>
+            <label htmlFor='name'>Name:</label>
             <input
               type='text'
               name='name'
+              placeholder='Name'
               value={formData.name}
               onChange={handleInputChange}
             />
@@ -110,6 +112,7 @@ const CreateInstitutionForm = () => {
             <input
               type='text'
               name='location'
+              placeholder='Location'
               value={formData.location}
               onChange={handleInputChange}
             />
@@ -119,6 +122,7 @@ const CreateInstitutionForm = () => {
             <label htmlFor='email'>Email:</label>
             <input
               type='email'
+              placeholder='Email'
               name='email'
               value={formData.email}
               onChange={handleInputChange}
