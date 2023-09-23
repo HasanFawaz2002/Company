@@ -279,8 +279,57 @@ const getTotalInstitutions = asyncHandler(async (req, res) => {
   }
 });
 
+const getAllLocations = async (req, res) => {
+  try {
+    // Query the database to find all institutions
+    const institutions = await Institution.find({}, 'location');
+
+    // Create a Set to store unique locations
+    const uniqueLocations = new Set();
+
+    // Iterate through the institutions and add their locations to the Set
+    institutions.forEach((institution) => {
+      uniqueLocations.add(institution.location);
+    });
+
+    // Convert the Set back into an array
+    const locations = Array.from(uniqueLocations);
+
+    // Send the unique locations as a JSON response
+    res.status(200).json(locations);
+  } catch (error) {
+    // Handle any errors that may occur during the database query
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred while fetching institution locations.' });
+  }
+};
+
+
+const getInstitutionsByLocation = async (req, res) => {
+  const { location } = req.params; // Assuming the location is passed as a parameter in the URL
+
+  try {
+    let query = {};
+
+    if (location !== "All") {
+      // If the location is not "All," include it in the query
+      query = { location };
+    }
+
+    // Query the database to find institutions based on the query
+    const institutions = await Institution.find(query);
+
+    // Send the matching institutions as a JSON response
+    res.status(200).json(institutions);
+  } catch (error) {
+    // Handle any errors that may occur during the database query
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred while fetching institutions by location.' });
+  }
+};
+
 
 
 module.exports = {
-  getLastThreeInstitutions,createInstitution,loginInstitution,deleteInstitutionById,updateInstitutionById,getAllInstitutions,getInstitutionById,updateInstitutionPasswordById,getTotalInstitutions
+  getLastThreeInstitutions,createInstitution,getInstitutionsByLocation,getAllLocations,loginInstitution,deleteInstitutionById,updateInstitutionById,getAllInstitutions,getInstitutionById,updateInstitutionPasswordById,getTotalInstitutions
 };

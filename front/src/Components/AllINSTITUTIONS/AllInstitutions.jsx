@@ -18,7 +18,9 @@ function AllInstitutions() {
     const [studentCount, setStudentCount] = useState(null);
     const [institutionCount, setInstitutionCount] = useState(null);
     const [certificateData3, setCertificateData3] = useState(0);
-    
+    const [locations, setLocations] = useState([]);
+    const [selectedLocation, setSelectedLocation] = useState("All"); 
+
 
     
     const navigate = useNavigate();
@@ -110,8 +112,34 @@ function AllInstitutions() {
         fetchData();
       }, []);
 
-      const hideAbsolutePositions = searchInput.length > 0;
+      useEffect(() => {
+        axios
+          .get("http://localhost:3001/getAllLocations")
+          .then((response) => {
+            // Update the institutions state with the fetched data
+            setLocations(response.data);
+            console.log(response.data);
+          })
+          .catch((error) => {
+            console.error("Error fetching Locations:", error);
+            // Handle the error, e.g., set institutions to an empty array
+            setLocations([]);
+          });
+      }, []);
 
+      const handleLocationChange = (e) => {
+        const newLocation = e.target.value;
+        setSelectedLocation(newLocation); 
+    
+        axios.get(`http://localhost:3001/getInstitutionsByLocation/${newLocation}`)
+          .then((response) => {
+            setInstitutions(response.data);
+          })
+          .catch((error) => {
+            console.error("Error fetching institutions by location:", error);
+            setInstitutions([]); // Handle the error, e.g., set institutions to an empty array
+          });
+      };
     
 
   return (
@@ -234,14 +262,23 @@ function AllInstitutions() {
         <img src={image} alt="" />
       </motion.div>
       {/* END OF Right SECTION*/ }
+      <div className="absolute-position10"></div>
     </div>
     {/* END OF  SECTION*/ }
 
 
 
     <div className="search-institutions">
-        <FaSearch  />
+      <div>
+      <FaSearch  />
     <input type="text" placeholder="Search By Name or Email" onChange={(e) => setSearchInput(e.target.value)}/>
+      </div>
+      <select name="" id="" onChange={handleLocationChange}>
+          <option value="All">All Locations</option>
+          {locations.map((location) => (
+            <option key={location} value={location}>{location}</option>
+          ))}
+        </select>
     </div>
     
     <div className="all-institutions-container">
