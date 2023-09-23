@@ -246,6 +246,7 @@ function AllInstitutions() {
     
     <div className="all-institutions-container">
      {filteredInstitutions.map((institution) => (
+      <>
             <div className="card red" key={institution._id}>
               <h1 className="tip">{institution.name}</h1>
               <h3 className="second-text">{institution.email}</h3>
@@ -260,15 +261,18 @@ function AllInstitutions() {
                 </button>
                 
               </div>
+              <div className={`position-absolute4 ${hideAbsolutePositions ? 'hide-on-search' : ''}`}></div>
+              <div className={`position-absolute5 ${hideAbsolutePositions ? 'hide-on-search' : ''}`}></div>
+              <div className={`position-absolute6 ${hideAbsolutePositions ? 'hide-on-search' : ''}`}></div>
+              <div className={`position-absolute7 ${hideAbsolutePositions ? 'hide-on-search' : ''}`}></div>
+
             </div>
+            
+            </>
           ))}
 
-        <div className={`position-absolute4 ${hideAbsolutePositions ? 'hide-on-search' : ''}`}></div>
-        <div className={`position-absolute5 ${hideAbsolutePositions ? 'hide-on-search' : ''}`}></div>
-        <div className={`position-absolute6 ${hideAbsolutePositions ? 'hide-on-search' : ''}`}></div>
-        <div className={`position-absolute7 ${hideAbsolutePositions ? 'hide-on-search' : ''}`}></div>
-        <div className={`position-absolute8 ${hideAbsolutePositions ? 'hide-on-search' : ''}`}></div>
-        <div className={`position-absolute9 ${hideAbsolutePositions ? 'hide-on-search' : ''}`}></div>
+        
+        
           
 
     </div>
