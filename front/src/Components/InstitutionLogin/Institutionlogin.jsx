@@ -3,6 +3,8 @@ import "./Institutionlogin.css";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import {FaEye,FaEyeSlash } from 'react-icons/fa'
+  import { ToastContainer, toast } from "react-toastify";
+
 
 const Institutionlogin = () => {
   const history = useNavigate();
@@ -25,7 +27,9 @@ const Institutionlogin = () => {
     setError("");
 
     if (!email.trim() || !password.trim()) {
-      setError("Please fill in both email and password fields.");
+      toast.error("Please fill in both email and password fields.", {
+        theme: "dark",
+      });
       setLoading(false);
       return;
     }
@@ -57,14 +61,19 @@ const Institutionlogin = () => {
       } catch (error) {
         console.error("Error during login:", error);
         setLoading(false);
-              setError("An error occurred while logging in.");
+  toast.error("email or password incorrect",{
+    theme: "dark",
 
+
+  })
       }
     
   }
 
   return (
     <div className="Institution-parent">
+      <ToastContainer />
+
       <div className="Institution-contentWithform">
         <form action="Post" className="Institution-loginform">
           <h1 className="Institution-headone">Institution Login</h1>
@@ -107,9 +116,8 @@ const Institutionlogin = () => {
               </span>
             </div>
           </div>
-          {error && <div className="error-message">{error}</div>}
+          {/* {error && <div className="error-message">{error}</div>} */}
           <div className="Institutecheckboxand-forgot">
-           
             <p>
               <Link to="/forgot-password" className="Institute-forgotpass">
                 Forgot password?
