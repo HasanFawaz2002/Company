@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import './UserCertificate.css';
 import Pagination from './Pagination';
+import { useNavigate } from 'react-router-dom';
 
 function UserCertificate() {
   const [allCertificates, setAllCertificates] = useState([]);
@@ -12,6 +13,8 @@ function UserCertificate() {
 
   const [currentPage, setCurrentPage] = useState(1);
   const certificatesPerPage = 2;
+
+  const navigate = useNavigate();
 
   // Calculate the indexes of the certificates to display on the current page
   const indexOfLastCertificate = currentPage * certificatesPerPage;
@@ -51,7 +54,12 @@ function UserCertificate() {
 
         setAllCertificates(combinedCertificates);
       } catch (error) {
-        console.error('Error fetching certificates:', error);
+        if (error.response && error.response.status === 403) {
+          console.log("Token is not valid!");
+          navigate('/login');
+        } else {
+          console.error("Error Fetching Data:", error);
+        }
       }
     };
 

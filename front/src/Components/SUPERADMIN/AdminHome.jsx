@@ -106,6 +106,8 @@ const Home = () => {
 
 
   useEffect(() => {
+    const role = localStorage.getItem('role');
+
     const config = {
       headers: {
         token: `Bearer ${token}`,
@@ -116,6 +118,10 @@ const Home = () => {
       .then(response => {
         setInstitutionData(response.data.institution);
         console.log(response.data.institution);
+
+        if(response.data.institution.role !== role){
+          navigate('/Institutionlogin');
+        }
         
       })
       .catch(error => {

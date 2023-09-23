@@ -9,7 +9,6 @@ const CreateSubscription = () => {
     location: '',
     email: '',
     position: '',
-    institutionID: '', // Add a new state to store the selected institution
   });
 
   // Initialize state to hold form errors
@@ -18,29 +17,12 @@ const CreateSubscription = () => {
     location: '',
     email: '',
     position: '',
-    institutionID: '',
   });
 
   // Initialize state to hold server error message
   const [serverError, setServerError] = useState('');
 
-  // Initialize state to hold the list of institutions
-  const [institutions, setInstitutions] = useState([]); // Initialize as an empty array
-
-  // Fetch the list of institutions from the API
-  useEffect(() => {
-    axios.get('http://localhost:3001/getAllInstitutions')
-      .then((response) => {
-        // Update the institutions state with the fetched data
-        setInstitutions(response.data.institutions);
-      })
-      .catch((error) => {
-        console.error('Error fetching institutions:', error);
-        // Handle the error, e.g., set institutions to an empty array
-        setInstitutions([]);
-      });
-  }, []); // Empty dependency array means this effect runs once when the component mounts
-
+ 
   
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -80,9 +62,7 @@ const CreateSubscription = () => {
     if (!formData.position.trim()) {
       errors.position = 'Position is required';
     }
-    if (!formData.institutionID) {
-        errors.institutionID = 'Select an institution';
-      }
+    
 
     if (Object.keys(errors).length === 0) {
       // Form is valid, send a POST request using Axios
@@ -100,11 +80,10 @@ const CreateSubscription = () => {
             location: '',
             email: '',
             position: '',
-            selectedInstitution: '',
           });
           setServerError('');
   
-          // Optionally, redirect or perform other actions on success
+          
         }
       } catch (error) {
         if (error.response && error.response.status === 400) {
@@ -181,25 +160,7 @@ const CreateSubscription = () => {
             </select>
             {formErrors.position && <span className='error-message'>{formErrors.position}</span>}
           </div>
-          <div className='create-subscription-container-form-container'>
-            <label htmlFor='selectedInstitution'>Select an Institution:</label>
-            <select
-              name='institutionID'
-              className='designselect'
-              value={formData.selectedInstitution}
-              onChange={handleInputChange}
-            >
-              <option value=''>Select an Institution</option>
-              {institutions.map((institution) => (
-                <option key={institution._id} value={institution._id}>
-                  {institution.name}
-                </option>
-              ))}
-            </select>
-            {formErrors.institutionID && (
-              <span className='error-message'>{formErrors.institutionID}</span>
-            )}
-          </div>
+          
           <button type='submit'>Add Institution</button>
         </form>
       </div>

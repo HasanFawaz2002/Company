@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Institutions.css";
-import Image1 from "../../images/image1.png";
+import Image1 from "../../images/institution.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import Footer from "../Footer/Footer";
@@ -58,22 +58,26 @@ function Institutions() {
       </section>
 
       <div className="institutions-container">
-        <h1>Interact with Our Institutions</h1>
+        <h1 style={{color:"black"}}>Interact with Our Institutions</h1>
         <div className="aboutus-section-institution">
           <div className="aboutus-section-content2">
             <div className="aboutus-section-content2-left">
-              <h1>Simple</h1>
+              <h1 style={{color:"black"}}>Empowering Institutions</h1>
               <p>
-                Zidyia provides an easy to use platform with the best user
-                experience
+              At Zidyia Passport, we are dedicated to empowering institutions with cutting-edge certificate management solutions. We believe in simplicity, security, and efficiency.
+
               </p>
               <li>
                 <FontAwesomeIcon icon={faCheck} />
-                Engaging course content composed of quizzes and grades.
+                Streamlined processes for certificate uploads and requests.
               </li>
               <li>
                 <FontAwesomeIcon icon={faCheck} />
-                Data and insights to analyze integration with course content.
+                Robust security measures to protect your institution's data.
+              </li>
+              <li>
+                <FontAwesomeIcon icon={faCheck} />
+                Insightful analytics for data-driven decision-making.
               </li>
             </div>
             <img src={Image1} alt="" />

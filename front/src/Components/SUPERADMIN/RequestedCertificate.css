@@ -75,6 +75,8 @@
 
 .requested-certificate-container-super .requested-ceritificate-card .content {
     position: absolute;
+    display: flex;
+    flex-direction: column;
     top: 240px;
     width: 100%;
     height: 45px;
@@ -120,15 +122,15 @@
     transition: all ease 400ms;
     cursor: pointer;
 }
-.requested-certificate-container-super .no-requests-message{
+ .no-requests-message-super{
     grid-area: main;
     display: flex;
     justify-content: center;
     align-items: center;
     font-family: 'Core-Bold';
     font-size: xx-large;
-    background-color: #2D3741;
-    color: white;
+    background-color: white;
+    color: #2D3741;
 }
 
 .request-more-btn{
