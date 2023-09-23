@@ -6,11 +6,12 @@ const contactstyles = {
   WebkitBoxSizing: "border-box",
   MozBoxSizing: "border-box",
   boxSizing: "border-box",
+
   margin: 0,
   padding: 0,
+  paddingTop: 50,
   textTransform: "capitalize",
-  backgrounColor: "#2d3741",
-  marginTop: "70px",
+  backgroundColor: "#2d3741",
   scrollBehavior: "smooth",
 };
 
@@ -58,7 +59,7 @@ const Contactus = () => {
       <div className="about-us">
         <div className="aboutuscontainer">
           <div className="aboutwrapper">
-            <div className="about-usContent">
+            {/* <div className="about-usContent">
               <h1>
                 welcome <b>sultan</b>
               </h1>
@@ -70,9 +71,9 @@ const Contactus = () => {
                   to us. We're here to help!
                 </p>
               </div>
-            </div>
+            </div> */}
             <div className="contact-us">
-              <h2>contact us</h2>
+              <h1>contact us</h1>
               <div className="contactform">
                 <form onSubmit={handleSubmit}>
                   <div className="firstname-input">

@@ -25,8 +25,8 @@ const Navbar = () => {
     const isUser = token && role === 'user';
     const isSuperAdmin = token && role === 'superAdmin';
 
-  const isInstitutionsRoute = location.pathname.startsWith('/institutions') || location.pathname.startsWith('/Institutionlogin') || location.pathname.startsWith('/CertificateUpload') || location.pathname === "/StudentViewSubs" || location.pathname.startsWith('/CertificateRequest') || location.pathname.startsWith('/login') || location.pathname.startsWith('/register')|| location.pathname.startsWith('/UserCertificate'); 
-  const isInstitutionLogin = location.pathname.startsWith('/Institutionlogin') || location.pathname.startsWith('/CertificateUpload') || location.pathname.startsWith('/CertificateRequest') || location.pathname === "/StudentViewSubs" || location.pathname.startsWith('/login') || location.pathname.startsWith('/register') || location.pathname.startsWith('/UserCertificate');
+  const isInstitutionsRoute = location.pathname.startsWith('/institutions') || location.pathname.startsWith('/Institutionlogin') || location.pathname.startsWith('/CertificateUpload') || location.pathname === "/StudentViewSubs" || location.pathname.startsWith('/CertificateRequest') || location.pathname.startsWith('/login') || location.pathname.startsWith('/register')|| location.pathname.startsWith('/UserCertificate') || location.pathname.startsWith('/SubscriptionLogin') || location.pathname.startsWith('/contact'); 
+  const isInstitutionLogin = location.pathname.startsWith('/Institutionlogin') || location.pathname.startsWith('/CertificateUpload') || location.pathname.startsWith('/CertificateRequest') || location.pathname === "/StudentViewSubs" || location.pathname.startsWith('/login') || location.pathname.startsWith('/register') || location.pathname.startsWith('/UserCertificate') || location.pathname.startsWith('/SubscriptionLogin') || location.pathname.startsWith('/contact');
     return (
         <>
         <div className={`box3 ${isInstitutionsRoute ? 'institution-route' : ''}`}>
@@ -68,7 +68,7 @@ const Navbar = () => {
         </li>
         <li>
           <NavLink to="/Contact" className="menu__item" onClick={closeMenu}>
-          CONTACT
+          Contact
           </NavLink>
         </li>
         <li>
