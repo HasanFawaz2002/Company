@@ -80,9 +80,9 @@ const CreateSubscription = () => {
     if (!formData.position.trim()) {
       errors.position = 'Position is required';
     }
-    if (!formData.institutionID) {
-        errors.institutionID = 'Select an institution';
-      }
+    // if (!formData.institutionID) {
+    //     errors.institutionID = 'Select an institution';
+    //   }
 
     if (Object.keys(errors).length === 0) {
       // Form is valid, send a POST request using Axios

@@ -39,11 +39,12 @@ const SharedCertificateSchema = new mongoose.Schema({
             message: 'CertificateRequest does not exist.'
         }
     },
+    
     qrcode:{
         type: String
     }
     
-});
+},{ timestamps: true },);
 
 const SharedCertificateModel = mongoose.model('SharedCertificate', SharedCertificateSchema);
 

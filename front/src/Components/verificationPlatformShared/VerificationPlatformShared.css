@@ -1,0 +1,161 @@
+.BackgroundVP{
+    background-color: #2d3741;
+    max-width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1.25rem;
+    font-family: "CORE";
+    color: #fff;
+    
+}
+
+
+.AboveTableHolder{
+    width: 100%;
+    /* margin-bottom: 1.25rem; */
+    margin-top: 100px;
+    
+    
+}
+
+.TitlesWithSearch{
+    width: 100%;
+    display: flex;
+    row-gap: 0.62rem;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    flex-wrap: wrap;
+}
+
+.TitlesWrapper{
+    display: flex;
+  column-gap: 1.25rem;
+  width: 100%;
+  align-items: center;
+  justify-content: space-around;
+  color: #fff;
+}
+
+.StudentNameSectionHolder{
+    width: 100%;
+    /* height: auto; */
+    height: 34rem;
+    display: flex;
+    flex-direction: column;
+    /* row-gap: 1.25rem; */
+    
+
+}
+
+
+.StudentNameSection{
+    /* margin-top: 100px; */
+    width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.62rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+}
+.StudentNameSection::-webkit-scrollbar{
+    width: 0.5rem;
+
+}
+.StudentNameSection::-webkit-scrollbar{
+    width: 0.5rem;
+
+}
+
+.StudentNameSection::-webkit-scrollbar-thumb{
+    background-color: #5dd3b3;
+    border-radius: 0.625rem;
+    box-shadow: -10px 0px 10px 0px rgba(0, 0, 0, 0.25);
+}
+.StudentNameSection::-webkit-scrollbar-thumb{
+    background-color: #5dd3b3;
+    border-radius: 0.625rem;
+    box-shadow: -10px 0px 10px 0px rgba(0, 0, 0, 0.25);
+}
+
+
+.MainHolderVP{
+    width: 100%;
+    min-width: fit-content;
+    min-height: 4.1875rem;
+    height: fit-content;
+    border-radius: 0.625rem 0rem 0rem 0.625rem;
+    /* opacity: 0.3; */
+    background: linear-gradient(270deg, #2d3741 0%, #576371 100%);
+    padding: 0.63rem 1.25rem 0.62rem 0rem;
+    text-align: start;
+}
+
+.MainHolderVP:hover{
+    background: linear-gradient(90deg, #5dd3b3 0%, #2d3741 100%) !important;
+    cursor: pointer;
+    transition: all 0.2s ease-in;
+    opacity: 1;
+}
+.TableSection{
+    width: 90%;
+  display: flex;
+  min-height: fit-content;
+  margin-left: 5rem;
+}
+
+
+.NameSectionWrapperVP{
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.62rem;
+    height: 100%;
+    width: 100%;
+    align-items: start;
+}
+
+.SectionsWrapperVP{
+    display: flex;
+    
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 0.31rem;
+  /* background-color: red; */
+  width: 80%;
+  padding-left: 3.5rem;
+}
+@media (max-width: 504px) {
+    .SectionsWrapperVP {
+    flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+width: 100%;
+padding-left: 0rem;
+/* padding-right: 2rem; */
+
+    }
+.NameSectionWrapperVP{
+    align-items: center;
+    justify-content: center;
+    /* padding-right: 2rem; */
+    /* background-color: white; */
+}
+.TableSection{
+    width: 100%;
+
+margin-left: 0rem;
+}
+  }
+
+  .StudentNameVP{
+    width: 90%;
+    text-align: center;
+font-family: "CORE-BOLD";
+}
+
+.InfoDivsVP{
+    
+}

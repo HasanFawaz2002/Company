@@ -19,7 +19,9 @@ import Institutions from "./Components/INSTITUTIONS/Institutions";
 import Contactus from "./Components/Contactus/Contactus";
 import Scanner from "./Components/scanner/Scanner";
 import SuperAdminDashboard from "./Components/SUPERADMIN/SuperAdminDashboard";
-
+import LoginSubscription from "./Components/LOGIN SUBSCRIPTION/Login Subscription"
+import VerificationPlatformShared from "./Components/verificationPlatformShared/VerificationPlatformShared";
+import CreateSubscription from "./Components/CREATE SUBSCRIPTION/Create Subscription"
 const App = () => {
     const location = useLocation();
   const hideNavbarRoutes = ["/EmailSent", "/users","/admin","/superadmin"]; 
@@ -49,6 +51,9 @@ const App = () => {
             <Route path="/Scanner" element={<Scanner />} />
             <Route path="/AllInstitutions" element={<AllInstitutions />}></Route>
             <Route path="/superadmin/*" element={<SuperAdminDashboard />}></Route>
+            <Route path="/LoginSubscription" element={<LoginSubscription />}></Route>
+            <Route path="/VerificationPlatformShared" element={<VerificationPlatformShared />}></Route>
+            <Route path="/CreateSubscription" element={<CreateSubscription />}></Route>
           </Routes>
         </>
     )

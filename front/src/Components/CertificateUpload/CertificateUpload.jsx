@@ -39,17 +39,17 @@ const CertificateUpload = () => {
               // Check if the selected file is an image or a PDF
               const isImage = file.type.startsWith('image/');
               const isPDF = file.type === 'application/pdf';
-          
+              
               // Create a URL for the selected file
               const fileURL = URL.createObjectURL(file);
           
               // Display a smaller preview based on the file type
               if (isImage) {
                 // Create a smaller thumbnail by specifying width and height
-                setPreview(<img src={fileURL} alt="Certificate Preview" width="70" height="70"  onClick={() => setShowModal(true)}/>);
+                setPreview(<img src={fileURL} alt="Certificate Preview" borderRadius="2rem" width="70" height="70"  onClick={() => setShowModal(true)}/>);
               } else if (isPDF) {
                 // Display a generic PDF icon as a thumbnail for PDF files
-                setPreview(<img src="/pdf-icon.png" alt="PDF Preview" width="70" height="70"  onClick={() => setShowModal(true)}/>);
+                setPreview(<img src="/pdf-icon.png" alt="PDF Preview" borderRadius="2rem" width="70" height="70"  onClick={() => setShowModal(true)}/>);
               } else {
                 // Handle unsupported file types here
                 setPreview(null);
@@ -189,7 +189,7 @@ const CertificateUpload = () => {
                 <div className="certificate-preview">
   {selectedFile ? (
       /* Display the preview here */
-      <div onClick={() => setShowModal(true)}>{preview}</div>
+      <div className='PreviewCU' onClick={() => setShowModal(true)}>{preview}</div>
       ) : (
           <p style={{ marginTop:"-1rem" }}></p>
           )}

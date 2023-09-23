@@ -48,7 +48,7 @@ const CertificateUploadSchema = new mongoose.Schema({
         type:String,
        }
   
-});
+},{ timestamps: true },);
 
 const CertificateUpload = mongoose.model('CertificateUpload', CertificateUploadSchema);
 
