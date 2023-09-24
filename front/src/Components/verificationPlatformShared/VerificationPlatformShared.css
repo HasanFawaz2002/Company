@@ -10,13 +10,19 @@
     
 }
 
+@media (max-width: 504px) {
+
+    .BackgroundVP{
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
+}
 
 .AboveTableHolder{
     width: 100%;
     /* margin-bottom: 1.25rem; */
     margin-top: 100px;
-    
-    
+    /* background-color: white; */
 }
 
 .TitlesWithSearch{
@@ -25,7 +31,7 @@
     row-gap: 0.62rem;
     justify-content: space-between;
     align-items: center;
-    position: relative;
+    /* position: relative; */
     flex-wrap: wrap;
 }
 
@@ -91,6 +97,7 @@
     background: linear-gradient(270deg, #2d3741 0%, #576371 100%);
     padding: 0.63rem 1.25rem 0.62rem 0rem;
     text-align: start;
+    
 }
 
 .MainHolderVP:hover{
@@ -104,6 +111,7 @@
   display: flex;
   min-height: fit-content;
   margin-left: 5rem;
+  
 }
 
 
@@ -147,6 +155,16 @@ padding-left: 0rem;
     width: 100%;
 
 margin-left: 0rem;
+}
+.TitlesWrapper{
+    flex-direction: column;
+    /* flex-wrap: wrap; */
+    /* background-color: white; */
+    height: 10rem;
+    align-items: center;
+    /* background-color: white; */
+    justify-content: center;
+    margin-top: -3rem;
 }
   }
 

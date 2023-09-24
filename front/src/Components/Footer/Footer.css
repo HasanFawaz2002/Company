@@ -11,6 +11,10 @@ footer{
     transform: translateY(750px);
 }
 
+.footer-credential{
+    color: white;
+}
+
 .footer-container:nth-child(1) p{
     font-size: large;
     color: #46505F;

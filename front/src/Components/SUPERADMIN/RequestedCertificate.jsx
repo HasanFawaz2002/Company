@@ -111,7 +111,7 @@ function RequestedCertificate(props) {
   return (
     <>
       {certificateRequests.length === 0 ? (
-        <div className="no-requests-message">No requests found.</div>
+        <div className="no-requests-message-super">No requests found.</div>
       ) : (
         <div className="requested-certificate-container-super">
           {certificateRequests.map((item, index) => (

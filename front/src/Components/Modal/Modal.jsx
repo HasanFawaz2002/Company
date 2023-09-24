@@ -57,7 +57,12 @@ const Modal = ({onClose, onSave,organizationId}) => {
           console.log(response.data.certificateRequests);
         })
         .catch((error) => {
-          console.error("Error fetching certificates:", error);
+          if (error.response && error.response.status === 403) {
+            console.log("Token is not valid!");
+            navigate('/login');
+          } else {
+            console.error("Error Fetching Data:", error);
+          }
           // Handle the error, e.g., set institutions to an empty array
           setCertificateUploads([]);
           setCertificateRequests([]);
@@ -80,7 +85,11 @@ const Modal = ({onClose, onSave,organizationId}) => {
         
             formData.append('qrcode', qrcodeBlob, 'qrcode.png');
         
-            const response = await axios.post(`http://localhost:3001/create/${organizationId}`, formData);
+            const response = await axios.post(`http://localhost:3001/create/${organizationId}`, formData,{
+              headers: {
+                token: `Bearer ${token}`,
+              },
+            });
         
             console.log('POST request response:', response.data);
             if (response.status === 200) {
@@ -110,7 +119,11 @@ const Modal = ({onClose, onSave,organizationId}) => {
             // Append the QR code Blob as a file
             formData.append('qrcode', qrcodeBlob, 'qrcode.png');
         
-            const response = await axios.post(`http://localhost:3001/create/${organizationId}`, formData);
+            const response = await axios.post(`http://localhost:3001/create/${organizationId}`, formData,{
+              headers: {
+                token: `Bearer ${token}`,
+              },
+            });
         
             console.log('POST request response:', response.data);
         

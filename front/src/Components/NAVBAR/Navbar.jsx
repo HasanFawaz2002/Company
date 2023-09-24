@@ -25,8 +25,8 @@ const Navbar = () => {
     const isUser = token && role === 'user';
     const isSuperAdmin = token && role === 'superAdmin';
 
-  const isInstitutionsRoute = location.pathname.startsWith('/institutions') || location.pathname.startsWith('/Institutionlogin') || location.pathname.startsWith('/CertificateUpload') || location.pathname === "/StudentViewSubs" || location.pathname.startsWith('/CertificateRequest') || location.pathname.startsWith('/login') || location.pathname.startsWith('/VerificationPlatformShared'); 
-  const isInstitutionLogin = location.pathname.startsWith('/Institutionlogin') || location.pathname.startsWith('/CertificateUpload') || location.pathname.startsWith('/CertificateRequest') || location.pathname === "/StudentViewSubs" || location.pathname.startsWith('/login') || location.pathname.startsWith('/register') || location.pathname.startsWith('/VerificationPlatformShared');
+  const isInstitutionsRoute = location.pathname.startsWith('/institutions') || location.pathname.startsWith('/Institutionlogin') || location.pathname.startsWith('/CertificateUpload') || location.pathname === "/StudentViewSubs" || location.pathname.startsWith('/CertificateRequest') || location.pathname.startsWith('/login') || location.pathname.startsWith('/register')|| location.pathname.startsWith('/UserCertificate') || location.pathname.startsWith('/SubscriptionLogin') || location.pathname.startsWith('/contact') || location.pathname.startsWith('/VerificationPlatformShared') || location.pathname.startsWith('/credentialUrl'); 
+  const isInstitutionLogin = location.pathname.startsWith('/Institutionlogin') || location.pathname.startsWith('/CertificateUpload') || location.pathname.startsWith('/CertificateRequest') || location.pathname === "/StudentViewSubs" || location.pathname.startsWith('/login') || location.pathname.startsWith('/register') || location.pathname.startsWith('/UserCertificate') || location.pathname.startsWith('/SubscriptionLogin') || location.pathname.startsWith('/contact') ||location.pathname.startsWith('/VerificationPlatformShared') || location.pathname.startsWith('/credentialUrl');
     return (
         <>
         <div className={`box3 ${isInstitutionsRoute ? 'institution-route' : ''}`}>
@@ -40,7 +40,7 @@ const Navbar = () => {
                     <li ><NavLink  className={isInstitutionsRoute ? 'white-link' : ''} to='/'>HOME</NavLink></li>
                     {isAdmin && <li><NavLink className={isInstitutionsRoute ? 'white-link' : ''} to='/admin'>Dashboard</NavLink></li>}
                     {isSuperAdmin && <li><NavLink className={isInstitutionsRoute ? 'white-link' : ''} to='/superadmin'>Dashboard</NavLink></li>}
-                    {isUser && <li><NavLink className={isInstitutionsRoute ? 'white-link' : ''} to='/wallet'>Wallet</NavLink></li>}
+                    {isUser && <li><NavLink className={isInstitutionsRoute ? 'white-link' : ''} to='/UserCertificate'>Wallet</NavLink></li>}
                     <li><NavLink className={isInstitutionsRoute ? 'white-link' : ''} to='/contact'>CONTACT</NavLink></li>
                     <li><NavLink className={isInstitutionsRoute ? 'white-link' : ''} to='/institutions'>Institutions</NavLink></li>
                     <li className={isInstitutionsRoute ? 'white-link' : ''}>  <DropDown /></li>
@@ -68,7 +68,7 @@ const Navbar = () => {
         </li>
         <li>
           <NavLink to="/Contact" className="menu__item" onClick={closeMenu}>
-          CONTACT
+          Contact
           </NavLink>
         </li>
         <li>

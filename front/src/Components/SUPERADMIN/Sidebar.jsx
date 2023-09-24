@@ -44,13 +44,13 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
           </NavLink>
         </li>
         <li className='sidebar-list-item'>
-          <NavLink to="/superadmin/createcertificate" onClick={closeSidebar}>
-            <BsFillPlusSquareFill className='icon' /> Add Certificate
+          <NavLink to="/superadmin/CreateInstitutionForm" onClick={closeSidebar}>
+            <BsFillPlusSquareFill className='icon' /> Create Institution
           </NavLink>
         </li>
         <li className='sidebar-list-item'>
-          <NavLink to="/superadmin/CustomizableForm" onClick={closeSidebar}>
-            <BsFileEarmarkPlusFill className='icon' /> Add Request Form
+          <NavLink to="/superadmin/CreateSubscription" onClick={closeSidebar}>
+            <BsFileEarmarkPlusFill className='icon' /> Create Subscription
           </NavLink>
         </li>
         <li className='sidebar-list-item'>

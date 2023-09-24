@@ -169,12 +169,13 @@ function CertificateRequest() {
 
   return (
     <>
-      <div className="certificate-request-form-container">
-        <div className="Certificate-request-form-container">
-          <h2>Certificate Request Form</h2>
-          {errorMessage && <p className="error-message">{errorMessage}</p>}
+    <div className="certificate-request-form-container">
+      <div className="Certificate-request-form-container">
+        <h2>Certificate Request Form</h2>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+        {fetchedFormData ? (
           <form onSubmit={handleSubmit}>
-            {fetchedFormData?.map((field, index) => (
+            {fetchedFormData.map((field, index) => (
               <div key={index} className="form-group">
                 <label htmlFor={field.fieldName}>
                   {field.isRequired && <span className="required-span">*</span>}
@@ -190,29 +191,36 @@ function CertificateRequest() {
                 />
               </div>
             ))}
-            <div className="custom-select">
-              <select
-                name="certificateID"
-                value={selectedCertificateID}
-                onChange={handleCertificateChange}
-              >
-                <option value="">Select a Certificate</option>
-                {certificate?.map((item) => (
-                  <option key={item._id} value={item._id}>
-                    {item.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+            {certificate && certificate.length > 0 ? (
+  <div className="custom-select">
+    <select
+      name="certificateID"
+      value={selectedCertificateID}
+      onChange={handleCertificateChange}
+    >
+      <option value="">Select a Certificate</option>
+      {certificate.map((item) => (
+        <option key={item._id} value={item._id}>
+          {item.name}
+        </option>
+      ))}
+    </select>
+  </div>
+) : (
+  <p>No certificates available for this institution.</p>
+)}
             <div className="buttonCU">
               <button type="submit" className="submitButtonCU">
                 Request Certificate
               </button>
             </div>
           </form>
-        </div>
+        ) : (
+          <p>No form available for this institution.</p>
+        )}
       </div>
-    </>
+    </div>
+  </>
   );
 }
 

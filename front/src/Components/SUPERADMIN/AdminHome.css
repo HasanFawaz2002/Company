@@ -33,7 +33,7 @@
   /* Header  */
   .header-super {
     grid-area: header;
-    background-color: white;
+    background-color: #2D3741;
     height: 60px;
     display: flex;
     align-items: center;
@@ -41,6 +41,7 @@
     padding: 0 30px 0 30px;
     box-shadow: 0 6px 7px -3px rgba(0, 0, 0, 0.35);
     border-bottom: 2px solid #2D3741;
+    border-bottom: 1px solid #5DD3B3;
   }
   
    .menu-icon {
@@ -81,6 +82,7 @@
   #sidebar {
     grid-area: sidebar;
     height: 100%;
+    border-right: 2px solid #5DD3B3;
    
     overflow-y: auto;
     transition: all 0.5s;

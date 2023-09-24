@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
-import './Create Institution Form.css';
+import React, { useState, useEffect } from 'react';
+import './Create Subscription.css';
 import axios from 'axios';
 
-const CreateInstitutionForm = () => {
+const CreateSubscription = () => {
   // Initialize state to hold form data
   const [formData, setFormData] = useState({
     name: '',
     location: '',
     email: '',
+    position: '',
   });
 
   // Initialize state to hold form errors
@@ -15,18 +16,29 @@ const CreateInstitutionForm = () => {
     name: '',
     location: '',
     email: '',
+    position: '',
   });
 
   // Initialize state to hold server error message
   const [serverError, setServerError] = useState('');
 
-  // Handle form input changes
+ 
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+  
+    // Special case for the selectedInstitution field
+    if (name === 'institutionID') {
+      setFormData({
+        ...formData,
+        institutionID: value, // Store the selected institution's ID
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
   };
 
   // Handle form submission
@@ -47,27 +59,31 @@ const CreateInstitutionForm = () => {
     if (!formData.email.trim()) {
       errors.email = 'Email is required';
     }
+    if (!formData.position.trim()) {
+      errors.position = 'Position is required';
+    }
+    
 
     if (Object.keys(errors).length === 0) {
       // Form is valid, send a POST request using Axios
       try {
-        const response = await axios.post('http://localhost:3001/createInstitution', formData);
+        const response = await axios.post('http://localhost:3001/createsubscription', formData);
 
         if (response.status === 201) {
           // Handle success, e.g., display a success message
-          console.log('Institution created successfully');
+          console.log('Subscription created successfully');
           window.location.reload();
           
-           // Clear form errors and reset form data
-        setFormErrors({
+          // Clear form errors and reset form data
+          setFormErrors({
             name: '',
             location: '',
             email: '',
+            position: '',
           });
           setServerError('');
   
-          // Optionally, redirect or perform other actions on success
-
+          
         }
       } catch (error) {
         if (error.response && error.response.status === 400) {
@@ -76,7 +92,7 @@ const CreateInstitutionForm = () => {
             setServerError('Email already exists. Please use a different email.');
           } else {
             // Handle other server errors
-            setServerError('Institution creation failed. Please try again later.');
+            setServerError('Subscription creation failed. Please try again later.');
           }
         } else {
           // Handle network or other errors
@@ -91,40 +107,60 @@ const CreateInstitutionForm = () => {
 
   return (
     <>
-      <div className='create-institution-container'>
-        <h1>Create Institution</h1>
+      <div className='create-subscription-container'>
+       
         {serverError && <div className='error-message'>{serverError}</div>}
         <form onSubmit={handleSubmit}>
-          <div className='create-institution-container-form-container'>
+        <h1 className='createsubscriptionh1'>Create Subscription</h1>
+          <div className='create-subscription-container-form-container'>
             <label htmlFor='name'>Name</label>
             <input
               type='text'
+              placeholder='Name'
               name='name'
               value={formData.name}
               onChange={handleInputChange}
             />
             {formErrors.name && <span className='error-message'>{formErrors.name}</span>}
           </div>
-          <div className='create-institution-container-form-container'>
+          <div className='create-subscription-container-form-container'>
             <label htmlFor='location'>Location:</label>
             <input
               type='text'
+              placeholder='Subscribtion'
               name='location'
               value={formData.location}
               onChange={handleInputChange}
             />
             {formErrors.location && <span className='error-message'>{formErrors.location}</span>}
           </div>
-          <div className='create-institution-container-form-container'>
+          <div className='create-subscription-container-form-container'>
             <label htmlFor='email'>Email:</label>
             <input
               type='email'
+              placeholder='Email'
               name='email'
               value={formData.email}
               onChange={handleInputChange}
             />
             {formErrors.email && <span className='error-message'>{formErrors.email}</span>}
           </div>
+          <div className='create-subscription-container-form-container'>
+            <label htmlFor='position'>Position:</label>
+            <select
+              name='position'
+              className='designselect'
+              value={formData.position}
+              onChange={handleInputChange}
+            >
+              <option value=''>Position</option>
+              <option value='HR'>HR</option>
+              <option value='Admin'>Admin</option>
+              <option value='Hiring manager'>Hiring Manager</option>
+            </select>
+            {formErrors.position && <span className='error-message'>{formErrors.position}</span>}
+          </div>
+          
           <button type='submit'>Add Institution</button>
         </form>
       </div>
@@ -132,4 +168,4 @@ const CreateInstitutionForm = () => {
   );
 };
 
-export default CreateInstitutionForm;
+export default CreateSubscription;

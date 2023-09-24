@@ -134,7 +134,7 @@ const [imageModalOpen, setImageModalOpen] = useState(false);
                     <strong>Status:</strong> <span className={`status-${certificate.status}`}>{certificate.status}</span>
                   </li>
                 </div>
-                
+                <div>
                 <button className={`uploaded-first-button ${certificate.status === 'Approved' || certificate.status === 'Rejected' ? 'disabled' : ''}`}  onClick={() => {
                    console.log('Certificate Status:', certificate.status);
     setSelectedCertificateId(certificate._id);
@@ -148,6 +148,9 @@ const [imageModalOpen, setImageModalOpen] = useState(false);
   }}
   disabled={certificate.status === 'Approved' || certificate.status === 'Rejected'}
   >Reject</button>
+                </div>
+                
+                
               </div>
             </div>
           ))}

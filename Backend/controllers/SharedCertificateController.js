@@ -61,6 +61,7 @@ const getSharedCertificatePhoto = async (req, res) => {
 const createSharedCertificate = async (req, res) => {
     try {
         // Extract the subscriberID from the URL parameters
+        const studentID = req.user.user.id;
         const { subscriberID } = req.params;
         const { certificateRequestID, certificateUploadID } = req.body;
 
@@ -71,6 +72,7 @@ const createSharedCertificate = async (req, res) => {
                 subscriberID,
                 certificateRequestID,
                 certificateUploadID,
+                studentID,
                 qrcode: req.file.filename,
             });
 
@@ -100,10 +102,12 @@ const getSharedCertificateBySubscriber = async (req, res) => {
         })
         .populate({
           path: 'certificateUploadID',
-          populate: {
-            path: 'institutionID', 
-          },
+          populate:[ 
+            {path: 'institutionID' },
+            {path: 'studentID' }
+          ],
         })
+        .sort({ createdAt: -1 })
         .exec();
   
       if (!sharedCertificate) {
@@ -117,8 +121,41 @@ const getSharedCertificateBySubscriber = async (req, res) => {
     }
   };
   
+
+  const getSharedCertificateByID = async (req, res) => {
+    const sharedCertificateID = req.params.sharedCertificateID;
+  
+    try {
+      const sharedCertificate = await SharedCertificate.findById(sharedCertificateID)
+        .populate({
+          path: 'certificateRequestID',
+          populate: [
+            { path: 'studentID' },
+            { path: 'certificateID' },
+            { path: 'institutionID' },
+          ],
+        })
+        .populate({
+          path: 'certificateUploadID',
+          populate: [
+            { path: 'institutionID' },
+            { path: 'studentID' },
+          ],
+        })
+        .exec();
+  
+      if (!sharedCertificate) {
+        return res.status(404).json({ message: 'Shared certificate not found.' });
+      }
+  
+      res.status(200).json(sharedCertificate);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  };
   
   
   
-  module.exports = { createSharedCertificate,getSharedCertificatePhoto,upload,getSharedCertificateBySubscriber};
+  module.exports = { createSharedCertificate,getSharedCertificatePhoto,upload,getSharedCertificateBySubscriber, getSharedCertificateByID};
   

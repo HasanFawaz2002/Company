@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const SubscribtionModel = require('./subscription');
 const CertificateUploadModel = require('./certificateUpload');
 const CertificateRequestModel = require('./certificateRequest');
+const UserModel = require('../models/user');
+
 
 const SharedCertificateSchema = new mongoose.Schema({
     subscriberID: {
@@ -39,7 +41,17 @@ const SharedCertificateSchema = new mongoose.Schema({
             message: 'CertificateRequest does not exist.'
         }
     },
-    
+    studentID:{
+        type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            validate: {
+                validator: async function (value) {
+                    const userExists = await UserModel.exists({ _id: value });
+                    return userExists;
+                },
+                message: 'User does not exist.'
+            }
+      },
     qrcode:{
         type: String
     }

@@ -22,7 +22,7 @@ console.log(subscriberID);
   useEffect(() => {
 
     axios
-    .get(`http://localhost:3001/getSharedCertificateBySubscriber/6508c63b1655b5e7a65722e8`,{
+    .get(`http://localhost:3001/getSharedCertificateBySubscriber/${subscriberID}`,{
       headers: {
         token: `Bearer ${token}`,
       },
@@ -44,7 +44,6 @@ console.log(subscriberID);
   
 
 
-
     
   return (
     <div className='BackgroundVP'>
@@ -62,7 +61,7 @@ console.log(subscriberID);
      </div>
       <div className='TableSection'>
       <div className='StudentNameSectionHolder'>
-        Students
+        {/* Students */}
          <div className='StudentNameSection'>
          {sharedCertificates
       .filter((sharedCertificate) => {
@@ -82,7 +81,7 @@ console.log(subscriberID);
         formattedDate.toLowerCase().includes(filterInput.toLowerCase()))
     );
   }).map((sharedCertificate) => (
-            <div  key={sharedCertificate._id}>
+            <div key={sharedCertificate._id}>
               {(sharedCertificate.certificateUploadID || sharedCertificate.certificateRequestID) && (
                 <div className='MainHolderVP'>
                   <div className='NameSectionWrapperVP'>
@@ -103,6 +102,23 @@ console.log(subscriberID);
 
                       <p style={{ color:"#5DD3B3" }}> Shared on </p>
                       {formatDate(sharedCertificate.createdAt)}
+                      </div>
+                      <div className='InfoDivsVP'>
+                      {sharedCertificate.certificateUploadID ? (
+                        
+  <img className='ImgStylingCU2' src={`http://localhost:3001/photo/${sharedCertificate._id}`} alt="Certificate Upload" />
+) : sharedCertificate.certificateRequestID ? (
+  <img className='ImgStylingCU2' src={`http://localhost:3001/photo/${sharedCertificate._id}`} alt="Certificate Request" />
+) : null} 
+<a
+        href={`http://localhost:3001/photo/${sharedCertificate._id}`}
+        download 
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <button>Download qr file</button>
+      </a>
+                      {/* {formatDate(sharedCertificate.createdAt)} */}
                       </div>
 
                     </div>

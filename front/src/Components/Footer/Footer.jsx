@@ -12,8 +12,11 @@ import {
 const Footer = () => {
   const location = useLocation();
   const isHomeRoute = location.pathname === "/";
-  const footerClassName = isHomeRoute ? "footer-home" : "";
+  const isCredentialRoute = location.pathname.startsWith("/credentialUrl");
+  const footerClassName = isHomeRoute ? "footer-home" : isCredentialRoute ? "footer-credential" : "";
 
+
+  
   return (
     <footer className={footerClassName}>
       {/*First section*/}

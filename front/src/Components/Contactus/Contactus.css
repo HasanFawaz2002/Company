@@ -18,28 +18,34 @@
   border: 0.5px solid rgba(255, 255, 255, 0.564);
   background-color: transparent;
 } */
+.about-us{
+ 
+ width: 100%
+}
+
 .aboutuscontainer{
       padding-left: 15px;
-  padding-right: 15px;
-  margin-left: auto;
-  margin-right: auto;
+  padding-right: 15px; 
+    margin-left: auto;
+   margin-right: auto;
 }
 .aboutwrapper{
       background-color: #2d3741;
   padding: 25px;
   color: #eee;
+  
 }
 .aboutwrapper .about-usContent .aboutinfo{
      padding: 15px;
   border-radius: 15px;
   background: linear-gradient(202deg, #2d3741, #ffffff52);
 }
-.aboutwrapper .about-usContent .aboutinfo h2{
+.aboutwrapper .about-usContent .aboutinfo h1{
       margin-bottom: 10px;
 
 }
 .aboutwrapper .contact-us{
-      margin-top: 70px;
+      margin-top: 10px;
 
 }
 .contactform{

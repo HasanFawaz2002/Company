@@ -1,28 +1,35 @@
-.createcertificate-admin-parent{
+.CompleteInformation-admin-parent{
     background-color: #2D3741;
     min-height: 100vh;
     grid-area: main;
     overflow: hidden;
    }
-   .createcertificate-admin-headone{
-       color:white;
+   .CompleteInformation-admin-headone{
+       color:#5DD3B3;
+       font-size: 25px;
+       margin-bottom: 25px !important;
+       text-align: center;
    }
-   .createcertificate-admin-contentWithform{
-       display: flex;
-       justify-content: center;
-       flex-direction: column;
-       align-items: center;
+   .CompleteInformation-admin-contentWithform{
+    border:3px solid #5DD3B3;
+  
+    border-radius: 15px;
+    padding: 30px;
        margin-top: 150px;
+       background-color: #3a424a;
+       position: absolute;
+       left: 50%;
+       transform: translate(-50%);
    }
    .directiontocolumn{
        display: flex;
        flex-direction: column;
    }
-      .createcertificate-admin-label{
+      .CompleteInformation-admin-label{
        margin-bottom: 3px;
        color: white;
    }
-   .createcertificate-admin-input{
+   .CompleteInformation-admin-input{
        width:400px;
        border: 1px solid #ddd;
        background-color:#2D3741;
@@ -57,7 +64,7 @@
    
    @media (max-width:650px) {
    
-    .createcertificate-admin-input{
+    .CompleteInformation-admin-input{
         width:300px;
     }
     .createbutton{

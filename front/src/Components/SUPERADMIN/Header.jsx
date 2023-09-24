@@ -11,7 +11,7 @@ function Header({ OpenSidebar, onStatusChange }) {
   const isRequestedUploadedCertificateRoute = location.pathname === '/superadmin/RequestedCertificate' || location.pathname === '/superadmin/UploadedCertificate';
   const isRequestedRoute = location.pathname  === '/superadmin/RequestedCertificate';
   const iseUploadedRoute = location.pathname === '/superadmin/UploadedCertificate';
-  const isHeaderRoute = location.pathname === '/superadmin';
+  const isHeaderRoute = location.pathname === '/superadmin' || location.pathname === '/superadmin/CreateInstitutionForm' || location.pathname === '/superadmin/CreateSubscription';
   const handleStatusChange = (event) => {
     setSelectedStatus(event.target.value);
     // Call the callback function to pass the selected status
