@@ -261,10 +261,7 @@ function AllInstitutions() {
                 </button>
                 
               </div>
-              <div className={`position-absolute4 ${hideAbsolutePositions ? 'hide-on-search' : ''}`}></div>
-              <div className={`position-absolute5 ${hideAbsolutePositions ? 'hide-on-search' : ''}`}></div>
-              <div className={`position-absolute6 ${hideAbsolutePositions ? 'hide-on-search' : ''}`}></div>
-              <div className={`position-absolute7 ${hideAbsolutePositions ? 'hide-on-search' : ''}`}></div>
+              
 
             </div>
             

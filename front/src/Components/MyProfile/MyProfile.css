@@ -52,7 +52,35 @@
     width: 130px;
     text-align: center;
 }
-.myprofileicon,.colorspan{
+.colorspan{
     color: #5DD3B3;
 }
+.myprofileicon{
+color:#5DD3B3;
+font-size: 30px;
+margin-right:5px ;
+}
+.iconwithnumber{
+   display: flex;
+   align-items: center;
+}
 
+
+
+@media (max-width:650px) {
+    .certificatestatistic-content{
+        display: flex;
+       flex-direction: column;
+       padding: 10px;
+    }
+    .firstcertificatestatistic,.secondcertificatestatistic,.thirdcertificatestatistic{
+        width: 200px;
+        margin-right: 0px;
+        margin-bottom: 10px;
+     }
+     .MyProfile-edit{
+        width:60%;
+        margin-bottom: 10px;
+    }
+   
+       }

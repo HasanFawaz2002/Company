@@ -12,6 +12,7 @@ const emailVerification = require('../controllers/verificationEmail');
 const crypto = require('crypto');
 const CertificateRequest = require('../models/certificateRequest');
 const CertificateUpload = require('../models/certificateUpload');
+const SharedCertificate=require('../models/sharedCertificate');
 
 // Construct the full path to the uploads directory
 const uploadPath = path.join(__dirname, '..', 'server', 'uploads');
@@ -372,8 +373,31 @@ const getUser = async (req, res) => {
   }
 };
 
+const getUserCertificateCounts = async (req, res) => {
+  try {
+    if (req.user.user.id === req.params.id) {
+      const userId = req.params.id;
+      const uploadedCertificatesCount = await CertificateUpload.countDocuments({ studentID: userId });
+      const requestedCertificatesCount = await CertificateRequest.countDocuments({ studentID: userId });
+      const sharedCertificatesCount = await SharedCertificate.countDocuments({ studentID: userId });
+
+      const result = {
+        uploadedCertificatesCount,
+        requestedCertificatesCount,
+        sharedCertificatesCount,
+      };
+
+      res.status(200).json(result);
+    } else {
+      res.status(403).json({ error: 'User from token does not match studentID in request.' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching certificate counts: ' + error.message });
+  }
+};
+
 
 module.exports = { registerUser, loginUser,upload,forgot,reset,updateProfile,verifyEmail,
-  getUserPhoto,getcertificaterequestoruploaded,getTotalUserCount,getUser};
+  getUserPhoto,getcertificaterequestoruploaded,getTotalUserCount,getUser,getUserCertificateCounts};
 
 

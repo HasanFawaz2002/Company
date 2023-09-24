@@ -1,10 +1,10 @@
 import React from "react";
-import {Routes,Route,Outlet,useLocation } from 'react-router-dom'
+import { Routes, Route, Outlet, useLocation } from "react-router-dom";
 import Home from "./Components/HOME/Home";
 import Navbar from "./Components/NAVBAR/Navbar";
 import About from "./Components/ABOUT/About";
 import Institutionlogin from "./Components/InstitutionLogin/Institutionlogin";
-import Register from "./Components/Authentication/Register"
+import Register from "./Components/Authentication/Register";
 import LogintoZidyia from "./Components/Authentication/Login";
 import ForgotPassword from "./Components/Authentication/forgotpassword";
 import Resetpassword from "./Components/Authentication/Resetpassword";
@@ -21,10 +21,11 @@ import Institutions from "./Components/INSTITUTIONS/Institutions";
 import Contactus from "./Components/Contactus/Contactus";
 import SuperAdminDashboard from "./Components/SUPERADMIN/SuperAdminDashboard";
 import MyProfile from "./Components/MyProfile/MyProfile";
+import SubscriptionLogin from "./Components/LOGINSUBSCRIPTION/SubscriptionLogin";
 
 const App = () => {
-    const location = useLocation();
-  const hideNavbarRoutes = ["/EmailSent", "/users","/admin","/superadmin"]; 
+  const location = useLocation();
+  const hideNavbarRoutes = ["/EmailSent", "/users", "/admin", "/superadmin"];
 
   const isNavbarHidden = hideNavbarRoutes.some((route) =>
     location.pathname.startsWith(route)
@@ -54,6 +55,7 @@ const App = () => {
             <Route path="/AllInstitutions" element={<AllInstitutions />}></Route>
             <Route path="/superadmin/*" element={<SuperAdminDashboard />}></Route>
             <Route path="/MyProfile" element={<MyProfile />}></Route>
+            <Route path="/SubscriptionLogin" element={<SubscriptionLogin />}></Route>
           </Routes>
         </>
     )
