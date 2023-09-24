@@ -20,6 +20,7 @@ import AllInstitutions from "./Components/AllINSTITUTIONS/AllInstitutions";
 import Institutions from "./Components/INSTITUTIONS/Institutions";
 import Contactus from "./Components/Contactus/Contactus";
 import SuperAdminDashboard from "./Components/SUPERADMIN/SuperAdminDashboard";
+import MyProfile from "./Components/MyProfile/MyProfile";
 import SubscriptionLogin from "./Components/LOGINSUBSCRIPTION/SubscriptionLogin";
 
 const App = () => {
@@ -53,6 +54,7 @@ const App = () => {
             <Route path="/StudentViewSubs" element={<StudentViewSubs />} />
             <Route path="/AllInstitutions" element={<AllInstitutions />}></Route>
             <Route path="/superadmin/*" element={<SuperAdminDashboard />}></Route>
+            <Route path="/MyProfile" element={<MyProfile />}></Route>
             <Route path="/SubscriptionLogin" element={<SubscriptionLogin />}></Route>
           </Routes>
         </>

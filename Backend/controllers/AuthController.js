@@ -12,6 +12,7 @@ const emailVerification = require('../controllers/verificationEmail');
 const crypto = require('crypto');
 const CertificateRequest = require('../models/certificateRequest');
 const CertificateUpload = require('../models/certificateUpload');
+const SharedCertificate=require('../models/sharedCertificate');
 
 // Construct the full path to the uploads directory
 const uploadPath = path.join(__dirname, '..', 'server', 'uploads');
@@ -350,7 +351,53 @@ const getTotalUserCount = asyncHandler(async (req, res) => {
   }
 });
 
+//get user
+const getUser = async (req, res) => {
+  const userID = req.params.id;
+  try {
+    const user = await User.findById(userID);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found.' });
+    }
+    if (req.user.user.id === userID || req.user.user.isAdmin) {
+      try{
+  await User.findById(userID);
+    const { password, ...info } = user._doc;
+    res.status(200).json(info);}catch (err) {
+      res.status(500).json(err);
+    }}else {
+      res.status(403).json({ error: 'You can find the user on your account or you must be an admin.' });
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
 
-module.exports = { registerUser, loginUser,upload,forgot,reset,updateProfile,verifyEmail,getUserPhoto,getcertificaterequestoruploaded,getTotalUserCount};
+const getUserCertificateCounts = async (req, res) => {
+  try {
+    if (req.user.user.id === req.params.id) {
+      const userId = req.params.id;
+      const uploadedCertificatesCount = await CertificateUpload.countDocuments({ studentID: userId });
+      const requestedCertificatesCount = await CertificateRequest.countDocuments({ studentID: userId });
+      const sharedCertificatesCount = await SharedCertificate.countDocuments({ studentID: userId });
+
+      const result = {
+        uploadedCertificatesCount,
+        requestedCertificatesCount,
+        sharedCertificatesCount,
+      };
+
+      res.status(200).json(result);
+    } else {
+      res.status(403).json({ error: 'User from token does not match studentID in request.' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching certificate counts: ' + error.message });
+  }
+};
+
+
+module.exports = { registerUser, loginUser,upload,forgot,reset,updateProfile,verifyEmail,
+  getUserPhoto,getcertificaterequestoruploaded,getTotalUserCount,getUser,getUserCertificateCounts};
 
 
