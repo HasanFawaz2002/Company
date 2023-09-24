@@ -209,7 +209,7 @@ function Register() {
             )}
               <label className="registerlabel">Password <span className="star">*</span></label>
               </div>
-            <div className=" password">
+            <div className="password">
             <input
               type={showPassword ? "text" : "password"} 
               name="password"
@@ -230,7 +230,7 @@ function Register() {
             )}
               <label className="registerlabel">Confirm Password <span className="star">*</span></label>
               </div>
-          <div className=" password">
+          <div className="password">
           <input
                   type={showConfirmPassword ? "text" : "password"} 
               name="confirmPassword"
