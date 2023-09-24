@@ -76,7 +76,7 @@ const formatDate = (dateString) => {
 ) : null} 
                             <div className='DescColumn' >
                                 <h1>
-                            {sharedCertificate.certificateUploadID?.certificateID?.name || sharedCertificate.certificateRequestID?.certificateID?.name}
+                            {sharedCertificate.certificateUploadID?.name || sharedCertificate.certificateRequestID?.certificateID?.name}
 
                                 </h1>
                                 <p>
@@ -87,7 +87,7 @@ const formatDate = (dateString) => {
                                     </span>
 
                                 </p>
-                            {sharedCertificate.certificateUploadID?.certificateID?.description || sharedCertificate.certificateRequestID?.certificateID?.description}
+                            {sharedCertificate.certificateUploadID?.description || sharedCertificate.certificateRequestID?.certificateID?.description}
                             </div>
                     </div>
                     <div className="SkillsCU">
