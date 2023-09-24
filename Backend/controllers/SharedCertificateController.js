@@ -65,7 +65,8 @@ const createSharedCertificate = async (req, res) => {
         const { subscriberID } = req.params;
         const { certificateRequestID, certificateUploadID,qrUrl } = req.body;
 
-       
+        const qrcode = req.file ? req.file.filename : null;
+
 
             // Create the shared certificate record
             const sharedCertificate = new SharedCertificate({
@@ -74,7 +75,7 @@ const createSharedCertificate = async (req, res) => {
                 certificateUploadID,
                 studentID,
                 qrUrl,
-                qrcode: req.file.filename,
+                qrcode: qrcode,
             });
 
             // Save the shared certificate record to the database
@@ -85,6 +86,40 @@ const createSharedCertificate = async (req, res) => {
         console.error('Error creating shared certificate:', error);
         res.status(500).json({ error: 'Error creating shared certificate', errorMessage: error.message });
     }
+};
+
+const updateQrcode = async (req, res) => {
+  const { qrUrl } = req.body;
+  const sharedCertificateID = req.params.sharedCertificateID;
+
+  // Check if qrcode file is provided
+  let qrCodeFilename = null; // Default value if not provided
+  if (req.file) {
+    qrCodeFilename = req.file.filename;
+  }
+
+  try {
+    const sharedCertificate = await SharedCertificate.findById(sharedCertificateID);
+
+    if (!sharedCertificate) {
+      return res.status(404).json({ error: "Shared certificate not found" });
+    }
+
+    if (qrCodeFilename) {
+      sharedCertificate.qrcode = qrCodeFilename;
+    }
+
+    if (qrUrl) {
+      sharedCertificate.qrUrl = qrUrl;
+    }
+
+    const updatedQrcode = await sharedCertificate.save();
+
+    res.status(200).json(updatedQrcode);
+  } catch (error) {
+    console.error("Qrcode update failed:", error);
+    res.status(500).json({ error: "Qrcode update failed" });
+  }
 };
 
 
@@ -158,5 +193,5 @@ const getSharedCertificateBySubscriber = async (req, res) => {
   
   
   
-  module.exports = { createSharedCertificate,getSharedCertificatePhoto,upload,getSharedCertificateBySubscriber, getSharedCertificateByID};
+  module.exports = { createSharedCertificate,getSharedCertificatePhoto,upload,updateQrcode,getSharedCertificateBySubscriber, getSharedCertificateByID};
   

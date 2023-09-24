@@ -73,22 +73,13 @@ const Modal = ({onClose, onSave,organizationId}) => {
         
         }, []);  
 
-        const handleShareUploaded = async (certificateUploadID, certificateUploadStatus) => {
+        const handleShareUploaded = async (certificateUploadID) => {
           try {
             const formData = new FormData();
         
-            const qrcodeDataUrl = await QRCode.toDataURL(certificateUploadStatus);
-        
-            // Log the QR code URL
-            console.log('QR code URL:', qrcodeDataUrl);
-        
-            const qrcodeBlob = await (await fetch(qrcodeDataUrl)).blob();
+           
         
             formData.append('certificateUploadID', certificateUploadID);
-        
-            formData.append('qrcode', qrcodeBlob, 'qrcode.png');
-
-            formData.append('qrUrl', qrcodeDataUrl);
         
             const response = await axios.post(`${api}/create/${organizationId}`, formData,{
               headers: {
@@ -96,48 +87,77 @@ const Modal = ({onClose, onSave,organizationId}) => {
               },
             });
         
-            console.log('POST request response:', response.data);
             if (response.status === 200) {
-              // Call the notify function here or resolve a promise to notify externally
-              notify();
-            }          
+
+              console.log('POST request response:', response.data.sharedCertificate._id);
+
+              const qrcodeDataUrl = await QRCode.toDataURL(`/CredentialUrl/${response.data.sharedCertificate._id}`);
+              const qrcodeBlob = await (await fetch(qrcodeDataUrl)).blob();
+              // Log the QR code URL
+              console.log('QR code URL:', qrcodeDataUrl);
+              
+              const putFormData = new FormData();
+
+               putFormData.append('qrcode', qrcodeBlob); 
+               putFormData.append('qrUrl', qrcodeDataUrl); 
+      
+            const putResponse = await axios.put(`http://localhost:3001/updateQrcode/${response.data.sharedCertificate._id}`, putFormData);
+        
+              if (putResponse.status === 200) {
+                // Call the notify function here or resolve a promise to notify externally
+                notify();
+              }else {
+                console.error('Error sharing certificate:', putResponse);
+
+              }
+            }       
           } catch (error) {
             console.error('Error sharing certificate:', error);
           }
         };
 
-        const handleShareRequested = async (certificateRequestID, certificateRequestStatus) => {
+
+
+
+        const handleShareRequested = async (certificateRequestID) => {
           try {
             const formData = new FormData();
         
-            const qrcodeDataUrl = await QRCode.toDataURL(certificateRequestStatus);
-        
-            // Log the QR code URL
-            console.log('QR code URL:', qrcodeDataUrl);
-        
-            // Convert the data URL to a Blob
-            const qrcodeBlob = await (await fetch(qrcodeDataUrl)).blob();
-        
-            // Append certificateUploadID as a field
+            // Append certificateRequestID as a field
             formData.append('certificateRequestID', certificateRequestID);
         
-            // Append the QR code Blob as a file
-            formData.append('qrcode', qrcodeBlob, 'qrcode.png');
-
-            formData.append('qrUrl', qrcodeDataUrl);
+            // Do not append qrcode and qrUrl, leave them undefined
         
-            const response = await axios.post(`${api}/create/${organizationId}`, formData,{
+            const response = await axios.post(`${api}/create/${organizationId}`, formData, {
               headers: {
                 token: `Bearer ${token}`,
               },
             });
-        
-            console.log('POST request response:', response.data);
-        
-            // Check if the response indicates success and then notify
+
+
             if (response.status === 200) {
-              // Call the notify function here or resolve a promise to notify externally
-              notify();
+
+              console.log('POST request response:', response.data.sharedCertificate._id);
+
+              const qrcodeDataUrl = await QRCode.toDataURL(`/CredentialUrl/${response.data.sharedCertificate._id}`);
+              const qrcodeBlob = await (await fetch(qrcodeDataUrl)).blob();
+              // Log the QR code URL
+              console.log('QR code URL:', qrcodeDataUrl);
+              
+              const putFormData = new FormData();
+
+               putFormData.append('qrcode', qrcodeBlob); 
+               putFormData.append('qrUrl', qrcodeDataUrl); 
+      
+            const putResponse = await axios.put(`http://localhost:3001/updateQrcode/${response.data.sharedCertificate._id}`, putFormData);
+        
+              if (putResponse.status === 200) {
+                // Call the notify function here or resolve a promise to notify externally
+                notify();
+              }else {
+                console.error('Error sharing certificate:', putResponse);
+
+              }
             }
           } catch (error) {
             console.error('Error sharing certificate:', error);
@@ -181,7 +201,7 @@ const Modal = ({onClose, onSave,organizationId}) => {
 </div>
 <button onClick={() => {
   audio.play(); // Play the sound
-  handleShareUploaded(certificateUpload._id, certificateUpload.status);
+  handleShareUploaded(certificateUpload._id);
 }}>
   <FaShare />
 </button>
@@ -203,7 +223,7 @@ const Modal = ({onClose, onSave,organizationId}) => {
 </div>
 <button onClick={() => {
   audio.play(); // Play the sound
-  handleShareRequested(certificateRequest._id, certificateRequest.status);
+  handleShareRequested(certificateRequest._id);
 }}>
   <FaShare />
 </button>
