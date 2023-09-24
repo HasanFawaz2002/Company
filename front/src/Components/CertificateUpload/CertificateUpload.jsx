@@ -13,6 +13,8 @@ const CertificateUpload = () => {
         const [errors, setErrors] = useState({});
         const { institutionID } = useParams();
         const navigate = useNavigate();
+        const api= "http://localhost:3001";
+
 
         useEffect(() => {
           // Check for token and role when the component mounts
@@ -122,7 +124,7 @@ const CertificateUpload = () => {
             console.log('Sending request to:', `http://localhost:3001/certificateUploadRoute/${institutionID}`);
 
               const response = await axios.post(
-                `http://localhost:3001/certificateUploadRoute/${institutionID}`,
+                `${api}/certificateUploadRoute/${institutionID}`,
                 formData,
                 {
                   headers: { 

@@ -22,6 +22,7 @@ const Home = () => {
     const [subscriptionCount, setSubscriptionCount] = useState(null);
     const [institutionCount, setInstitutionCount] = useState(null);
     
+    const api = "http://localhost:3001";
 
  
     const navigate = useNavigate();
@@ -35,7 +36,7 @@ const Home = () => {
     useEffect(() => {
   
       axios
-        .get(`http://localhost:3001/getLatestCertificateRequestsByStatusForAllInstitutions/All`)
+        .get(`${api}/getLatestCertificateRequestsByStatusForAllInstitutions/All`)
         .then((response) => {
           setCertificateRequests(response.data);
           console.log(response.data);
@@ -53,7 +54,7 @@ const Home = () => {
     useEffect(() => {
   
       axios
-        .get(`http://localhost:3001/getTotalUserCount`, )
+        .get(`${api}/getTotalUserCount`, )
         .then((response) => {
           setStudentCount(response.data.totalUsers);
           console.log(response.data.totalUsers);
@@ -71,7 +72,7 @@ const Home = () => {
     useEffect(() => {
   
       axios
-        .get(`http://localhost:3001/countTotalSubscribers`, )
+        .get(`${api}/countTotalSubscribers`, )
         .then((response) => {
           setSubscriptionCount(response.data.total);
           console.log(response.data.total);
@@ -89,7 +90,7 @@ const Home = () => {
     useEffect(() => {
   
       axios
-        .get(`http://localhost:3001/getTotalInstitutions`, )
+        .get(`${api}/getTotalInstitutions`, )
         .then((response) => {
           setInstitutionCount(response.data.total);
           console.log(response.data.total);
@@ -114,7 +115,7 @@ const Home = () => {
       },
     };
 
-    axios.get('http://localhost:3001/getInstitution', config)
+    axios.get(`${api}/getInstitution`, config)
       .then(response => {
         setInstitutionData(response.data.institution);
         console.log(response.data.institution);
@@ -135,7 +136,7 @@ const Home = () => {
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await axios.get('http://localhost:3001/getAllInstitutionsCertificateUploadCounts/count',);
+            const response = await axios.get(`${api}/getAllInstitutionsCertificateUploadCounts/count`);
             // Structure the data as you described
             const structuredData = {
               name: 'certificate Uploads',
@@ -165,7 +166,7 @@ const Home = () => {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await axios.get('http://localhost:3001/countCertificateRequestsForAllInstitutions');
+          const response = await axios.get(`${api}/countCertificateRequestsForAllInstitutions`);
           // Structure the data as you described
           const structuredData2 = {
             name: 'certificate Request',
@@ -196,7 +197,7 @@ const Home = () => {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await axios.get('http://localhost:3001/countTotalCertificatesForAllInstitutions',);
+          const response = await axios.get(`${api}/countTotalCertificatesForAllInstitutions`);
           
           setCertificateData3(response.data);
           console.log(response.data); // Move the log here

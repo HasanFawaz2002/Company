@@ -13,6 +13,9 @@ const Modal = ({onClose, onSave,organizationId}) => {
     const [certificateUploads, setCertificateUploads]= useState([]);
     const [certificateRequests, setCertificateRequests]= useState([]);
 
+    const api = "http://localhost:3001";
+
+
     const navigate = useNavigate();
 
     const notify = () => toast.success('Certificate Shared Successfully', {
@@ -42,7 +45,7 @@ const Modal = ({onClose, onSave,organizationId}) => {
     useEffect(() => {
 
         axios
-        .get("http://localhost:3001/certificates/verified",{
+        .get(`${api}/certificates/verified`,{
           headers: {
             token: `Bearer ${token}`,
           },
@@ -85,7 +88,7 @@ const Modal = ({onClose, onSave,organizationId}) => {
         
             formData.append('qrcode', qrcodeBlob, 'qrcode.png');
         
-            const response = await axios.post(`http://localhost:3001/create/${organizationId}`, formData,{
+            const response = await axios.post(`${api}/create/${organizationId}`, formData,{
               headers: {
                 token: `Bearer ${token}`,
               },
@@ -119,7 +122,7 @@ const Modal = ({onClose, onSave,organizationId}) => {
             // Append the QR code Blob as a file
             formData.append('qrcode', qrcodeBlob, 'qrcode.png');
         
-            const response = await axios.post(`http://localhost:3001/create/${organizationId}`, formData,{
+            const response = await axios.post(`${api}/create/${organizationId}`, formData,{
               headers: {
                 token: `Bearer ${token}`,
               },

@@ -23,7 +23,7 @@ function RequestedCertificate(props) {
     const status = props.selectedStatus;
 
     axios
-      .get(`http://localhost:3001/getCertificateRequestsByStatusForAllInstitutions/${status}`)
+      .get(`${api}/getCertificateRequestsByStatusForAllInstitutions/${status}`)
       .then((response) => {
         setCertificateRequests(response.data);
         setIsLoading(false);

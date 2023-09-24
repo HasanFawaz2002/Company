@@ -27,7 +27,7 @@ function RequestedCertificate(props) {
     const status = props.selectedStatus;
 
     axios
-      .get(`http://localhost:3001/getCertificateRequestsByStatusAndInstitution/${status}`, {
+      .get(`${api}/getCertificateRequestsByStatusAndInstitution/${status}`, {
         headers: {
           token: `Bearer ${token}`,
         },

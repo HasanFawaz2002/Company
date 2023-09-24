@@ -83,6 +83,13 @@ const Navbar = () => {
           </NavLink>
         </li>
         )}
+        {isSuperAdmin && (
+          <li>
+          <NavLink to="/superadmin" className="menu__item" onClick={closeMenu}>
+          Dashboard
+          </NavLink>
+        </li>
+        )}
         {isUser && (
           <li>
           <NavLink to="/wallet" className="menu__item" onClick={closeMenu}>
