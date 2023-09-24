@@ -15,6 +15,10 @@ footer{
     color: white;
 }
 
+.credential-url-text {
+    color: white !important;
+}
+
 .footer-container:nth-child(1) p{
     font-size: large;
     color: #46505F;

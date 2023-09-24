@@ -108,7 +108,7 @@ const getSharedCertificateBySubscriber = async (req, res) => {
             {path: 'studentID' }
           ],
         })
-        .sort({ createdAt: -1 })
+        .sort({ createdAt: +1 })
         .exec();
   
       if (!sharedCertificate) {
