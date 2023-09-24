@@ -66,7 +66,7 @@ const SubscriptionLogin = () => {
           email: "",
           password: "",
         });
-                  history("/");
+                  history("/VerificationPlatformShared");
 
       }
     } catch (error) {

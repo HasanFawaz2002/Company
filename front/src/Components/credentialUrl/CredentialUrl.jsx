@@ -21,11 +21,12 @@ const formatDate = (dateString) => {
     return formattedDate;
   };
 
+  const api = 'http://localhost:3001'
 
     useEffect(() => {
 
         axios
-        .get(`http://localhost:3001/getSharedCertificateById/${sharedCertificateID}`)
+        .get(`${api}/getSharedCertificateById/${sharedCertificateID}`)
 
         .then((response) => {
           // Update the institutions state with the fetched data
@@ -70,9 +71,9 @@ const formatDate = (dateString) => {
             <div className="ImgDescRow">
                     <div className="ImgTitleDesc">
                     {sharedCertificate.certificateUploadID ? (
-  <img className='ImgStylingCU' src={`http://localhost:3001/certificateUploadPhoto/${sharedCertificate.certificateUploadID._id}/photo`} alt="Certificate Upload" />
+  <img className='ImgStylingCU' src={`${api}/certificateUploadPhoto/${sharedCertificate.certificateUploadID._id}/photo`} alt="Certificate Upload" />
 ) : sharedCertificate.certificateRequestID ? (
-  <img className='ImgStylingCU' src={`http://localhost:3001/getCertificatePhoto/${sharedCertificate.certificateRequestID.certificateID._id}/photo`} alt="Certificate Request" />
+  <img className='ImgStylingCU' src={`${api}/getCertificatePhoto/${sharedCertificate.certificateRequestID.certificateID._id}/photo`} alt="Certificate Request" />
 ) : null} 
                             <div className='DescColumn' >
                                 <h1>

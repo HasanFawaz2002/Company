@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Html5QrcodeScanner } from 'html5-qrcode';
 import './VerificationPlatformShared.css'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const VerificationPlatformShared = () => {
   const[sharedCertificates, setSharedCertificates] = useState([]);
@@ -11,6 +12,20 @@ const VerificationPlatformShared = () => {
 
   const [scanResult, setScanResult] = useState(null);
   const [manualSerialNumber, setManualSerialNumber] = useState('');
+
+  const navigate = useNavigate();
+
+  const api = 'http://localhost:3001'
+
+  useEffect(() => {
+    // Check for token and role when the component mounts
+    const token = localStorage.getItem('access_token');
+    const role = localStorage.getItem('role');
+
+    if (!token || role !== 'subscriber') {
+      navigate('/SubscriptionLogin');
+    }
+  }, [navigate]);
 
   useEffect(() => {
     const scanner = new Html5QrcodeScanner('reader', {
@@ -58,7 +73,7 @@ console.log(subscriberID);
   useEffect(() => {
 
     axios
-    .get(`http://localhost:3001/getSharedCertificateBySubscriber/${subscriberID}`,{
+    .get(`${api}/getSharedCertificateBySubscriber/${subscriberID}`,{
       headers: {
         token: `Bearer ${token}`,
       },
@@ -71,8 +86,12 @@ console.log(subscriberID);
       console.log(response.data);
     })
     .catch((error) => {
-      console.error("Error fetching certificates:", error);
-      // Handle the error, e.g., set institutions to an empty array
+      if (error.response && error.response.status === 403) {
+        console.log('Token is not valid!');
+        navigate('/Institutionlogin');
+      } else {
+        console.error('Error Fetching Data:', error);
+      }
       setSharedCertificates([]);
     });
     
