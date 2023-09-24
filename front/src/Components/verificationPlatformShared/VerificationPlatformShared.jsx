@@ -154,7 +154,7 @@ console.log(subscriberID);
                     <div className='SectionsWrapperVP'>
                       <div className='InfoDivsVP'>
                     <p style={{ color:"#5DD3B3" }}> Certified in </p>
-                      {sharedCertificate.certificateUploadID?.certificateID?.name || sharedCertificate.certificateRequestID?.certificateID?.name}
+                      {sharedCertificate.certificateUploadID?.name || sharedCertificate.certificateRequestID?.certificateID?.name}
                       </div>
                       <div className='InfoDivsVP'>
 
@@ -169,7 +169,7 @@ console.log(subscriberID);
                       <div className='InfoDivsVPQR'>
                       {sharedCertificate.certificateUploadID ? (
                         
-                        <img className='ImgStylingCU2' src={`http://localhost:3001/photo/6510288fca52bfcfbdbf41be`} alt="Certificate Upload" />
+                        <img className='ImgStylingCU2' src={`http://localhost:3001/photo/${sharedCertificate._id}`} alt="Certificate Upload" />
                       ) : sharedCertificate.certificateRequestID ? (
                         <img className='ImgStylingCU2' src={`http://localhost:3001/photo/${sharedCertificate._id}`} alt="Certificate Request" />
                       ) : null} 
