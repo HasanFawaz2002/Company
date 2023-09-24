@@ -1,6 +1,6 @@
 import React from "react";
 import "./Footer.css";
-import logo from "../../images/logo2.png";
+import logo from "../../images/logo.png";
 import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
