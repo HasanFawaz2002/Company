@@ -134,6 +134,7 @@ const CertificateUpload = () => {
               );
               console.log('Response Data:', response.data); // Log the response data
               console.log('Upload successful:', response.data);
+              window.location.reload();
             } catch (error) {
               if (error.response && error.response.status === 403) {
                 console.log("Token is not valid!");

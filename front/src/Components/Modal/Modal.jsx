@@ -162,7 +162,8 @@ const Modal = ({onClose, onSave,organizationId}) => {
                     </div>
                     </div>
 
-
+{certificateUploads.length > 0 || certificateRequests.length > 0 ? (
+  <>
 {certificateUploads.map((certificateUpload) => (
 
   <div key={certificateUpload.id} className='CertificatesHolderSS'>
@@ -195,6 +196,10 @@ const Modal = ({onClose, onSave,organizationId}) => {
 </div>
 
   ))}
+  </>
+  ) : (
+    <div className="NoCertificatesText">No Verified Certificates</div>
+  )}
   
 
                 </div>

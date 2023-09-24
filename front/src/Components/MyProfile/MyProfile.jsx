@@ -25,6 +25,17 @@ function MyProfile(){
         requestedCertificatesCount: 0,
         sharedCertificatesCount: 0
       });
+
+      
+  useEffect(() => {
+    // Check for token and role when the component mounts
+    const token = localStorage.getItem('access_token');
+    const role = localStorage.getItem('role');
+
+    if (!token || role !== 'user') {
+      navigate('/login');
+    }
+  }, [navigate]);
     
       useEffect(() => {
         const fetchUserData = async () => {
@@ -39,7 +50,12 @@ function MyProfile(){
             console.log(response.data)
             setUserData({ username, bio, email,profilePicture });
           } catch (error) {
-            console.error('Error fetching user data:', error);
+            if (error.response && error.response.status === 403) {
+              console.log("Token is not valid!");
+              navigate('/login');
+            } else {
+              console.error("Error Fetching Data:", error);
+            }
           }
         };
 

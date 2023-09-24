@@ -16,6 +16,16 @@ function UserCertificate() {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    // Check for token and role when the component mounts
+    const token = localStorage.getItem('access_token');
+    const role = localStorage.getItem('role');
+
+    if (!token || role !== 'user') {
+      navigate('/login');
+    }
+  }, [navigate]);
+
   // Calculate the indexes of the certificates to display on the current page
   const indexOfLastCertificate = currentPage * certificatesPerPage;
   const indexOfFirstCertificate = indexOfLastCertificate - certificatesPerPage;
