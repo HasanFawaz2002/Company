@@ -63,7 +63,7 @@ const createSharedCertificate = async (req, res) => {
         // Extract the subscriberID from the URL parameters
         const studentID = req.user.user.id;
         const { subscriberID } = req.params;
-        const { certificateRequestID, certificateUploadID } = req.body;
+        const { certificateRequestID, certificateUploadID,qrUrl } = req.body;
 
        
 
@@ -73,6 +73,7 @@ const createSharedCertificate = async (req, res) => {
                 certificateRequestID,
                 certificateUploadID,
                 studentID,
+                qrUrl,
                 qrcode: req.file.filename,
             });
 

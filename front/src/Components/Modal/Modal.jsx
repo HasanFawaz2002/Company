@@ -87,6 +87,8 @@ const Modal = ({onClose, onSave,organizationId}) => {
             formData.append('certificateUploadID', certificateUploadID);
         
             formData.append('qrcode', qrcodeBlob, 'qrcode.png');
+
+            formData.append('qrUrl', qrcodeDataUrl);
         
             const response = await axios.post(`${api}/create/${organizationId}`, formData,{
               headers: {
@@ -121,6 +123,8 @@ const Modal = ({onClose, onSave,organizationId}) => {
         
             // Append the QR code Blob as a file
             formData.append('qrcode', qrcodeBlob, 'qrcode.png');
+
+            formData.append('qrUrl', qrcodeDataUrl);
         
             const response = await axios.post(`${api}/create/${organizationId}`, formData,{
               headers: {
