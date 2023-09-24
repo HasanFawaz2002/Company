@@ -154,6 +154,14 @@ function UserCertificate() {
                   "{certificate.data.status || ''}"
                 </span>
               </li>
+              
+  {certificate.data.status === 'Rejected' && (
+    <li className='UserCertificate-card-firstp'>
+      Reason: "<span className='colorthereason'>{certificate.type === 'uploaded' ?
+      certificate.data.reason || '' :
+      certificate.data.reason || ''}"</span>
+ 
+</li> )}
               <div className='UserCertificatebtn'>
                 <button
                   className={`UserCertificate-cancel ${certificate.data.status === 'Approved' || certificate.data.status === 'Rejected' ? 'disabled' : ''}`}
