@@ -49,7 +49,9 @@ color: white;
   justify-content: center;
 }
 
-
+.colorthereason{
+  color:red;
+}
 
 .cancelbtn, .deletebtn {
     height: 40px;

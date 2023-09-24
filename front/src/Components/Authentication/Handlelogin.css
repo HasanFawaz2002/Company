@@ -28,12 +28,12 @@
     color: white;
 }
 .logintozidyia-input{
-    width:100%;
+    width:95%;
     border: 1px solid #ddd;
     background-color:#2D3741;
     border-radius: 1.5635rem;
-    height: 50px;
-    padding: 0px;
+    height: 30px;
+    padding: 10px;
     outline:none;
     color:rgb(203, 195, 195);
 }
@@ -54,7 +54,7 @@
 }
 .directiontocolumn input::placeholder{
     color:rgb(203, 195, 195);
-    padding-left: 15px;
+   
 }
 .Signinbutton{
     width:100%;
