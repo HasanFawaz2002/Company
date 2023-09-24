@@ -16,6 +16,9 @@ const CustomizableForm = () => {
     const userId = localStorage.getItem('userId');
     const [isLoading, setIsLoading] = useState(true); // State for loading
 
+    const api = "http://localhost:3001";
+
+
     const navigate = useNavigate();
 
     
@@ -25,7 +28,7 @@ const CustomizableForm = () => {
         const fetchFormData = async () => {
           try {
             const response = await axios.get(
-              `http://localhost:3001/getCustomizableFormByInstitution/${userId}`);
+              `${api}/getCustomizableFormByInstitution/${userId}`);
       
             if (response.status === 200) {
               // Set the fetched form data in state
@@ -109,7 +112,7 @@ const CustomizableForm = () => {
       // Send a POST request to your server with the form data
       try {
         // Use Axios to send a POST request
-        const response = await axios.post('http://localhost:3001/createCustomizableForm', formData, {
+        const response = await axios.post(`${api}/createCustomizableForm`, formData, {
           headers: {
             token: `Bearer ${token}`,
           },
@@ -137,7 +140,7 @@ const CustomizableForm = () => {
 
         try{
             // Use Axios to send a delete request
-            const response = await axios.delete('http://localhost:3001/deleteCustomizableFormByInstitution',  {
+            const response = await axios.delete(`${api}/deleteCustomizableFormByInstitution`,  {
               headers: {
                 token: `Bearer ${token}`,
               },

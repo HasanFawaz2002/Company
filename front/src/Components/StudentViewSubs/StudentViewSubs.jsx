@@ -20,6 +20,9 @@ const [filterInput, setFilterInput] = useState('');
 const [isModalVisible, setIsModalVisible] = useState(false);
 const [selectedOrganizationId, setSelectedOrganizationId] = useState(null);
 
+const api = "http://localhost:3001";
+
+
 
 const toggleModal = (organizationId) => {
     setSelectedOrganizationId(organizationId);
@@ -56,7 +59,7 @@ useEffect(() => {
 
     useEffect(() => {
         axios
-          .get("http://localhost:3001/getAllSubscriptions")
+          .get(`${api}/getAllSubscriptions`)
           .then((response) => {
             // Update the institutions state with the fetched data
             setOrganizations(response.data.subscriptions);

@@ -21,6 +21,7 @@ import Institutions from "./Components/INSTITUTIONS/Institutions";
 import Contactus from "./Components/Contactus/Contactus";
 import SuperAdminDashboard from "./Components/SUPERADMIN/SuperAdminDashboard";
 import VerificationPlatformShared from "./Components/verificationPlatformShared/VerificationPlatformShared";
+import MyProfile from "./Components/MyProfile/MyProfile";
 import SubscriptionLogin from "./Components/LOGINSUBSCRIPTION/SubscriptionLogin";
 import CredentialUrl from './Components/credentialUrl/CredentialUrl';
 const App = () => {
@@ -55,6 +56,7 @@ const App = () => {
             <Route path="/AllInstitutions" element={<AllInstitutions />}></Route>
             <Route path="/superadmin/*" element={<SuperAdminDashboard />}></Route>
             <Route path="/VerificationPlatformShared" element={<VerificationPlatformShared />}></Route>
+            <Route path="/MyProfile" element={<MyProfile />}></Route>
             <Route path="/SubscriptionLogin" element={<SubscriptionLogin />}></Route>
             <Route path="/CredentialUrl/:sharedCertificateID" element={<CredentialUrl />}></Route>
           </Routes>

@@ -51,7 +51,7 @@ const SubscriptionLogin = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/loginSubscription",
+        `${api}/loginSubscription`,
         formData
       );
 

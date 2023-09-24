@@ -10,6 +10,9 @@ const CreateInstitutionForm = () => {
     email: '',
   });
 
+  const api = "http://localhost:3001";
+
+
   // Initialize state to hold form errors
   const [formErrors, setFormErrors] = useState({
     name: '',
@@ -51,7 +54,7 @@ const CreateInstitutionForm = () => {
     if (Object.keys(errors).length === 0) {
       // Form is valid, send a POST request using Axios
       try {
-        const response = await axios.post('http://localhost:3001/createInstitution', formData);
+        const response = await axios.post(`${api}/createInstitution`, formData);
 
         if (response.status === 201) {
           // Handle success, e.g., display a success message

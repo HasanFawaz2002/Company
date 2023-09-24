@@ -13,6 +13,9 @@ const Modal = ({onClose, onSave,organizationId}) => {
     const [certificateUploads, setCertificateUploads]= useState([]);
     const [certificateRequests, setCertificateRequests]= useState([]);
 
+    const api = "http://localhost:3001";
+
+
     const navigate = useNavigate();
 
     const notify = () => toast.success('Certificate Shared Successfully', {
@@ -42,7 +45,7 @@ const Modal = ({onClose, onSave,organizationId}) => {
     useEffect(() => {
 
         axios
-        .get("http://localhost:3001/certificates/verified",{
+        .get(`${api}/certificates/verified`,{
           headers: {
             token: `Bearer ${token}`,
           },
@@ -84,8 +87,10 @@ const Modal = ({onClose, onSave,organizationId}) => {
             formData.append('certificateUploadID', certificateUploadID);
         
             formData.append('qrcode', qrcodeBlob, 'qrcode.png');
+
+            formData.append('qrUrl', qrcodeDataUrl);
         
-            const response = await axios.post(`http://localhost:3001/create/${organizationId}`, formData,{
+            const response = await axios.post(`${api}/create/${organizationId}`, formData,{
               headers: {
                 token: `Bearer ${token}`,
               },
@@ -118,8 +123,10 @@ const Modal = ({onClose, onSave,organizationId}) => {
         
             // Append the QR code Blob as a file
             formData.append('qrcode', qrcodeBlob, 'qrcode.png');
+
+            formData.append('qrUrl', qrcodeDataUrl);
         
-            const response = await axios.post(`http://localhost:3001/create/${organizationId}`, formData,{
+            const response = await axios.post(`${api}/create/${organizationId}`, formData,{
               headers: {
                 token: `Bearer ${token}`,
               },
@@ -159,7 +166,8 @@ const Modal = ({onClose, onSave,organizationId}) => {
                     </div>
                     </div>
 
-
+{certificateUploads.length > 0 || certificateRequests.length > 0 ? (
+  <>
 {certificateUploads.map((certificateUpload) => (
 
   <div key={certificateUpload.id} className='CertificatesHolderSS'>
@@ -202,6 +210,10 @@ const Modal = ({onClose, onSave,organizationId}) => {
 </div>
 
   ))}
+  </>
+  ) : (
+    <div className="NoCertificatesText">No Verified Certificates</div>
+  )}
   
 
                 </div>

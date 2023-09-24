@@ -22,30 +22,18 @@
     display: flex;
     flex-direction: column;
 }
-
-.faEye{
-    position: absolute;
-    top: 340px;
-    right: 570px;
-}
-.faEyeSlash{
-    position: absolute;
-    top: 340px;
-    right: 570px;
-    color: white;
-    font-size: larger;
-}
 .logintozidyia-label{
-    margin-bottom: 3px;
+    margin-bottom: 5px;
+    margin-top: 5px;
     color: white;
 }
 .logintozidyia-input{
     width:100%;
     border: 1px solid #ddd;
     background-color:#2D3741;
-    border-radius: 10px;
-    height: 30px;
-    padding: 10px;
+    border-radius: 1.5635rem;
+    height: 50px;
+    padding: 0px;
     outline:none;
     color:rgb(203, 195, 195);
 }
@@ -66,6 +54,7 @@
 }
 .directiontocolumn input::placeholder{
     color:rgb(203, 195, 195);
+    padding-left: 15px;
 }
 .Signinbutton{
     width:100%;
@@ -76,22 +65,30 @@
     color:white;
     padding: 10px;
 }
+.loginpass{
+    position: relative;
+}
+.eyeiconforlogin{
+    position: absolute;
+    right: 20px;
+    cursor: pointer;
+    top: 15px ;
+    font-size: 20px;
+    color:white;
+}
 
+@media (max-width:650px) {
 
-@media (max-width:480px) {
-
-    .faEye{
-        right: 50px;
-    }
-    .faEyeSlash{
-        right: 50px;
-    }
+    
     .logintozidyia-loginform{
       width: 80%;
-
 }
     .Signinbutton{
-         margin-top: 350px;
+         margin-top: 250px;
+    }
+    .logintozidyia-contentWithform{
 
+        margin-top: 50px;
+       
     }
     }

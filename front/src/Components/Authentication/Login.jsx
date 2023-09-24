@@ -105,7 +105,7 @@ function LogintoZidyia(){
         <div className="logintozidyia-parent">
             <div className="logintozidyia-contentWithform">
                <form className="logintozidyia-loginform" onSubmit={handlelogin}>
-               <h1 className="logintozidyia-headone">My Wallet</h1>
+               <h1 className="logintozidyia-headone">As Student</h1>
                 <div className="directiontocolumn">
                 <label className="logintozidyia-label">Email:</label>
                <input
@@ -123,8 +123,8 @@ function LogintoZidyia(){
                 </div>
                <div className="directiontocolumn">
                <label className="logintozidyia-label">Password:</label>
-
-               <input
+           <div className="loginpass">
+           <input
                  type={showPassword ? "text" : "password"}
                  name="password"
                   id="password"
@@ -133,18 +133,17 @@ function LogintoZidyia(){
                   value={contact.password}
                   onChange={handleChange}
                />
+                <FontAwesomeIcon
+                  icon={showPassword ? faEyeSlash : faEye} 
+                  className="eyeiconforlogin"
+                  onClick={togglePasswordVisibility}
+            />
+           </div>
+             
                  {passworderror && (
               <span className="error-image-message">{passworderror}</span>
             )}
-               {showPassword ? <FontAwesomeIcon
-               icon={ faEyeSlash } 
-               className="faEyeSlash"
-               onClick={togglePasswordVisibility}
-              /> : <FontAwesomeIcon
-               icon={ faEye} 
-              className="faEye"
-               onClick={togglePasswordVisibility}
-              />}
+             
                
              
                </div>

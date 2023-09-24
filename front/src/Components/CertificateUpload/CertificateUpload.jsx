@@ -13,6 +13,8 @@ const CertificateUpload = () => {
         const [errors, setErrors] = useState({});
         const { institutionID } = useParams();
         const navigate = useNavigate();
+        const api= "http://localhost:3001";
+
 
         useEffect(() => {
           // Check for token and role when the component mounts
@@ -122,7 +124,7 @@ const CertificateUpload = () => {
             console.log('Sending request to:', `http://localhost:3001/certificateUploadRoute/${institutionID}`);
 
               const response = await axios.post(
-                `http://localhost:3001/certificateUploadRoute/${institutionID}`,
+                `${api}/certificateUploadRoute/${institutionID}`,
                 formData,
                 {
                   headers: { 
@@ -132,6 +134,7 @@ const CertificateUpload = () => {
               );
               console.log('Response Data:', response.data); // Log the response data
               console.log('Upload successful:', response.data);
+              window.location.reload();
             } catch (error) {
               if (error.response && error.response.status === 403) {
                 console.log("Token is not valid!");

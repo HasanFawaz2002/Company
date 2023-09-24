@@ -329,7 +329,11 @@
       font-size: 15px;
     }
     .header-left select{
-      width: 100px;
+      width: 80px;
+    }
+
+    .header h2{
+      font-size: 20px !important;
     }
   
     .charts {

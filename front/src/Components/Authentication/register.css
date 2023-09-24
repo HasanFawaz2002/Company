@@ -4,7 +4,7 @@
 }
 .register{
     background-color: #2D3741;
-    padding: 200px 0px;
+    padding-top: 250px ;
     height: 600px;
     position: relative;
     opacity: 0.9;
@@ -29,12 +29,6 @@
     outline:none;
     color:rgb(203, 195, 195);
 }
-.flexSb{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
   .forgot{
     color:#323F4E;
   }
@@ -153,12 +147,31 @@ bottom: 5px;
 }
 
 
-@media (max-width:768px) {
+@media (max-width:650px) {
+    .register{
+      
+        padding: 100px 0px;
+      
+    }
 
 .register-content{
-    width: 90%;
+    width: 80%;
 }
 .register .auth-par{
     font-size: 14px;
+}
+.register-content input{
+
+    height: 20px;
+    padding: 10px;
+   
+}
+.fa-eye{
+    position: absolute;
+    right: 14px;
+    cursor: pointer;
+    top: 12px ;
+    font-size: 20px;
+    color:white;
 }
 }

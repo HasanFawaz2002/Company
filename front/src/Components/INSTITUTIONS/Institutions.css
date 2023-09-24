@@ -174,4 +174,7 @@ padding: 40px;
     .view-all-button{
       width: 30%;
     }
+    .institutions-container>h1{
+      margin-left: 10px;
+    }
   }

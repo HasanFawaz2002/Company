@@ -67,3 +67,26 @@
     width: 100%;
     margin-bottom: 10px;
 }
+
+
+@media (max-width:650px) {
+    
+    .create-institution-container form{
+        width: 250px;    
+        margin: 0px;
+        margin-top: 80px;
+        padding: 20px;
+    }
+    .createinstitutionh1{
+font-size: 25px;
+    }
+    .create-institution-container form .create-institution-container-form-container input{
+        height: 20px;
+        padding: 8px;
+        margin: 0px;
+        margin-top: 4px;
+    }
+    .create-institution-container form .create-institution-container-form-container label{
+        font-size: 15px;
+    }
+       }

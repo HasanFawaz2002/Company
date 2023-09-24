@@ -1,5 +1,6 @@
 const {Router} = require('express');
-const {registerUser,upload, loginUser,forgot,reset,updateProfile,verifyEmail,getUserPhoto,getcertificaterequestoruploaded,getTotalUserCount} = require('../controllers/AuthController');
+const {registerUser,upload, loginUser,forgot,reset,updateProfile,verifyEmail,
+    getUserPhoto,getcertificaterequestoruploaded,getTotalUserCount,getUser,getUserCertificateCounts} = require('../controllers/AuthController');
 //const { verify } = require('jsonwebtoken');
 const verify = require('../Controllers/verifytoken');
 
@@ -13,7 +14,8 @@ router.post('/reset-password/:id/:token',reset);
 router.put('/updateProfile/:id',upload.single('profilePicture'),updateProfile);
 router.get('/users/:id/verify/:token',verifyEmail)
 router.get("/getTotalUserCount", getTotalUserCount);
-
+router.get('/user/find/:id',verify ,getUser );
+router.get('/getUserCertificateCounts/:id',verify ,getUserCertificateCounts );
 
 //Get User  Photo
 router.get("/getUserPhoto/:userUploadID/photo", getUserPhoto);

@@ -12,11 +12,14 @@ function EmailVerify() {
     console.log(param.id)
     console.log(param.token)
 
+    const api = 'http://localhost:3001'
+
+
 
     useEffect(() => {
         const verifyEmailUrl = async() => {
             try{
-                const url = `http://localhost:3001/users/${param.id}/verify/${param.token}`;
+                const url = `${api}/users/${param.id}/verify/${param.token}`;
                 const {data} = await axios.get(url);
                 console.log(data);
                 setValidUrl(true);

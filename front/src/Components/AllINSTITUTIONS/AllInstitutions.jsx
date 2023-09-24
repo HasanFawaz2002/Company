@@ -21,13 +21,13 @@ function AllInstitutions() {
     const [locations, setLocations] = useState([]);
     const [selectedLocation, setSelectedLocation] = useState("All"); 
 
-
+    const api = 'http://localhost:3001'
     
     const navigate = useNavigate();
 
     useEffect(() => {
         axios
-          .get("http://localhost:3001/getAllInstitutions")
+          .get(`${api}/getAllInstitutions`)
           .then((response) => {
             // Update the institutions state with the fetched data
             setInstitutions(response.data.institutions);
@@ -59,7 +59,7 @@ function AllInstitutions() {
       useEffect(() => {
   
         axios
-          .get(`http://localhost:3001/getTotalUserCount`, )
+          .get(`${api}/getTotalUserCount`, )
           .then((response) => {
             setStudentCount(response.data.totalUsers);
             console.log(response.data.totalUsers);
@@ -77,7 +77,7 @@ function AllInstitutions() {
       useEffect(() => {
   
         axios
-          .get(`http://localhost:3001/getTotalInstitutions`, )
+          .get(`${api}/getTotalInstitutions`, )
           .then((response) => {
             setInstitutionCount(response.data.total);
             console.log(response.data.total);
@@ -95,7 +95,7 @@ function AllInstitutions() {
       useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await axios.get('http://localhost:3001/countTotalCertificatesForAllInstitutions',);
+            const response = await axios.get(`${api}/countTotalCertificatesForAllInstitutions`);
             
             setCertificateData3(response.data);
             console.log(response.data); // Move the log here
@@ -114,7 +114,7 @@ function AllInstitutions() {
 
       useEffect(() => {
         axios
-          .get("http://localhost:3001/getAllLocations")
+          .get(`${api}/getAllLocations`)
           .then((response) => {
             // Update the institutions state with the fetched data
             setLocations(response.data);
@@ -131,7 +131,7 @@ function AllInstitutions() {
         const newLocation = e.target.value;
         setSelectedLocation(newLocation); 
     
-        axios.get(`http://localhost:3001/getInstitutionsByLocation/${newLocation}`)
+        axios.get(`${api}/getInstitutionsByLocation/${newLocation}`)
           .then((response) => {
             setInstitutions(response.data);
           })
