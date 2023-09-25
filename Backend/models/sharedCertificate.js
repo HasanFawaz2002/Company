@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
-const SubscribtionModel = require('./subscription');
+const SubscriptionModel = require('./subscription');
 const CertificateUploadModel = require('./certificateUpload');
 const CertificateRequestModel = require('./certificateRequest');
 const UserModel = require('../models/user');
-
 
 const SharedCertificateSchema = new mongoose.Schema({
     subscriberID: {
@@ -11,10 +10,10 @@ const SharedCertificateSchema = new mongoose.Schema({
         ref: 'Subscription',
         validate: {
             validator: async function (value) {
-                const subscriptionExists = await SubscribtionModel.exists({ _id: value });
+                const subscriptionExists = await SubscriptionModel.exists({ _id: value });
                 return subscriptionExists;
             },
-            message: 'subscription does not exist.'
+            message: 'Subscription does not exist.'
         }
     },
     certificateUploadID: {
@@ -41,27 +40,27 @@ const SharedCertificateSchema = new mongoose.Schema({
             message: 'CertificateRequest does not exist.'
         }
     },
-    studentID:{
+    studentID: {
         type: mongoose.Schema.Types.ObjectId,
-            ref: 'User',
-            validate: {
-                validator: async function (value) {
-                    const userExists = await UserModel.exists({ _id: value });
-                    return userExists;
-                },
-                message: 'User does not exist.'
-            }
-      },
-    qrcode:{
+        ref: 'User',
+        validate: {
+            validator: async function (value) {
+                const userExists = await UserModel.exists({ _id: value });
+                return userExists;
+            },
+            message: 'User does not exist.'
+        }
+    },
+    qrcode: {
         type: String
     },
-    qrUrl:{
+    qrUrl: {
         type: String
     }
-    
-},{ timestamps: true },);
+}, { timestamps: true });
+
+
 
 const SharedCertificateModel = mongoose.model('SharedCertificate', SharedCertificateSchema);
-
 
 module.exports = SharedCertificateModel;

@@ -8,7 +8,7 @@
     .box1{
         width: 790px;
         height: 820px;
-        background-image: url('../../images/certificate2.png');
+        background-image: url('../../images/certificate.png');
         position: absolute;
         animation: anim 1.5s forwards, anim2 2s forwards 2s;
         bottom: -100%;
@@ -29,7 +29,7 @@
             bottom: -100%;
         }
         to{
-            bottom: 0px;
+            bottom: -30px;
         }
     }
     @keyframes anim2{
@@ -39,7 +39,7 @@
         }
         to{
             width: 0;
-            left: 650px;
+            left: 600px;
         }
     }
     .box2{
@@ -47,12 +47,12 @@
         height: auto;
         font-family: 'Core-Bold';
         color:#323F4E;
-        font-size: 8em;
+        font-size: 6em;
         font-weight: 500;
-        line-height: 130px;
+        line-height: 100px;
         position: absolute;
         top: 150px;
-        left: 100px;
+        left: 130px;
         overflow: hidden;
     }
     .landpage-subheading{
@@ -67,6 +67,7 @@
     .landpage-text{
         position: relative;
         left: -100%;
+        bottom: -20px;
         animation: anim3 1.5s forwards 2s; 
     }
     .landpage-text span{
@@ -101,28 +102,23 @@
      @media screen and (max-width:650px) {
         .box2{
             font-size: 3.5em;
-            line-height: 85px;
+            line-height: 70px;
             left: 30px;
         }
-        .landpage-text span{
-            color: #323F4E;
-        }
+        
         .landpage-btn-container button{
             bottom: 50px;
         }
         .landpage-subheading{
             font-size: 20px;
+            bottom: 5px;
         }
 
         .box1{
-            left: -270px !important;
-            background-image: url('../../images/certificate\ phone2.png');
+           display: none;
 
         }
-        .box1::after{
-            background-image: url('../../images/certificate\ phone.png');
-
-        }
+        
      }
 
      .aboutus-section{

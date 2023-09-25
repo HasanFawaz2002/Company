@@ -58,30 +58,41 @@ const getSharedCertificatePhoto = async (req, res) => {
   
 
   // Create a shared certificate
-const createSharedCertificate = async (req, res) => {
+  const createSharedCertificate = async (req, res) => {
     try {
         // Extract the subscriberID from the URL parameters
         const studentID = req.user.user.id;
         const { subscriberID } = req.params;
-        const { certificateRequestID, certificateUploadID,qrUrl } = req.body;
+        const { certificateRequestID, certificateUploadID, qrUrl } = req.body;
+
+        // Check if a shared certificate with the same subscription, certificateRequestID, and certificateUploadID exists
+        const existingSharedCertificate = await SharedCertificate.findOne({
+            subscriberID,
+            certificateRequestID,
+            certificateUploadID,
+        });
+
+        if (existingSharedCertificate) {
+            // If a matching shared certificate exists, prevent sharing
+            return res.status(400).json({ error: 'Certificate already shared to the same subscription' });
+        }
 
         const qrcode = req.file ? req.file.filename : null;
 
+        // Create the shared certificate record
+        const sharedCertificate = new SharedCertificate({
+            subscriberID,
+            certificateRequestID,
+            certificateUploadID,
+            studentID,
+            qrUrl,
+            qrcode: qrcode,
+        });
 
-            // Create the shared certificate record
-            const sharedCertificate = new SharedCertificate({
-                subscriberID,
-                certificateRequestID,
-                certificateUploadID,
-                studentID,
-                qrUrl,
-                qrcode: qrcode,
-            });
+        // Save the shared certificate record to the database
+        await sharedCertificate.save();
 
-            // Save the shared certificate record to the database
-            await sharedCertificate.save();
-
-            res.status(200).json({ message: 'Shared certificate created successfully', sharedCertificate });
+        res.status(200).json({ message: 'Shared certificate created successfully', sharedCertificate });
     } catch (error) {
         console.error('Error creating shared certificate:', error);
         res.status(500).json({ error: 'Error creating shared certificate', errorMessage: error.message });

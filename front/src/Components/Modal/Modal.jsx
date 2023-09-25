@@ -106,13 +106,20 @@ const Modal = ({onClose, onSave,organizationId}) => {
               if (putResponse.status === 200) {
                 // Call the notify function here or resolve a promise to notify externally
                 notify();
+                audio.play();
               }else {
                 console.error('Error sharing certificate:', putResponse);
 
               }
             }       
           } catch (error) {
-            console.error('Error sharing certificate:', error);
+            if (error.response && error.response.status === 400) {
+              toast.error("Cannot share the same certificate to the same organization.",{
+                theme:"dark"
+              });
+            } else {
+              console.error('Error sharing certificate:', error);
+            }
           }
         };
 
@@ -154,13 +161,20 @@ const Modal = ({onClose, onSave,organizationId}) => {
               if (putResponse.status === 200) {
                 // Call the notify function here or resolve a promise to notify externally
                 notify();
+                audio.play();
               }else {
                 console.error('Error sharing certificate:', putResponse);
 
               }
             }
           } catch (error) {
-            console.error('Error sharing certificate:', error);
+            if (error.response && error.response.status === 400) {
+              toast.error("Cannot share the same certificate to the same organization.",{
+                theme:"dark"
+              });
+            } else {
+              console.error('Error sharing certificate:', error);
+            }
           }
         };
         
@@ -200,7 +214,6 @@ const Modal = ({onClose, onSave,organizationId}) => {
 {certificateUpload.name}: {certificateUpload.description} 
 </div>
 <button onClick={() => {
-  audio.play(); // Play the sound
   handleShareUploaded(certificateUpload._id);
 }}>
   <FaShare />
@@ -222,7 +235,6 @@ const Modal = ({onClose, onSave,organizationId}) => {
 {certificateRequest.certificateID.name}: {certificateRequest.certificateID.description} 
 </div>
 <button onClick={() => {
-  audio.play(); // Play the sound
   handleShareRequested(certificateRequest._id);
 }}>
   <FaShare />
