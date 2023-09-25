@@ -10,6 +10,8 @@
     row-gap: 1.25rem;
     font-family: "CORE";
     color: #fff;
+    overflow-y: hidden;
+
 }
 
 .backgroundSS::-webkit-scrollbar {
@@ -26,11 +28,10 @@
    
     .gridSS{
         display: flex;
+        flex-direction: row; 
         justify-content: center;
         align-items: center;
         gap: 1rem;
-  display: flex; /* Use flex layout for seamless looping */
-  flex-direction: row; /* Arrange conten  
         /* background-color: white; */
         height: 85vh;
         /* overflow-x: scroll; */
@@ -51,6 +52,8 @@
         flex-direction: column;
         justify-content: space-around;
         width: 20.25rem;
+        white-space:normal;
+        word-wrap:break-word;
 height: 15.25rem;
 flex-shrink: 0;
 border-radius: 1.25rem;
@@ -105,7 +108,7 @@ justify-content: center;
   .content {
     width: fit-content; /* Set the width to fit the content */
     display: flex; /* Use flex layout for seamless looping */
-    flex-direction: row; 
+    flex-direction: row;
   }
   
   /* Keyframes animation for scrolling */
@@ -140,9 +143,25 @@ align-self: center;
 
   .orgEmailRow{
     display: flex;
+    text-wrap: wrap;
+    white-space:normal;
+word-wrap:break-word;
+    /* flex-wrap: wrap; */
     /* justify-content: center; */
     align-items: center;
     gap: 0.63rem;
+    /* width: 90%; */
+    /* background-color: white; */
+  }
+
+  .OrgPosEmail{
+    display: flex;
+    align-items: center;
+    /* background-color: white; */
+/* max-width: 13rem; */
+/* height: 3rem; */
+    flex-wrap: wrap;
+
   }
 
   @media screen and (max-width: 768px) {
@@ -155,6 +174,11 @@ align-self: center;
      .cardSS{
       display: flex;
       flex-direction: column;
+      /* overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap; */
+white-space:normal;
+word-wrap:break-word;
       justify-content: space-around;
       width: 15.25rem;
 height: 15.25rem;
@@ -170,4 +194,68 @@ padding: 1rem;
     align-self: center;
     /* z-index: 2; */
       }
+
+      .OrgPosEmail{
+        display: block;
+        /* background-color: white; */
+    max-width: 13rem;
+    /* height: 3rem; */
+        flex-wrap: no;
+    
+      }
+  }
+
+  @media screen and (max-width: 505px) {
+    .scrollable-containerSS{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      /* overflow: hidden; */
+      /* height: 30rem; */
+      overflow-x: hidden;
+      overflow-y: hidden;
+    
+      }
+
+      .gridSS{
+        display: flex;
+        flex-direction: column;
+        /* justify-content: center; */
+        align-items: center;
+        gap: 1rem;
+  /* flex-direction: row; /* Arrange conten   */
+        /* background-color: white; */
+        height: fit-content ;
+        max-height: 1000vh;
+        margin-top: 200px;
+        width: 100%; 
+        overflow-y: hidden;
+
+        
+    }
+
+    .formSS{
+      position: fixed;
+      top: 5rem;
+      display: flex;
+      justify-content: center;
+      align-self: center;
+      z-index: 2;
+        }
+
+    .inputSS{
+
+      height: 3.125rem;
+      border-radius: 6.25rem;
+      border: 1px solid #576371;
+      background-color: #2d3741;
+
+      outline: none;
+      color: #fff;
+      font-family: "CORE";
+      font-size: 1rem;
+  
+    }
   }
