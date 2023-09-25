@@ -67,6 +67,36 @@ const getUserPhoto = async (req, res) => {
   }
 };
 
+
+const getUserIDPhoto = async (req, res) => {
+  try {
+    const userUpload = await User.findById(req.params.userUploadID);
+    if (!userUpload) {
+      return res.status(404).json({ error: 'user not found.' });
+    }
+
+    // Use the imagePath directly as it should be a relative path
+    const relativeImagePath = userUpload.ID;
+
+    // Get the absolute path to the image file
+    const absoluteImagePath = path.join(uploadPath, relativeImagePath);
+
+    // Check if the file exists
+    if (!fs.existsSync(absoluteImagePath)) {
+      return res.status(404).json({ error: 'File not found.', imagePath: absoluteImagePath });
+    }
+
+    // Send the product's photo as a response
+    res.sendFile(absoluteImagePath);
+  } catch (err) {
+    // Log the error including the error message and stack trace
+    console.error('Error retrieving userID photo:', err);
+
+    // Respond with a more detailed error message
+    res.status(500).json({ error: 'Internal Server Error', errorMessage: err.message });
+  }
+};
+
 //@desc Register a user
 //@route POST /api/users/register
 //@access public
@@ -397,7 +427,7 @@ const getUserCertificateCounts = async (req, res) => {
 };
 
 
-module.exports = { registerUser, loginUser,upload,forgot,reset,updateProfile,verifyEmail,
+module.exports = { registerUser, loginUser,upload,forgot,reset,updateProfile,verifyEmail,getUserIDPhoto,
   getUserPhoto,getcertificaterequestoruploaded,getTotalUserCount,getUser,getUserCertificateCounts};
 
 
