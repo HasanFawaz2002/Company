@@ -77,6 +77,8 @@ const SubscriptionLogin = () => {
           toast.error("Email or Password is not valid",{
             theme:"dark",
           });
+        }else if (data.error && data.error === "Subscription is not verified") {
+          history('/expiryLicense');
         } else {
           console.error("Login failed:", error);
         }
