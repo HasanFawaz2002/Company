@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 
 // import {  ReactComponent as SvgUpload } from "../../images/icons"
 const SvgUpload = require("../../images/icons/upload_1.svg").ReactComponent
+const SvgEmail = require("../../images/icons/Email.svg").ReactComponent
+
 
 const StudentViewSubs = () => {
 const [organizations, setOrganizations]= useState([]);
@@ -115,9 +117,11 @@ pauseOnHover
 theme="colored"
 />
     <div className="backgroundSS">
+              {/* <h2 className='testSV'>
+                Share your certificate
+              </h2> */}
         <form className='formSS'>
           <div className='my-3'>
-
             {/* onChange for search */}
             <input className='inputSS'
             type='text'
@@ -144,7 +148,7 @@ theme="colored"
               onMouseLeave={handleCardLeave}>
 <div className='orgNameRow'>{organization.name}</div>
 <div className='orgLocRow'> Located in: {organization.location}</div>
-<div className='orgEmailRow'>{organization.position} Email: {organization.email}</div>
+<div className='orgEmailRow'>{organization.position} <SvgEmail/> {organization.email}</div>
 <div className='buttonRowSS'>
 
 <Tooltip  text="Share your QR code">

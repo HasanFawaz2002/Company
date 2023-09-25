@@ -13,9 +13,9 @@
 }
 
 .backgroundSS::-webkit-scrollbar {
-  width: 0.5rem; /* Adjust the width as needed */
-  background-color: transparent; /* Set the background color to transparent */
-}
+  width: 0.5rem; 
+  background-color: transparent; 
+} 
 
 @media screen and (max-width: 768px) {
     .backgroundSS{
@@ -32,14 +32,20 @@
   display: flex; /* Use flex layout for seamless looping */
   flex-direction: row; /* Arrange conten  
         /* background-color: white; */
-        height: 100vh;
-        overflow-x: scroll;
-
+        height: 85vh;
+        /* overflow-x: scroll; */
+        width: fit-content; 
+        
     }
     .gridSS::-webkit-scrollbar {
       width: 0.5rem; /* Adjust the width as needed */
-      background-color: transparent; /* Set the background color to transparent */
+      background-color: transparent; 
     }
+    .gridSS::-webkit-scrollbar-thumb{
+      background-color: #5dd3b3;
+      border-radius: 0.625rem;
+      /* box-shadow: -10px 0px 10px 0px rgba(0, 0, 0, 0.25); */
+  }
     .cardSS{
         display: flex;
         flex-direction: column;
@@ -75,11 +81,26 @@ justify-content: center;
     
 
 .scrollable-containerSS{
-  display: flex;
+  /* display: flex; */
   justify-content: center;
+  width: 100%;
   /* overflow: hidden; */
+  height: 80%;
+  overflow-x: scroll;
+  overflow-y: hidden;
 
   }
+
+
+  .scrollable-containerSS::-webkit-scrollbar {
+    width: 0.5rem; /* Adjust the width as needed */
+    background-color: transparent; 
+  }
+  .scrollable-containerSS::-webkit-scrollbar-thumb{
+    background-color: #5dd3b3;
+    border-radius: 0.625rem;
+    /* box-shadow: -10px 0px 10px 0px rgba(0, 0, 0, 0.25); */
+}
  
   .content {
     width: fit-content; /* Set the width to fit the content */
@@ -95,7 +116,7 @@ top: 10rem;
 display: flex;
 justify-content: center;
 align-self: center;
-z-index: 2;
+/* z-index: 2; */
   }
   .inputSS{
 
@@ -109,11 +130,44 @@ z-index: 2;
     color: #fff;
     font-family: "CORE";
     font-size: 1rem;
+
+  }
+  .testSV{
+    position: absolute;
+    top: 6rem;
+    left: 12rem;
+  }
+
+  .orgEmailRow{
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    gap: 0.63rem;
   }
 
   @media screen and (max-width: 768px) {
     .inputSS{
      width: 80%;
-     min-width: 10rem;
+     min-width: 15rem;
+      margin-bottom: 5rem;
     }
+
+     .cardSS{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 15.25rem;
+height: 15.25rem;
+border-radius: 1.25rem;
+background:linear-gradient(135deg, #415160 4.55%, #293440 95.7%);
+padding: 1rem;
+  }
+  .formSS{
+    position: relative;
+    top: 10rem;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    /* z-index: 2; */
+      }
   }
