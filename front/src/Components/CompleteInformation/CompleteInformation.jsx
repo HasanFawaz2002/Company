@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./CompleteInformation.css"; 
 import { useNavigate, Link } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
 
 
 function CompleteInformation(){
@@ -20,6 +21,16 @@ function CompleteInformation(){
     setProfile(selectedImage);
   };
 
+  const notify = () => toast.success('Profile Updated Successfully', {
+    position: "top-right",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "colored",
+    });
   function handleCompleteInformation(e){
 
   e.preventDefault();
@@ -65,7 +76,7 @@ function CompleteInformation(){
       .then((response) => {
         console.log("Complete Information successful!");
         console.log(response);
-        
+        notify();
       })
       .catch((error) => {
         if (error.response && error.response.status === 403) {
@@ -81,6 +92,18 @@ function CompleteInformation(){
 
     return(
         <>
+        <ToastContainer
+position="top-right"
+autoClose={3000}
+hideProgressBar={true}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="colored"
+/>
          <div className="CompleteInformation-admin-parent">
         <div className="CompleteInformation-admin-contentWithform">
         <h1 className="CompleteInformation-admin-headone">Complete Your Information</h1>

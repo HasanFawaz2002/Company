@@ -105,7 +105,7 @@ function LogintoZidyia(){
         <div className="logintozidyia-parent">
             <div className="logintozidyia-contentWithform">
                <form className="logintozidyia-loginform" onSubmit={handlelogin}>
-               <h1 className="logintozidyia-headone">My Wallet</h1>
+               <h1 className="logintozidyia-headone">As Student</h1>
                 <div className="directiontocolumn">
                 <label className="logintozidyia-label">Email:</label>
                <input

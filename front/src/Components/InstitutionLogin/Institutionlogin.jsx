@@ -17,7 +17,8 @@ const Institutionlogin = () => {
     setShowPassword(!showPassword)
   }
 
-  
+  const api = "http://localhost:3001";
+
 
 
 
@@ -35,7 +36,7 @@ const Institutionlogin = () => {
     }
     try {
       const response = await axios.post(
-        "http://localhost:3001/loginInstitution",
+        `${api}/loginInstitution`,
         {
           email,
           password,

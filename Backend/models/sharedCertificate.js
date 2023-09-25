@@ -54,9 +54,12 @@ const SharedCertificateSchema = new mongoose.Schema({
       },
     qrcode:{
         type: String
+    },
+    qrUrl:{
+        type: String
     }
     
-});
+},{ timestamps: true },);
 
 const SharedCertificateModel = mongoose.model('SharedCertificate', SharedCertificateSchema);
 

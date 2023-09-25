@@ -343,8 +343,12 @@
       font-size: 15px;
     }
     .header-left select{
-      width: 100px;
+      width: 100px !important;
     }
+    .header-super h2{
+      font-size: 20px !important;
+    }
+    
   
     .main-container-super .charts {
       display: flex;

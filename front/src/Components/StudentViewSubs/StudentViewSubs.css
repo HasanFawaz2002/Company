@@ -113,6 +113,7 @@ z-index: 2;
 
   @media screen and (max-width: 768px) {
     .inputSS{
-     width: 100%;
+     width: 80%;
+     min-width: 10rem;
     }
   }

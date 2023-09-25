@@ -18,14 +18,16 @@ function AllInstitutions() {
     const [studentCount, setStudentCount] = useState(null);
     const [institutionCount, setInstitutionCount] = useState(null);
     const [certificateData3, setCertificateData3] = useState(0);
-    
+    const [locations, setLocations] = useState([]);
+    const [selectedLocation, setSelectedLocation] = useState("All"); 
 
+    const api = 'http://localhost:3001'
     
     const navigate = useNavigate();
 
     useEffect(() => {
         axios
-          .get("http://localhost:3001/getAllInstitutions")
+          .get(`${api}/getAllInstitutions`)
           .then((response) => {
             // Update the institutions state with the fetched data
             setInstitutions(response.data.institutions);
@@ -57,7 +59,7 @@ function AllInstitutions() {
       useEffect(() => {
   
         axios
-          .get(`http://localhost:3001/getTotalUserCount`, )
+          .get(`${api}/getTotalUserCount`, )
           .then((response) => {
             setStudentCount(response.data.totalUsers);
             console.log(response.data.totalUsers);
@@ -75,7 +77,7 @@ function AllInstitutions() {
       useEffect(() => {
   
         axios
-          .get(`http://localhost:3001/getTotalInstitutions`, )
+          .get(`${api}/getTotalInstitutions`, )
           .then((response) => {
             setInstitutionCount(response.data.total);
             console.log(response.data.total);
@@ -93,7 +95,7 @@ function AllInstitutions() {
       useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await axios.get('http://localhost:3001/countTotalCertificatesForAllInstitutions',);
+            const response = await axios.get(`${api}/countTotalCertificatesForAllInstitutions`);
             
             setCertificateData3(response.data);
             console.log(response.data); // Move the log here
@@ -110,8 +112,34 @@ function AllInstitutions() {
         fetchData();
       }, []);
 
-      const hideAbsolutePositions = searchInput.length > 0;
+      useEffect(() => {
+        axios
+          .get(`${api}/getAllLocations`)
+          .then((response) => {
+            // Update the institutions state with the fetched data
+            setLocations(response.data);
+            console.log(response.data);
+          })
+          .catch((error) => {
+            console.error("Error fetching Locations:", error);
+            // Handle the error, e.g., set institutions to an empty array
+            setLocations([]);
+          });
+      }, []);
 
+      const handleLocationChange = (e) => {
+        const newLocation = e.target.value;
+        setSelectedLocation(newLocation); 
+    
+        axios.get(`${api}/getInstitutionsByLocation/${newLocation}`)
+          .then((response) => {
+            setInstitutions(response.data);
+          })
+          .catch((error) => {
+            console.error("Error fetching institutions by location:", error);
+            setInstitutions([]); // Handle the error, e.g., set institutions to an empty array
+          });
+      };
     
 
   return (
@@ -234,14 +262,23 @@ function AllInstitutions() {
         <img src={image} alt="" />
       </motion.div>
       {/* END OF Right SECTION*/ }
+      <div className="absolute-position10"></div>
     </div>
     {/* END OF  SECTION*/ }
 
 
 
     <div className="search-institutions">
-        <FaSearch  />
+      <div>
+      <FaSearch  />
     <input type="text" placeholder="Search By Name or Email" onChange={(e) => setSearchInput(e.target.value)}/>
+      </div>
+      <select name="" id="" onChange={handleLocationChange}>
+          <option value="All">All Locations</option>
+          {locations.map((location) => (
+            <option key={location} value={location}>{location}</option>
+          ))}
+        </select>
     </div>
     
     <div className="all-institutions-container">

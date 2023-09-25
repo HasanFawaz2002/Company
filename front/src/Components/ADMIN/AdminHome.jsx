@@ -24,6 +24,9 @@ const Home = () => {
     const [newPassword, setNewPassword] = useState('');
   const [newPasswordRequired, setNewPasswordRequired] = useState(false);
 
+  const api = 'http://localhost:3001'
+
+
   const openModal = () => {
     setShowModal(true);
   };
@@ -44,7 +47,7 @@ const Home = () => {
     useEffect(() => {
   
       axios
-        .get(`http://localhost:3001/getLatestCertificateRequestsByStatusAndInstitution/All`, {
+        .get(`${api}/getLatestCertificateRequestsByStatusAndInstitution/All`, {
           headers: {
             token: `Bearer ${token}`,
           },
@@ -66,7 +69,7 @@ const Home = () => {
     useEffect(() => {
   
       axios
-        .get(`http://localhost:3001/getStudentCountsForInstitution`, {
+        .get(`${api}/getStudentCountsForInstitution`, {
           headers: {
             token: `Bearer ${token}`,
           },
@@ -94,7 +97,7 @@ const Home = () => {
       },
     };
 
-    axios.get('http://localhost:3001/getInstitution', config)
+    axios.get(`${api}/getInstitution`, config)
       .then(response => {
         setInstitutionData(response.data.institution);
         console.log(response.data.institution);
@@ -116,7 +119,7 @@ const Home = () => {
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await axios.get('http://localhost:3001/certificateUploadRoute/count', {
+            const response = await axios.get(`${api}/certificateUploadRoute/count`, {
               headers: {
                 token: `Bearer ${token}`, // Include the token in the header
               },
@@ -150,7 +153,7 @@ const Home = () => {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await axios.get('http://localhost:3001/getCertificateRequestsCount', {
+          const response = await axios.get(`${api}/getCertificateRequestsCount`, {
             headers: {
               token: `Bearer ${token}`, // Include the token in the header
             },
@@ -185,7 +188,7 @@ const Home = () => {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await axios.get('http://localhost:3001/countTotalCertificates', {
+          const response = await axios.get(`${api}/countTotalCertificates`, {
             headers: {
               token: `Bearer ${token}`, // Include the token in the header
             },
@@ -210,7 +213,7 @@ const Home = () => {
       try {
         // Make a PUT request to update the certificate status with a reason
         const response = await axios.put(
-          `http://localhost:3001/updateInstitutionPasswordById`,
+          `${api}/updateInstitutionPasswordById`,
           { newPassword }, 
           {
             headers: {

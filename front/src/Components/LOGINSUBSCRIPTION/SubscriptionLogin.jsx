@@ -51,7 +51,7 @@ const SubscriptionLogin = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/loginSubscription",
+        `${api}/loginSubscription`,
         formData
       );
 
@@ -66,7 +66,7 @@ const SubscriptionLogin = () => {
           email: "",
           password: "",
         });
-                  history("/");
+                  history("/VerificationPlatformShared");
 
       }
     } catch (error) {
@@ -77,6 +77,8 @@ const SubscriptionLogin = () => {
           toast.error("Email or Password is not valid",{
             theme:"dark",
           });
+        }else if (data.error && data.error === "Subscription is not verified") {
+          history('/expiryLicense');
         } else {
           console.error("Login failed:", error);
         }

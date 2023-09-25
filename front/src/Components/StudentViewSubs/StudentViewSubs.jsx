@@ -5,19 +5,23 @@ import Tooltip from '../tooltip/tooltip';
 import Modal from '../Modal/Modal';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 // import {  ReactComponent as SvgUpload } from "../../images/icons"
 const SvgUpload = require("../../images/icons/upload_1.svg").ReactComponent
 
-
 const StudentViewSubs = () => {
 const [organizations, setOrganizations]= useState([]);
+const navigate = useNavigate();
 
 const [currentPosition, setCurrentPosition] = useState(0);
 const [isHovered, setIsHovered] = useState(false);
-const [search, setSearch] = useState('');
+const [filterInput, setFilterInput] = useState('');
 const [isModalVisible, setIsModalVisible] = useState(false);
 const [selectedOrganizationId, setSelectedOrganizationId] = useState(null);
+
+const api = "http://localhost:3001";
+
 
 
 const toggleModal = (organizationId) => {
@@ -44,9 +48,18 @@ const token = localStorage.getItem("access_token");
 const role = localStorage.getItem("role");
 // console.log('Access Token:', token); 
 
+
+useEffect(() => {
+      
+  
+  if (!token || role !== 'user') {
+    navigate('/login');
+  }
+}, [navigate]);
+
     useEffect(() => {
         axios
-          .get("http://localhost:3001/getAllSubscriptions")
+          .get(`${api}/getAllSubscriptions`)
           .then((response) => {
             // Update the institutions state with the fetched data
             setOrganizations(response.data.subscriptions);
@@ -108,19 +121,22 @@ theme="colored"
             {/* onChange for search */}
             <input className='inputSS'
             type='text'
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder='Search contacts'
+              onChange={(e) => setFilterInput(e.target.value)}
+              placeholder='Search for an organization...'
             />
           </div>
         </form>
       <div className="scrollable-containerSS">
 <div className='gridSS'>
 {organizations
- .filter((organization) => {
-  return search.toLowerCase() === ''
-    ? organization
-    : organization.name.toLowerCase().includes(search);
-})
+              .filter((organization) => {
+                // Filter by name and location
+                return (
+                  (filterInput.trim() === '' ||
+                    organization.name.toLowerCase().includes(filterInput.toLowerCase()) ||
+                    organization.location.toLowerCase().includes(filterInput.toLowerCase()))
+                );
+              })
 .map((organization, index) => (
 <div   key={organization.id}
               className={`cardSS ${index === currentPosition ? 'active' : ''}`}

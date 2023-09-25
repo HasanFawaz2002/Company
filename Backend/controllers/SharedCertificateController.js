@@ -63,9 +63,10 @@ const createSharedCertificate = async (req, res) => {
         // Extract the subscriberID from the URL parameters
         const studentID = req.user.user.id;
         const { subscriberID } = req.params;
-        const { certificateRequestID, certificateUploadID } = req.body;
+        const { certificateRequestID, certificateUploadID,qrUrl } = req.body;
 
-       
+        const qrcode = req.file ? req.file.filename : null;
+
 
             // Create the shared certificate record
             const sharedCertificate = new SharedCertificate({
@@ -73,7 +74,8 @@ const createSharedCertificate = async (req, res) => {
                 certificateRequestID,
                 certificateUploadID,
                 studentID,
-                qrcode: req.file.filename,
+                qrUrl,
+                qrcode: qrcode,
             });
 
             // Save the shared certificate record to the database
@@ -84,6 +86,40 @@ const createSharedCertificate = async (req, res) => {
         console.error('Error creating shared certificate:', error);
         res.status(500).json({ error: 'Error creating shared certificate', errorMessage: error.message });
     }
+};
+
+const updateQrcode = async (req, res) => {
+  const { qrUrl } = req.body;
+  const sharedCertificateID = req.params.sharedCertificateID;
+
+  // Check if qrcode file is provided
+  let qrCodeFilename = null; // Default value if not provided
+  if (req.file) {
+    qrCodeFilename = req.file.filename;
+  }
+
+  try {
+    const sharedCertificate = await SharedCertificate.findById(sharedCertificateID);
+
+    if (!sharedCertificate) {
+      return res.status(404).json({ error: "Shared certificate not found" });
+    }
+
+    if (qrCodeFilename) {
+      sharedCertificate.qrcode = qrCodeFilename;
+    }
+
+    if (qrUrl) {
+      sharedCertificate.qrUrl = qrUrl;
+    }
+
+    const updatedQrcode = await sharedCertificate.save();
+
+    res.status(200).json(updatedQrcode);
+  } catch (error) {
+    console.error("Qrcode update failed:", error);
+    res.status(500).json({ error: "Qrcode update failed" });
+  }
 };
 
 
@@ -107,6 +143,7 @@ const getSharedCertificateBySubscriber = async (req, res) => {
             {path: 'studentID' }
           ],
         })
+        .sort({ createdAt: +1 })
         .exec();
   
       if (!sharedCertificate) {
@@ -120,8 +157,41 @@ const getSharedCertificateBySubscriber = async (req, res) => {
     }
   };
   
+
+  const getSharedCertificateByID = async (req, res) => {
+    const sharedCertificateID = req.params.sharedCertificateID;
+  
+    try {
+      const sharedCertificate = await SharedCertificate.findById(sharedCertificateID)
+        .populate({
+          path: 'certificateRequestID',
+          populate: [
+            { path: 'studentID' },
+            { path: 'certificateID' },
+            { path: 'institutionID' },
+          ],
+        })
+        .populate({
+          path: 'certificateUploadID',
+          populate: [
+            { path: 'institutionID' },
+            { path: 'studentID' },
+          ],
+        })
+        .exec();
+  
+      if (!sharedCertificate) {
+        return res.status(404).json({ message: 'Shared certificate not found.' });
+      }
+  
+      res.status(200).json(sharedCertificate);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  };
   
   
   
-  module.exports = { createSharedCertificate,getSharedCertificatePhoto,upload,getSharedCertificateBySubscriber};
+  module.exports = { createSharedCertificate,getSharedCertificatePhoto,upload,updateQrcode,getSharedCertificateBySubscriber, getSharedCertificateByID};
   

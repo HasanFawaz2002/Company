@@ -1,9 +1,20 @@
 .all-instituions-section1{
+  position: relative;
   display: flex;
   align-items: center;
   padding: 20px 60px 20px 80px;
   height: 90vh;
   justify-content: center;
+}
+.absolute-position10{
+  width: 100%;
+  padding: 0;
+  bottom: -10%;
+  left: 0;
+  margin: 0;
+  height: 100px;
+  background: linear-gradient(to top, rgb(219, 238, 245), white,transparent); 
+  position: absolute;
 }
 .absolute-color{
   position: absolute;
@@ -111,11 +122,20 @@
 }
 .search-institutions{
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     margin-top: 50px;
     background-color: rgb(204, 227, 248);
     padding-top: 50px;
+
+}
+
+.search-institutions select{
+  padding: 5px;
+  border: 1px solid rgb(104, 224, 224);
+  border-radius: 10px;
+  font-size: larger;
+  outline: none;
 
 }
 
@@ -124,7 +144,8 @@
     font-size: larger;
     margin-left: 10px;
     outline: none;
-    border: 1px solid black;
+    border: 1px solid rgb(104, 224, 224);
+    border-radius: 10px;
 }
 
 .search-institutions svg{
@@ -292,7 +313,12 @@
       font-size: 15px;
       padding: 0;
     }
-    .position-absolute4, .position-absolute5, .position-absolute6, .position-absolute7, .position-absolute8{
-      display: none;
+    .search-institutions{
+      flex-direction: column;
+      gap: 10px;
+    }
+    .absolute-position10{
+      height: 70px;
+      width: 100vw ;
     }
   }

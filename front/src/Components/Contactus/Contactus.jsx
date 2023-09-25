@@ -25,6 +25,9 @@ const Contactus = () => {
       message: "",
     });
 
+    const api = "http://localhost:3001";
+
+
     const handleChange = (e) => {
       const { name, value } = e.target;
       setFormData({
@@ -37,7 +40,7 @@ const Contactus = () => {
       e.preventDefault();
 
       // Send the form data to the backend route /sendEmail
-      fetch("http://localhost:3001/sendEmail", {
+      fetch(`${api}/sendEmail`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -172,29 +172,37 @@ const updateSubscriptionStatusToVerified = asyncHandler(async (req, res) => {
 
 const loginSubscription = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
+
     if (!email || !password) {
       res.status(400);
       throw new Error("All fields are mandatory!");
     }
+
     const subscribtion = await Subscribtion.findOne({ email });
-    //compare password with hashedpassword
-    if (subscribtion &&   await bcrypt.compare(password, subscribtion.password)) {
-      const accessToken = jwt.sign(
-        {
+
+    if (subscribtion && await bcrypt.compare(password, subscribtion.password)) {
+      if (subscribtion.status === 'verified') {
+        const accessToken = jwt.sign(
+          {
             subscription: {
-            email: subscribtion.email,
-            id: subscribtion._id,
-            role: subscribtion.role
+              email: subscribtion.email,
+              id: subscribtion._id,
+              role: subscribtion.role
+            },
           },
-        },
-        process.env.ACCESS,
-        { expiresIn: "1d" }
-      );
-      res.status(200).json({ subscribtion,accessToken });
+          process.env.ACCESS,
+          { expiresIn: "1d" }
+        );
+
+        res.status(200).json({ subscribtion, accessToken });
+      } else {
+        res.status(401).json({ error: "Subscription is not verified" });
+      }
     } else {
       res.status(401).json({ error: "Email or Password is not valid" });
     }
   });
+
 
   const countTotalSubscribers = async () => {
     try {
@@ -221,6 +229,86 @@ const loginSubscription = asyncHandler(async (req, res) => {
   });
 
 
+  const getSubscriptionById = asyncHandler(async (req, res) => {
+    try {
+        const subscriptionID = req.user.subscription.id; // Assuming the subscription ID is passed as a parameter
+
+        // Find the subscription by its ID
+        const subscription = await Subscribtion.findById(subscriptionID);
+
+        if (!subscription) {
+            return res.status(404).json({ message: "Subscription not found" });
+        }
+
+        res.status(200).json({
+            message: "Subscription retrieved successfully",
+            subscription,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error retrieving subscription", error });
+    }
+});
+
+
+const updateSubscriptionPassword = asyncHandler(async (req, res) => {
+    try {
+        const subscriptionID = req.user.subscription.id; 
+        const newPassword = req.body.password; 
+
+        // Find the subscription by its ID
+        const subscription = await Subscribtion.findById(subscriptionID);
+
+        if (!subscription) {
+            return res.status(404).json({ message: "Subscription not found" });
+        }
+
+        if (!newPassword) {
+            return res.status(400).json({ message: "New password is required" });
+        }
+
+        // Generate a new salt
+        const saltRounds = 10; // You can adjust the number of rounds as needed
+
+        if (!saltRounds) {
+            return res.status(400).json({ message: "Salt rounds are required" });
+        }
+
+        const salt = await bcrypt.genSalt(saltRounds);
+
+        if (!salt) {
+            return res.status(500).json({ message: "Error generating salt" });
+        }
+
+        // Hash the new password with the generated salt
+        const hashedNewPassword = await bcrypt.hash(newPassword, salt);
+
+        if (!hashedNewPassword) {
+            return res.status(500).json({ message: "Error hashing new password" });
+        }
+
+        // Update the subscription's password with the new hashed password
+        subscription.password = hashedNewPassword;
+        subscription.notified = true;
+
+
+        // Save the updated subscription
+        await subscription.save();
+
+        // Return a success message
+        res.status(200).json({
+            message: "Subscription password updated successfully",
+            subscription,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error updating subscription password", error: error.message });
+    }
+});
+
+
+
+
 module.exports = {
-    createsubscription,getAllSubscriptions,updateSubscriptionStatusToVerified,loginSubscription,getTotalSubscribers
+    createsubscription,getSubscriptionById,updateSubscriptionPassword,getAllSubscriptions,updateSubscriptionStatusToVerified,loginSubscription,getTotalSubscribers
 };

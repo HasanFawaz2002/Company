@@ -24,7 +24,7 @@ margin-top: 0%;
     flex-direction: column;
     padding: 0rem 1.19rem 0rem 1.19rem;
 transform: translateY(10rem);
-width: 40%;
+width: 35%;
 /* min-width: 20rem; */
 height: 30rem;
 border-radius: 1.25rem;
@@ -165,7 +165,7 @@ align-items: flex-start;
     border: none;
     color: #fff;
     font-family: 'Core-Bold';
-    margin-top: 0.5rem;
+    margin-top: 1.5rem;
   }
 
   .error-name-message{
@@ -220,8 +220,20 @@ padding-left: 1rem;
     object-fit: contain; /* Maintain image aspect ratio while fitting inside the modal */
     border: 1px solid #fff; /* Add a white border around the image (optional) */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add a subtle shadow to the image (optional) */
+    border-radius: 2rem;
+
   }
-  
+
+  .certificate-preview{
+    border-radius: 2rem;
+  }
+    .PreviewCU {
+    cursor: pointer;
+    border-radius: 2rem;
+    width: 70px;
+    height: 70px;
+    /* Add other styling properties as desired */
+  }
   /* Style to hide the scrollbar when modal is open */
   body.modal-open {
     overflow: hidden;

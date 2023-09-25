@@ -20,9 +20,11 @@ import AllInstitutions from "./Components/AllINSTITUTIONS/AllInstitutions";
 import Institutions from "./Components/INSTITUTIONS/Institutions";
 import Contactus from "./Components/Contactus/Contactus";
 import SuperAdminDashboard from "./Components/SUPERADMIN/SuperAdminDashboard";
+import VerificationPlatformShared from "./Components/verificationPlatformShared/VerificationPlatformShared";
 import MyProfile from "./Components/MyProfile/MyProfile";
 import SubscriptionLogin from "./Components/LOGINSUBSCRIPTION/SubscriptionLogin";
-
+import CredentialUrl from './Components/credentialUrl/CredentialUrl';
+import Expiry from "./Components/EXPIRYLICENSE/Expiry";
 const App = () => {
   const location = useLocation();
   const hideNavbarRoutes = ["/EmailSent", "/users", "/admin", "/superadmin"];
@@ -54,8 +56,11 @@ const App = () => {
             <Route path="/StudentViewSubs" element={<StudentViewSubs />} />
             <Route path="/AllInstitutions" element={<AllInstitutions />}></Route>
             <Route path="/superadmin/*" element={<SuperAdminDashboard />}></Route>
+            <Route path="/VerificationPlatformShared" element={<VerificationPlatformShared />}></Route>
             <Route path="/MyProfile" element={<MyProfile />}></Route>
             <Route path="/SubscriptionLogin" element={<SubscriptionLogin />}></Route>
+            <Route path="/CredentialUrl/:sharedCertificateID" element={<CredentialUrl />}></Route>
+            <Route path="/expiryLicense" element={<Expiry />}></Route>
           </Routes>
         </>
     )

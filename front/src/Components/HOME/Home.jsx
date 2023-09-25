@@ -19,7 +19,7 @@ const Home = () => {
   useEffect(()=>{
     if(aboutIsInView){
         aboutMainControls.start("visible");
-      console.log("swiper is in view");
+      console.log("Contact us is in view");
     }
   },[aboutIsInView])
 

@@ -25,8 +25,10 @@ const Navbar = () => {
     const isUser = token && role === 'user';
     const isSuperAdmin = token && role === 'superAdmin';
 
-  const isInstitutionsRoute = location.pathname.startsWith('/institutions') || location.pathname.startsWith('/Institutionlogin') || location.pathname.startsWith('/CertificateUpload') || location.pathname === "/StudentViewSubs" || location.pathname.startsWith('/CertificateRequest') || location.pathname.startsWith('/login') || location.pathname.startsWith('/register')|| location.pathname.startsWith('/UserCertificate') || location.pathname.startsWith('/SubscriptionLogin') || location.pathname.startsWith('/contact'); 
-  const isInstitutionLogin = location.pathname.startsWith('/Institutionlogin') || location.pathname.startsWith('/CertificateUpload') || location.pathname.startsWith('/CertificateRequest') || location.pathname === "/StudentViewSubs" || location.pathname.startsWith('/login') || location.pathname.startsWith('/register') || location.pathname.startsWith('/UserCertificate') || location.pathname.startsWith('/SubscriptionLogin') || location.pathname.startsWith('/contact');
+  const isInstitutionsRoute = location.pathname.startsWith('/institutions') || location.pathname.startsWith('/Institutionlogin') || location.pathname.startsWith('/CertificateUpload') || location.pathname === "/StudentViewSubs" || location.pathname.startsWith('/CertificateRequest') || location.pathname.startsWith('/login') || location.pathname.startsWith('/register')|| location.pathname.startsWith('/UserCertificate') || location.pathname.startsWith('/SubscriptionLogin') || location.pathname.startsWith('/contact') || location.pathname.startsWith('/UserCertificate') || location.pathname.startsWith('/MyProfile') || location.pathname.startsWith('/CompleteInformation') || location.pathname.startsWith('/VerificationPlatformShared') || location.pathname.startsWith('/CredentialUrl') || location.pathname.startsWith('/expiryLicense'); 
+  const isInstitutionLogin = location.pathname.startsWith('/Institutionlogin') || location.pathname.startsWith('/CertificateUpload') || location.pathname.startsWith('/CertificateRequest') || location.pathname === "/StudentViewSubs" || location.pathname.startsWith('/login') || location.pathname.startsWith('/register') || location.pathname.startsWith('/UserCertificate') || location.pathname.startsWith('/SubscriptionLogin') || location.pathname.startsWith('/contact') || location.pathname.startsWith('/UserCertificate') || location.pathname.startsWith('/MyProfile') || location.pathname.startsWith('/CompleteInformation') || location.pathname.startsWith('/VerificationPlatformShared') || location.pathname.startsWith('/CredentialUrl') || location.pathname.startsWith('/expiryLicense');
+  const isUserProfileRoute = location.pathname === '/UserCertificate'; 
+
     return (
         <>
         <div className={`box3 ${isInstitutionsRoute ? 'institution-route' : ''}`}>
@@ -40,10 +42,21 @@ const Navbar = () => {
                     <li ><NavLink  className={isInstitutionsRoute ? 'white-link' : ''} to='/'>HOME</NavLink></li>
                     {isAdmin && <li><NavLink className={isInstitutionsRoute ? 'white-link' : ''} to='/admin'>Dashboard</NavLink></li>}
                     {isSuperAdmin && <li><NavLink className={isInstitutionsRoute ? 'white-link' : ''} to='/superadmin'>Dashboard</NavLink></li>}
-                    {isUser && <li><NavLink className={isInstitutionsRoute ? 'white-link' : ''} to='/UserCertificate'>Wallet</NavLink></li>}
-                    <li><NavLink className={isInstitutionsRoute ? 'white-link' : ''} to='/contact'>CONTACT</NavLink></li>
-                    <li><NavLink className={isInstitutionsRoute ? 'white-link' : ''} to='/institutions'>Institutions</NavLink></li>
-                    <li className={isInstitutionsRoute ? 'white-link' : ''}>  <DropDown /></li>
+                    {isUser && (
+                <li>
+                  
+                  <NavLink className={isInstitutionsRoute ? 'white-link' : ''} to={isUserProfileRoute ? '/MyProfile' : '/UserCertificate'}>
+                    {isUserProfileRoute ? 'My Profile' : 'Wallet'}
+                  </NavLink>
+                </li>
+              )}                    
+              <li><NavLink className={isInstitutionsRoute ? 'white-link' : ''} to='/contact'>CONTACT</NavLink></li>
+               <li>
+                <NavLink className={isInstitutionsRoute ? 'white-link' : ''} to={isUserProfileRoute ? '/StudentViewSubs' : '/institutions'}>
+                  {isUserProfileRoute ? 'Share Certificate' : 'Institutions'}
+                </NavLink>
+              </li>
+              <li className={isInstitutionsRoute ? 'white-link' : ''}>  <DropDown /></li>
                 </ul>
             </div>
         </div>
@@ -72,10 +85,10 @@ const Navbar = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/institutions" className="menu__item" onClick={closeMenu}>
-          Institutions
-          </NavLink>
-        </li>
+                <NavLink  className="menu__item" onClick={closeMenu}  to={isUserProfileRoute ? '/StudentViewSubs' : '/institutions'}>
+                  {isUserProfileRoute ? 'Share Certificate' : 'Institutions'}
+                </NavLink>
+          </li>
         {isAdmin && (
           <li>
           <NavLink to="/admin" className="menu__item" onClick={closeMenu}>
@@ -83,13 +96,21 @@ const Navbar = () => {
           </NavLink>
         </li>
         )}
-        {isUser && (
+        {isSuperAdmin && (
           <li>
-          <NavLink to="/wallet" className="menu__item" onClick={closeMenu}>
-          wallet
+          <NavLink to="/superadmin" className="menu__item" onClick={closeMenu}>
+          Dashboard
           </NavLink>
         </li>
         )}
+         {isUser && (
+                <li>
+                  
+                  <NavLink onClick={closeMenu} className="menu__item" to={isUserProfileRoute ? '/MyProfile' : '/UserCertificate'}>
+                    {isUserProfileRoute ? 'My Profile' : 'Wallet'}
+                  </NavLink>
+                </li>
+              )}
         <li>
           <DropDown className="menu__item" closeMenu={closeMenu}/>
           

@@ -23,10 +23,13 @@ function Institutions() {
 
   const [institutions, setInstitutions] = useState([]); // Initialize as an empty array
   const navigate = useNavigate();
+
+  const api = "http://localhost:3001";
+
   // Fetch the list of institutions from the API
   useEffect(() => {
     axios
-      .get("http://localhost:3001/getLastThreeInstitutions")
+      .get(`${api}/getLastThreeInstitutions`)
       .then((response) => {
         // Update the institutions state with the fetched data
         setInstitutions(response.data.institutions);

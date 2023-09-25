@@ -19,6 +19,9 @@ function CertificateRequest() {
   const role = localStorage.getItem('role');
   const userID = localStorage.getItem('userId');
 
+  const api= "http://localhost:3001";
+
+
   useEffect(() => {
     const token = localStorage.getItem('access_token');
     const role = localStorage.getItem('role');
@@ -32,7 +35,7 @@ function CertificateRequest() {
     const fetchFormData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3001/getCustomizableFormByInstitution/${institutionID}`
+          `${api}/getCustomizableFormByInstitution/${institutionID}`
         );
 
         if (response.status === 200) {
@@ -57,7 +60,7 @@ function CertificateRequest() {
     const fetchCertificatesByInstitution = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3001/getCertificatesbyInstitution/${institutionID}`
+          `${api}/getCertificatesbyInstitution/${institutionID}`
         );
 
         if (response.status === 200) {
@@ -112,7 +115,7 @@ function CertificateRequest() {
     try {
       // Create the certificate request
       const certificateRequestResponse = await axios.post(
-        `http://localhost:3001/createCertificateRequest/${institutionID}/${formID}/${selectedCertificateID}`,
+        `${api}/createCertificateRequest/${institutionID}/${formID}/${selectedCertificateID}`,
         {},
         {
           headers: {
@@ -137,7 +140,7 @@ function CertificateRequest() {
   
         // Save form values along with the certificateRequestID
         const formValuesResponse = await axios.post(
-          `http://localhost:3001/store-values/${formID}/${selectedCertificateID}/${certificateRequestID}`,
+          `${api}/store-values/${formID}/${selectedCertificateID}/${certificateRequestID}`,
           inputFieldValues,
           {
             headers: {

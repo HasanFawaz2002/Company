@@ -90,13 +90,13 @@ const registerUser = asyncHandler(async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const username = firstname + " " + lastname;
 
-    // Check if profilePicture is provided
-    let profilePictureFilename = null; // Default value if not provided
+    
+    let profilePictureFilename = null; 
     if (req.files.profilePicture && req.files.profilePicture[0]) {
       profilePictureFilename = req.files.profilePicture[0].filename;
     }
 
-    // Create the user document with optional fields
+    
     const { ID } = req.files;
     const user = await User.create({
       ID: ID[0].filename,

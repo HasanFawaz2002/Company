@@ -32,50 +32,9 @@ const [imageModalOpen, setImageModalOpen] = useState(false);
 
  
 
-  const acceptCertificate = async (certificateId) => {
-    try {
-      // Make a PUT request to update the certificate status
-      const response = await axios.put(
-        `${api}/updateuploadCertificateStatusToVerified/${certificateId}`,
-        {},
-        {
-          headers: {
-            token: `Bearer ${token}`,
-          },
-      }
-      );
-      if (response.status === 200) {
-        // If the request was successful (status code 200), refresh the page
-        window.location.reload();
-      }
-    } catch (error) {
-      console.error('Error accepting certificate:', error);
-      // Handle the error (e.g., show an error message to the user)
-    }
-  };
-
-  const rejectCertificate = async (certificateId, reason) => {
-    try {
-      // Make a PUT request to update the certificate status with a reason
-      const response = await axios.put(
-        `${api}/updateuploadCertificateStatusToRejected/${certificateId}`,
-        { reason }, // Pass the reason in the request body
-        {
-          headers: {
-            token: `Bearer ${token}`,
-          },
-      }
-      );
   
-      if (response.status === 200) {
-        // If the request was successful (status code 200), refresh the page
-        window.location.reload();
-      }
-    } catch (error) {
-      console.error('Error rejecting certificate:', error);
-      // Handle the error (e.g., show an error message to the user)
-    }
-  };
+
+  
 
   const handleImageClick = (imageUrl) => {
     setSelectedImage(imageUrl);

@@ -11,6 +11,9 @@ const CreateSubscription = () => {
     position: '',
   });
 
+  const api = "http://localhost:3001";
+
+
   // Initialize state to hold form errors
   const [formErrors, setFormErrors] = useState({
     name: '',
@@ -67,7 +70,7 @@ const CreateSubscription = () => {
     if (Object.keys(errors).length === 0) {
       // Form is valid, send a POST request using Axios
       try {
-        const response = await axios.post('http://localhost:3001/createsubscription', formData);
+        const response = await axios.post(`${api}/createsubscription`, formData);
 
         if (response.status === 201) {
           // Handle success, e.g., display a success message
