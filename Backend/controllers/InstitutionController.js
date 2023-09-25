@@ -236,7 +236,7 @@ const updateInstitutionPasswordById = asyncHandler(async (req, res) => {
 // Get the last three institutions
 const getLastThreeInstitutions = asyncHandler(async (req, res) => {
   try {
-    const institutions = await Institution.find()
+    const institutions = await Institution.find({role: 'admin'})
       .sort({ createdAt: -1 }) // Sort by createdAt field in descending order (newest first)
       .limit(3); // Limit the result to three institutions
 
@@ -256,12 +256,12 @@ const getLastThreeInstitutions = asyncHandler(async (req, res) => {
 
 const countTotalInstitutions = async () => {
   try {
-    // Count the total number of institutions in the Institution collection
-    const totalInstitutions = await Institution.countDocuments();
+    // Count the total number of institutions where role is 'admin' in the Institution collection
+    const totalAdminInstitutions = await Institution.countDocuments({ role: 'admin' });
 
-    return totalInstitutions;
+    return totalAdminInstitutions;
   } catch (error) {
-    console.error('Error counting total institutions:', error);
+    console.error('Error counting total admin institutions:', error);
     return 0; // Return 0 in case of an error
   }
 };
@@ -282,7 +282,7 @@ const getTotalInstitutions = asyncHandler(async (req, res) => {
 const getAllLocations = async (req, res) => {
   try {
     // Query the database to find all institutions
-    const institutions = await Institution.find({}, 'location');
+    const institutions = await Institution.find({role: 'admin'}, 'location');
 
     // Create a Set to store unique locations
     const uniqueLocations = new Set();
@@ -309,22 +309,22 @@ const getInstitutionsByLocation = async (req, res) => {
   const { location } = req.params; // Assuming the location is passed as a parameter in the URL
 
   try {
-    let query = {};
+    let query = { role: 'admin' }; // Include the role filter for "admin" institutions
 
     if (location !== "All") {
       // If the location is not "All," include it in the query
-      query = { location };
+      query.location = location;
     }
 
-    // Query the database to find institutions based on the query
+    // Query the database to find admin institutions based on the query
     const institutions = await Institution.find(query);
 
-    // Send the matching institutions as a JSON response
+    // Send the matching admin institutions as a JSON response
     res.status(200).json(institutions);
   } catch (error) {
     // Handle any errors that may occur during the database query
     console.error(error);
-    res.status(500).json({ error: 'An error occurred while fetching institutions by location.' });
+    res.status(500).json({ error: 'An error occurred while fetching admin institutions by location.' });
   }
 };
 

@@ -58,7 +58,7 @@
   font-family: 'Core-Bold';
 }
 .all-instituions-section1-left h1 span{
-  color: rgb(104, 224, 224);
+  color: #5DD3B3;
 }
 .all-instituions-section1-left p{
   font-size: 30px;
@@ -80,7 +80,7 @@
 }
 
 .all-instituions-section1-left-statistiques-item svg{
-  color: rgb(104, 224, 224);
+  color: #5DD3B3;
   font-size: 40px;
 }
 .all-instituions-section1-right{
@@ -132,7 +132,7 @@
 
 .search-institutions select{
   padding: 5px;
-  border: 1px solid rgb(104, 224, 224);
+  border: 1px solid #5DD3B3;
   border-radius: 10px;
   font-size: larger;
   outline: none;
@@ -144,7 +144,7 @@
     font-size: larger;
     margin-left: 10px;
     outline: none;
-    border: 1px solid rgb(104, 224, 224);
+    border: 1px solid #5DD3B3;
     border-radius: 10px;
 }
 

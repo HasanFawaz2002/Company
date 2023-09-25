@@ -70,7 +70,7 @@
         animation: anim3 1.5s forwards 2s; 
     }
     .landpage-text span{
-        color: #46f1cf;
+        color: #5DD3B3;
     }
     .landpage-btn-container button{
         position: relative;
@@ -202,7 +202,7 @@
         text-align: start;
      }
      .aboutus-section-content2-left h1{
-        color: rgb(70, 241, 207);
+        color: #5DD3B3;
         font-size: 45px;
      }
      .aboutus-section-content2-left{
@@ -211,7 +211,7 @@
         color:#2D3741;
      }
      .aboutus-section-content-right h1{
-        color: rgb(70, 241, 207);
+        color: #5DD3B3;
         font-size: 45px;
      }
      .aboutus-section-content-right{
@@ -230,12 +230,12 @@
         width: 100%;
      }
      .aboutus-section-content2-left li svg{
-        color: #46f1cf;
+        color: #5DD3B3;
         margin-right: 20px;
         font-size: larger;
      }
      .aboutus-section-content-right li svg{
-        color: #46f1cf;
+        color: #5DD3B3;
         margin-right: 20px;
         font-size: larger;
      }

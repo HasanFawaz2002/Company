@@ -66,7 +66,7 @@ const SubscriptionLogin = () => {
           email: "",
           password: "",
         });
-                  history("/VerificationPlatformShared");
+          history("/VerificationPlatformShared");
 
       }
     } catch (error) {
@@ -134,13 +134,7 @@ const SubscriptionLogin = () => {
               </span>
             </div>
           </div>
-          <div className="Subscriptioncheckboxand-forgot">
-            <p>
-              <Link to="/forgot-password" className="Subscription-forgotpass">
-                Forgot password?
-              </Link>
-            </p>
-          </div>
+          
           <input
             className="Subscriptionsubmit"
             type="submit"
