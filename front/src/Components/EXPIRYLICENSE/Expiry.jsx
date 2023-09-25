@@ -6,7 +6,7 @@ function Expiry() {
     <div className='expiry-container'>
         <div className='expiry-container-content'>
         <h1>498</h1>
-        <h2>The Subscription in Expired</h2>
+        <h2>Expired License Page.</h2>
         </div>
         
     </div>
