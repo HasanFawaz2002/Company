@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 // import {  ReactComponent as SvgUpload } from "../../images/icons"
 const SvgUpload = require("../../images/icons/upload_1.svg").ReactComponent
 const SvgEmail = require("../../images/icons/Email.svg").ReactComponent
+const SvgLocation = require("../../images/icons/location.svg").ReactComponent
 
 
 const StudentViewSubs = () => {
@@ -123,6 +124,7 @@ theme="colored"
         <form className='formSS'>
           <div className='my-3'>
             {/* onChange for search */}
+            
             <input className='inputSS'
             type='text'
               onChange={(e) => setFilterInput(e.target.value)}
@@ -147,8 +149,16 @@ theme="colored"
               onMouseEnter={handleCardHover}
               onMouseLeave={handleCardLeave}>
 <div className='orgNameRow'>{organization.name}</div>
-<div className='orgLocRow'> Located in: {organization.location}</div>
-<div className='orgEmailRow'>{organization.position} <SvgEmail/> {organization.email}</div>
+<div className='orgLocRow'> <SvgLocation/> {organization.location}</div>
+<div className='orgEmailRow'>
+  <div>
+  <SvgEmail/>
+
+  </div>
+  <div className='OrgPosEmail'>
+  {organization.position} : {organization.email}</div>
+
+  </div>
 <div className='buttonRowSS'>
 
 <Tooltip  text="Share your QR code">

@@ -214,12 +214,16 @@ console.log(subscriberID);
         const certificateName =
           sharedCertificate.certificateUploadID?.certificateID?.name ||
           sharedCertificate.certificateRequestID?.certificateID?.name;
+          const institutionName =
+                  sharedCertificate.certificateUploadID?.institutionID?.name ||
+                  sharedCertificate.certificateRequestID?.institutionID?.name;
         const formattedDate = formatDate(sharedCertificate.createdAt);
 
                 return (
                   (filterInput.trim() === '' ||
         studentName?.toLowerCase().includes(filterInput.toLowerCase()) ||
         certificateName?.toLowerCase().includes(filterInput.toLowerCase()) ||
+        institutionName?.toLowerCase().includes(filterInput.toLowerCase()) ||
         formattedDate.toLowerCase().includes(filterInput.toLowerCase()))
     );
   }).map((sharedCertificate) => (
