@@ -30,7 +30,7 @@ const Home = () => {
     const [institutionData, setInstitutionData] = useState('');
 
     const handleNavigate = () => {
-      navigate('/admin/requestedCertificate')
+      navigate('/superadmin/requestedCertificate')
     }
 
     useEffect(() => {

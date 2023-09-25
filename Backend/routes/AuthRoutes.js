@@ -1,6 +1,6 @@
 const {Router} = require('express');
 const {registerUser,upload, loginUser,forgot,reset,updateProfile,verifyEmail,
-    getUserPhoto,getcertificaterequestoruploaded,getTotalUserCount,getUser,getUserCertificateCounts} = require('../controllers/AuthController');
+    getUserPhoto,getcertificaterequestoruploaded,getTotalUserCount,getUser,getUserCertificateCounts,getUserIDPhoto} = require('../controllers/AuthController');
 //const { verify } = require('jsonwebtoken');
 const verify = require('../Controllers/verifytoken');
 
@@ -20,5 +20,7 @@ router.get('/getUserCertificateCounts/:id',verify ,getUserCertificateCounts );
 //Get User  Photo
 router.get("/getUserPhoto/:userUploadID/photo", getUserPhoto);
 router.get("/getcertificaterequestoruploaded", verify,getcertificaterequestoruploaded);
+router.get("/getUserIDPhoto/:userUploadID", getUserIDPhoto);
+
 
 module.exports = router;

@@ -200,7 +200,6 @@ const CustomizableForm = () => {
                       <option value="text">text</option>
                       <option value="number">number</option>
                       <option value="email">email</option>
-                      <option value="password">password</option>
                       <option value="Date">Date</option>
                     </select>
                   </td>

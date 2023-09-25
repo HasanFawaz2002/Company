@@ -130,7 +130,7 @@ const CreateSubscription = () => {
             <label htmlFor='location'>Location:</label>
             <input
               type='text'
-              placeholder='Subscribtion'
+              placeholder='Location'
               name='location'
               value={formData.location}
               onChange={handleInputChange}
@@ -164,7 +164,7 @@ const CreateSubscription = () => {
             {formErrors.position && <span className='error-message'>{formErrors.position}</span>}
           </div>
           
-          <button type='submit'>Add Institution</button>
+          <button type='submit'>Add Subscription</button>
         </form>
       </div>
     </>

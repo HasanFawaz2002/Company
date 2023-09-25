@@ -17,7 +17,7 @@
     --burger-enable-outline-width: 0.125em;
     --burger-enable-outline-offset: var(--burger-enable-outline-width);
     /* nav */
-    --nav-padding-x: 0.25em;
+    --nav-padding-x: 0.2em;
     --nav-padding-y: 0.625em;
     --nav-border-radius: 0.375em;
     --nav-border-color: #ccc;
@@ -167,7 +167,7 @@
   .popup-window ul button:focus-visible,
   .popup-window ul button:hover svg,
   .popup-window ul button:focus-visible svg {
-    color: aqua;
+    color: #5DD3B3;
     background: #2D3741;
     z-index: 1;
 
