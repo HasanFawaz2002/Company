@@ -40,33 +40,33 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
       <ul className='sidebar-list'>
         <li className='sidebar-list-item'>
           <NavLink to="/admin" onClick={closeSidebar}>
-            <BsGrid1X2Fill className='icon' /> Dashboard
+            <BsGrid1X2Fill id='first-svg' className='icon' /> 
           </NavLink>
         </li>
         <li className='sidebar-list-item'>
           <NavLink to="/admin/createcertificate" onClick={closeSidebar}>
-            <BsFillPlusSquareFill className='icon' /> Add Certificate
+            <BsFillPlusSquareFill className='icon' /> 
           </NavLink>
         </li>
         <li className='sidebar-list-item'>
           <NavLink to="/admin/CustomizableForm" onClick={closeSidebar}>
-            <BsFileEarmarkPlusFill className='icon' /> Add Request Form
+            <BsFileEarmarkPlusFill className='icon' /> 
           </NavLink>
         </li>
         <li className='sidebar-list-item'>
           <NavLink to="/admin/RequestedCertificate" onClick={closeSidebar}>
-            <BsFileEarmarkText className='icon' /> Requested Certificate
+            <BsFileEarmarkText className='icon' /> 
           </NavLink>
         </li>
         <li className='sidebar-list-item'>
           <NavLink to="/admin/UploadedCertificate" onClick={closeSidebar}>
-            <BsFileEarmarkCheck className='icon' /> Uploaded Certificate
+            <BsFileEarmarkCheck className='icon' /> 
           </NavLink>
         </li>
         
         <li className='sidebar-list-item' onClick={handleLogout}>
           <a href="" onClick={closeSidebar}>
-            <BsBoxArrowLeft className='icon' /> Logout
+            <BsBoxArrowLeft className='icon' /> 
           </a>
         </li>
       </ul>

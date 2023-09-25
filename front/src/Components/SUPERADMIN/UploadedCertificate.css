@@ -8,7 +8,7 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    background-color: white;
+    background-color: #2D3741;
     gap: 20px;
 }
 .uploaded-certificate-container-super .uploaded-ceritificate-card {
@@ -19,7 +19,7 @@
     width: 350px;
     max-width: 100%;
     height: 300px;
-    background: #2D3741;
+    background: var(--background-card, linear-gradient(180deg, #415160 0%, #293440 100%));
     border-radius: 20px;
     transition: 0.5s;
     box-shadow: 0 35px 80px rgba(0, 0, 0, 0.15);
