@@ -1,10 +1,11 @@
 .register-container{
     width: 80%;
     margin: 0 auto;
+    font-family: 'CORE';
 }
 .register{
     background-color: #2D3741;
-    padding-top: 250px ;
+    padding-top: 200px ;
     height: 600px;
     position: relative;
     opacity: 0.9;

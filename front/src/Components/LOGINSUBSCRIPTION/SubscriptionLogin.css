@@ -3,6 +3,7 @@
   background-color: #2d3741;
   min-height: 100vh;
   overflow: hidden;
+  font-family: "CORE";
 }
 .Subscription-contentWithform {
           display: flex;

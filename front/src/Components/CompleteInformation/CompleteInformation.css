@@ -3,9 +3,10 @@
     min-height: 100vh;
     grid-area: main;
     overflow: hidden;
+    font-family: "CORE";
    }
    .CompleteInformation-admin-headone{
-       color:#5DD3B3;
+       color:#fff;
        font-size: 25px;
        margin-bottom: 25px !important;
        text-align: center;
@@ -31,7 +32,8 @@
    }
    .CompleteInformation-admin-input{
        width:400px;
-       border: 1px solid #ddd;
+       outline: none;
+       border: 1px solid #576371;
        background-color:#2D3741;
        border-radius: 1.5635rem;
        height: 30px;
