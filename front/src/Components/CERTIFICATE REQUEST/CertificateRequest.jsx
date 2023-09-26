@@ -11,6 +11,8 @@ function CertificateRequest() {
   const [certificate, setCertificate] = useState(null);
   const [selectedCertificateID, setSelectedCertificateID] = useState('');
   const [inputFieldValues, setInputFieldValues] = useState({});
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [imageModalOpen, setImageModalOpen] = useState(false);
   const isblocked=localStorage.getItem('isblocked');
   const navigate = useNavigate();
   const params = useParams();
@@ -79,8 +81,25 @@ function CertificateRequest() {
     fetchCertificatesByInstitution();
   }, [institutionID]);
 
-  const handleCertificateChange = (event) => {
-    setSelectedCertificateID(event.target.value);
+  const handleCertificateChange = async (event) => {
+    const selectedCertificateId = event.target.value;
+  
+    // Fetch the certificate photo URL
+    if (selectedCertificateId) {
+      
+  
+       
+          setSelectedCertificateID(selectedCertificateId);
+  
+          // Open the image modal and display the certificate photo
+          setSelectedImage(selectedCertificateId);
+          setImageModalOpen(true);
+        
+    } else {
+      // If no certificate is selected, close the image modal
+      setSelectedImage(null);
+      setImageModalOpen(false);
+    }
   };
 
   const handleInputChange = (event) => {
@@ -89,6 +108,12 @@ function CertificateRequest() {
       ...inputFieldValues,
       [name]: value,
     });
+  };
+
+
+
+  const closeImageModal = () => {
+    setImageModalOpen(false);
   };
 
 
@@ -233,6 +258,15 @@ function CertificateRequest() {
         )}
       </div>
     </div>
+
+    {imageModalOpen && (
+  <div className="image-modal">
+    <span className="close-image-modal" onClick={closeImageModal}>
+      x
+    </span>
+    <img src={`${api}/getCertificatePhoto/${selectedImage}/photo`} alt={selectedImage} className="modal-image" />
+  </div>
+)}
   </>
   );
 }

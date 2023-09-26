@@ -88,7 +88,7 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
         <NavLink to="/superadmin/ViewAllUsers" onClick={closeSidebar}>
         <li className='sidebar-list-item'>
         <Tooltip margin={15} text="Users">
-            <BsPeopleFill className='icon' /> 
+            <BsPeopleFill className='icon' /> <span>Users</span>
             </Tooltip>
         </li>
         </NavLink>
