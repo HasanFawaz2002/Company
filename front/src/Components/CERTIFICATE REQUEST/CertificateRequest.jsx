@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './CertificateRequest.css';
 import { useParams, useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from "react-toastify";
 import axios from 'axios';
 
 function CertificateRequest() {
@@ -10,7 +11,7 @@ function CertificateRequest() {
   const [certificate, setCertificate] = useState(null);
   const [selectedCertificateID, setSelectedCertificateID] = useState('');
   const [inputFieldValues, setInputFieldValues] = useState({});
-
+  const isblocked=localStorage.getItem('isblocked');
   const navigate = useNavigate();
   const params = useParams();
   const institutionID = params.institutionID;
@@ -111,6 +112,13 @@ function CertificateRequest() {
       setErrorMessage('Please fill out all required fields.');
       return;
     }
+    if(isblocked === "true"){
+      toast.error("Sorry you are blocked", {
+        theme: "dark",
+      });
+    }
+    
+    else{
   
     try {
       // Create the certificate request
@@ -168,11 +176,13 @@ function CertificateRequest() {
         console.error("Certificate request failed:", error);
       }
     }
-  };
+  }
+};
 
   return (
     <>
     <div className="certificate-request-form-container">
+      <ToastContainer />
       <div className="Certificate-request-form-container">
         <h2>Certificate Request Form</h2>
         {errorMessage && <p className="error-message">{errorMessage}</p>}

@@ -14,7 +14,7 @@ const Modal = ({onClose, onSave,organizationId}) => {
     const [certificateRequests, setCertificateRequests]= useState([]);
 
     const api = "http://localhost:3001";
-
+    const isblocked=localStorage.getItem('isblocked');
 
     const navigate = useNavigate();
 
@@ -74,6 +74,12 @@ const Modal = ({onClose, onSave,organizationId}) => {
         }, []);  
 
         const handleShareUploaded = async (certificateUploadID) => {
+          if(isblocked==="true"){
+            toast.error("Sorry you are blocked",{
+              theme: "dark",
+            })            
+          }
+          else{
           try {
             const formData = new FormData();
         
@@ -121,12 +127,20 @@ const Modal = ({onClose, onSave,organizationId}) => {
               console.error('Error sharing certificate:', error);
             }
           }
-        };
+        }
+      };
 
 
 
 
         const handleShareRequested = async (certificateRequestID) => {
+          if(isblocked==="true"){
+            toast.error("Sorry you are blocked",{
+              theme: "dark",
+            })            
+          } else{
+
+          
           try {
             const formData = new FormData();
         
@@ -176,7 +190,8 @@ const Modal = ({onClose, onSave,organizationId}) => {
               console.error('Error sharing certificate:', error);
             }
           }
-        };
+        }
+      };
         
         const audio = new Audio(Sound);
 

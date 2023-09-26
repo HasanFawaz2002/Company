@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 // import Select from 'react-select';
 import axios from 'axios';
 import './CertificateUpload.css';
+import { ToastContainer, toast } from "react-toastify";
 import { useParams,useNavigate } from 'react-router-dom';
 const CertificateUpload = () => {
     
@@ -14,6 +15,7 @@ const CertificateUpload = () => {
         const { institutionID } = useParams();
         const navigate = useNavigate();
         const api= "http://localhost:3001";
+        const isblocked=localStorage.getItem('isblocked');
 
 
         useEffect(() => {
@@ -108,47 +110,61 @@ const CertificateUpload = () => {
 
           const handleSubmit = async (e) => {
             e.preventDefault();
+          
             if (validateForm()) {
-            const formData = new FormData();
-            formData.append('name', name);
-            formData.append('description', description);
-            formData.append('certificateFile', selectedFile);
+               if(isblocked === "true"){
+                toast.error("Sorry you are blocked", {
+                  theme: "dark",
+                });
+              }
+              else {
+             
+                const formData = new FormData();
+                formData.append('name', name);
+                formData.append('description', description);
+                formData.append('certificateFile', selectedFile);
           
-            console.log('Form Data:', formData); // Log the form data
+                console.log('Form Data:', formData); // Log the form data
           
-            const token = localStorage.getItem("access_token");
-            const role = localStorage.getItem("role");
-            console.log('Access Token:', token); // Log the token
+                const token = localStorage.getItem("access_token");
+                const role = localStorage.getItem("role");
+                console.log('Access Token:', token); // Log the token
           
-            try {
-            console.log('Sending request to:', `http://localhost:3001/certificateUploadRoute/${institutionID}`);
-
-              const response = await axios.post(
-                `${api}/certificateUploadRoute/${institutionID}`,
-                formData,
-                {
-                  headers: { 
-                    token: `Bearer ${token}`,
-                  },
+                try {
+                  console.log('Sending request to:', `http://localhost:3001/certificateUploadRoute/${institutionID}`);
+          
+                  const response = await axios.post(
+                    `${api}/certificateUploadRoute/${institutionID}`,
+                    formData,
+                    {
+                      headers: { 
+                        token: `Bearer ${token}`,
+                      },
+                    }
+                  );
+                  console.log('Response Data:', response.data); // Log the response data
+                  console.log('Upload successful:', response.data);
+                  window.location.reload();
+                } catch (error) {
+                  if (error.response && error.response.status === 403) {
+                    console.log("Token is not valid!");
+                    navigate('/login');
+                  } else {
+                    console.error("Cart Add failed:", error);
+                  }
                 }
-              );
-              console.log('Response Data:', response.data); // Log the response data
-              console.log('Upload successful:', response.data);
-              window.location.reload();
-            } catch (error) {
-              if (error.response && error.response.status === 403) {
-                console.log("Token is not valid!");
-                navigate('/login');
-              } else {
-                console.error("Cart Add failed:", error);
               }
             }
-          };
-        }
+              
+            } 
+          
+          
           
   return (
     <div className="backgroundCU">
+      <ToastContainer />
       <div className="Certificate-upload-form-container">
+      
         <h2 className='headerCU'>Certificate Upload Form</h2>
         <form onSubmit={handleSubmit}>
         <div className="form-groupCU">
