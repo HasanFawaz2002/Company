@@ -7,6 +7,7 @@ import {
   BsFileEarmarkText,
   BsFileEarmarkCheck,
   BsBoxArrowLeft,
+  BsPeopleFill
 } from 'react-icons/bs';
 import {  FaBuilding  } from 'react-icons/fa';
 
@@ -81,6 +82,13 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
         <li className='sidebar-list-item'>
         <Tooltip margin={15} text="Organizations">
             <FaBuilding className='icon' />  <span>Organizations</span>
+            </Tooltip>
+        </li>
+        </NavLink>
+        <NavLink to="/superadmin/ViewAllUsers" onClick={closeSidebar}>
+        <li className='sidebar-list-item'>
+        <Tooltip margin={15} text="Users">
+            <BsPeopleFill className='icon' /> 
             </Tooltip>
         </li>
         </NavLink>

@@ -86,6 +86,7 @@ function LogintoZidyia(){
         localStorage.setItem("access_token", response.data.accessToken);
         localStorage.setItem("userId", response.data.user._id);
         localStorage.setItem("role", response.data.user.role);
+        localStorage.setItem("isblocked", response.data.user.isblocked);
         navigate('/');
       })
       .catch((error) => {

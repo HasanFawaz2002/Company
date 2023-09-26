@@ -61,7 +61,7 @@ function UserCertificate() {
           ...uploadedCertificates.map(cert => ({ type: 'uploaded', data: cert })),
           ...requestedCertificates.map(cert => ({ type: 'requested', data: cert })),
         ];
-
+console.log(combinedCertificates);
         setAllCertificates(combinedCertificates);
       } catch (error) {
         if (error.response && error.response.status === 403) {
@@ -139,6 +139,11 @@ function UserCertificate() {
               <h2 className='UserCertificate-card-headtwo'>
                 {certificate.type === 'uploaded' ? 'Uploaded Certificate' : 'Requested Certificate'}
               </h2>
+              <li className='UserCertificate-card-firstp'>
+                Institution Name: "{certificate.type === 'uploaded' ?
+                  certificate.data.institutionID.name || '' :
+                  certificate.data.institutionID.name || ''}"
+              </li>
               <li className='UserCertificate-card-firstp'>
                 Name: "{certificate.type === 'uploaded' ?
                   certificate.data.name || '' :

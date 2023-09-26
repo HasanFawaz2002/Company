@@ -190,6 +190,14 @@ function RequestedCertificate(props) {
               <div className="content">
                 <h3>{item.certificateID.name}</h3>
                 <div className="list">
+                <li>
+                  <div className='liwithbtnreq'>
+                  <strong>StudentID:</strong>
+                  <button onClick={() => handleImageClick(`${api}/getUserIDPhoto/${item.studentID._id}`)}
+                         className='buttonviewreq'>click here</button>
+                  </div>
+               
+                </li>
                   <li>
                     <strong>_Requested By:</strong> {item.studentID.username}
                   </li>

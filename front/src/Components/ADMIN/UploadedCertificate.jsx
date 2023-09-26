@@ -111,6 +111,7 @@ const [imageModalOpen, setImageModalOpen] = useState(false);
   const closeImageModal = () => {
     setImageModalOpen(false);
   };
+
   
 
   return (
@@ -124,12 +125,23 @@ const [imageModalOpen, setImageModalOpen] = useState(false);
               <div className="uploaded-content">
                 <h3>{certificate.name}</h3>
                 <div className="uploaded-list">
+                <li>
+                  <div className='liwithbtn'>
+                  <strong>StudentID:</strong>
+                  <button onClick={() => handleImageClick(`${api}/getUserIDPhoto/${certificate.studentID._id}`)}
+                         className='buttonview'>click here</button>
+                  </div>
+               
+                </li>
                   <li>
                     <strong>Requested By:</strong> {certificate.studentID.firstname}
                   </li>
                   <li>
                     <strong>Student email:</strong> {certificate.studentID.email}
                   </li>
+                
+                       
+              
                   <li>
                     <strong>Status:</strong> <span className={`status-${certificate.status}`}>{certificate.status}</span>
                   </li>

@@ -358,10 +358,10 @@ const getcertificaterequestoruploaded= asyncHandler(async (req, res) => {
 
   try {
     // Fetch requested certificates for the user
-    const requestedCertificates = await CertificateRequest.find({ studentID: userId }).populate('certificateID');
+    const requestedCertificates = await CertificateRequest.find({ studentID: userId }).populate('certificateID').populate('institutionID');
 
     // Fetch uploaded certificates for the user
-    const uploadedCertificates = await CertificateUpload.find({ studentID: userId });
+    const uploadedCertificates = await CertificateUpload.find({ studentID: userId }).populate('institutionID');
 
     res.json({ requestedCertificates, uploadedCertificates });
   } catch (error) {
@@ -403,6 +403,16 @@ const getUser = async (req, res) => {
   }
 };
 
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
 const getUserCertificateCounts = async (req, res) => {
   try {
     if (req.user.user.id === req.params.id) {
@@ -426,8 +436,40 @@ const getUserCertificateCounts = async (req, res) => {
   }
 };
 
+const BlockUser= async (req, res) => {
+  const userId = req.params.userId;
+
+  try {
+    const user = await User.findByIdAndUpdate(userId, { isblocked: true });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    res.json(user);
+  } catch (error) {
+    console.error('Error blocking user:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+// Route to unblock a user
+const UnblockUser= async (req, res) => {
+  const userId = req.params.userId;
+
+  try {
+    const user = await User.findByIdAndUpdate(userId, { isblocked: false });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    res.json(user);
+  } catch (error) {
+    console.error('Error unblocking user:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+
 
 module.exports = { registerUser, loginUser,upload,forgot,reset,updateProfile,verifyEmail,getUserIDPhoto,
-  getUserPhoto,getcertificaterequestoruploaded,getTotalUserCount,getUser,getUserCertificateCounts};
+  getUserPhoto,getcertificaterequestoruploaded,getTotalUserCount,getUser,getAllUsers,getUserCertificateCounts,BlockUser,UnblockUser};
 
 

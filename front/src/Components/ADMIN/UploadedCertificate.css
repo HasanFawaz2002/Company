@@ -24,9 +24,23 @@
     transition: 0.5s;
     box-shadow: 0 35px 80px rgba(0, 0, 0, 0.15);
 }
-
+.buttonview{
+  background-color: #2D3741 !important;
+  color:white !important;
+  border-radius: 12px;
+  margin-bottom:25px;
+  margin-left: 5px;
+  
+}
+.buttonview:hover{
+  cursor:pointer;
+}
+.liwithbtn{
+  display: flex;
+  align-items: center;
+}
 .uploaded-certificate-container .uploaded-ceritificate-card:hover {
-    height: 350px;
+    height: 430px;
 }
 
 .uploaded-certificate-container .uploaded-ceritificate-card .uploadedimg-box {
@@ -38,6 +52,9 @@
     border-radius: 12px;
     overflow: hidden;
     transition: 0.5s;
+}
+.uploaded-certificate-container .uploaded-ceritificate-card .uploadedimg-box:hover{
+  cursor: pointer;
 }
 
 .uploaded-certificate-container .uploaded-ceritificate-card:hover .uploadedimg-box {
@@ -72,7 +89,7 @@
 
 .uploaded-certificate-container .uploaded-ceritificate-card:hover .uploaded-content {
     top: 140px;
-    height: 250px;
+    height: 290px;
 }
 
 .uploaded-certificate-container .uploaded-ceritificate-card .uploaded-content h3 {
@@ -310,7 +327,7 @@
         margin-bottom: 20px !important;
     }
     .uploaded-certificate-container .uploaded-ceritificate-card:hover {
-        height: 380px;
+        height: 420px;
     }
     .uploaded-certificate-container .uploaded-ceritificate-card:hover .uploaded-content{
         height: 500px;
