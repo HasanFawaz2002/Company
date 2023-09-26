@@ -29,19 +29,30 @@
     width: 95%;
     text-align: center;
     border-collapse: collapse;
+    
 
 }
 
 .customizable-form-container-table thead th{
     height: 40px;
     font-size: x-large;
-
+    background: var(--background-card, linear-gradient(180deg, #415160 0%, #293440 100%));
+    color: #5DD3B3;
 }
 
 .customizable-form-container-table tr td {
     height: 40px;
     text-align: center;
     font-size: x-large;
+    border: 1px solid lightgray;
+    
+}
+
+.customizable-form-container-table tr:nth-child(2n){
+    background-color: #526d89;
+}
+.customizable-form-container-table tr:nth-child(2n+1){
+    background-color: #3f4851;
 }
 
 .customizable-form-container-table tr td input{
@@ -51,7 +62,8 @@
     height: 95%;
     text-align: center;
     font-size: large;
-
+    background-color: transparent;
+    color: #5DD3B3;
 }
 
 .customizable-form-container-table tr td select{
@@ -61,7 +73,8 @@
     outline: none;
     text-align: center;
     font-size: large;
-
+    background-color: transparent;
+    color: #5DD3B3;
 }
 
 .customizable-form-container-bottom{
@@ -80,12 +93,19 @@
 
 .customizable-form-container-bottom form:nth-child(1) button{
     background-color: green;
+    cursor: pointer;
 }
 .customizable-form-container-bottom form:nth-child(2) button{
     background-color: red;
+    cursor: pointer;
 }
 .customizable-form-container-bottom form:nth-child(3) button{
     background-color: rgb(70, 241, 207);
+    cursor: pointer;
+}
+
+.customizable-form-container-bottom form button:active{
+    scale: 1.1;
 }
 
 .admin-request-form{

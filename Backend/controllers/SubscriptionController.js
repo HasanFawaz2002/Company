@@ -306,9 +306,62 @@ const updateSubscriptionPassword = asyncHandler(async (req, res) => {
     }
 });
 
+const countVerifiedSubscriptions = async () => {
+    try {
+      // Count the number of subscriptions with status 'verified'
+      const verifiedSubscriptions = await Subscribtion.countDocuments({ status: 'verified' });
+  
+      return verifiedSubscriptions;
+    } catch (error) {
+      console.error('Error counting verified subscriptions:', error);
+      return 0; // Return 0 in case of an error
+    }
+  };
+
+  const countExpiredSubscriptions = async () => {
+    try {
+      // Count the number of subscriptions with status 'expired'
+      const expiredSubscriptions = await Subscribtion.countDocuments({ status: 'expired' });
+  
+      return expiredSubscriptions;
+    } catch (error) {
+      console.error('Error counting expired subscriptions:', error);
+      return 0; // Return 0 in case of an error
+    }
+  };
+
+  const getAverageVerifiedAndExpiredSubscribers = asyncHandler(async (req, res) => {
+    try {
+      // Get the total number of subscribers
+      const totalSubscribers = await countTotalSubscribers();
+  
+      // Get the number of verified subscriptions
+      const verifiedSubscribers = await countVerifiedSubscriptions();
+  
+      // Get the number of expired subscriptions
+      const expiredSubscribers = await countExpiredSubscriptions();
+  
+      const averageVerified = totalSubscribers > 0 ? ((verifiedSubscribers / totalSubscribers) * 100).toFixed(1) : 0;
+      const averageExpired = totalSubscribers > 0 ? ((expiredSubscribers / totalSubscribers) * 100).toFixed(1) : 0;
+  
+      res.status(200).json({
+        total: totalSubscribers,
+        verified: verifiedSubscribers,
+        expired: expiredSubscribers,
+        averageVerified: averageVerified,
+        averageExpired: averageExpired,
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Error retrieving total subscribers', error });
+    }
+  });
+  
+
 
 
 
 module.exports = {
-    createsubscription,getSubscriptionById,updateSubscriptionPassword,getAllSubscriptions,updateSubscriptionStatusToVerified,loginSubscription,getTotalSubscribers
+    createsubscription,getSubscriptionById,updateSubscriptionPassword,getAllSubscriptions,updateSubscriptionStatusToVerified,loginSubscription,getTotalSubscribers,
+    getAverageVerifiedAndExpiredSubscribers
 };

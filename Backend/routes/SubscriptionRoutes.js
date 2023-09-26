@@ -1,5 +1,8 @@
 const {Router} = require('express');
-const {createsubscription,getAllSubscriptions,getSubscriptionById,updateSubscriptionPassword,updateSubscriptionStatusToVerified,loginSubscription,getTotalSubscribers} = require('../controllers/SubscriptionController');
+const {createsubscription,getAllSubscriptions,getSubscriptionById,updateSubscriptionPassword
+    ,updateSubscriptionStatusToVerified,loginSubscription,getTotalSubscribers,
+    getAverageVerifiedAndExpiredSubscribers
+} = require('../controllers/SubscriptionController');
 const verify = require('../controllers/verifytoken');
 
 
@@ -14,6 +17,7 @@ router.post('/loginSubscription', loginSubscription);
 router.get('/countTotalSubscribers', getTotalSubscribers);
 router.get('/getSubscriptionById',verify, getSubscriptionById);
 router.put('/updateSubscriptionPassword',verify, updateSubscriptionPassword);
+router.get('/getAverageVerifiedAndExpiredSubscribers', getAverageVerifiedAndExpiredSubscribers);
 
 
 

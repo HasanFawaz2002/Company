@@ -8,8 +8,9 @@ import {
   BsFileEarmarkCheck,
   BsBoxArrowLeft,
 } from 'react-icons/bs';
-import logo from '../../images/logo.png';
+import logo from '../../images/logo1.png';
 import { useNavigate } from 'react-router-dom';
+import Tooltip from '../tooltip/tooltip';
 
 function Sidebar({ openSidebarToggle, OpenSidebar }) {
   const navigate = useNavigate();
@@ -38,35 +39,47 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
       </div>
 
       <ul className='sidebar-list'>
+      <NavLink to="/admin" onClick={closeSidebar}>
         <li className='sidebar-list-item'>
-          <NavLink to="/admin" onClick={closeSidebar}>
+          <Tooltip  margin={15} text="Dashboard">
             <BsGrid1X2Fill id='first-svg' className='icon' /> 
-          </NavLink>
+          </Tooltip>
         </li>
+        </NavLink>
+        <NavLink to="/admin/createcertificate" onClick={closeSidebar}>
         <li className='sidebar-list-item'>
-          <NavLink to="/admin/createcertificate" onClick={closeSidebar}>
+          <Tooltip  margin={15} text="Certificate">
             <BsFillPlusSquareFill className='icon' /> 
-          </NavLink>
+          </Tooltip>
         </li>
+        </NavLink>
+        <NavLink to="/admin/CustomizableForm" onClick={closeSidebar}>
         <li className='sidebar-list-item'>
-          <NavLink to="/admin/CustomizableForm" onClick={closeSidebar}>
+          <Tooltip  margin={15} text="Form">
             <BsFileEarmarkPlusFill className='icon' /> 
-          </NavLink>
+          </Tooltip>
         </li>
+        </NavLink>
+        <NavLink to="/admin/RequestedCertificate" onClick={closeSidebar}>
         <li className='sidebar-list-item'>
-          <NavLink to="/admin/RequestedCertificate" onClick={closeSidebar}>
+        <Tooltip  margin={15} text="Requested">
             <BsFileEarmarkText className='icon' /> 
-          </NavLink>
+            </Tooltip>
         </li>
+        </NavLink>
+        <NavLink to="/admin/UploadedCertificate" onClick={closeSidebar}>
         <li className='sidebar-list-item'>
-          <NavLink to="/admin/UploadedCertificate" onClick={closeSidebar}>
+        <Tooltip  margin={15} text="Uploaded">
             <BsFileEarmarkCheck className='icon' /> 
-          </NavLink>
+          </Tooltip>
         </li>
+        </NavLink>
         
         <li className='sidebar-list-item' onClick={handleLogout}>
           <a href="" onClick={closeSidebar}>
+          <Tooltip  margin={15} text="Logout">
             <BsBoxArrowLeft className='icon' /> 
+            </Tooltip>
           </a>
         </li>
       </ul>

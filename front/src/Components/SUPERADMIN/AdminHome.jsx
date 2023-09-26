@@ -8,6 +8,8 @@ import
  import { CirclesWithBar } from 'react-loader-spinner';
  import {motion} from 'framer-motion';
 import { FaUser, FaCertificate } from 'react-icons/fa';
+import {CircularProgressbar} from 'react-circular-progressbar';
+import "react-circular-progressbar/dist/styles.css";
 
 
 const Home = () => {
@@ -20,12 +22,38 @@ const Home = () => {
     const [subscriptionCount, setSubscriptionCount] = useState(null);
     const [institutionCount, setInstitutionCount] = useState(null);
     
+    const [verifiedSubscriptionCount, setVerifiedSubscriptionCount] = useState(null);
+    const [verifiedSubscriptionAverage, setVerifiedSubscriptionAverage] = useState(null);
+    const [expiredSubscriptionCount, setExpiredSubscriptionCount] = useState(null);
+    const [expiredSubscriptionAverage, setExpiredSubscriptionAverage] = useState(null);
+
+    
     const api = "http://localhost:3001";
 
  
     const navigate = useNavigate();
 
     const [institutionData, setInstitutionData] = useState('');
+
+    useEffect(() => {
+  
+      axios
+        .get(`${api}/getAverageVerifiedAndExpiredSubscribers`, )
+        .then((response) => {
+          setVerifiedSubscriptionCount(response.data.verified);
+          setVerifiedSubscriptionAverage(response.data.averageVerified)
+          setExpiredSubscriptionCount(response.data.expired)
+          setExpiredSubscriptionAverage(response.data.averageExpired)
+        })
+        .catch((error) => {
+          if (error.response && error.response.status === 403) {
+            console.log('Token is not valid!');
+            navigate('/Institutionlogin');
+          } else {
+            console.error('Error Fetching Data:', error);
+          }
+        });
+    }, []);
 
 
     useEffect(() => {
@@ -275,6 +303,8 @@ const Home = () => {
             <h1>{certificateData3.totalCertificates}</h1>
             </motion.div>
 
+
+
             <motion.div className="main-cards-card"
             variants={{
               hidden:{opacity: 0,x: 75},
@@ -300,21 +330,88 @@ const Home = () => {
             }}
             initial="hidden"
             animate="visible"
-            transition={{duration:0.5,delay:0.8}}
+            transition={{duration:0.5,delay:0.4}}
             >
             <div className='card-inner'>
-                <h3> <BsPersonFill style={{marginRight:5}}/>Profile</h3>
-                <h2 className='card-icon'>{institutionData.name}</h2>
+                <h3>Verified <br /> Subscription</h3>
+                <div className='circular-bar-container'>
+                <CircularProgressbar
+                value={verifiedSubscriptionAverage}
+                text={`${verifiedSubscriptionAverage}%`}
+                circleRatio={0.7}
+                
+                styles={{
+                  trail:{
+                    strokeLinecap:"butt",
+                    transform:"rotate(-126deg)",
+                    transformOrigin:"center center",
+                    
+                  },
+                  path:{
+                    strokeLinecap:"butt",
+                    transform:"rotate(-126deg)",
+                    transformOrigin:"center center",
+                    stroke:"#5DD3B3"
+                  },
+                  text:{
+                    fill:"#5DD3B3"
+                  }
+                }}
+                strokeWidth={10}
+                
+                />
+                </div>
             </div>
-            <div className="card-inner">
-            <h2>{institutionData.email}</h2>
-            <h2>{institutionData.location}</h2>
+            <h1>{verifiedSubscriptionCount}</h1>
+            </motion.div>
+
+
+
+            <motion.div className="main-cards-card"
+            variants={{
+              hidden:{opacity: 0,x: 75},
+              visible:{opacity: 1,x: 0},
+            }}
+            initial="hidden"
+            animate="visible"
+            transition={{duration:0.5,delay:0.4}}
+            >
+            <div className='card-inner'>
+                <h3>Expired <br /> Subscription</h3>
+                <div className='circular-bar-container'>
+                <CircularProgressbar
+                value={expiredSubscriptionAverage}
+                text={`${expiredSubscriptionAverage}%`}
+                circleRatio={0.7}
+                
+                styles={{
+                  trail:{
+                    strokeLinecap:"butt",
+                    transform:"rotate(-126deg)",
+                    transformOrigin:"center center",
+                    
+                  },
+                  path:{
+                    strokeLinecap:"butt",
+                    transform:"rotate(-126deg)",
+                    transformOrigin:"center center",
+                    stroke:"red"
+                  },
+                  text:{
+                    fill:"red"
+                  }
+                }}
+                strokeWidth={10}
+                
+                />
+                </div>
             </div>
-            </motion.div>   
+            <h1>{expiredSubscriptionCount}</h1>
+            </motion.div>
         </div>
         
         
-        <div className="charts">
+        <div className="charts-super">
           
           <ResponsiveContainer className='first-chart' width="100%" height="100%" >
           {isLoadingData ? <h1>loading</h1>: (
@@ -325,7 +422,7 @@ const Home = () => {
               margin={{
                 top: 5,
                 right: 30,
-                left: 20,
+                left: 0,
                 bottom: 5,
               }}>
 

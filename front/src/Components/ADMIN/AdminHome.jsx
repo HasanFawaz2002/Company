@@ -9,6 +9,8 @@ import
  import {motion} from 'framer-motion';
 import defaultImage from '../../images/download.png'
 import { FaUser, FaCertificate } from 'react-icons/fa';
+import {CircularProgressbar} from 'react-circular-progressbar';
+import "react-circular-progressbar/dist/styles.css";
 
 
 const Home = () => {
@@ -19,6 +21,8 @@ const Home = () => {
     const [certificateData3, setCertificateData3] = useState(0);
     const [showModal, setShowModal] = useState(false);
     const [studentCount, setStudentCount] = useState(null);
+    const [certificateAverage, setCertificateAverage] = useState(null);
+    const [studentsAverage, setStudentsAverage] = useState(null);
 
     const [newPassword, setNewPassword] = useState('');
   const [newPasswordRequired, setNewPasswordRequired] = useState(false);
@@ -39,9 +43,7 @@ const Home = () => {
 
     const [institutionData, setInstitutionData] = useState('');
 
-    const handleNavigate = () => {
-      navigate('/admin/requestedCertificate')
-    }
+    
 
    
 
@@ -56,6 +58,51 @@ const Home = () => {
         .then((response) => {
           setStudentCount(response.data.totalStudentCount);
           console.log(studentCount)
+        })
+        .catch((error) => {
+          if (error.response && error.response.status === 403) {
+            console.log('Token is not valid!');
+            navigate('/Institutionlogin');
+          } else {
+            console.error('Error Fetching Data:', error);
+          }
+        });
+    }, []);
+
+
+    useEffect(() => {
+  
+      axios
+        .get(`${api}/calculateAverageCertificates`, {
+          headers: {
+            token: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          setCertificateAverage(response.data.average);
+          console.log(response.data.average)
+        })
+        .catch((error) => {
+          if (error.response && error.response.status === 403) {
+            console.log('Token is not valid!');
+            navigate('/Institutionlogin');
+          } else {
+            console.error('Error Fetching Data:', error);
+          }
+        });
+    }, []);
+
+    useEffect(() => {
+  
+      axios
+        .get(`${api}/getStudentAverageForInstitution`, {
+          headers: {
+            token: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          setStudentsAverage(response.data.average);
+          console.log(response.data.average)
         })
         .catch((error) => {
           if (error.response && error.response.status === 403) {
@@ -265,7 +312,34 @@ const Home = () => {
             >
             <div className='card-inner'>
                 <h3>Certificates</h3>
-                <FaCertificate className='card-icon'/>
+                <div className='circular-bar-container'>
+                <CircularProgressbar
+                value={certificateAverage}
+                text={`${certificateAverage}%`}
+                circleRatio={0.7}
+                
+                styles={{
+                  trail:{
+                    strokeLinecap:"butt",
+                    transform:"rotate(-126deg)",
+                    transformOrigin:"center center",
+                    
+                  },
+                  path:{
+                    strokeLinecap:"butt",
+                    transform:"rotate(-126deg)",
+                    transformOrigin:"center center",
+                    stroke:"#5DD3B3"
+                  },
+                  text:{
+                    fill:"#5DD3B3"
+                  }
+                }}
+                strokeWidth={10}
+                
+                />
+                </div>
+                
             </div>
             <h1>{certificateData3.totalCertificates}</h1>
             </motion.div>
@@ -281,14 +355,40 @@ const Home = () => {
             >
             <div className='card-inner'>
                 <h3>Students</h3>
-                <FaUser className='card-icon'/>
+                <div className='circular-bar-container'>
+                <CircularProgressbar
+                value={studentsAverage}
+                text={`${studentsAverage}%`}
+                circleRatio={0.7}
+                
+                styles={{
+                  trail:{
+                    strokeLinecap:"butt",
+                    transform:"rotate(-126deg)",
+                    transformOrigin:"center center",
+                    
+                  },
+                  path:{
+                    strokeLinecap:"butt",
+                    transform:"rotate(-126deg)",
+                    transformOrigin:"center center",
+                    stroke:"#5DD3B3"
+                  },
+                  text:{
+                    fill:"#5DD3B3"
+                  }
+                }}
+                strokeWidth={10}
+                
+                />
+                </div>
             </div>
             <h1>{studentCount}</h1>
             </motion.div>
 
             
 
-            <motion.div className="main-cards-card"
+            <motion.div id='third-card' className="main-cards-card"
             variants={{
               hidden:{opacity: 0,x: 75},
               visible:{opacity: 1,x: 0},
@@ -321,7 +421,7 @@ const Home = () => {
               margin={{
                 top: 5,
                 right: 30,
-                left: 20,
+                left: 0,
                 bottom: 5,
               }}
             >

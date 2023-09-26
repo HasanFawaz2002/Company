@@ -8,7 +8,7 @@ import {
   BsFileEarmarkCheck,
   BsBoxArrowLeft,
 } from 'react-icons/bs';
-import logo from '../../images/logo.png';
+import logo from '../../images/logo1.png';
 import { useNavigate } from 'react-router-dom';
 import Tooltip from '../tooltip/tooltip';
 

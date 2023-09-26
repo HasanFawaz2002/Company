@@ -22,13 +22,32 @@ const Home = () => {
       console.log("Contact us is in view");
     }
   },[aboutIsInView])
-
+  const rendered = localStorage.getItem("rendered");
+  
     const registerNavigate = () => {
         navigate('/register');
     }
     return(
         <>
-        <div className="landpage">
+        {rendered ? (
+            <div className="landpage2">
+            
+            <div className="box5"></div>
+            <div className="box6">
+                <div className="landpage-text2">
+                Discover <br/> <span>Credentials</span>
+                </div>
+                <div className="landpage-subheading2">
+                    <h2>Explore Our Services</h2>
+                    
+                </div>
+                <div className="landpage-btn-container2">
+                <button onClick={registerNavigate}>Get Started</button>
+                </div>
+            </div>
+        </div>
+        ):(
+            <div className="landpage">
             
             <div className="box1"></div>
             <div className="box2">
@@ -44,6 +63,8 @@ const Home = () => {
                 </div>
             </div>
         </div>
+        )}
+        
 
 
         <div className="first-aboutus-section " ref={aboutRef}>

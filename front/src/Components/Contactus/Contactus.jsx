@@ -1,4 +1,7 @@
 import React,{useState}from "react";
+import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+
 
 import "./Contactus.css";
 
@@ -27,6 +30,17 @@ const Contactus = () => {
 
     const api = "http://localhost:3001";
 
+    const notify = () => toast.success('Email Sended', {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      });
+
 
     const handleChange = (e) => {
       const { name, value } = e.target;
@@ -40,17 +54,13 @@ const Contactus = () => {
       e.preventDefault();
 
       // Send the form data to the backend route /sendEmail
-      fetch(`${api}/sendEmail`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      })
-        .then((response) => response.json())
+      axios.post(`${api}/sendEmail`,formData) 
+        
         .then((data) => {
           console.log(data);
           // Handle success or error here
+          notify();
+          
         })
         .catch((error) => {
           console.error(error);
@@ -60,8 +70,21 @@ const Contactus = () => {
   return (
     <div style={contactstyles}>
       <div className="about-us">
+      <ToastContainer
+position="top-right"
+autoClose={3000}
+hideProgressBar={true}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="colored"
+/>
         <div className="aboutuscontainer">
           <div className="aboutwrapper">
+            
             {/* <div className="about-usContent">
               <h1>
                 welcome <b>sultan</b>
@@ -82,6 +105,7 @@ const Contactus = () => {
                   <div className="firstname-input">
                     <label>Firstname</label>
                     <input
+                    name="firstname"
                       className="firstnametext"
                       type="text"
                       placeholder="enter firstname"
@@ -92,6 +116,7 @@ const Contactus = () => {
                   <div className="lastname-input">
                     <label>Lastname</label>
                     <input
+                    name="lastname"
                       className="lastnametext"
                       type="text"
                       placeholder="enter lastname"
@@ -102,6 +127,7 @@ const Contactus = () => {
                   <div className="email-input">
                     <label>email</label>
                     <input
+                    name="email"
                       className="emailtext"
                       type="email"
                       placeholder="enter email"
@@ -112,6 +138,7 @@ const Contactus = () => {
                   <div className="subject-input">
                     <label>subject</label>
                     <input
+                    name="subject"
                       className="subjecttext"
                       type="text"
                       placeholder="enter subject"
@@ -123,7 +150,7 @@ const Contactus = () => {
                     <label>message</label>
                     <textarea
                       className="messagetext"
-                      name=""
+                      name="message"
                       placeholder="enter message"
                       id=""
                       cols="30"

@@ -4,6 +4,7 @@ import './Customizable Form.css';
 import { useNavigate } from 'react-router-dom';
 import {motion} from 'framer-motion';
 
+
 const CustomizableForm = () => {
     const [numberOfRows, setNumberOfRows] = useState(1);
     const [formFields, setFormFields] = useState([]); // Initialize with an empty array
@@ -15,6 +16,8 @@ const CustomizableForm = () => {
     const role = localStorage.getItem('role');
     const userId = localStorage.getItem('userId');
     const [isLoading, setIsLoading] = useState(true); // State for loading
+
+    
 
     const api = "http://localhost:3001";
 
@@ -166,6 +169,7 @@ const CustomizableForm = () => {
     return (
       <>
         <div className="customizable-form-container">
+        
           <div className="customizable-form-container-header">
             {fetchedFormData ? <h1>Your Request Form</h1> : <h1>Add Your Request Form</h1>}
            

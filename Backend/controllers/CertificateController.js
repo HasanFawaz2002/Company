@@ -4,6 +4,7 @@ const multer = require ('multer');
 const fs = require('fs');
 const CertificateRequest = require('../models/certificateRequest');
 const CertificateUpload = require('../models/certificateUpload');
+const Student = require('../models/user');
 
 // Construct the full path to the uploads directory
 const uploadPath = path.join(__dirname, '..', 'server', 'uploads');
@@ -192,6 +193,33 @@ const countTotalCertificates = async (req, res) => {
   }
 };
 
+const calculateAverageCertificates = async (req, res) => {
+  try {
+    // Extract the institutionID from the token
+    const institutionID = req.user.institution.id;
+
+    // Count the total number of certificates for the specific institution
+    const certificatesForInstitution = await Certificate.countDocuments({ institutionID });
+
+    // Count the total number of certificates across all institutions
+    const totalCertificates = await Certificate.countDocuments();
+
+    if (totalCertificates === 0) {
+      // Handle the case where there are no certificates in the system
+      return res.status(200).json({ average: 0 });
+    }
+
+    // Calculate the average as a percentage and round it to one decimal place
+    const average = ((certificatesForInstitution / totalCertificates) * 100).toFixed(1);
+
+    res.status(200).json({ average: parseFloat(average) }); // Convert it back to a float
+
+  } catch (error) {
+    console.error('Error calculating average certificates:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
 const countTotalCertificatesForAllInstitutions = async (req, res) => {
   try {
     // Count the total number of certificates for all institutions
@@ -217,17 +245,54 @@ const getStudentCountsForInstitution = async (req, res) => {
       institutionID: institutionID,
     });
 
-    // Get the distinct user IDs who have uploaded certificates
+    // Get the distinct user IDs who have uploaded certificates and exclude those who have requested certificates
     const uploadedStudents = await CertificateUpload.distinct('studentID', {
+      institutionID: institutionID,
+      studentID: { $nin: requestedStudents }, // Exclude students who have requested certificates
+    });
+
+    // Calculate the total student count
+    const totalStudentCount = requestedStudents.length + uploadedStudents.length;
+
+    res.status(200).json({ totalStudentCount });
+  } catch (error) {
+    console.error('Error counting total students:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+const getStudentAverageForInstitution = async (req, res) => {
+  try {
+    // Extract the institutionID from req.user
+    const institutionID = req.user.institution.id;
+
+    // Get the distinct user IDs who have requested certificates
+    const requestedStudents = await CertificateRequest.distinct('studentID', {
       institutionID: institutionID,
     });
 
-    // Combine the distinct user IDs from both requests and uploads
-    const distinctUserIDs = [...new Set([...requestedStudents, ...uploadedStudents])];
+    // Get the distinct user IDs who have uploaded certificates and exclude those who have requested certificates
+    const uploadedStudents = await CertificateUpload.distinct('studentID', {
+      institutionID: institutionID,
+      studentID: { $nin: requestedStudents },
+    });
 
-    res.status(200).json({ totalStudentCount: distinctUserIDs.length });
+    // Calculate the total student count for the specific institution
+    const totalStudentCountForInstitution = requestedStudents.length + uploadedStudents.length;
+
+    // Get the total number of students in the system
+    const totalStudentsInSystem = await Student.countDocuments();
+
+    if (totalStudentsInSystem === 0) {
+      return res.status(200).json({ average: 0 });
+    }
+
+    // Calculate the average
+    const average = (totalStudentCountForInstitution / totalStudentsInSystem) * 100;
+
+    res.status(200).json({ average });
   } catch (error) {
-    console.error('Error counting total students:', error);
+    console.error('Error calculating average students:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 };
@@ -249,5 +314,7 @@ module.exports = {
   getCertificatePhoto,
   getCertificatesbyInstitution,
   getStudentCountsForInstitution,
-  countTotalCertificatesForAllInstitutions
+  countTotalCertificatesForAllInstitutions,
+  calculateAverageCertificates,
+  getStudentAverageForInstitution
 };

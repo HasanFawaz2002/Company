@@ -1,7 +1,7 @@
 import React,{useState} from "react";
 import './Navbar.css';
 import { NavLink,useLocation,useNavigate, useRoutes  } from "react-router-dom";
-import logo from '../../images/logo.png';
+import logo from '../../images/logo1.png';
 import DropDown from "../DROPDOWN/Dropdown";
 
 const Navbar = () => {
@@ -35,7 +35,7 @@ const Navbar = () => {
         <div className="navbar">
             <div className="navbar-logo">
                 <img src={logo} alt="" />
-                <h1 className={isInstitutionLogin ? 'white-link' : ''}>Zidyia</h1>
+                <h1 className={isInstitutionLogin ? 'white-link' : ''}>Zidyia <br />Passport</h1>
             </div>
             <div className="navbar-menu">
                 <ul >
