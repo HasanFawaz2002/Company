@@ -76,6 +76,7 @@
     height: 100%;
     background: var(--background-card, linear-gradient(180deg, #415160 0%, #293440 100%));
     overflow-y: auto;
+    overflow-x: hidden;
     transition: all 0.5s;
     -webkit-transition: all 0.5s;
   }
@@ -121,6 +122,11 @@
     padding: 20px 20px 20px 20px;
     font-size: 18px;
     transition: all ease 350ms;
+  }
+
+  .sidebar-list-item span{
+    color: white;
+    display: none;
   }
 
   .grid-container{
@@ -282,7 +288,9 @@
       margin: 0;
       padding: 0px;
       width: 100%;
-
+    }
+    .sidebar-list-item span{
+      display: block;
     }
     .main-cards {
       gap: 20px;

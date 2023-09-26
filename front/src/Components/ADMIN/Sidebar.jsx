@@ -42,35 +42,35 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
       <NavLink to="/admin" onClick={closeSidebar}>
         <li className='sidebar-list-item'>
           <Tooltip  margin={15} text="Dashboard">
-            <BsGrid1X2Fill id='first-svg' className='icon' /> 
+            <BsGrid1X2Fill id='first-svg' className='icon' /> <span>Dashboard</span>
           </Tooltip>
         </li>
         </NavLink>
         <NavLink to="/admin/createcertificate" onClick={closeSidebar}>
         <li className='sidebar-list-item'>
           <Tooltip  margin={15} text="Certificate">
-            <BsFillPlusSquareFill className='icon' /> 
+            <BsFillPlusSquareFill className='icon' /> <span>Add Certificate</span>
           </Tooltip>
         </li>
         </NavLink>
         <NavLink to="/admin/CustomizableForm" onClick={closeSidebar}>
         <li className='sidebar-list-item'>
           <Tooltip  margin={15} text="Form">
-            <BsFileEarmarkPlusFill className='icon' /> 
+            <BsFileEarmarkPlusFill className='icon' /> <span>Create Form</span>
           </Tooltip>
         </li>
         </NavLink>
         <NavLink to="/admin/RequestedCertificate" onClick={closeSidebar}>
         <li className='sidebar-list-item'>
         <Tooltip  margin={15} text="Requested">
-            <BsFileEarmarkText className='icon' /> 
+            <BsFileEarmarkText className='icon' /> <span>Requested</span>
             </Tooltip>
         </li>
         </NavLink>
         <NavLink to="/admin/UploadedCertificate" onClick={closeSidebar}>
         <li className='sidebar-list-item'>
         <Tooltip  margin={15} text="Uploaded">
-            <BsFileEarmarkCheck className='icon' /> 
+            <BsFileEarmarkCheck className='icon' /> <span>Uploaded</span>
           </Tooltip>
         </li>
         </NavLink>
@@ -78,7 +78,7 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
         <li className='sidebar-list-item' onClick={handleLogout}>
           <a href="" onClick={closeSidebar}>
           <Tooltip  margin={15} text="Logout">
-            <BsBoxArrowLeft className='icon' /> 
+            <BsBoxArrowLeft className='icon' /> <span>Logout</span>
             </Tooltip>
           </a>
         </li>

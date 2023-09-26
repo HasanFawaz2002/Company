@@ -73,13 +73,7 @@ useEffect(() => {
             // Handle the error, e.g., set institutions to an empty array
             setOrganizations([]);
           });
-         
-       
-
-
-
-
-      }, []);
+         }, []);
 
       useEffect(() => {
         if (!isHovered) {

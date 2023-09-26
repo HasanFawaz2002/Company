@@ -1,0 +1,68 @@
+.SubscriptionsView-container{
+    grid-area: main;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color:#2D3741; 
+}
+
+.SubscriptionsView-header{
+    color: #5DD3B3;
+    font-family: 'Core-Bold';
+    margin-bottom: 30px;
+    font-size: 40px;
+}
+
+.SubscriptionsView-container-table{
+    width: 95%;
+    text-align: center;
+    border-collapse: collapse;
+}
+.SubscriptionsView-container-table thead th{
+    height: 40px;
+    font-size: x-large;
+    background: var(--background-card, linear-gradient(180deg, #415160 0%, #293440 100%));
+    color: #5DD3B3;
+}
+.SubscriptionsView-container-table tr td{
+    height: 40px;
+    text-align: center;
+    font-size: x-large;
+    border: 1px solid lightgray;
+    color: white;
+}
+
+.SubscriptionsView-container-table tr:nth-child(2n){
+    background-color: #526d89;
+}
+
+.SubscriptionsView-container-table tr:nth-child(2n+1){
+    background-color: #3f4851;
+}
+
+.renew-icon{
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+
+@media screen and (max-width: 768px) {
+    .SubscriptionsView-container{
+       padding: 10px;
+    }
+    .SubscriptionsView-container-table{
+        width: 100% ;
+        padding: 10px; 
+    }
+
+
+    .SubscriptionsView-container-table thead th{
+        font-size: medium;
+    }
+    
+    .SubscriptionsView-container-table tr td{
+        font-size:small;
+    }
+}

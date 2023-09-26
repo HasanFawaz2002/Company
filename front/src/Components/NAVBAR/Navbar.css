@@ -29,6 +29,13 @@
     z-index: 1;
 
 }
+.navbar1{
+  width: 100%;
+  position: absolute;
+  top: 0%;
+  z-index: 1;
+
+}
 .navbar-logo{
     float: left;
     margin-left: 50px;
@@ -177,6 +184,9 @@
   @media screen and (max-width: 750px) {
     .navbar{
         display: none;
+    }
+    .navbar1{
+      display: none;
     }
     .hamburger-menu{
         display: block;

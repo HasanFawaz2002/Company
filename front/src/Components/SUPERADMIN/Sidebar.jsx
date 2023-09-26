@@ -8,6 +8,8 @@ import {
   BsFileEarmarkCheck,
   BsBoxArrowLeft,
 } from 'react-icons/bs';
+import {  FaBuilding  } from 'react-icons/fa';
+
 import logo from '../../images/logo1.png';
 import { useNavigate } from 'react-router-dom';
 import Tooltip from '../tooltip/tooltip';
@@ -42,35 +44,43 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
       <NavLink to="/superadmin" onClick={closeSidebar}>
         <li className='sidebar-list-item'>
           <Tooltip  margin={15} text="Dashboard">
-            <BsGrid1X2Fill id='first-svg' className='icon' /> 
+            <BsGrid1X2Fill id='first-svg' className='icon' /> <span>Dashboard</span>
           </Tooltip>
         </li>   
         </NavLink>
         <NavLink to="/superadmin/CreateInstitutionForm" onClick={closeSidebar}>
         <li className='sidebar-list-item'>
         <Tooltip margin={15} text="Institution">
-            <BsFillPlusSquareFill className='icon' /> 
+            <BsFillPlusSquareFill className='icon' />  <span>Add Institutions</span>
             </Tooltip>
         </li>
         </NavLink>
         <NavLink to="/superadmin/CreateSubscription" onClick={closeSidebar}>
         <li className='sidebar-list-item'>
           <Tooltip margin={15} text="Subscription">
-            <BsFileEarmarkPlusFill className='icon' /> 
+            <BsFileEarmarkPlusFill className='icon' />  <span>Add Subscription</span>
           </Tooltip>
         </li>
         </NavLink>
         <NavLink to="/superadmin/RequestedCertificate" onClick={closeSidebar}>
         <li className='sidebar-list-item'>
           <Tooltip margin={15} text="Requests">
-            <BsFileEarmarkText className='icon' />
+            <BsFileEarmarkText className='icon' /> <span>Requested</span>
             </Tooltip>
         </li>
         </NavLink>
         <NavLink to="/superadmin/UploadedCertificate" onClick={closeSidebar}>
         <li className='sidebar-list-item'>
         <Tooltip margin={15} text="Uploads">
-            <BsFileEarmarkCheck className='icon' /> 
+            <BsFileEarmarkCheck className='icon' />  <span>Uploaded</span>
+            </Tooltip>
+        </li>
+        </NavLink>
+
+        <NavLink to="/superadmin/SubscriptionsView" onClick={closeSidebar}>
+        <li className='sidebar-list-item'>
+        <Tooltip margin={15} text="Organizations">
+            <FaBuilding className='icon' />  <span>Organizations</span>
             </Tooltip>
         </li>
         </NavLink>
@@ -78,7 +88,7 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
         <li className='sidebar-list-item' onClick={handleLogout}>
         <Tooltip margin={15} text="Logout">
           <a href="" onClick={closeSidebar}>
-            <BsBoxArrowLeft className='icon' /> 
+            <BsBoxArrowLeft className='icon' />  <span>Logout</span>
           </a>
           </Tooltip>
         </li>

@@ -10,6 +10,7 @@ import RequestedCertificate from './RequestedCertificate';
 import UploadedCertificate from './UploadedCertificate';
 import CreateInstitutionForm from './Create Institution Form';
 import CreateSubscription from './Create Subscription';
+import SubscriptionsView from './SubscriptionsView';
 
 const SuperAdminDashboard = () => {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
@@ -45,6 +46,7 @@ const SuperAdminDashboard = () => {
         />
         <Route path="/UploadedCertificate" element={<UploadedCertificate selectedStatus={selectedStatus} />} />
         {/* Define more routes for admin components here */}
+        <Route path='/SubscriptionsView' element={<SubscriptionsView/>}></Route>
       </Routes>
     </div>
   );

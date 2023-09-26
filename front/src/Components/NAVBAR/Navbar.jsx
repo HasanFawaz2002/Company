@@ -25,13 +25,47 @@ const Navbar = () => {
     const isUser = token && role === 'user';
     const isSuperAdmin = token && role === 'superAdmin';
 
+    const rendered = localStorage.getItem("rendered");
+
   const isInstitutionsRoute = location.pathname.startsWith('/institutions') || location.pathname.startsWith('/Institutionlogin') || location.pathname.startsWith('/CertificateUpload') || location.pathname === "/StudentViewSubs" || location.pathname.startsWith('/CertificateRequest') || location.pathname.startsWith('/login') || location.pathname.startsWith('/register')|| location.pathname.startsWith('/UserCertificate') || location.pathname.startsWith('/SubscriptionLogin') || location.pathname.startsWith('/contact') || location.pathname.startsWith('/UserCertificate') || location.pathname.startsWith('/MyProfile') || location.pathname.startsWith('/CompleteInformation') || location.pathname.startsWith('/VerificationPlatformShared') || location.pathname.startsWith('/CredentialUrl') || location.pathname.startsWith('/expiryLicense'); 
   const isInstitutionLogin = location.pathname.startsWith('/Institutionlogin') || location.pathname.startsWith('/CertificateUpload') || location.pathname.startsWith('/CertificateRequest') || location.pathname === "/StudentViewSubs" || location.pathname.startsWith('/login') || location.pathname.startsWith('/register') || location.pathname.startsWith('/UserCertificate') || location.pathname.startsWith('/SubscriptionLogin') || location.pathname.startsWith('/contact') || location.pathname.startsWith('/UserCertificate') || location.pathname.startsWith('/MyProfile') || location.pathname.startsWith('/CompleteInformation') || location.pathname.startsWith('/VerificationPlatformShared') || location.pathname.startsWith('/CredentialUrl') || location.pathname.startsWith('/expiryLicense');
   const isUserProfileRoute = location.pathname === '/UserCertificate'; 
 
     return (
         <>
-        <div className={`box3 ${isInstitutionsRoute ? 'institution-route' : ''}`}>
+        {rendered ? (
+          <div className={`box3 ${isInstitutionsRoute ? 'institution-route' : ''}`}>
+        <div className="navbar1">
+            <div className="navbar-logo">
+                <img src={logo} alt="" />
+                <h1 className={isInstitutionLogin ? 'white-link' : ''}>Zidyia <br />Passport</h1>
+            </div>
+            <div className="navbar-menu">
+                <ul >
+                    <li ><NavLink  className={isInstitutionsRoute ? 'white-link' : ''} to='/'>HOME</NavLink></li>
+                    {isAdmin && <li><NavLink className={isInstitutionsRoute ? 'white-link' : ''} to='/admin'>Dashboard</NavLink></li>}
+                    {isSuperAdmin && <li><NavLink className={isInstitutionsRoute ? 'white-link' : ''} to='/superadmin'>Dashboard</NavLink></li>}
+                    {isUser && (
+                <li>
+                  
+                  <NavLink className={isInstitutionsRoute ? 'white-link' : ''} to={isUserProfileRoute ? '/MyProfile' : '/UserCertificate'}>
+                    {isUserProfileRoute ? 'My Profile' : 'Wallet'}
+                  </NavLink>
+                </li>
+              )}                    
+              <li><NavLink className={isInstitutionsRoute ? 'white-link' : ''} to='/contact'>CONTACT</NavLink></li>
+               <li>
+                <NavLink className={isInstitutionsRoute ? 'white-link' : ''} to={isUserProfileRoute ? '/StudentViewSubs' : '/institutions'}>
+                  {isUserProfileRoute ? 'Share Certificate' : 'Institutions'}
+                </NavLink>
+              </li>
+              <li className={isInstitutionsRoute ? 'white-link' : ''}>  <DropDown /></li>
+                </ul>
+            </div>
+        </div>
+        </div>
+        ):(
+<div className={`box3 ${isInstitutionsRoute ? 'institution-route' : ''}`}>
         <div className="navbar">
             <div className="navbar-logo">
                 <img src={logo} alt="" />
@@ -61,6 +95,12 @@ const Navbar = () => {
             </div>
         </div>
         </div>
+        )}
+        
+
+
+
+
 
         <div className={`hamburger-menu ${menuOpen ? 'open' : ''}`}>
       <input
