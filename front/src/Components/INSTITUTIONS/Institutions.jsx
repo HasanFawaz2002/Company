@@ -18,6 +18,8 @@ const useParallaxBanner = (setScrollPosition) => {
   }, []);
 };
 
+
+
 function Institutions() {
   const [scrollPosition, setScrollPosition] = useState(0);
 
@@ -25,6 +27,11 @@ function Institutions() {
   const navigate = useNavigate();
 
   const api = "http://localhost:3001";
+
+  useEffect(() => {
+    // Set a key named 'rendered' to 'true' in localStorage
+    localStorage.setItem('rendered', 'true');
+  }, []); 
 
   // Fetch the list of institutions from the API
   useEffect(() => {

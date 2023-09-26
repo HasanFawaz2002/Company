@@ -24,6 +24,7 @@ import VerificationPlatformShared from "./Components/verificationPlatformShared/
 import MyProfile from "./Components/MyProfile/MyProfile";
 import SubscriptionLogin from "./Components/LOGINSUBSCRIPTION/SubscriptionLogin";
 import CredentialUrl from './Components/credentialUrl/CredentialUrl';
+import Expiry from "./Components/EXPIRYLICENSE/Expiry";
 const App = () => {
   const location = useLocation();
   const hideNavbarRoutes = ["/EmailSent", "/users", "/admin", "/superadmin"];
@@ -59,6 +60,7 @@ const App = () => {
             <Route path="/MyProfile" element={<MyProfile />}></Route>
             <Route path="/SubscriptionLogin" element={<SubscriptionLogin />}></Route>
             <Route path="/CredentialUrl/:sharedCertificateID" element={<CredentialUrl />}></Route>
+            <Route path="/expiryLicense" element={<Expiry />}></Route>
           </Routes>
         </>
     )

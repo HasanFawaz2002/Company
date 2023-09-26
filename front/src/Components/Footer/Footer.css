@@ -54,6 +54,9 @@ footer{
     width: 20px;
     align-items: center;
 }
+.footer-container-logo img{
+    width: 100px;
+}
 .footer-container-logo h1{
     margin-left: 10px;
     font-family: 'Core-Bold';
@@ -88,6 +91,7 @@ footer{
 @media screen and (max-width: 768px) {
     footer {
         padding: 10px;
+        padding-left: 25px;
     }
      .footer-container:nth-child(1){
         grid-column: 1 / span 4;

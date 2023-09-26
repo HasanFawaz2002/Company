@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./CreateCertificate.css"; 
 import { useNavigate, Link } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
 
 
 function CreateCertificate() {
@@ -13,6 +14,17 @@ function CreateCertificate() {
   const [nameError, setnameError] = useState("");
   const [descriptionError, setdescriptionError] = useState("");
   const[imageError,setimageError]= useState("");
+
+  const notify = () => toast.success('Certificate Added Successfully', {
+    position: "top-right",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "colored",
+    });
 
   const handleImageChange = (e) => {
     const selectedImage = e.target.files[0];
@@ -65,7 +77,10 @@ function CreateCertificate() {
       .then((response) => {
         console.log("Create Certificate successful!");
         console.log(response);
-        window.location.reload();
+        notify();
+        setName('');
+        setDescription('');
+        setImage('');
       })
       .catch((error) => {
         if (error.response && error.response.status === 403) {
@@ -82,6 +97,19 @@ function CreateCertificate() {
     <>
         
     <div className="createcertificate-admin-parent">
+
+    <ToastContainer
+position="top-right"
+autoClose={3000}
+hideProgressBar={true}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="colored"
+/>
         <div className="createcertificate-admin-contentWithform">
         <h1 className="createcertificate-admin-headone">Create Certificate</h1>
            <form className="createcertificate-admin-createform" onSubmit={CreateCertificatefromadmin}>

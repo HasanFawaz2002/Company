@@ -1,7 +1,7 @@
 import React,{useState} from "react";
 import './Navbar.css';
 import { NavLink,useLocation,useNavigate, useRoutes  } from "react-router-dom";
-import logo from '../../images/logo.png';
+import logo from '../../images/logo1.png';
 import DropDown from "../DROPDOWN/Dropdown";
 
 const Navbar = () => {
@@ -20,22 +20,24 @@ const Navbar = () => {
 
     const token = localStorage.getItem('access_token');
     const role = localStorage.getItem('role');
+    const rendered = localStorage.getItem("rendered");
 
     const isAdmin = token && role === 'admin';
     const isUser = token && role === 'user';
     const isSuperAdmin = token && role === 'superAdmin';
 
-  const isInstitutionsRoute = location.pathname.startsWith('/institutions') || location.pathname.startsWith('/Institutionlogin') || location.pathname.startsWith('/CertificateUpload') || location.pathname === "/StudentViewSubs" || location.pathname.startsWith('/CertificateRequest') || location.pathname.startsWith('/login') || location.pathname.startsWith('/register')|| location.pathname.startsWith('/UserCertificate') || location.pathname.startsWith('/SubscriptionLogin') || location.pathname.startsWith('/contact') || location.pathname.startsWith('/UserCertificate') || location.pathname.startsWith('/MyProfile') || location.pathname.startsWith('/CompleteInformation') || location.pathname.startsWith('/VerificationPlatformShared') || location.pathname.startsWith('/CredentialUrl') || location.pathname.startsWith('/forgot-password') || location.pathname.startsWith('/reset_password') || location.pathname.startsWith('/Register'); 
-  const isInstitutionLogin = location.pathname.startsWith('/Institutionlogin') || location.pathname.startsWith('/CertificateUpload') || location.pathname.startsWith('/CertificateRequest') || location.pathname === "/StudentViewSubs" || location.pathname.startsWith('/login') || location.pathname.startsWith('/register') || location.pathname.startsWith('/UserCertificate') || location.pathname.startsWith('/SubscriptionLogin') || location.pathname.startsWith('/contact') || location.pathname.startsWith('/UserCertificate') || location.pathname.startsWith('/MyProfile') || location.pathname.startsWith('/CompleteInformation') || location.pathname.startsWith('/VerificationPlatformShared') || location.pathname.startsWith('/CredentialUrl') || location.pathname.startsWith('/forgot-password') || location.pathname.startsWith('/reset_password') || location.pathname.startsWith('/Register');
+  const isInstitutionsRoute = location.pathname.startsWith('/institutions') || location.pathname.startsWith('/Institutionlogin') || location.pathname.startsWith('/CertificateUpload') || location.pathname === "/StudentViewSubs" || location.pathname.startsWith('/CertificateRequest') || location.pathname.startsWith('/login') || location.pathname.startsWith('/register')|| location.pathname.startsWith('/UserCertificate') || location.pathname.startsWith('/SubscriptionLogin') || location.pathname.startsWith('/contact') || location.pathname.startsWith('/UserCertificate') || location.pathname.startsWith('/MyProfile') || location.pathname.startsWith('/CompleteInformation') || location.pathname.startsWith('/VerificationPlatformShared') || location.pathname.startsWith('/CredentialUrl') || location.pathname.startsWith('/forgot-password') || location.pathname.startsWith('/reset_password') || location.pathname.startsWith('/Register')|| location.pathname.startsWith('/expiryLicense'); 
+  const isInstitutionLogin = location.pathname.startsWith('/Institutionlogin') || location.pathname.startsWith('/CertificateUpload') || location.pathname.startsWith('/CertificateRequest') || location.pathname === "/StudentViewSubs" || location.pathname.startsWith('/login') || location.pathname.startsWith('/register') || location.pathname.startsWith('/UserCertificate') || location.pathname.startsWith('/SubscriptionLogin') || location.pathname.startsWith('/contact') || location.pathname.startsWith('/UserCertificate') || location.pathname.startsWith('/MyProfile') || location.pathname.startsWith('/CompleteInformation') || location.pathname.startsWith('/VerificationPlatformShared') || location.pathname.startsWith('/CredentialUrl') || location.pathname.startsWith('/forgot-password') || location.pathname.startsWith('/reset_password') || location.pathname.startsWith('/Register')|| location.pathname.startsWith('/expiryLicense');
   const isUserProfileRoute = location.pathname === '/UserCertificate'; 
 
     return (
         <>
-        <div className={`box3 ${isInstitutionsRoute ? 'institution-route' : ''}`}>
-        <div className="navbar">
+        {rendered ? (
+          <div className={`box3 ${isInstitutionsRoute ? 'institution-route' : ''}`}>
+        <div className="navbar1">
             <div className="navbar-logo">
                 <img src={logo} alt="" />
-                <h1 className={isInstitutionLogin ? 'white-link' : ''}>Zidyia</h1>
+                <h1 className={isInstitutionLogin ? 'white-link' : ''}>Zidyia <br />Passport</h1>
             </div>
             <div className="navbar-menu">
                 <ul >
@@ -61,6 +63,43 @@ const Navbar = () => {
             </div>
         </div>
         </div>
+        ):(
+<div className={`box3 ${isInstitutionsRoute ? 'institution-route' : ''}`}>
+        <div className="navbar">
+            <div className="navbar-logo">
+                <img src={logo} alt="" />
+                <h1 className={isInstitutionLogin ? 'white-link' : ''}>Zidyia <br />Passport</h1>
+            </div>
+            <div className="navbar-menu">
+                <ul >
+                    <li ><NavLink  className={isInstitutionsRoute ? 'white-link' : ''} to='/'>HOME</NavLink></li>
+                    {isAdmin && <li><NavLink className={isInstitutionsRoute ? 'white-link' : ''} to='/admin'>Dashboard</NavLink></li>}
+                    {isSuperAdmin && <li><NavLink className={isInstitutionsRoute ? 'white-link' : ''} to='/superadmin'>Dashboard</NavLink></li>}
+                    {isUser && (
+                <li>
+                  
+                  <NavLink className={isInstitutionsRoute ? 'white-link' : ''} to={isUserProfileRoute ? '/MyProfile' : '/UserCertificate'}>
+                    {isUserProfileRoute ? 'My Profile' : 'Wallet'}
+                  </NavLink>
+                </li>
+              )}                    
+              <li><NavLink className={isInstitutionsRoute ? 'white-link' : ''} to='/contact'>CONTACT</NavLink></li>
+               <li>
+                <NavLink className={isInstitutionsRoute ? 'white-link' : ''} to={isUserProfileRoute ? '/StudentViewSubs' : '/institutions'}>
+                  {isUserProfileRoute ? 'Share Certificate' : 'Institutions'}
+                </NavLink>
+              </li>
+              <li className={isInstitutionsRoute ? 'white-link' : ''}>  <DropDown /></li>
+                </ul>
+            </div>
+        </div>
+        </div>
+        )}
+        
+
+
+
+
 
         <div className={`hamburger-menu ${menuOpen ? 'open' : ''}`}>
       <input

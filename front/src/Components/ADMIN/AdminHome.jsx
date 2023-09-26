@@ -9,6 +9,8 @@ import
  import {motion} from 'framer-motion';
 import defaultImage from '../../images/download.png'
 import { FaUser, FaCertificate } from 'react-icons/fa';
+import {CircularProgressbar} from 'react-circular-progressbar';
+import "react-circular-progressbar/dist/styles.css";
 
 
 const Home = () => {
@@ -17,9 +19,10 @@ const Home = () => {
     const [certificateData, setCertificateData] = useState([]);
     const [certificateData2, setCertificateData2] = useState([]);
     const [certificateData3, setCertificateData3] = useState(0);
-    const [certificateRequests, setCertificateRequests] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [studentCount, setStudentCount] = useState(null);
+    const [certificateAverage, setCertificateAverage] = useState(null);
+    const [studentsAverage, setStudentsAverage] = useState(null);
 
     const [newPassword, setNewPassword] = useState('');
   const [newPasswordRequired, setNewPasswordRequired] = useState(false);
@@ -40,21 +43,44 @@ const Home = () => {
 
     const [institutionData, setInstitutionData] = useState('');
 
-    const handleNavigate = () => {
-      navigate('/admin/requestedCertificate')
-    }
+    
+
+   
 
     useEffect(() => {
   
       axios
-        .get(`${api}/getLatestCertificateRequestsByStatusAndInstitution/All`, {
+        .get(`${api}/getStudentCountsForInstitution`, {
           headers: {
             token: `Bearer ${token}`,
           },
         })
         .then((response) => {
-          setCertificateRequests(response.data);
-          console.log(response.data);
+          setStudentCount(response.data.totalStudentCount);
+          console.log(studentCount)
+        })
+        .catch((error) => {
+          if (error.response && error.response.status === 403) {
+            console.log('Token is not valid!');
+            navigate('/Institutionlogin');
+          } else {
+            console.error('Error Fetching Data:', error);
+          }
+        });
+    }, []);
+
+
+    useEffect(() => {
+  
+      axios
+        .get(`${api}/calculateAverageCertificates`, {
+          headers: {
+            token: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          setCertificateAverage(response.data.average);
+          console.log(response.data.average)
         })
         .catch((error) => {
           if (error.response && error.response.status === 403) {
@@ -69,14 +95,14 @@ const Home = () => {
     useEffect(() => {
   
       axios
-        .get(`${api}/getStudentCountsForInstitution`, {
+        .get(`${api}/getStudentAverageForInstitution`, {
           headers: {
             token: `Bearer ${token}`,
           },
         })
         .then((response) => {
-          setStudentCount(response.data.totalStudentCount);
-          console.log(studentCount)
+          setStudentsAverage(response.data.average);
+          console.log(response.data.average)
         })
         .catch((error) => {
           if (error.response && error.response.status === 403) {
@@ -286,7 +312,34 @@ const Home = () => {
             >
             <div className='card-inner'>
                 <h3>Certificates</h3>
-                <FaCertificate className='card-icon'/>
+                <div className='circular-bar-container'>
+                <CircularProgressbar
+                value={certificateAverage}
+                text={`${certificateAverage}%`}
+                circleRatio={0.7}
+                
+                styles={{
+                  trail:{
+                    strokeLinecap:"butt",
+                    transform:"rotate(-126deg)",
+                    transformOrigin:"center center",
+                    
+                  },
+                  path:{
+                    strokeLinecap:"butt",
+                    transform:"rotate(-126deg)",
+                    transformOrigin:"center center",
+                    stroke:"#5DD3B3"
+                  },
+                  text:{
+                    fill:"#5DD3B3"
+                  }
+                }}
+                strokeWidth={10}
+                
+                />
+                </div>
+                
             </div>
             <h1>{certificateData3.totalCertificates}</h1>
             </motion.div>
@@ -302,14 +355,40 @@ const Home = () => {
             >
             <div className='card-inner'>
                 <h3>Students</h3>
-                <FaUser className='card-icon'/>
+                <div className='circular-bar-container'>
+                <CircularProgressbar
+                value={studentsAverage}
+                text={`${studentsAverage}%`}
+                circleRatio={0.7}
+                
+                styles={{
+                  trail:{
+                    strokeLinecap:"butt",
+                    transform:"rotate(-126deg)",
+                    transformOrigin:"center center",
+                    
+                  },
+                  path:{
+                    strokeLinecap:"butt",
+                    transform:"rotate(-126deg)",
+                    transformOrigin:"center center",
+                    stroke:"#5DD3B3"
+                  },
+                  text:{
+                    fill:"#5DD3B3"
+                  }
+                }}
+                strokeWidth={10}
+                
+                />
+                </div>
             </div>
             <h1>{studentCount}</h1>
             </motion.div>
 
             
 
-            <motion.div className="main-cards-card"
+            <motion.div id='third-card' className="main-cards-card"
             variants={{
               hidden:{opacity: 0,x: 75},
               visible:{opacity: 1,x: 0},
@@ -342,62 +421,24 @@ const Home = () => {
               margin={{
                 top: 5,
                 right: 30,
-                left: 20,
+                left: 0,
                 bottom: 5,
               }}
             >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
+              
+              <XAxis dataKey="name"  stroke="#5DD3B3"/>
+              <YAxis  stroke="#5DD3B3"/>
               <Tooltip />
               <Legend />
-              <Bar dataKey="pending" fill="#8884d8" />
-              <Bar dataKey="rejected" fill="#e26031" />
-              <Bar dataKey="approved" fill="#10d74c" />
-              <Bar dataKey="total" fill="#b3d450" />
+              <Bar barSize={100} dataKey="pending" fill="#5D86D3" />
+              <Bar barSize={100} dataKey="rejected" fill="#8E5DFD" />
+              <Bar barSize={100} dataKey="approved" fill="#96B4E3" />
+              <Bar barSize={100} dataKey="total" fill="#2AF39C" />
             </BarChart>
           )}
         </ResponsiveContainer>
 
-        <motion.div className="people-container" 
-        variants={{
-          hidden:{opacity: 0,x: 75},
-          visible:{opacity: 1,x: 0},
-        }}
-        initial="hidden"
-        animate="visible"
-        transition={{duration:0.5,delay:1}}
-        >
-          {certificateRequests.length === 0 ? (
-            <h1>No Requests</h1>
-          ): (
-            <>
-             {certificateRequests.map((item, index) => (
-              <div key={index} className="people-container-profile">
-          
-          <div className='people-container-profile-img'>
-          {item.studentID.profilePicture ? (
-            <img src={`http://localhost:3001/getUserPhoto/${item.studentID._id}/photo`} alt="" />
-          ) : (
-            <img src={defaultImage} alt="Default Profile" />
-          )}          </div>
-          <div className='people-container-profile-content'>
-            <h2>{item.studentID.username}</h2>
-            <h2>{item.studentID.email}</h2>
-          </div>
-          <div className='people-container-profile-requested'>
-            <button onClick={handleNavigate}>View</button>
-          </div>
-        </div>
-             ))}
-          
-        </>
-          )}
         
-        
-
-
-        </motion.div>
       </div>
 
 

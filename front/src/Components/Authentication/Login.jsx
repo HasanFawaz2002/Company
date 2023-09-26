@@ -4,6 +4,8 @@ import { useNavigate, Link } from "react-router-dom";
 import "./Handlelogin.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye,faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+  import { ToastContainer, toast } from "react-toastify";
+
 
 function LogintoZidyia(){
     const navigate = useNavigate();
@@ -54,10 +56,14 @@ function LogintoZidyia(){
     let isValid=true;
 
     if (!contact.email) {
-      setEmailError("Email address is required.");
+      toast.error("Email address is required.",{
+        theme:"dark",
+      });
         isValid=false;
     }else if (!validateEmail(contact.email)) {
-      setEmailError("Please enter a valid email address.");
+      toast.error("Please enter a valid email address.", {
+        theme: "dark",
+      });
       isValid=false;
     }
 
@@ -65,7 +71,9 @@ function LogintoZidyia(){
       setpasswordError("Password is required.");
       isValid = false;
     } else if (!validatePassword(contact.password)) {
-      setpasswordError("Password must contain at least 8 characters, including one uppercase letter, one special character, and one number.");
+      toast.error("Password must contain at least 8 characters, including one uppercase letter, one special character, and one number.",{
+        theme:"dark"
+      });
       console.log("Password validation failed:", contact.password);
       isValid = false;
     }
@@ -78,6 +86,7 @@ function LogintoZidyia(){
         localStorage.setItem("access_token", response.data.accessToken);
         localStorage.setItem("userId", response.data.user._id);
         localStorage.setItem("role", response.data.user.role);
+        localStorage.setItem("isblocked", response.data.user.isblocked);
         navigate('/');
       })
       .catch((error) => {
@@ -85,9 +94,11 @@ function LogintoZidyia(){
           const { data } = error.response;
           console.log("Backend error response:", data);
           if (data.error && data.error === "Email or Password is not valid") {
-            setloginError('"Email or Password is not valid"');
+            toast.error("Email or Password is not valid",{
+              theme:"dark"
+            });
           }else if (data.message && data.message === "Please Verify your Account") {
-            setloginError("Please verify your Account");
+            toast.error("Please verify your Account",{theme:"dark"});
           } else {
             console.error("login failed:", error);
           }
@@ -99,77 +110,77 @@ function LogintoZidyia(){
   }
 
 
-    return(
-       <>
-        
+    return (
+      <>
         <div className="logintozidyia-parent">
-            <div className="logintozidyia-contentWithform">
-               <form className="logintozidyia-loginform" onSubmit={handlelogin}>
-               <h1 className="logintozidyia-headone">As Student</h1>
-                <div className="directiontocolumn">
+          <ToastContainer />
+
+          <div className="logintozidyia-contentWithform">
+            <form className="logintozidyia-loginform" onSubmit={handlelogin}>
+              <h1 className="logintozidyia-headone">As Student</h1>
+              <div className="directiontocolumn">
                 <label className="logintozidyia-label">Email:</label>
-               <input
-                 type="text"
-                 name="email"
-                 placeholder="Email Address"
-                 id="loginemail"
-                 className="logintozidyia-input"
-                 value={contact.email}
-                 onChange={handleChange}
-               />
-                {emailError && (
-              <span className="error-image-message">{emailError}</span>
-            )}
-                </div>
-               <div className="directiontocolumn">
-               <label className="logintozidyia-label">Password:</label>
-           <div className="loginpass">
-           <input
-                 type={showPassword ? "text" : "password"}
-                 name="password"
-                  id="password"
-                  placeholder="Password"
+                <input
+                  type="text"
+                  name="email"
+                  placeholder="Email Address"
+                  id="loginemail"
                   className="logintozidyia-input"
-                  value={contact.password}
+                  value={contact.email}
                   onChange={handleChange}
-               />
-                <FontAwesomeIcon
-                  icon={showPassword ? faEyeSlash : faEye} 
-                  className="eyeiconforlogin"
-                  onClick={togglePasswordVisibility}
-            />
-           </div>
-             
-                 {passworderror && (
-              <span className="error-image-message">{passworderror}</span>
-            )}
-             
-               
-             
-               </div>
-               <div className="checkboxandforgot">
-               <div className="checkboxwithlebel">
-               <input 
-                  type="checkbox"
-               />
-               <label className="rememberme-label">Remember me</label>
-               </div>
-               <p><Link to="/forgot-password" className="logintozidyia-forgotpass">Forgot password?</Link></p>
-               </div>
-             
-                 <button className="Signinbutton">Sign In</button>
-              
-                 {loginError && (
-              <span className="error-image-message">{loginError}</span>
-            )}
-              
-               
-               </form>
-            </div>
+                />
+                {/* {emailError && (
+                  <span className="error-image-message">{emailError}</span>
+                )} */}
+              </div>
+              <div className="directiontocolumn">
+                <label className="logintozidyia-label">Password:</label>
+                <div className="loginpass">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    id="password"
+                    placeholder="Password"
+                    className="logintozidyia-input"
+                    value={contact.password}
+                    onChange={handleChange}
+                  />
+                  <FontAwesomeIcon
+                    icon={showPassword ? faEyeSlash : faEye}
+                    className="eyeiconforlogin"
+                    onClick={togglePasswordVisibility}
+                  />
+                </div>
+
+                {/* {passworderror && (
+                  <span className="error-image-message">{passworderror}</span>
+                )} */}
+              </div>
+              <div className="checkboxandforgot">
+                <div className="checkboxwithlebel">
+                  <input type="checkbox" />
+                  <label className="rememberme-label">Remember me</label>
+                </div>
+                <p>
+                  <Link
+                    to="/forgot-password"
+                    className="logintozidyia-forgotpass"
+                  >
+                    Forgot password?
+                  </Link>
+                </p>
+              </div>
+
+              <button className="Signinbutton">Sign In</button>
+
+              {/* {loginError && (
+                <span className="error-image-message">{loginError}</span>
+              )} */}
+            </form>
+          </div>
         </div>
-      
-       </> 
-    )
+      </>
+    );
 }
 
 export default LogintoZidyia;

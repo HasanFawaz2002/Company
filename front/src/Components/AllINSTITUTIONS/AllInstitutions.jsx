@@ -127,18 +127,22 @@ function AllInstitutions() {
           });
       }, []);
 
-      const handleLocationChange = (e) => {
-        const newLocation = e.target.value;
-        setSelectedLocation(newLocation); 
-    
-        axios.get(`${api}/getInstitutionsByLocation/${newLocation}`)
+      useEffect(() => {
+        axios
+          .get(`${api}/getInstitutionsByLocation/${selectedLocation}`)
           .then((response) => {
             setInstitutions(response.data);
+            console.log(response.data);
           })
           .catch((error) => {
             console.error("Error fetching institutions by location:", error);
             setInstitutions([]); // Handle the error, e.g., set institutions to an empty array
           });
+      }, [selectedLocation]);
+
+      const handleLocationChange = (e) => {
+        const newLocation = e.target.value;
+        setSelectedLocation(newLocation);
       };
     
 

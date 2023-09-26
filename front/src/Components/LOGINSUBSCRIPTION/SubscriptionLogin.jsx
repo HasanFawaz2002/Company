@@ -66,7 +66,7 @@ const SubscriptionLogin = () => {
           email: "",
           password: "",
         });
-                  history("/VerificationPlatformShared");
+          history("/VerificationPlatformShared");
 
       }
     } catch (error) {
@@ -77,6 +77,8 @@ const SubscriptionLogin = () => {
           toast.error("Email or Password is not valid",{
             theme:"dark",
           });
+        }else if (data.error && data.error === "Subscription is not verified") {
+          history('/expiryLicense');
         } else {
           console.error("Login failed:", error);
         }
@@ -132,13 +134,7 @@ const SubscriptionLogin = () => {
               </span>
             </div>
           </div>
-          <div className="Subscriptioncheckboxand-forgot">
-            <p>
-              <Link to="/forgot-password" className="Subscription-forgotpass">
-                Forgot password?
-              </Link>
-            </p>
-          </div>
+          
           <input
             className="Subscriptionsubmit"
             type="submit"

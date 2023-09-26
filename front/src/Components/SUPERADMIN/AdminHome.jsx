@@ -7,8 +7,9 @@ import
  import axios from 'axios';
  import { CirclesWithBar } from 'react-loader-spinner';
  import {motion} from 'framer-motion';
-import defaultImage from '../../images/download.png'
 import { FaUser, FaCertificate } from 'react-icons/fa';
+import {CircularProgressbar} from 'react-circular-progressbar';
+import "react-circular-progressbar/dist/styles.css";
 
 
 const Home = () => {
@@ -17,10 +18,15 @@ const Home = () => {
     const [certificateData, setCertificateData] = useState([]);
     const [certificateData2, setCertificateData2] = useState([]);
     const [certificateData3, setCertificateData3] = useState(0);
-    const [certificateRequests, setCertificateRequests] = useState([]);
     const [studentCount, setStudentCount] = useState(null);
     const [subscriptionCount, setSubscriptionCount] = useState(null);
     const [institutionCount, setInstitutionCount] = useState(null);
+    
+    const [verifiedSubscriptionCount, setVerifiedSubscriptionCount] = useState(null);
+    const [verifiedSubscriptionAverage, setVerifiedSubscriptionAverage] = useState(null);
+    const [expiredSubscriptionCount, setExpiredSubscriptionCount] = useState(null);
+    const [expiredSubscriptionAverage, setExpiredSubscriptionAverage] = useState(null);
+
     
     const api = "http://localhost:3001";
 
@@ -29,17 +35,15 @@ const Home = () => {
 
     const [institutionData, setInstitutionData] = useState('');
 
-    const handleNavigate = () => {
-      navigate('/admin/requestedCertificate')
-    }
-
     useEffect(() => {
   
       axios
-        .get(`${api}/getLatestCertificateRequestsByStatusForAllInstitutions/All`)
+        .get(`${api}/getAverageVerifiedAndExpiredSubscribers`, )
         .then((response) => {
-          setCertificateRequests(response.data);
-          console.log(response.data);
+          setVerifiedSubscriptionCount(response.data.verified);
+          setVerifiedSubscriptionAverage(response.data.averageVerified)
+          setExpiredSubscriptionCount(response.data.expired)
+          setExpiredSubscriptionAverage(response.data.averageExpired)
         })
         .catch((error) => {
           if (error.response && error.response.status === 403) {
@@ -50,6 +54,7 @@ const Home = () => {
           }
         });
     }, []);
+
 
     useEffect(() => {
   
@@ -88,7 +93,6 @@ const Home = () => {
     }, []);
 
     useEffect(() => {
-  
       axios
         .get(`${api}/getTotalInstitutions`, )
         .then((response) => {
@@ -215,9 +219,7 @@ const Home = () => {
     }, []);
 
    
-    
-
-
+  
       const data = [
         {
           name: certificateData.name,
@@ -265,9 +267,6 @@ const Home = () => {
       console.log(data2);
 
 
-      
-
-
   return (
     <main className='main-container-super'>
         <div className='main-title'>
@@ -304,6 +303,8 @@ const Home = () => {
             <h1>{certificateData3.totalCertificates}</h1>
             </motion.div>
 
+
+
             <motion.div className="main-cards-card"
             variants={{
               hidden:{opacity: 0,x: 75},
@@ -329,102 +330,124 @@ const Home = () => {
             }}
             initial="hidden"
             animate="visible"
-            transition={{duration:0.5,delay:0.8}}
+            transition={{duration:0.5,delay:0.4}}
             >
             <div className='card-inner'>
-                <h3> <BsPersonFill style={{marginRight:5}}/>Profile</h3>
-                <h2 className='card-icon'>{institutionData.name}</h2>
+                <h3>Verified <br /> Subscription</h3>
+                <div className='circular-bar-container'>
+                <CircularProgressbar
+                value={verifiedSubscriptionAverage}
+                text={`${verifiedSubscriptionAverage}%`}
+                circleRatio={0.7}
+                
+                styles={{
+                  trail:{
+                    strokeLinecap:"butt",
+                    transform:"rotate(-126deg)",
+                    transformOrigin:"center center",
+                    
+                  },
+                  path:{
+                    strokeLinecap:"butt",
+                    transform:"rotate(-126deg)",
+                    transformOrigin:"center center",
+                    stroke:"#5DD3B3"
+                  },
+                  text:{
+                    fill:"#5DD3B3"
+                  }
+                }}
+                strokeWidth={10}
+                
+                />
+                </div>
             </div>
-            <div className="card-inner">
-            <h2>{institutionData.email}</h2>
-            <h2>{institutionData.location}</h2>
-            </div>
+            <h1>{verifiedSubscriptionCount}</h1>
             </motion.div>
-            
+
+
+
+            <motion.div className="main-cards-card"
+            variants={{
+              hidden:{opacity: 0,x: 75},
+              visible:{opacity: 1,x: 0},
+            }}
+            initial="hidden"
+            animate="visible"
+            transition={{duration:0.5,delay:0.4}}
+            >
+            <div className='card-inner'>
+                <h3>Expired <br /> Subscription</h3>
+                <div className='circular-bar-container'>
+                <CircularProgressbar
+                value={expiredSubscriptionAverage}
+                text={`${expiredSubscriptionAverage}%`}
+                circleRatio={0.7}
+                
+                styles={{
+                  trail:{
+                    strokeLinecap:"butt",
+                    transform:"rotate(-126deg)",
+                    transformOrigin:"center center",
+                    
+                  },
+                  path:{
+                    strokeLinecap:"butt",
+                    transform:"rotate(-126deg)",
+                    transformOrigin:"center center",
+                    stroke:"red"
+                  },
+                  text:{
+                    fill:"red"
+                  }
+                }}
+                strokeWidth={10}
+                
+                />
+                </div>
+            </div>
+            <h1>{expiredSubscriptionCount}</h1>
+            </motion.div>
         </div>
-        {/* End Of Card*/ }
         
-        <div className="charts">
+        
+        <div className="charts-super">
           
-        <ResponsiveContainer className='first-chart' width="100%" height="100%" >
+          <ResponsiveContainer className='first-chart' width="100%" height="100%" >
           {isLoadingData ? <h1>loading</h1>: (
-            < BarChart
+            <BarChart
               width={500}
               height={300}
               data={data} 
               margin={{
                 top: 5,
                 right: 30,
-                left: 20,
+                left: 0,
                 bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
+              }}>
+
+              <XAxis dataKey="name" stroke="#5DD3B3"/>
+              <YAxis  stroke="#5DD3B3"/>
               <Tooltip />
               <Legend />
-              <Bar dataKey="pending" fill="#8884d8" />
-              <Bar dataKey="rejected" fill="#e26031" />
-              <Bar dataKey="approved" fill="#10d74c" />
-              <Bar dataKey="total" fill="#b3d450" />
+              <Bar barSize={100} dataKey="pending" fill="#5D86D3" />
+              <Bar barSize={100} dataKey="rejected" fill="#8E5DFD" />
+              <Bar barSize={100} dataKey="approved" fill="#96B4E3" />
+              <Bar barSize={100} dataKey="total" fill="#2AF39C" />
             </BarChart>
           )}
         </ResponsiveContainer>
-
-        <motion.div className="people-container" 
-        variants={{
-          hidden:{opacity: 0,x: 75},
-          visible:{opacity: 1,x: 0},
-        }}
-        initial="hidden"
-        animate="visible"
-        transition={{duration:0.5,delay:1}}
-        >
-          {certificateRequests.length === 0 ? (
-            <h1>No Requests</h1>
-          ): (
-            <>
-             {certificateRequests.map((item, index) => (
-              <div key={index} className="people-container-profile">
-          
-          <div className='people-container-profile-img'>
-          {item.studentID.profilePicture ? (
-            <img src={`http://localhost:3001/getUserPhoto/${item.studentID._id}/photo`} alt="" />
-          ) : (
-            <img src={defaultImage} alt="Default Profile" />
-          )}          </div>
-          <div className='people-container-profile-content'>
-            <h2>{item.studentID.username}</h2>
-            <h2>{item.studentID.email}</h2>
-          </div>
-          <div className='people-container-profile-requested'>
-            <button onClick={handleNavigate}>View</button>
-          </div>
-        </div>
-             ))}
-          
-        </>
-          )}
         
-        </motion.div>
-
-        <ResponsiveContainer className='second-chart' width="100%" height="100%">
+        <ResponsiveContainer className='second-chart'  width="100%" height="100%" >
         <BarChart  data={data2}>
-        <XAxis dataKey="name" />
-        <YAxis />
+        <XAxis dataKey="name" stroke="#5DD3B3"/>
+        <YAxis stroke="#5DD3B3"/>
         <Tooltip />
         <Legend />
-          <Bar dataKey="total" fill="aqua" />
+        <Bar dataKey="total" barSize={30} fill="#5DD3B3" />
         </BarChart>
-      </ResponsiveContainer>
+        </ResponsiveContainer>
       </div>
-
-
-      
-      
-      
-
 
     </main>
   )

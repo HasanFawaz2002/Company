@@ -23,9 +23,9 @@ function Header({ OpenSidebar, onStatusChange }) {
       <div className="menu-icon">
         <BsJustify className="icon" onClick={OpenSidebar} />
       </div>
-      {isRequestedRoute && (<h2 style={{color:'#5DD3B3',fontFamily:'Core-Heavy'}}>Requested Certificate</h2>)}
-      {iseUploadedRoute && (<h2 style={{color:'#5DD3B3',fontFamily:'Core-Heavy'}}>Uploaded Certificate</h2>)}
-      {isHeaderRoute && (<h2 style={{color:'#5DD3B3',fontFamily:'Core-Heavy'}}>Super Admin Dashboard</h2>)}
+      {isRequestedRoute && (<h2 style={{color:'white',fontFamily:'Core-Bold'}}>Requested Certificates</h2>)}
+      {iseUploadedRoute && (<h2 style={{color:'white',fontFamily:'Core-Bold'}}>Uploaded Certificates</h2>)}
+      {isHeaderRoute && (<h2 style={{color:'white',fontFamily:'Core-Bold'}}>Super Admin Dashboard</h2>)}
 
       <div className="header-left">
         {isRequestedUploadedCertificateRoute && (

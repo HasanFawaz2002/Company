@@ -4,6 +4,8 @@ import "./Resetpassword.css";
 import {useNavigate,useParams} from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye,faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+  import { ToastContainer, toast } from "react-toastify";
+
 
 function Resetpassword() {
 
@@ -32,11 +34,15 @@ function Resetpassword() {
     e.preventDefault();
     setPasswordError("");
     if (!password) {
-      setPasswordError("Password is required.");
+      toast.error("Password is required.",{
+        theme:"black"
+      });
       return;
     }
     if (!validatePassword(password)) {
-      setPasswordError("Please enter a valid password.");
+      toast.error("Please enter a valid password.",{
+        theme:"black"
+      });
       return;
     }
     axios.post(`${api}/reset-password/${id}/${token}`, {password})
@@ -52,6 +58,7 @@ function Resetpassword() {
   return (
     <>
     <div className="zidyiaresetpass-parent">
+      <ToastContainer/>
       <div className="zidyiaresetpass-contentandform">
       <h2 className="zidyiaresetpass-header">Reset Password</h2>
          <p className="zidyiaresetpass-paragone">PLEASE ENTER A NEW PASSWORD</p>   
@@ -63,9 +70,7 @@ function Resetpassword() {
            name="password" placeholder="Enter password"
            id="password" value={password}
             onChange={(e) => setPassword(e.target.value)} />
-         {passwordError && (
-                        <span className="error-message">{passwordError}</span>
-                      )}
+        
         <button type="submit" className="zidyiaresetpass">Send</button>
          
        </form>

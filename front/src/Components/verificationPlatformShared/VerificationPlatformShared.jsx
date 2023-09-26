@@ -12,10 +12,23 @@ const VerificationPlatformShared = () => {
 
   const [scanResult, setScanResult] = useState(null);
   const [manualSerialNumber, setManualSerialNumber] = useState('');
+  const [subscribtion, setSubscribtion] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [newPassword, setNewPassword] = useState('');
+  const [newPasswordRequired, setNewPasswordRequired] = useState(false);
 
   const navigate = useNavigate();
 
   const api = 'http://localhost:3001'
+
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  // Function to close the modal
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
   useEffect(() => {
     // Check for token and role when the component mounts
@@ -26,6 +39,52 @@ const VerificationPlatformShared = () => {
       navigate('/SubscriptionLogin');
     }
   }, [navigate]);
+
+  useEffect(() => {
+    const role = localStorage.getItem('role');
+    const config = {
+      headers: {
+        token: `Bearer ${token}`,
+      },
+    };
+
+    axios.get(`${api}/getSubscriptionById`, config)
+      .then(response => {
+        setSubscribtion(response.data.subscription);
+        console.log(response.data.subscription);
+        if (!response.data.subscription.notified) {
+          openModal(); 
+        }
+        if(response.data.subscription.role !== role){
+          navigate('/SubscriptionLogin');
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching Subscription data:', error);
+      });
+  }, []);
+
+  const updatePassword = async ( password) => {
+    try {
+      // Make a PUT request to update the certificate status with a reason
+      const response = await axios.put(
+        `${api}/updateSubscriptionPassword`,
+        { password }, 
+        {
+          headers: {
+            token: `Bearer ${token}`,
+          },
+      }
+      );
+  
+      if (response.status === 200) {
+        closeModal();
+      }
+    } catch (error) {
+      console.error('Error Updatine Password:', error);
+      // Handle the error (e.g., show an error message to the user)
+    }
+  };
 
   useEffect(() => {
     const scanner = new Html5QrcodeScanner('reader', {
@@ -101,6 +160,7 @@ console.log(subscriberID);
 
     
   return (
+    <>
     <div className='BackgroundVP'>
       <div className='AboveTableHolder'>
           <div className='TitlesWithSearch'>
@@ -218,6 +278,39 @@ console.log(subscriberID);
      </div>
      
     </div>
+
+
+    {showModal && (
+        <div className="modal">
+          
+          <form className="modal-content">
+            <div className="container">
+              <h1 style={{color:'black'}}> Create New Password</h1>
+              
+              <input placeholder='newPassword' className='new-password-input'  value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}/>
+{newPasswordRequired && (
+  <div className="error-message">The New Password is required.</div>
+)}
+              <div className="clearfix">
+                
+                <button type="button" className="deletebtn"  onClick={() => {
+              if (newPassword) {
+                updatePassword(newPassword);
+              }else {
+                // Show the "reason is required" message
+                setNewPasswordRequired(true);
+              }
+             
+            }}>
+                  Submit
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      )}
+    </>
   )
 }
 

@@ -66,7 +66,7 @@ const DropDown = ({ closeMenu,className }) => {
             <li>
               <button onClick={SubscriptionLogin}>
               <FaBuilding  />
-                <span>As a  Subscriber</span>
+                <span>As an  Organization</span>
               </button>
             </li>
             

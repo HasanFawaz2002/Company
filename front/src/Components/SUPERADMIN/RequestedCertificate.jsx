@@ -161,7 +161,7 @@ function RequestedCertificate(props) {
     </span>
     <form className="modal-content">
       <div className="container">
-        <h1>Student Information</h1>
+        <h1 style={{fontFamily:"Core-Bold",color:"#2D3741"}}>This Informations has been obtained from the Request Form</h1>
         {Array.isArray(studentIformation) && (
           studentIformation.map((item, index) => (
             <div key={index} className='user-request-more-information'>

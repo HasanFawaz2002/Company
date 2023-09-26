@@ -118,13 +118,7 @@ const Institutionlogin = () => {
             </div>
           </div>
           {/* {error && <div className="error-message">{error}</div>} */}
-          <div className="Institutecheckboxand-forgot">
-            <p>
-              <Link to="/forgot-password" className="Institute-forgotpass">
-                Forgot password?
-              </Link>
-            </p>
-          </div>
+          
           <input
             className="institutesubmit"
             type="submit"

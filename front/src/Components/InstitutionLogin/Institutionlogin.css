@@ -49,21 +49,24 @@
   width: 100%;
   border: 1px solid #ddd;
   background-color: #2d3741;
-  border-radius: 10px;
+  border-radius: 1.5635rem;
   height: 7vh; /* Increase the height for better touch usability */
   outline: none;
   color: rgb(203, 195, 195);
   box-sizing: border-box; 
+  padding-left: 11px;
 }
 .institute-email{
     width: 100%;
   border: 1px solid #ddd;
   background-color: #2d3741;
-  border-radius: 10px;
+  border-radius: 1.5635rem;
   height: 7vh; /* Increase the height for better touch usability */
   outline: none;
   color: rgb(203, 195, 195);
   box-sizing: border-box; 
+    padding-left: 11px;
+
 }
 
 

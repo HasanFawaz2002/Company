@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye,faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import "./register.css"; 
+  import { ToastContainer, toast } from "react-toastify";
 
 function Register() {
   const navigate = useNavigate();
@@ -63,45 +64,64 @@ function Register() {
 
     // Validate each field and set corresponding error messages
     if (!firstname) {
-      setNameError("First name is required.");
+      toast.error("First name is required.", {
+        theme: "dark",
+      });
       isValid = false;
     }
 
     if (!lastname) {
-      setLastNameError("Last name is required.");
+      toast.error("Last name is required.", {
+        theme: "dark",
+      });
       isValid = false;
     }
 
     if (!ID) {
-        setIDError("Profile Picture is required.");
+        toast.error("Profile Picture is required.", {
+          theme: "dark",
+        });
       isValid = false;
     }
 
     
 
     if (!email) {
-      setEmailError("Email address is required.");
+      toast.error("Email address is required.", {
+        theme: "dark",
+      });
       isValid = false;
     } else if (!validateEmail(email)) {
-      setEmailError("Please enter a valid email address.");
+      toast.error("Please enter a valid email address.", {
+        theme: "dark",
+      });
       isValid = false;
     }
 
     if (!password) {
-      setPasswordError("Password is required.");
+      toast.error("Password is required.", {
+        theme: "dark",
+      });
       isValid = false;
     } else if (!validatePassword(password)) {
-      setPasswordError(
-        "Password must contain at least 8 characters, including one uppercase letter, one special character, and one number."
+      toast.error(
+        "Password must contain at least 8 characters, including one uppercase letter, one special character, and one number.",
+        {
+          theme: "dark",
+        }
       );
       isValid = false;
     }
 
     if (!confirmPassword) {
-      setConfirmPasswordError("Please confirm your password.");
+      toast.error("Please confirm your password.", {
+        theme: "dark",
+      });
       isValid = false;
     } else if (password !== confirmPassword) {
-      setConfirmPasswordError("Passwords do not match.");
+      toast.error("Passwords do not match.", {
+        theme: "dark",
+      });
       isValid = false;
     }
 
@@ -126,7 +146,9 @@ function Register() {
             console.log("Backend error response:", data); // Log the backend error response
             if (data.error === "Email already registered") {
               console.log("Email already registered");
-              setregisterError('"Email address is already registered."');
+              toast.error("Email address is already registered.", {
+                theme: "dark",
+              });
             } else {
               console.error("Registration failed:", error);
             }
@@ -139,62 +161,69 @@ function Register() {
 
   return (
     <section className="register">
+      <ToastContainer />
+
       <div className="register-container">
         <div className="register-content">
           <h2 className="register-center auth-header">Create a Wallet</h2>
-          <p className="register-center auth-par">
-            Already have one?
-          </p>
+          <p className="register-center auth-par">Already have one?</p>
           <form onSubmit={handleregister}>
-            <label className="registerlabel">First Name <span className="star">*</span></label>
-              <input
-                type="text"
-                name="firstname"
-                placeholder="First Name"
-                id="firstname"
-                value={firstname}
-                onChange={(e) => setrFirstname(e.target.value)}
-              />
-              <div className="flexdirect">
+            <label className="registerlabel">
+              First Name <span className="star">*</span>
+            </label>
+            <input
+              type="text"
+              name="firstname"
+              placeholder="First Name"
+              id="firstname"
+              value={firstname}
+              onChange={(e) => setrFirstname(e.target.value)}
+            />
+            <div className="flexdirect">
               {nameError && (
                 <span className="error-firstname-notify">{nameError}</span>
               )}
-              <label className="registerlabel">Last Name <span className="star">*</span></label>
-              </div>
-              
-              <input
-                type="text"
-                name="lastname"
-                placeholder="Last Name"
-                id="lastname"
-                className="left"
-                value={lastname}
-                onChange={(e) => setLastname(e.target.value)}
-              />    
-              <div className="flexdirect">       
-              {lastNameError && (
-                <span className="error-lastname-notify">{lastNameError}</span>
-              )}
-          
-          <label className="registerlabel">Student ID <span className="star">*</span></label>
-          </div>   
-              <input
-                type="file"
-                name="ID"
-                accept="image/*"
-                id="profilePicture"
-                placeholder="ID Picture"
-                onChange={(e) => setID(e.target.files[0])}
-                />
+              <label className="registerlabel">
+                Last Name <span className="star">*</span>
+              </label>
+            </div>
 
-          <div className="flexdirect">  
-              {IDError && (
+            <input
+              type="text"
+              name="lastname"
+              placeholder="Last Name"
+              id="lastname"
+              className="left"
+              value={lastname}
+              onChange={(e) => setLastname(e.target.value)}
+            />
+            <div className="flexdirect">
+              {/* {lastNameError && (
+                <span className="error-lastname-notify">{lastNameError}</span>
+              )} */}
+
+              <label className="registerlabel">
+                Student ID <span className="star">*</span>
+              </label>
+            </div>
+            <input
+              type="file"
+              name="ID"
+              accept="image/*"
+              id="profilePicture"
+              placeholder="ID Picture"
+              onChange={(e) => setID(e.target.files[0])}
+            />
+
+            <div className="flexdirect">
+              {/* {IDError && (
                 <span className="error-studentid-notify">{IDError}</span>
-              )}
-              
-         
-              <label className="registerlabel">Email <span className="star">*</span></label>
-              </div>
+              )} */}
+
+              <label className="registerlabel">
+                Email <span className="star">*</span>
+              </label>
+            </div>
             <input
               type="text"
               name="email"
@@ -202,50 +231,54 @@ function Register() {
               placeholder="Email Address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              />
-                <div className="flexdirect">  
-            {emailError && (
-              <span className="error-email-notify">{emailError}</span>
-            )}
-              <label className="registerlabel">Password <span className="star">*</span></label>
-              </div>
-            <div className="password">
-            <input
-              type={showPassword ? "text" : "password"} 
-              name="password"
-              id="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              />
-            <FontAwesomeIcon
-               icon={showPassword ? faEyeSlash : faEye} 
-               className="fa-eye"
-               onClick={togglePasswordVisibility}
             />
+            <div className="flexdirect">
+              {/* {emailError && (
+                <span className="error-email-notify">{emailError}</span>
+              )} */}
+              <label className="registerlabel">
+                Password <span className="star">*</span>
+              </label>
             </div>
-            <div className="flexdirect">  
-            {passwordError && (
-              <span className="error-password-notify">{passwordError}</span>
-            )}
-              <label className="registerlabel">Confirm Password <span className="star">*</span></label>
-              </div>
-          <div className="password">
-          <input
-                  type={showConfirmPassword ? "text" : "password"} 
-              name="confirmPassword"
-              id="confirmPassword"
-              placeholder="Confirm Password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+            <div className="password">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                id="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <FontAwesomeIcon
-          icon={showConfirmPassword ? faEyeSlash : faEye} // Toggle eye icon based on showConfirmPassword state
-          className="fa-eye"
-          onClick={toggleConfirmPasswordVisibility}
-        />
-          </div>
-           
+                icon={showPassword ? faEyeSlash : faEye}
+                className="fa-eye"
+                onClick={togglePasswordVisibility}
+              />
+            </div>
+            <div className="flexdirect">
+              {passwordError && (
+                <span className="error-password-notify">{passwordError}</span>
+              )}
+              <label className="registerlabel">
+                Confirm Password <span className="star">*</span>
+              </label>
+            </div>
+            <div className="password">
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                name="confirmPassword"
+                id="confirmPassword"
+                placeholder="Confirm Password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+              <FontAwesomeIcon
+                icon={showConfirmPassword ? faEyeSlash : faEye} // Toggle eye icon based on showConfirmPassword state
+                className="fa-eye"
+                onClick={toggleConfirmPasswordVisibility}
+              />
+            </div>
+
             {confirmPasswordError && (
               <span className="error-confirmpassword-notify">
                 {confirmPasswordError}
@@ -257,10 +290,10 @@ function Register() {
                 create a wallet
               </button>
             </div>
-           
-            {registerError && (
+
+            {/* {registerError && (
               <span className="error-register-message">{registerError}</span>
-            )}
+            )} */}
           </form>
         </div>
       </div>
