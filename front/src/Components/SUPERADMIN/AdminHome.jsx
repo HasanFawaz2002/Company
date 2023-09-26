@@ -7,7 +7,6 @@ import
  import axios from 'axios';
  import { CirclesWithBar } from 'react-loader-spinner';
  import {motion} from 'framer-motion';
-import defaultImage from '../../images/download.png'
 import { FaUser, FaCertificate } from 'react-icons/fa';
 
 
@@ -17,7 +16,6 @@ const Home = () => {
     const [certificateData, setCertificateData] = useState([]);
     const [certificateData2, setCertificateData2] = useState([]);
     const [certificateData3, setCertificateData3] = useState(0);
-    const [certificateRequests, setCertificateRequests] = useState([]);
     const [studentCount, setStudentCount] = useState(null);
     const [subscriptionCount, setSubscriptionCount] = useState(null);
     const [institutionCount, setInstitutionCount] = useState(null);
@@ -29,27 +27,6 @@ const Home = () => {
 
     const [institutionData, setInstitutionData] = useState('');
 
-    const handleNavigate = () => {
-      navigate('/superadmin/requestedCertificate')
-    }
-
-    useEffect(() => {
-  
-      axios
-        .get(`${api}/getLatestCertificateRequestsByStatusForAllInstitutions/All`)
-        .then((response) => {
-          setCertificateRequests(response.data);
-          console.log(response.data);
-        })
-        .catch((error) => {
-          if (error.response && error.response.status === 403) {
-            console.log('Token is not valid!');
-            navigate('/Institutionlogin');
-          } else {
-            console.error('Error Fetching Data:', error);
-          }
-        });
-    }, []);
 
     useEffect(() => {
   
@@ -88,7 +65,6 @@ const Home = () => {
     }, []);
 
     useEffect(() => {
-  
       axios
         .get(`${api}/getTotalInstitutions`, )
         .then((response) => {
@@ -215,9 +191,7 @@ const Home = () => {
     }, []);
 
    
-    
-
-
+  
       const data = [
         {
           name: certificateData.name,
@@ -263,9 +237,6 @@ const Home = () => {
       ]
 
       console.log(data2);
-
-
-      
 
 
   return (
@@ -339,16 +310,15 @@ const Home = () => {
             <h2>{institutionData.email}</h2>
             <h2>{institutionData.location}</h2>
             </div>
-            </motion.div>
-            
+            </motion.div>   
         </div>
-        {/* End Of Card*/ }
+        
         
         <div className="charts">
           
-        <ResponsiveContainer className='first-chart' width="100%" height="100%" >
+          <ResponsiveContainer className='first-chart' width="100%" height="100%" >
           {isLoadingData ? <h1>loading</h1>: (
-            < BarChart
+            <BarChart
               width={500}
               height={300}
               data={data} 
@@ -357,74 +327,30 @@ const Home = () => {
                 right: 30,
                 left: 20,
                 bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
+              }}>
+
+              <XAxis dataKey="name" stroke="#5DD3B3"/>
+              <YAxis  stroke="#5DD3B3"/>
               <Tooltip />
               <Legend />
-              <Bar dataKey="pending" fill="#8884d8" />
-              <Bar dataKey="rejected" fill="#e26031" />
-              <Bar dataKey="approved" fill="#10d74c" />
-              <Bar dataKey="total" fill="#b3d450" />
+              <Bar barSize={100} dataKey="pending" fill="#5D86D3" />
+              <Bar barSize={100} dataKey="rejected" fill="#8E5DFD" />
+              <Bar barSize={100} dataKey="approved" fill="#96B4E3" />
+              <Bar barSize={100} dataKey="total" fill="#2AF39C" />
             </BarChart>
           )}
         </ResponsiveContainer>
-
-        <motion.div className="people-container" 
-        variants={{
-          hidden:{opacity: 0,x: 75},
-          visible:{opacity: 1,x: 0},
-        }}
-        initial="hidden"
-        animate="visible"
-        transition={{duration:0.5,delay:1}}
-        >
-          {certificateRequests.length === 0 ? (
-            <h1>No Requests</h1>
-          ): (
-            <>
-             {certificateRequests.map((item, index) => (
-              <div key={index} className="people-container-profile">
-          
-          <div className='people-container-profile-img'>
-          {item.studentID.profilePicture ? (
-            <img src={`http://localhost:3001/getUserPhoto/${item.studentID._id}/photo`} alt="" />
-          ) : (
-            <img src={defaultImage} alt="Default Profile" />
-          )}          </div>
-          <div className='people-container-profile-content'>
-            <h2>{item.studentID.username}</h2>
-            <h2>{item.studentID.email}</h2>
-          </div>
-          <div className='people-container-profile-requested'>
-            <button onClick={handleNavigate}>View</button>
-          </div>
-        </div>
-             ))}
-          
-        </>
-          )}
         
-        </motion.div>
-
-        <ResponsiveContainer className='second-chart' width="100%" height="100%">
+        <ResponsiveContainer className='second-chart'  width="100%" height="100%" >
         <BarChart  data={data2}>
-        <XAxis dataKey="name" />
-        <YAxis />
+        <XAxis dataKey="name" stroke="#5DD3B3"/>
+        <YAxis stroke="#5DD3B3"/>
         <Tooltip />
         <Legend />
-          <Bar dataKey="total" fill="aqua" />
+        <Bar dataKey="total" barSize={30} fill="#5DD3B3" />
         </BarChart>
-      </ResponsiveContainer>
+        </ResponsiveContainer>
       </div>
-
-
-      
-      
-      
-
 
     </main>
   )

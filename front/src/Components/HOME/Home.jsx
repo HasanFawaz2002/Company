@@ -29,6 +29,7 @@ const Home = () => {
     return(
         <>
         <div className="landpage">
+            
             <div className="box1"></div>
             <div className="box2">
                 <div className="landpage-text">
@@ -36,6 +37,7 @@ const Home = () => {
                 </div>
                 <div className="landpage-subheading">
                     <h2>Explore Our Services</h2>
+                    
                 </div>
                 <div className="landpage-btn-container">
                 <button onClick={registerNavigate}>Get Started</button>

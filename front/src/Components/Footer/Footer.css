@@ -88,6 +88,7 @@ footer{
 @media screen and (max-width: 768px) {
     footer {
         padding: 10px;
+        padding-left: 25px;
     }
      .footer-container:nth-child(1){
         grid-column: 1 / span 4;

@@ -138,7 +138,7 @@ function AllInstitutions() {
             console.error("Error fetching institutions by location:", error);
             setInstitutions([]); // Handle the error, e.g., set institutions to an empty array
           });
-      });
+      }, [selectedLocation]);
 
       const handleLocationChange = (e) => {
         const newLocation = e.target.value;

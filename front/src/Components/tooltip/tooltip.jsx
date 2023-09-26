@@ -1,9 +1,9 @@
 import "./tooltip.css"
 
-const Tooltip = ({ text, children }) => {
+const Tooltip = ({ text, children,margin }) => {
   return (
     <div className="tooltip-container">
-      <div className="tooltip">
+      <div style={{marginLeft:margin}} className="tooltip">
         {text}
       </div>
       {children}
