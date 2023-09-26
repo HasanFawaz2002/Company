@@ -7,6 +7,7 @@ import {
   BsFileEarmarkText,
   BsFileEarmarkCheck,
   BsBoxArrowLeft,
+  BsPeopleFill
 } from 'react-icons/bs';
 import logo from '../../images/logo.png';
 import { useNavigate } from 'react-router-dom';
@@ -71,6 +72,13 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
         <li className='sidebar-list-item'>
         <Tooltip margin={15} text="Uploads">
             <BsFileEarmarkCheck className='icon' /> 
+            </Tooltip>
+        </li>
+        </NavLink>
+        <NavLink to="/superadmin/ViewAllUsers" onClick={closeSidebar}>
+        <li className='sidebar-list-item'>
+        <Tooltip margin={15} text="Users">
+            <BsPeopleFill className='icon' /> 
             </Tooltip>
         </li>
         </NavLink>
