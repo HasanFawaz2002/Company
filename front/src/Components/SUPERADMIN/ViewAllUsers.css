@@ -1,17 +1,19 @@
 .tableparent{
-   width: 100%;
-   grid-area: main;
-   background-color: #2D3741;
+    grid-area: main;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color:#2D3741; 
    
 }
 
 .content-table {
 
     border-collapse: collapse;
-    margin-left: 180px;
     margin-top: 50px;
     font-size: 0.9em;
-    width: 70%;
+    width: 85%;
     border-radius: 5px 5px 0 0;
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
@@ -118,3 +120,36 @@
         background-color: green;
     }
 
+
+    @media (max-width:480px) {
+    
+        .content-table {
+            border-collapse: collapse;
+            margin: 100px 0px;
+            font-size: 0;
+            width: 25%;
+            border-radius: 5px 5px 0 0;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+        .content-table tbody tr {
+            font-size: 12px;
+        }
+        .content-table th{
+            font-size: 12px;
+        }
+        .content-table th,
+        .content-table td {
+            padding: 2px 2px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+            border: 1px solid #888;
+            width: 65%; /* Could be more or less, depending on screen size */
+            border-radius: 10px;
+          }
+          .cancelbtn, .blockbtn,.unblokbtn{
+            width:fit-content;
+          }
+      }
