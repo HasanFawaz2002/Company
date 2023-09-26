@@ -9,6 +9,7 @@
   background-color: transparent;
   font-size: 14px;
   color: #5dd3b3;
+  font-family: 'CORE';
 }
 
 
@@ -21,7 +22,7 @@
   background-color: transparent;
 } */
 .about-us{
- 
+  font-family: 'CORE';
  width: 100%
 }
 

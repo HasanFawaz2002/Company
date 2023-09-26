@@ -1,6 +1,7 @@
 .MyProfile-parent{
     background-color: #2D3741;
     min-height: 100vh;
+    font-family: "CORE-BOLD";
 }
 .MyProfile-container{
     display: flex;
