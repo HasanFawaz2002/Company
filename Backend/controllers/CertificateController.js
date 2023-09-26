@@ -288,7 +288,7 @@ const getStudentAverageForInstitution = async (req, res) => {
     }
 
     // Calculate the average
-    const average = (totalStudentCountForInstitution / totalStudentsInSystem) * 100;
+    const average = ((totalStudentCountForInstitution / totalStudentsInSystem) * 100).toFixed(1);
 
     res.status(200).json({ average });
   } catch (error) {
