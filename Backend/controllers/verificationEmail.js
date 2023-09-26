@@ -8,7 +8,9 @@ const emailVerification = async (email,subject,text) => {
             auth: {
                 user: process.env.EMAILUSER,
                 pass: process.env.EMAILPASS
-            }
+            }, tls: {
+        rejectUnauthorized: false
+    }
         });
 
         const mailOptions = {

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./forgotpassword.css"; 
 import {useNavigate} from "react-router-dom";
+  import { ToastContainer, toast } from "react-toastify";
+
 
 
 function Forgotpassword() {
@@ -20,11 +22,15 @@ function Forgotpassword() {
     e.preventDefault();
     setEmailError("");
     if (!email) {
-      setEmailError("Email adress is required.");
+      toast.error("Email adress is required.",{
+        theme:"dark"
+      });
       return;
     }
     if (!validateEmail(email)) {
-      setEmailError("Please enter a valid email address.");
+      toast.error("Please enter a valid email address.",{
+        theme:"dark"
+      });
       return;
     }
     
@@ -50,15 +56,16 @@ function Forgotpassword() {
   return (
    <>
    <div className="zidyiaforgotpass-parent">
+    <ToastContainer/>
      <div className="zidyiaforgotpass-contentandform">
      <h2 className="zidyiaforgotpass-header">Forgot Password</h2>
         <p className="zidyiaforgotpass-paragone">PLEASE ENTER YOUR EMAIL TO RESET YOUR PASSWORD</p>   
       <form className="zidyiaforgotpass-frogotform" onSubmit={handleforgot}>
                
         <input type="text" name="email" placeholder="Email Address"  className="zidyiaforgotpass-input" id="email" value={email}    onChange={(e) => setEmail(e.target.value)} />
-            {emailError && (
+            {/* {emailError && (
               <span className="error-message">{emailError}</span>
-            )}
+            )} */}
        <button type="submit" className="zidyiaforgotpass">Send</button>
         
       </form>
