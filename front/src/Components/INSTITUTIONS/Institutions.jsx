@@ -68,11 +68,11 @@ function Institutions() {
       </section>
 
       <div className="institutions-container">
-        <h1 style={{color:"black"}}>Interact with Our Institutions</h1>
+        <h1 style={{color:"#2D3741"}}>Interact with Our Institutions</h1>
         <div className="aboutus-section-institution">
           <div className="aboutus-section-content2">
             <div className="aboutus-section-content2-left">
-              <h1 style={{color:"black"}}>Empowering Institutions</h1>
+              <h1 style={{color:"#2D3741"}}>Empowering Institutions</h1>
               <p>
               At Zidyia Passport, we are dedicated to empowering institutions with cutting-edge certificate management solutions. We believe in simplicity, security, and efficiency.
 
