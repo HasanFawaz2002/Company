@@ -297,10 +297,15 @@ const updateuploadCertificateStatusToVerified = async (req, res) => {
     const { requestID } = req.params;
     const institutionID = req.user.institution.id;
 
+    const credentialUrl = `/CredentialUrl/${requestID}`;
+
     // Find the certificate request by ID, institution ID, and update its status
     const updatedRequest = await CertificateUpload.findOneAndUpdate(
       { _id: requestID, institutionID },
-      { status: 'Approved' },
+      { 
+        status: 'Approved',
+        credentialUrl: credentialUrl
+      },
       { new: true } // To get the updated document
     );
 

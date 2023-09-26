@@ -46,6 +46,9 @@ const CertificateUploadSchema = new mongoose.Schema({
     },
     reason:{
         type:String,
+       },
+       credentialUrl:{
+        type:String
        }
   
 },{ timestamps: true },);

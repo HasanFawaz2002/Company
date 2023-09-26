@@ -111,10 +111,16 @@ const createCertificateRequest = async (req, res) => {
       const { requestID } = req.params;
       const institutionID = req.user.institution.id;
   
-      // Find the certificate request by ID, institution ID, and update its status
+      // Construct the credentialUrl based on the requestID
+      const credentialUrl = `/CredentialUrl/${requestID}`;
+  
+      // Find the certificate request by ID, institution ID, and update its status and credentialUrl
       const updatedRequest = await CertificateRequest.findOneAndUpdate(
         { _id: requestID, institutionID },
-        { status: 'Approved' },
+        { 
+          status: 'Approved',
+          credentialUrl: credentialUrl
+        },
         { new: true } // To get the updated document
       );
   
@@ -122,7 +128,7 @@ const createCertificateRequest = async (req, res) => {
         return res.status(404).json({ message: 'Certificate request not found or unauthorized.' });
       }
   
-      res.status(200).json({ message: 'Certificate request status updated to verified.' });
+      res.status(200).json({ message: 'Certificate request status and credentialUrl updated to verified.' });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Internal server error' });
