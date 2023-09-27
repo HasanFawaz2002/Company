@@ -12,8 +12,8 @@
 
     border-collapse: collapse;
     margin-top: 50px;
-    font-size: 0.9em;
-    width: 85%;
+    font-size: x-large;
+    width: 95%;
     border-radius: 5px 5px 0 0;
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
@@ -29,7 +29,7 @@
 
 .content-table th,
 .content-table td {
-    padding: 12px 15px;
+    padding: 12px 12px;
 }
 .content-table td{
     text-align: center;
@@ -42,13 +42,16 @@
 .content-table tbody tr {
     background-color: #f3f3f3;
 }
+.content-table tbody tr:nth-child(even) {
+    background-color: #e1e0e0;
+}
 
 .content-table tbody tr:last-of-type {
     border-bottom: 4px solid #5DD3B3;
 }
 .blockicon{
     color:red;
-    font-size: 20px;
+    font-size: 28px;
 }
 .blockicon:hover{
    cursor: pointer;
@@ -113,7 +116,7 @@
     }
     .unblockicon{
         color:green;
-        font-size: 25px;
+        font-size: 35px;
         cursor: pointer;
     }
     .unblokbtn{
@@ -138,6 +141,7 @@
         }
         .content-table th{
             font-size: 12px;
+            height: 35px;
         }
         .content-table th,
         .content-table td {
@@ -153,4 +157,12 @@
           .cancelbtn, .blockbtn,.unblokbtn{
             width:fit-content;
           }
+          .blockicon{
+            
+            font-size: 20px;
+        }
+        .unblockicon{
+         
+            font-size: 25px;
+        }
       }

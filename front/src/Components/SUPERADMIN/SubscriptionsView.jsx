@@ -68,7 +68,7 @@ function SubscriptionsView() {
               <td>{subscription.name}</td>
               <td>{subscription.email}</td>
               <td>{subscription.location}</td>
-              <td style={{ color: subscription.status === "verified" ? "#5DD3B3" : "red" }}>
+              <td style={{ color: subscription.status === "verified" ? "green" : "red" }}>
                 {subscription.status}
                 {subscription.status === 'expired' && <FaSyncAlt onClick={() => {
                     setSelectedSubscriptionId(subscription._id);
