@@ -4,6 +4,7 @@
     position: absolute;
     top: 5%;
     overflow: hidden;
+    overflow-x: hidden;
     }
     .landpage2{
         width: 100%;
