@@ -17,6 +17,7 @@ function LogintoZidyia(){
   const [emailError, setEmailError] = useState("");
   const [passworderror, setpasswordError] = useState("");
   const[loginError,setloginError]= useState("");
+  
 
   const [showPassword, setShowPassword] = useState(false);
   
@@ -68,7 +69,9 @@ function LogintoZidyia(){
     }
 
     if (!contact.password) {
-      setpasswordError("Password is required.");
+      toast.error("Password is required.", {
+        theme: "dark",
+      });
       isValid = false;
     } else if (!validatePassword(contact.password)) {
       toast.error("Password must contain at least 8 characters, including one uppercase letter, one special character, and one number.",{
