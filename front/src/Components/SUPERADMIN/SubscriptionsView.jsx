@@ -52,7 +52,6 @@ function SubscriptionsView() {
     <>
     
     <div className='SubscriptionsView-container'>
-    <h1 className='SubscriptionsView-header'>Our Subscribers</h1>
       <table className='SubscriptionsView-container-table'>
         <thead>
           <tr>

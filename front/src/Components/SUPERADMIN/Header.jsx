@@ -11,6 +11,8 @@ function Header({ OpenSidebar, onStatusChange }) {
   const isRequestedUploadedCertificateRoute = location.pathname === '/superadmin/RequestedCertificate' || location.pathname === '/superadmin/UploadedCertificate';
   const isRequestedRoute = location.pathname  === '/superadmin/RequestedCertificate';
   const iseUploadedRoute = location.pathname === '/superadmin/UploadedCertificate';
+  const isSubscriptionRoute = location.pathname === '/superadmin/SubscriptionsView';
+  const isUsersRoute = location.pathname === '/superadmin/ViewAllUsers';
   const isHeaderRoute = location.pathname === '/superadmin' || location.pathname === '/superadmin/CreateInstitutionForm' || location.pathname === '/superadmin/CreateSubscription';
   const handleStatusChange = (event) => {
     setSelectedStatus(event.target.value);
@@ -26,6 +28,8 @@ function Header({ OpenSidebar, onStatusChange }) {
       {isRequestedRoute && (<h2 style={{color:'white',fontFamily:'Core-Bold'}}>Requested Certificates</h2>)}
       {iseUploadedRoute && (<h2 style={{color:'white',fontFamily:'Core-Bold'}}>Uploaded Certificates</h2>)}
       {isHeaderRoute && (<h2 style={{color:'white',fontFamily:'Core-Bold'}}>Super Admin Dashboard</h2>)}
+      {isSubscriptionRoute && (<h2 style={{color:'white',fontFamily:'Core-Bold'}}>Our Subscriptions</h2>)}
+      {isUsersRoute && (<h2 style={{color:'white',fontFamily:'Core-Bold'}}>Our Users</h2>)}
 
       <div className="header-left">
         {isRequestedUploadedCertificateRoute && (
