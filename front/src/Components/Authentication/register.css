@@ -19,6 +19,10 @@
     padding: 30px 50px;
     border-radius: 20px;
 }
+.linktologin{
+color:#5DD3B3;
+text-decoration: none;
+}
  .register-content input{
     width: 96% !important;
     border: 1px solid #ddd;

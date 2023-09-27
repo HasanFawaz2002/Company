@@ -171,7 +171,12 @@ function Register() {
       <div className="register-container">
         <div className="register-content">
           <h2 className="register-center auth-header">Create a Wallet</h2>
-          <p className="register-center auth-par">Already have one?</p>
+          <p className="register-center auth-par">Already have one? <Link
+                    to="/login"
+                    className="linktologin"
+                  >
+                    Login
+                  </Link></p>
           <form onSubmit={handleregister}>
             <label className="registerlabel">
               First Name <span className="star">*</span>
