@@ -63,47 +63,52 @@ function Register() {
     let isValid = true;
 
     // Validate each field and set corresponding error messages
-    if (!firstname) {
-      toast.error("First name is required.", {
-        theme: "dark",
-      });
-      isValid = false;
-    }
+    // if (!firstname) {
+    //   toast.error("First name is required.", {
+    //     theme: "dark",
+    //   });
+    //   isValid = false;
+    // }
 
-    if (!lastname) {
-      toast.error("Last name is required.", {
-        theme: "dark",
-      });
-      isValid = false;
-    }
+    // if (!lastname) {
+    //   toast.error("Last name is required.", {
+    //     theme: "dark",
+    //   });
+    //   isValid = false;
+    // }
 
-    if (!ID) {
-        toast.error("Profile Picture is required.", {
-          theme: "dark",
-        });
-      isValid = false;
-    }
+    // if (!ID) {
+    //     toast.error("Profile Picture is required.", {
+    //       theme: "dark",
+    //     });
+    //   isValid = false;
+    // }
 
     
 
-    if (!email) {
-      toast.error("Email address is required.", {
-        theme: "dark",
-      });
-      isValid = false;
-    } else if (!validateEmail(email)) {
+    // if (!email) {
+    //   toast.error("Email address is required.", {
+    //     theme: "dark",
+    //   });
+    //   isValid = false;
+    if (!firstname || !lastname || !ID || !email || !password) {
+  toast.error("All fields are required.", {
+    theme: "dark",
+  });
+  isValid = false;
+} else if (!validateEmail(email)) {
       toast.error("Please enter a valid email address.", {
         theme: "dark",
       });
       isValid = false;
     }
 
-    if (!password) {
-      toast.error("Password is required.", {
-        theme: "dark",
-      });
-      isValid = false;
-    } else if (!validatePassword(password)) {
+    // if (!password) {
+    //   toast.error("Password is required.", {
+    //     theme: "dark",
+    //   });
+    //   isValid = false;
+      else if (!validatePassword(password)) {
       toast.error(
         "Password must contain at least 8 characters, including one uppercase letter, one special character, and one number.",
         {
@@ -113,12 +118,12 @@ function Register() {
       isValid = false;
     }
 
-    if (!confirmPassword) {
-      toast.error("Please confirm your password.", {
-        theme: "dark",
-      });
-      isValid = false;
-    } else if (password !== confirmPassword) {
+    // if (!confirmPassword) {
+    //   toast.error("Please confirm your password.", {
+    //     theme: "dark",
+    //   });
+    //   isValid = false;
+      else if (password !== confirmPassword) {
       toast.error("Passwords do not match.", {
         theme: "dark",
       });
