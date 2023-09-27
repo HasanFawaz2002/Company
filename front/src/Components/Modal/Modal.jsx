@@ -247,7 +247,8 @@ const Modal = ({onClose, onSave,organizationId}) => {
   alt={`${certificateRequest.certificateID.id}`}
 />
 <div>
-{certificateRequest.certificateID.name}: {certificateRequest.certificateID.description} 
+{certificateRequest.certificateID.name}
+ {/* {certificateRequest.certificateID.description}  */}
 </div>
 <button onClick={() => {
   handleShareRequested(certificateRequest._id);
