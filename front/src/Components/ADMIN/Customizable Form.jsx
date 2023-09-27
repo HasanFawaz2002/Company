@@ -3,6 +3,8 @@ import axios from 'axios';
 import './Customizable Form.css';
 import { useNavigate } from 'react-router-dom';
 import {motion} from 'framer-motion';
+import { ToastContainer, toast } from "react-toastify";
+
 
 
 const CustomizableForm = () => {
@@ -100,7 +102,7 @@ const CustomizableForm = () => {
       const isNameEmpty = formFields.some((field) => field.fieldName.trim() === '');
   
       if (isNameEmpty) {
-        setNameError('Please fill in all field names.');
+        toast.error('Please fill in all field names.');
         return;
       }
   
@@ -169,6 +171,7 @@ const CustomizableForm = () => {
     return (
       <>
         <div className="customizable-form-container">
+          <ToastContainer theme="dark"/>
         
           <div className="customizable-form-container-header">
             {fetchedFormData ? <h1>Your Request Form</h1> : <h1>Add Your Request Form</h1>}

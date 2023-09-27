@@ -45,14 +45,14 @@ function CertificateRequest() {
           setFetchedFormData(response.data.customizableForm.fields);
           setFormID(response.data.customizableForm._id);
         } else if (response.status === 404) {
-          setErrorMessage('There is no form for this institution');
+          toast.error('There is no form for this institution');
         } else {
           console.error('Error fetching form data:', response.status);
           setErrorMessage('There is no form for this institution');
         }
       } catch (error) {
         console.error('Error Fetching Data:', error);
-        setErrorMessage('There is no form for this institution');
+        toast.error('There is no form for this institution');
       }
     };
 
@@ -124,7 +124,7 @@ function CertificateRequest() {
     const token = localStorage.getItem('access_token');
   
     if (!selectedCertificateID) {
-      setErrorMessage('Please select a certificate.');
+      toast.error('Please select a certificate.');
       return;
     }
   
@@ -134,7 +134,7 @@ function CertificateRequest() {
     );
   
     if (missingFields.length > 0) {
-      setErrorMessage('Please fill out all required fields.');
+      toast.error('Please fill out all required fields.');
       return;
     }
     if(isblocked === "true"){

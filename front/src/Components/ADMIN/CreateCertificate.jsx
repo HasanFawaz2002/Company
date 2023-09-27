@@ -47,15 +47,15 @@ function CreateCertificate() {
     let isValid=true;
 
     if (!name) {
-      setnameError("Certificate name is required.");
+      toast.error("Certificate name is required.");
         isValid=false;
     }
     if (!description) {
-      setdescriptionError("Description is required.");
+      toast.error("Description is required.");
       isValid = false;
     } 
     if (!image) {
-        setimageError("Image is required.");
+        toast.error("Image is required.");
         isValid = false;
       } 
 
@@ -108,7 +108,7 @@ rtl={false}
 pauseOnFocusLoss
 draggable
 pauseOnHover
-theme="colored"
+theme="dark"
 />
         <div className="createcertificate-admin-contentWithform">
         <h1 className="createcertificate-admin-headone">Create Certificate</h1>
