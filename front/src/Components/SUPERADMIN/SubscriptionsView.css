@@ -18,27 +18,34 @@
     width: 95%;
     text-align: center;
     border-collapse: collapse;
+   
+    
+}
+.SubscriptionsView-container-table tbody tr:last-of-type {
+    border-bottom: 4px solid #5DD3B3;
 }
 .SubscriptionsView-container-table thead th{
     height: 40px;
     font-size: x-large;
-    background: var(--background-card, linear-gradient(180deg, #415160 0%, #293440 100%));
-    color: #5DD3B3;
+    background: #5DD3B3;
+    color: white;
+    padding: 12px 12px;
+   
 }
 .SubscriptionsView-container-table tr td{
     height: 40px;
     text-align: center;
     font-size: x-large;
     border: 1px solid lightgray;
-    color: white;
+    padding: 12px 12px;
 }
 
 .SubscriptionsView-container-table tr:nth-child(2n){
-    background-color: #526d89;
+    background-color: #e1e0e0;
 }
 
 .SubscriptionsView-container-table tr:nth-child(2n+1){
-    background-color: #3f4851;
+    background-color: #f3f3f3;
 }
 
 .renew-icon{
