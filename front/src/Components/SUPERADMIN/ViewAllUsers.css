@@ -141,6 +141,7 @@
         }
         .content-table th{
             font-size: 12px;
+            height: 35px;
         }
         .content-table th,
         .content-table td {
@@ -156,4 +157,12 @@
           .cancelbtn, .blockbtn,.unblokbtn{
             width:fit-content;
           }
+          .blockicon{
+            
+            font-size: 20px;
+        }
+        .unblockicon{
+         
+            font-size: 25px;
+        }
       }
