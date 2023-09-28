@@ -3,7 +3,7 @@ const {createsubscription,getAllSubscriptions,getSubscriptionById,updateSubscrip
     ,updateSubscriptionStatusToVerified,loginSubscription,getTotalSubscribers,
     getAverageVerifiedAndExpiredSubscribers
 } = require('../controllers/SubscriptionController');
-const verify = require('../controllers/verifytoken');
+const verify = require('../Controllers/verifytoken');
 
 
 
