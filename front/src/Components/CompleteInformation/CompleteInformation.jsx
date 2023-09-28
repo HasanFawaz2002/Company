@@ -8,7 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 function CompleteInformation(){
 
     const navigate = useNavigate();
-  const api = "http://localhost:3001";
+    const api = 'https://zidyia-passport.onrender.com';
   const[profilePicture,setProfile]=useState("");
   const[location,setLocation]=useState("");
   const[bio,setBio]=useState("");

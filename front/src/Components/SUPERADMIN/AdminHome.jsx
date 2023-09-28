@@ -28,7 +28,7 @@ const Home = () => {
     const [expiredSubscriptionAverage, setExpiredSubscriptionAverage] = useState(null);
 
     
-    const api = "http://localhost:3001";
+    const api = 'https://zidyia-passport.onrender.com';
 
  
     const navigate = useNavigate();

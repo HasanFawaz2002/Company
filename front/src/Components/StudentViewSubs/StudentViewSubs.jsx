@@ -23,7 +23,7 @@ const [filterInput, setFilterInput] = useState('');
 const [isModalVisible, setIsModalVisible] = useState(false);
 const [selectedOrganizationId, setSelectedOrganizationId] = useState(null);
 
-const api = "http://localhost:3001";
+const api = 'https://zidyia-passport.onrender.com';
 
 
 

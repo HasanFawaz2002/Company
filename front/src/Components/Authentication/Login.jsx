@@ -9,7 +9,7 @@ import { faEye,faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 function LogintoZidyia(){
     const navigate = useNavigate();
-  const api = "http://localhost:3001";
+    const api = 'https://zidyia-passport.onrender.com';
   const [contact, setContact] = useState({
     email: "",
     password: ""

@@ -8,7 +8,7 @@ import {useNavigate} from "react-router-dom";
 
 function Forgotpassword() {
   const navigate = useNavigate();
-  const api = "http://localhost:3001";
+  const api = 'https://zidyia-passport.onrender.com';
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   

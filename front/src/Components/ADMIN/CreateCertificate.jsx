@@ -7,7 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 function CreateCertificate() {
   const navigate = useNavigate();
-  const api = "http://localhost:3001";
+  const api = 'https://zidyia-passport.onrender.com';
   const[name,setName]=useState("");
   const[description,setDescription]=useState("");
   const[image,setImage]=useState("");

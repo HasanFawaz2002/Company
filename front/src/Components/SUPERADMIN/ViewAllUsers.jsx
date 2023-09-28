@@ -9,7 +9,7 @@ function ViewAllUsers() {
   const [showBlockModal, setShowBlockModal] = useState(false);
   const [showUnblockModal, setShowUnblockModal] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState(null);
-  const api= "http://localhost:3001";
+  const api = 'https://zidyia-passport.onrender.com';
 
   useEffect(() => {
     const fetchUsers = async () => {

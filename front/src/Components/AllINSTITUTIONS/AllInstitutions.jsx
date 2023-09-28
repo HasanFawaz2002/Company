@@ -21,7 +21,7 @@ function AllInstitutions() {
     const [locations, setLocations] = useState([]);
     const [selectedLocation, setSelectedLocation] = useState("All"); 
 
-    const api = 'http://localhost:3001'
+    const api = 'https://zidyia-passport.onrender.com';
     
     const navigate = useNavigate();
 

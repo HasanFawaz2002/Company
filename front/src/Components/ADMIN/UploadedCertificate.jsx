@@ -14,7 +14,7 @@ function UploadedCertificate(props) {
 const [imageModalOpen, setImageModalOpen] = useState(false);
 
 
-  const api= "http://localhost:3001";
+const api = 'https://zidyia-passport.onrender.com';
   const token = localStorage.getItem('access_token');
 
   useEffect(() => {

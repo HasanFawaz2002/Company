@@ -19,7 +19,7 @@ const VerificationPlatformShared = () => {
 
   const navigate = useNavigate();
 
-  const api = 'http://localhost:3001'
+  const api = 'https://zidyia-passport.onrender.com';
 
   const openModal = () => {
     setShowModal(true);

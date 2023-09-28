@@ -8,7 +8,7 @@ import "./register.css";
 
 function Register() {
   const navigate = useNavigate();
-  const api = "http://localhost:3001";
+  const api = 'https://zidyia-passport.onrender.com';
   const [ID,setID] = useState('');
   const [firstname,setrFirstname] = useState('');
   const [lastname,setLastname] = useState('');

@@ -10,7 +10,7 @@ import defaultImage from "../../images/download.png";
 
 function MyProfile(){
     const navigate=useNavigate();
-    const api = 'http://localhost:3001';
+    const api = 'https://zidyia-passport.onrender.com';
     const token = localStorage.getItem('access_token');
     const userID = localStorage.getItem('userId');
 

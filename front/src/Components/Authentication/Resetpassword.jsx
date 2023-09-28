@@ -10,7 +10,7 @@ import { faEye,faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 function Resetpassword() {
 
   const navigate = useNavigate();
-  const api = "http://localhost:3001";
+  const api = 'https://zidyia-passport.onrender.com';
   const [password, setPassword] = useState("");
   const[passwordError,setPasswordError]=useState("");
 

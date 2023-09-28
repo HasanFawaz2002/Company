@@ -9,7 +9,7 @@ function SubscriptionsView() {
   const [showModal, setShowModal] = useState(false);
   const [selectedSubscriptionId, setSelectedSubscriptionId] = useState(null);
 
-  const api = "http://localhost:3001";
+  const api = 'https://zidyia-passport.onrender.com';
 
   useEffect(() => {
     axios

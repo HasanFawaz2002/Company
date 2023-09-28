@@ -10,7 +10,7 @@ import "./SubscriptionLogin.css";
 
 const SubscriptionLogin = () => {
     const history = useNavigate();
-      const api = "http://localhost:3001";
+    const api = 'https://zidyia-passport.onrender.com';
 
 
   const [formData, setFormData] = useState({

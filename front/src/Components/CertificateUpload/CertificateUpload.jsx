@@ -14,7 +14,7 @@ const CertificateUpload = () => {
         const [errors, setErrors] = useState({});
         const { institutionID } = useParams();
         const navigate = useNavigate();
-        const api= "http://localhost:3001";
+        const api = 'https://zidyia-passport.onrender.com';
         const isblocked=localStorage.getItem('isblocked');
 
 

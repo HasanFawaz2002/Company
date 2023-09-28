@@ -28,7 +28,7 @@ const Contactus = () => {
       message: "",
     });
 
-    const api = "http://localhost:3001";
+    const api = 'https://zidyia-passport.onrender.com';
 
     const notify = () => toast.success('Email Sended', {
       position: "top-right",

@@ -13,7 +13,7 @@ const Modal = ({onClose, onSave,organizationId}) => {
     const [certificateUploads, setCertificateUploads]= useState([]);
     const [certificateRequests, setCertificateRequests]= useState([]);
 
-    const api = "http://localhost:3001";
+    const api = 'https://zidyia-passport.onrender.com';
     const isblocked=localStorage.getItem('isblocked');
 
     const navigate = useNavigate();

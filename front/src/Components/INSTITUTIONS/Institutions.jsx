@@ -26,7 +26,7 @@ function Institutions() {
   const [institutions, setInstitutions] = useState([]); // Initialize as an empty array
   const navigate = useNavigate();
 
-  const api = "http://localhost:3001";
+  const api = 'https://zidyia-passport.onrender.com';
 
   useEffect(() => {
     // Set a key named 'rendered' to 'true' in localStorage

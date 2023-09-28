@@ -16,7 +16,7 @@ function RequestedCertificate(props) {
   const [imageModalOpen, setImageModalOpen] = useState(false);
   const [studentModalOpen, setStudentModalOpen] = useState(false);
   const[studentIformation, setStudentIformation] = useState(null);
-  const api= "http://localhost:3001";
+  const api = 'https://zidyia-passport.onrender.com';
 
 
   useEffect(() => {
