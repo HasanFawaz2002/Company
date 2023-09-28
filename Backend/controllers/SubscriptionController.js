@@ -8,7 +8,7 @@ const nodeMailer = require('nodemailer');
 
 
 // Schedule a cron job to check for expired subscriptions and update their status
-cron.schedule('*/5 * * * *', async () => {
+cron.schedule('0 0 */5 * *', async () => {
     try {
         // Get the current date
         const currentDate = new Date();
