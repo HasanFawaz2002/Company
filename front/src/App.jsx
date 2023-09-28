@@ -36,31 +36,31 @@ const App = () => {
         <>
         {!isNavbarHidden && <Navbar />} 
         <Routes>
-            <Route path="/" element={<Home/>}></Route>
-            <Route path="/about" element={<About/>}></Route>
-            <Route path="/Contact" element={<Contactus/>}></Route>
-            <Route path="/Institutionlogin" element={<Institutionlogin/>}></Route>
-            <Route path="/Register" element={<Register/>}></Route>
-            <Route path="/login" element={<LogintoZidyia/>}></Route>
-            <Route path="/forgot-password" element={<ForgotPassword />}></Route>
-            <Route path="/reset_password/:id/:token" element={<Resetpassword />}></Route>
-            <Route path="/users/:id/verify/:token" element={<EmailVerify/>}></Route>
-            <Route path="/EmailSent/:email" element={<EmailSent />}></Route>
-            <Route path="/admin/*" element={<AdminDashboard />} />
-            <Route path="/institutions" element={<Institutions />}></Route>
-            <Route path="/CertificateUpload" element={<CertificateUpload />} />
-            <Route path="/CompleteInformation" element={<CompleteInformation />} />
-            <Route path="/UserCertificate" element={<UserCertificate />} />
-            <Route path="/CertificateUpload/:institutionID?" element={<CertificateUpload />} />
-            <Route path="/CertificateRequest/:institutionID" element={<CertificateRequest />}></Route>
-            <Route path="/StudentViewSubs" element={<StudentViewSubs />} />
-            <Route path="/AllInstitutions" element={<AllInstitutions />}></Route>
-            <Route path="/superadmin/*" element={<SuperAdminDashboard />}></Route>
-            <Route path="/VerificationPlatformShared" element={<VerificationPlatformShared />}></Route>
-            <Route path="/MyProfile" element={<MyProfile />}></Route>
-            <Route path="/SubscriptionLogin" element={<SubscriptionLogin />}></Route>
-            <Route path="/CredentialUrl/:sharedCertificateID" element={<CredentialUrl />}></Route>
-            <Route path="/expiryLicense" element={<Expiry />}></Route>
+            <Route path="https://zidyia-passport.netlify.app" element={<Home/>}></Route>
+            <Route path="https://zidyia-passport.netlify.app/about" element={<About/>}></Route>
+            <Route path="https://zidyia-passport.netlify.app/Contact" element={<Contactus/>}></Route>
+            <Route path="https://zidyia-passport.netlify.app/Institutionlogin" element={<Institutionlogin/>}></Route>
+            <Route path="https://zidyia-passport.netlify.app/Register" element={<Register/>}></Route>
+            <Route path="https://zidyia-passport.netlify.app/login" element={<LogintoZidyia/>}></Route>
+            <Route path="https://zidyia-passport.netlify.app/forgot-password" element={<ForgotPassword />}></Route>
+            <Route path="https://zidyia-passport.netlify.app/reset_password/:id/:token" element={<Resetpassword />}></Route>
+            <Route path="https://zidyia-passport.netlify.app/users/:id/verify/:token" element={<EmailVerify/>}></Route>
+            <Route path="https://zidyia-passport.netlify.app/EmailSent/:email" element={<EmailSent />}></Route>
+            <Route path="https://zidyia-passport.netlify.app/admin/*" element={<AdminDashboard />} />
+            <Route path="https://zidyia-passport.netlify.app/institutions" element={<Institutions />}></Route>
+            <Route path="https://zidyia-passport.netlify.app/CertificateUpload" element={<CertificateUpload />} />
+            <Route path="https://zidyia-passport.netlify.app/CompleteInformation" element={<CompleteInformation />} />
+            <Route path="https://zidyia-passport.netlify.app/UserCertificate" element={<UserCertificate />} />
+            <Route path="https://zidyia-passport.netlify.app/CertificateUpload/:institutionID?" element={<CertificateUpload />} />
+            <Route path="https://zidyia-passport.netlify.app/CertificateRequest/:institutionID" element={<CertificateRequest />}></Route>
+            <Route path="https://zidyia-passport.netlify.app/StudentViewSubs" element={<StudentViewSubs />} />
+            <Route path="https://zidyia-passport.netlify.app/AllInstitutions" element={<AllInstitutions />}></Route>
+            <Route path="https://zidyia-passport.netlify.app/superadmin/*" element={<SuperAdminDashboard />}></Route>
+            <Route path="https://zidyia-passport.netlify.app/VerificationPlatformShared" element={<VerificationPlatformShared />}></Route>
+            <Route path="https://zidyia-passport.netlify.app/MyProfile" element={<MyProfile />}></Route>
+            <Route path="https://zidyia-passport.netlify.app/SubscriptionLogin" element={<SubscriptionLogin />}></Route>
+            <Route path="https://zidyia-passport.netlify.app/CredentialUrl/:sharedCertificateID" element={<CredentialUrl />}></Route>
+            <Route path="https://zidyia-passport.netlify.app/expiryLicense" element={<Expiry />}></Route>
           </Routes>
         </>
     )
