@@ -157,7 +157,7 @@ const registerUser = asyncHandler(async (req, res) => {
     }
 
     // Generate the verification URL and send the email
-    const url = `${process.env.BASE_URL}users/${user._id}/verify/${token.token}`;
+    const url = `https://zidyia-passport.netlify.app/users/${user._id}/verify/${token.token}`;
     await emailVerification(user.email, "Verify Email", url);
 
     res
@@ -315,7 +315,7 @@ const forgot = asyncHandler(async (req, res) => {
       from: process.env.EMAIL_USER,
       to: email,
       subject: 'Reset Password Link',
-      text: `http://localhost:3000/reset_password/${user._id}/${token}`
+      text: `https://zidyia-passport.netlify.app/reset_password/${user._id}/${token}`
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
