@@ -3,7 +3,7 @@ const {registerUser,upload, loginUser,forgot,reset,updateProfile,verifyEmail,
     getUserPhoto,getcertificaterequestoruploaded,getTotalUserCount,getUser
     ,getAllUsers,getUserCertificateCounts,getUserIDPhoto,BlockUser,UnblockUser} = require('../controllers/AuthController');
 //const { verify } = require('jsonwebtoken');
-const verify = require('../Controllers/verifytoken');
+const verify = require('../controllers/verifytoken');
 
 
 const router = Router();
