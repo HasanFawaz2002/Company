@@ -24,6 +24,17 @@ function CertificateRequest() {
 
   const api = 'https://zidyia-passport.onrender.com';
 
+  const notify = () => toast.success('Certificate Requested Successfully', {
+    position: "top-right",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "colored",
+    });
+
 
   useEffect(() => {
     const token = localStorage.getItem('access_token');
@@ -184,7 +195,7 @@ function CertificateRequest() {
   
         if (formValuesResponse.status === 201) {
           console.log('Input field values stored successfully');
-          window.location.reload();
+          notify();
         } else {
           console.error('Error storing input field values:', formValuesResponse.status);
           setErrorMessage('Error storing input field values.');
@@ -207,7 +218,18 @@ function CertificateRequest() {
   return (
     <>
     <div className="certificate-request-form-container">
-      <ToastContainer />
+    <ToastContainer
+position="top-right"
+autoClose={3000}
+hideProgressBar={true}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="colored"
+/>
       <div className="Certificate-request-form-container">
         <h2>Certificate Request Form</h2>
         {errorMessage && <p className="error-message">{errorMessage}</p>}
