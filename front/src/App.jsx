@@ -43,8 +43,8 @@ const App = () => {
             <Route path="/Register" element={<Register/>}></Route>
             <Route path="/login" element={<LogintoZidyia/>}></Route>
             <Route path="/forgot-password" element={<ForgotPassword />}></Route>
-            <Route path="reset_password/:id/:token" element={<Resetpassword />}></Route>
-            <Route path="users/:id/verify/:token" element={<EmailVerify/>}></Route>
+            <Route path="https://zidyia-passport.netlify.app/reset_password/:id/:token" element={<Resetpassword />}></Route>
+            <Route path="https://zidyia-passport.netlify.app/users/:id/verify/:token" element={<EmailVerify/>}></Route>
             <Route path="/EmailSent/:email" element={<EmailSent />}></Route>
             <Route path="/admin/*" element={<AdminDashboard />} />
             <Route path="/institutions" element={<Institutions />}></Route>
