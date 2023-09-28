@@ -1,7 +1,7 @@
 const express = require("express");
 const asyncHandler = require("express-async-handler");
 const {storeFormValues,getFormValuesByStudentAndCertificateID} = require("../controllers/FormValuesController");
-const verify = require('../Controllers/verifytoken');
+const verify = require('../controllers/verifytoken');
 
 const router = express.Router();
 

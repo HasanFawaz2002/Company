@@ -1,5 +1,5 @@
 const {Router} = require('express');
-const verify = require('../Controllers/verifytoken');
+const verify = require('../controllers/verifytoken');
 const {addCustomizableForm,getCustomizableFormByInstitution,deleteCustomizableFormByInstitution,updateCustomizableFormByInstitution}= require('../controllers/FormController');
 
 const router = Router();

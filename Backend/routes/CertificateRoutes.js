@@ -11,7 +11,7 @@ const {createCertificate,
   calculateAverageCertificates,
   getStudentAverageForInstitution,
 upload} = require('../controllers/CertificateController');
-const verify = require('../Controllers/verifytoken');
+const verify = require('../controllers/verifytoken');
 
 
 

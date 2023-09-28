@@ -12,7 +12,7 @@ const {
       } 
       = require('../controllers/CertificateRequest');
 
-const verify = require('../Controllers/verifytoken');
+      const verify = require('../controllers/verifytoken');
 const router = Router();
 
 //User

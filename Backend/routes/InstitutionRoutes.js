@@ -2,7 +2,7 @@ const {Router} = require('express');
 const {createInstitution,loginInstitution,deleteInstitutionById,updateInstitutionById,getAllInstitutions,getInstitutionById,
     updateInstitutionPasswordById,getLastThreeInstitutions,getTotalInstitutions,getAllLocations,getInstitutionsByLocation
 } = require('../controllers/InstitutionController');
-const verify = require('../Controllers/verifytoken');
+const verify = require('../controllers/verifytoken');
 
 
 

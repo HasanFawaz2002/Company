@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer'); // Import multer
 const CertificateUploadController = require('../controllers/CertificateUploadController');
-const verify = require('../Controllers/verifytoken');
+const verify = require('../controllers/verifytoken');
 const {upload} = require('../controllers/CertificateUploadController');
 
 
