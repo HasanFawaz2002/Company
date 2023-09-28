@@ -252,9 +252,9 @@ console.log(subscriberID);
                       <div className='InfoDivsVPQR'>
                       {sharedCertificate.certificateUploadID ? (
                         
-                        <img className='ImgStylingCU2' src={`http://localhost:3001/photo/${sharedCertificate._id}`} alt="Certificate Upload" />
+                        <img className='ImgStylingCU2' src={`${api}/photo/${sharedCertificate._id}`} alt="Certificate Upload" />
                       ) : sharedCertificate.certificateRequestID ? (
-                        <img className='ImgStylingCU2' src={`http://localhost:3001/photo/${sharedCertificate._id}`} alt="Certificate Request" />
+                        <img className='ImgStylingCU2' src={`${api}/photo/${sharedCertificate._id}`} alt="Certificate Request" />
                       ) : null} 
                         <a
         href={sharedCertificate.qrUrl}

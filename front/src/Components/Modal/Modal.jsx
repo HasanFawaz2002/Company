@@ -107,7 +107,7 @@ const Modal = ({onClose, onSave,organizationId}) => {
                putFormData.append('qrcode', qrcodeBlob); 
                putFormData.append('qrUrl', qrcodeDataUrl); 
       
-            const putResponse = await axios.put(`http://localhost:3001/updateQrcode/${response.data.sharedCertificate._id}`, putFormData);
+            const putResponse = await axios.put(`${api}/updateQrcode/${response.data.sharedCertificate._id}`, putFormData);
         
               if (putResponse.status === 200) {
                 // Call the notify function here or resolve a promise to notify externally
@@ -170,7 +170,7 @@ const Modal = ({onClose, onSave,organizationId}) => {
                putFormData.append('qrcode', qrcodeBlob); 
                putFormData.append('qrUrl', qrcodeDataUrl); 
       
-            const putResponse = await axios.put(`http://localhost:3001/updateQrcode/${response.data.sharedCertificate._id}`, putFormData);
+            const putResponse = await axios.put(`${api}/updateQrcode/${response.data.sharedCertificate._id}`, putFormData);
         
               if (putResponse.status === 200) {
                 // Call the notify function here or resolve a promise to notify externally
@@ -222,7 +222,7 @@ const Modal = ({onClose, onSave,organizationId}) => {
   <div key={certificateUpload.id} className='CertificatesHolderSS'>
 <img
   className='ImageModalSS'
-  src={`http://localhost:3001/certificateUploadPhoto/${certificateUpload._id}/photo`}
+  src={`${api}/certificateUploadPhoto/${certificateUpload._id}/photo`}
   alt={`${certificateUpload.id}`}
 />
 <div>
@@ -243,7 +243,7 @@ const Modal = ({onClose, onSave,organizationId}) => {
   <div key={certificateRequest.id} className='CertificatesHolderSS'>
 <img
   className='ImageModalSS'
-  src={`http://localhost:3001/getCertificatePhoto/${certificateRequest.certificateID._id}/photo`}
+  src={`${api}/getCertificatePhoto/${certificateRequest.certificateID._id}/photo`}
   alt={`${certificateRequest.certificateID.id}`}
 />
 <div>

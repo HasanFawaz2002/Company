@@ -129,12 +129,12 @@ console.log(combinedCertificates);
               <img
                 src={certificate.type === 'uploaded' ?
                   `${api}/certificateUploadPhoto/${certificate.data._id}/photo` :
-                  `http://localhost:3001/getCertificatePhoto/${certificate.data.certificateID._id}/photo`}
+                  `${api}/getCertificatePhoto/${certificate.data.certificateID._id}/photo`}
                 alt="Certificate"
                 className='UserCertificate-card-image'
                 onClick={() => handleImageClick(certificate.type === 'uploaded' ?
                   `${api}/certificateUploadPhoto/${certificate.data._id}/photo` :
-                  `http://localhost:3001/getCertificatePhoto/${certificate.data.certificateID._id}/photo`)}
+                  `${api}/getCertificatePhoto/${certificate.data.certificateID._id}/photo`)}
               />
               <h2 className='UserCertificate-card-headtwo'>
                 {certificate.type === 'uploaded' ? 'Uploaded Certificate' : 'Requested Certificate'}

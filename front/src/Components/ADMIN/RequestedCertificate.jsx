@@ -185,7 +185,7 @@ function RequestedCertificate(props) {
             <div className="requested-ceritificate-card" key={index}>
               <button className='request-more-btn' onClick={() => fetchStudentInformation(item.certificateID._id, item.studentID._id,item._id)}><BsThreeDots /></button>
               <div className="img-box" onClick={() => handleImageClick(`${api}/getCertificatePhoto/${item.certificateID._id}/photo`)}>
-                <img src={`http://localhost:3001/getCertificatePhoto/${item.certificateID._id}/photo`} alt={`${item.certificateID.id}`} />
+                <img src={`${api}/getCertificatePhoto/${item.certificateID._id}/photo`} alt={`${item.certificateID.id}`} />
               </div>
               <div className="content">
                 <h3>{item.certificateID.name}</h3>
