@@ -42,24 +42,18 @@ const getCertificateUploadPhoto = async (req, res) => {
       return res.status(404).json({ error: 'certificateUpload not found.' });
     }
 
-    // Use the imagePath directly as it should be a relative path
     const relativeImagePath = certificateUpload.certificateFile;
 
-    // Get the absolute path to the image file
     const absoluteImagePath = path.join(uploadPath, relativeImagePath);
 
-    // Check if the file exists
     if (!fs.existsSync(absoluteImagePath)) {
       return res.status(404).json({ error: 'File not found.', imagePath: absoluteImagePath });
     }
 
-    // Send the product's photo as a response
     res.sendFile(absoluteImagePath);
   } catch (err) {
-    // Log the error including the error message and stack trace
     console.error('Error retrieving certificateUpload photo:', err);
 
-    // Respond with a more detailed error message
     res.status(500).json({ error: 'Internal Server Error', errorMessage: err.message });
   }
 };
@@ -74,7 +68,6 @@ const createCertificateUpload = async (req, res) => {
     }
     const studentID = req.user.user.id;
     const { name } = req.body; 
-    // Get the institution ID from the request parameters
     const { institutionID } = req.params;
     const certificateFile = req.file;
     const certificateUpload = new CertificateUpload({
@@ -84,7 +77,6 @@ const createCertificateUpload = async (req, res) => {
       description: req.body.description,
       certificateFile: certificateFile.filename,
     });
-    // const certificateUpload = new CertificateUpload(req.body);
     await certificateUpload.save();
     res.status(201).json(certificateUpload);
   } catch (error) {
@@ -92,13 +84,10 @@ const createCertificateUpload = async (req, res) => {
   }
 };
 
-// Get a list of all certificate uploads for a specific institution
 const getCertificateUploadsByInstitution = asyncHandler(async (req, res) => {
   try {
-    // Extract the institution ID from the JWT token
     const institutionIDFromToken = req.user.institution.id;
 
-    // Find certificate uploads that match the institution ID
     const certificateUploads = await CertificateUpload.find({
       institutionID: institutionIDFromToken,
     });
@@ -119,25 +108,21 @@ const getCertificateUploadsByInstitution = asyncHandler(async (req, res) => {
 
 const getCertificateUploadsByInstitutionCount = asyncHandler(async (req, res) => {
   try {
-    // Extract the institution ID from the JWT token
     const institutionIDFromToken = req.user.institution.id;
 
-    // Count certificates with pending status for the institution
     const pendingCount = await CertificateUpload.countDocuments({
       institutionID: institutionIDFromToken,
       status: 'Pending', // Replace with your specific status value
     });
 
-    // Count certificates with rejected status for the institution
     const rejectedCount = await CertificateUpload.countDocuments({
       institutionID: institutionIDFromToken,
-      status: 'Rejected', // Replace with your specific status value
+      status: 'Rejected', 
     });
 
-    // Count certificates with approved status for the institution
     const approvedCount = await CertificateUpload.countDocuments({
       institutionID: institutionIDFromToken,
-      status: 'Approved', // Replace with your specific status value
+      status: 'Approved', 
     });
     const totalCount = await CertificateUpload.countDocuments({
       institutionID: institutionIDFromToken,

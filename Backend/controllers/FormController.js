@@ -7,14 +7,13 @@ const addCustomizableForm = asyncHandler(async (req, res) => {
         const institutionID = req.user.institution.id;
         const { formName, fields } = req.body;
 
-        // Check if a form already exists for the institution
+        
         const existingForm = await CustomizableForm.findOne({ institutionID });
 
         if (existingForm) {
             return res.status(400).json({ message: "An existing form already exists for this institution" });
         }
 
-        // Create the customizable form
         const customizableForm = await CustomizableForm.create({
             formName,
             institutionID,
@@ -32,12 +31,10 @@ const addCustomizableForm = asyncHandler(async (req, res) => {
 });
 
 
-// Get customizable form by institution
 const getCustomizableFormByInstitution = asyncHandler(async (req, res) => {
     try {
         const institutionID = req.params.institutionID;
 
-        // Find the customizable form for the institution
         const customizableForm = await CustomizableForm.findOne({ institutionID });
 
         if (!customizableForm) {
@@ -54,12 +51,10 @@ const getCustomizableFormByInstitution = asyncHandler(async (req, res) => {
     }
 });
 
-// Delete the customizable form of the logged-in institution
 const deleteCustomizableFormByInstitution = asyncHandler(async (req, res) => {
     try {
         const institutionID = req.user.institution.id;
 
-        // Find and delete the customizable form for the institution
         const deletedForm = await CustomizableForm.findOneAndDelete({ institutionID });
 
         if (!deletedForm) {
@@ -80,11 +75,10 @@ const updateCustomizableFormByInstitution = asyncHandler(async (req, res) => {
         const institutionID = req.user.institution.id;
         const { formName, fields } = req.body;
 
-        // Find and update the customizable form for the institution
         const updatedForm = await CustomizableForm.findOneAndUpdate(
             { institutionID },
             { formName, fields },
-            { new: true } // To return the updated document
+            { new: true } 
         );
 
         if (!updatedForm) {

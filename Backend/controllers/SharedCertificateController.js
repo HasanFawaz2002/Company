@@ -34,38 +34,29 @@ const getSharedCertificatePhoto = async (req, res) => {
         return res.status(404).json({ error: 'Certificate not found.' });
       }
   
-      // Use the imagePath directly from the sharedCertificate instance
       const relativeImagePath = sharedCertificate.qrcode;
   
-      // Get the absolute path to the image file
       const absoluteImagePath = path.join(uploadPath, relativeImagePath);
   
-      // Check if the file exists
       if (!fs.existsSync(absoluteImagePath)) {
         return res.status(404).json({ error: 'File not found.', imagePath: absoluteImagePath });
       }
   
-      // Send the certificate's photo as a response
       res.sendFile(absoluteImagePath);
     } catch (err) {
-      // Log the error including the error message and stack trace
       console.error('Error retrieving shared certificate photo:', err);
   
-      // Respond with a more detailed error message
       res.status(500).json({ error: 'Internal Server Error', errorMessage: err.message });
     }
   };
   
 
-  // Create a shared certificate
   const createSharedCertificate = async (req, res) => {
     try {
-        // Extract the subscriberID from the URL parameters
         const studentID = req.user.user.id;
         const { subscriberID } = req.params;
         const { certificateRequestID, certificateUploadID, qrUrl } = req.body;
 
-        // Check if a shared certificate with the same subscription, certificateRequestID, and certificateUploadID exists
         const existingSharedCertificate = await SharedCertificate.findOne({
             subscriberID,
             certificateRequestID,
