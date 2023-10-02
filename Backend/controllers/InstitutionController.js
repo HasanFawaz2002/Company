@@ -22,25 +22,25 @@ function generateRandomPassword(minLength, maxLength) {
 const createInstitution = asyncHandler(async (req, res) => {
   try {
 
-    // Check if the email already exists in the database
+    
     const existingInstitution = await Institution.findOne({ email: req.body.email });
 
     if (existingInstitution) {
-      // Send a specific error response for duplicate email
+     
       return res.status(400).json({ message: 'Email already exists. Please use a different email.' });
     }
-      // Generate a random password with a minimum length of 6 characters
+      
       const password = generateRandomPassword(6, 12);
 
-      // Hash the generated password
+     
       const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Create the institution with the generated password
+       
         const institution = await Institution.create({
             name: req.body.name,
             location: req.body.location,
             email: req.body.email,
-            password: hashedPassword, // Store the hashed password
+            password: hashedPassword, 
         });
 
       // Check if the institution was successfully created
@@ -90,7 +90,7 @@ const loginInstitution = asyncHandler(async (req, res) => {
       throw new Error("All fields are mandatory!");
     }
     const institution = await Institution.findOne({ email });
-    //compare password with hashedpassword
+    
     if (institution &&   await bcrypt.compare(password, institution.password)) {
       const accessToken = jwt.sign(
         {
@@ -114,14 +114,14 @@ const deleteInstitutionById = asyncHandler(async (req, res) => {
   try {
       const institutionID = req.params.institutionID;
 
-      // Check if the institution with the given ID exists
+     
       const institution = await Institution.findById(institutionID);
 
       if (!institution) {
           return res.status(404).json({ message: "Institution not found" });
       }
 
-      // Delete the institution using deleteOne
+     
       await Institution.deleteOne({ _id: institutionID });
 
       res.status(200).json({ message: "Institution deleted successfully" });
@@ -136,26 +136,26 @@ const deleteInstitutionById = asyncHandler(async (req, res) => {
 const updateInstitutionById = asyncHandler(async (req, res) => {
   try {
       const institutionID = req.params.institutionID;
-      const updateData = req.body; // Data to update the institution
+      const updateData = req.body; 
 
-      // Check if the institution with the given ID exists
+    
       const institution = await Institution.findById(institutionID);
 
       if (!institution) {
           return res.status(404).json({ message: "Institution not found" });
       }
 
-      // Check if the updateData contains a new password
+     
       if (updateData.password) {
           // Hash the new password
         //   const hashedPassword = await bcrypt.hash(updateData.password, 10);
         //   updateData.password = hashedPassword;
       }
 
-      // Update the institution's data
+      
       Object.assign(institution, updateData);
 
-      // Save the updated institution to the database
+      
       await institution.save();
 
       res.status(200).json({ message: "Institution updated successfully", institution });
@@ -189,7 +189,7 @@ const getInstitutionById = asyncHandler(async (req, res) => {
   try {
     const institutionID = req.user.institution.id;
 
-    // Check if the institution with the given ID exists
+    
     const institution = await Institution.findById(institutionID);
 
     if (!institution) {
@@ -209,21 +209,21 @@ const updateInstitutionPasswordById = asyncHandler(async (req, res) => {
     const institutionID = req.user.institution.id;
     const { newPassword } = req.body;
 
-    // Check if the institution with the given ID exists
+   
     const institution = await Institution.findById(institutionID);
 
     if (!institution) {
       return res.status(404).json({ message: 'Institution not found' });
     }
 
-    // Hash the new password
+    
     const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-    // Update the institution's password and set notified to true in the database
+   
     institution.password = hashedPassword;
     institution.notified = true;
     
-    // Save the updated institution document
+   
     await institution.save();
 
     res.status(200).json({ message: 'Password updated successfully', institution });
@@ -237,8 +237,8 @@ const updateInstitutionPasswordById = asyncHandler(async (req, res) => {
 const getLastThreeInstitutions = asyncHandler(async (req, res) => {
   try {
     const institutions = await Institution.find({role: 'admin'})
-      .sort({ createdAt: -1 }) // Sort by createdAt field in descending order (newest first)
-      .limit(3); // Limit the result to three institutions
+      .sort({ createdAt: -1 }) 
+      .limit(3); 
 
     res.status(200).json({
       message: "Last three institutions retrieved successfully",
@@ -262,14 +262,14 @@ const countTotalInstitutions = async () => {
     return totalAdminInstitutions;
   } catch (error) {
     console.error('Error counting total admin institutions:', error);
-    return 0; // Return 0 in case of an error
+    return 0; 
   }
 };
 
-// Controller to get the total count of institutions
+
 const getTotalInstitutions = asyncHandler(async (req, res) => {
   try {
-    // Get the total number of institutions
+    
     const totalInstitutions = await countTotalInstitutions();
 
     res.status(200).json({ total: totalInstitutions });
@@ -284,21 +284,21 @@ const getAllLocations = async (req, res) => {
     // Query the database to find all institutions
     const institutions = await Institution.find({role: 'admin'}, 'location');
 
-    // Create a Set to store unique locations
+   
     const uniqueLocations = new Set();
 
-    // Iterate through the institutions and add their locations to the Set
+    
     institutions.forEach((institution) => {
       uniqueLocations.add(institution.location);
     });
 
-    // Convert the Set back into an array
+    
     const locations = Array.from(uniqueLocations);
 
-    // Send the unique locations as a JSON response
+   
     res.status(200).json(locations);
   } catch (error) {
-    // Handle any errors that may occur during the database query
+   
     console.error(error);
     res.status(500).json({ error: 'An error occurred while fetching institution locations.' });
   }
@@ -306,23 +306,23 @@ const getAllLocations = async (req, res) => {
 
 
 const getInstitutionsByLocation = async (req, res) => {
-  const { location } = req.params; // Assuming the location is passed as a parameter in the URL
+  const { location } = req.params; 
 
   try {
-    let query = { role: 'admin' }; // Include the role filter for "admin" institutions
+    let query = { role: 'admin' }; 
 
     if (location !== "All") {
-      // If the location is not "All," include it in the query
+      
       query.location = location;
     }
 
-    // Query the database to find admin institutions based on the query
+    
     const institutions = await Institution.find(query);
 
-    // Send the matching admin institutions as a JSON response
+   
     res.status(200).json(institutions);
   } catch (error) {
-    // Handle any errors that may occur during the database query
+    
     console.error(error);
     res.status(500).json({ error: 'An error occurred while fetching admin institutions by location.' });
   }

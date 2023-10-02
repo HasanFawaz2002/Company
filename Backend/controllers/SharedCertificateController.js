@@ -64,13 +64,13 @@ const getSharedCertificatePhoto = async (req, res) => {
         });
 
         if (existingSharedCertificate) {
-            // If a matching shared certificate exists, prevent sharing
+            
             return res.status(400).json({ error: 'Certificate already shared to the same subscription' });
         }
 
         const qrcode = req.file ? req.file.filename : null;
 
-        // Create the shared certificate record
+       
         const sharedCertificate = new SharedCertificate({
             subscriberID,
             certificateRequestID,
@@ -80,7 +80,7 @@ const getSharedCertificatePhoto = async (req, res) => {
             qrcode: qrcode,
         });
 
-        // Save the shared certificate record to the database
+       
         await sharedCertificate.save();
 
         res.status(200).json({ message: 'Shared certificate created successfully', sharedCertificate });
@@ -94,8 +94,8 @@ const updateQrcode = async (req, res) => {
   const { qrUrl } = req.body;
   const sharedCertificateID = req.params.sharedCertificateID;
 
-  // Check if qrcode file is provided
-  let qrCodeFilename = null; // Default value if not provided
+ 
+  let qrCodeFilename = null;
   if (req.file) {
     qrCodeFilename = req.file.filename;
   }

@@ -10,7 +10,7 @@ const createCertificateRequest = async (req, res) => {
     const userID = req.user.user.id;
     const { institutionID, formID, certificateID } = req.params;
 
-    // Check if there is an existing request with the same user, institution, certificate, and status (pending or verified)
+    
     const existingRequest = await CertificateRequest.findOne({
       studentID: userID,
       institutionID,
@@ -47,7 +47,7 @@ const createCertificateRequest = async (req, res) => {
 
     res.status(201).json({
       message: 'Certificate request submitted successfully.',
-      _id: savedRequest._id, // Include the certificateRequestID in the response
+      _id: savedRequest._id, 
     });
   } catch (error) {
     console.error(error);
@@ -60,7 +60,7 @@ const createCertificateRequest = async (req, res) => {
     try {
       const userID = req.user.user.id;
   
-      // Find certificate requests for the user
+      
       const certificateRequests = await CertificateRequest.find({ studentID: userID });
   
       res.status(200).json(certificateRequests);
@@ -73,9 +73,9 @@ const createCertificateRequest = async (req, res) => {
   const deleteCertificateRequest = async (req, res) => {
     try {
       const { requestID } = req.params;
-      const userID = req.user.user.id; // Get the user ID from the token
+      const userID = req.user.user.id;
   
-      // Find the certificate request by ID and owner (user)
+      
       const request = await CertificateRequest.findOne({ _id: requestID, studentID: userID });
   
       if (!request) {
@@ -94,9 +94,9 @@ const createCertificateRequest = async (req, res) => {
 
   const getCertificateRequestsByInstitution = async (req, res) => {
     try {
-      const institutionID = req.user.institution.id; // Get the institution ID from the token
+      const institutionID = req.user.institution.id; 
   
-      // Find certificate requests for the institution
+      
       const certificateRequests = await CertificateRequest.find({ institutionID });
   
       res.status(200).json(certificateRequests);
@@ -114,14 +114,14 @@ const createCertificateRequest = async (req, res) => {
       // Construct the credentialUrl based on the requestID
       const credentialUrl = `/CredentialUrl/${requestID}`;
   
-      // Find the certificate request by ID, institution ID, and update its status and credentialUrl
+     
       const updatedRequest = await CertificateRequest.findOneAndUpdate(
         { _id: requestID, institutionID },
         { 
           status: 'Approved',
           credentialUrl: credentialUrl
         },
-        { new: true } // To get the updated document
+        { new: true } 
       );
   
       if (!updatedRequest) {
@@ -141,11 +141,11 @@ const createCertificateRequest = async (req, res) => {
       const institutionID = req.user.institution.id;
       const {  reason } = req.body;
   
-      // Find the certificate request by ID, institution ID, and update its status
+      
       const updatedRequest = await CertificateRequest.findOneAndUpdate(
         { _id: requestID, institutionID },
         { status: 'Rejected',reason },
-        { new: true } // To get the updated document
+        { new: true } 
       );
   
       if (!updatedRequest) {
@@ -164,10 +164,10 @@ const createCertificateRequest = async (req, res) => {
       // Extract the institution ID from the JWT token
       const institutionIDFromToken = req.user.institution.id;
   
-      // Define valid status values (you can customize this)
+     
       const validStatusValues = ['Pending', 'Approved', 'Rejected'];
   
-      // Count requests with different status values for the institution
+      
       const counts = {};
   
       for (const status of validStatusValues) {
@@ -177,12 +177,12 @@ const createCertificateRequest = async (req, res) => {
         });
       }
   
-      // Count all requests for the institution
+      
       const totalCount = await CertificateRequest.countDocuments({
         institutionID: institutionIDFromToken,
       });
   
-      // Construct the response object
+     
       const response = {
         message: "Certificate requests retrieved successfully",
         requestCounts: {
@@ -207,17 +207,16 @@ const createCertificateRequest = async (req, res) => {
       // Define valid status values (you can customize this)
       const validStatusValues = ['Pending', 'Approved', 'Rejected'];
     
-      // Count requests with different status values for all institutions
+     
       const counts = {};
   
       for (const status of validStatusValues) {
         counts[status] = await CertificateRequest.countDocuments({ status });
       }
     
-      // Count all requests for all institutions
+      
       const totalCount = await CertificateRequest.countDocuments();
     
-      // Construct the response object
       const response = {
         message: "Certificate requests retrieved successfully",
         requestCounts: {
@@ -245,7 +244,7 @@ const createCertificateRequest = async (req, res) => {
       const institutionID = req.user.institution.id;
   
       if(institutionID){
-        // Count the number of certificate requests with a "pending" status for the institution
+       
       const pendingCount = await CertificateRequest.countDocuments({status: 'pending' });
       res.status(200).json({ pendingCount });
       }else {

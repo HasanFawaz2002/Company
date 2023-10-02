@@ -14,7 +14,6 @@ const CertificateRequest = require('../models/certificateRequest');
 const CertificateUpload = require('../models/certificateUpload');
 const SharedCertificate=require('../models/sharedCertificate');
 
-// Construct the full path to the uploads directory
 const uploadPath = path.join(__dirname, '..', 'server', 'uploads');
 
 const storage = multer.diskStorage({
@@ -22,7 +21,7 @@ const storage = multer.diskStorage({
     try {
       console.log('Uploading files ...');
       fs.mkdirSync(uploadPath, { recursive: true });
-      cb(null, uploadPath); // Remove the extra concatenation here
+      cb(null, uploadPath); 
     } catch (error) {
       console.error('Error:', error.message);
     }
@@ -45,24 +44,18 @@ const getUserPhoto = async (req, res) => {
       return res.status(404).json({ error: 'user not found.' });
     }
 
-    // Use the imagePath directly as it should be a relative path
     const relativeImagePath = userUpload.profilePicture;
 
-    // Get the absolute path to the image file
     const absoluteImagePath = path.join(uploadPath, relativeImagePath);
 
-    // Check if the file exists
     if (!fs.existsSync(absoluteImagePath)) {
       return res.status(404).json({ error: 'File not found.', imagePath: absoluteImagePath });
     }
 
-    // Send the product's photo as a response
     res.sendFile(absoluteImagePath);
   } catch (err) {
-    // Log the error including the error message and stack trace
     console.error('Error retrieving user photo:', err);
 
-    // Respond with a more detailed error message
     res.status(500).json({ error: 'Internal Server Error', errorMessage: err.message });
   }
 };
@@ -75,24 +68,18 @@ const getUserIDPhoto = async (req, res) => {
       return res.status(404).json({ error: 'user not found.' });
     }
 
-    // Use the imagePath directly as it should be a relative path
     const relativeImagePath = userUpload.ID;
 
-    // Get the absolute path to the image file
     const absoluteImagePath = path.join(uploadPath, relativeImagePath);
 
-    // Check if the file exists
     if (!fs.existsSync(absoluteImagePath)) {
       return res.status(404).json({ error: 'File not found.', imagePath: absoluteImagePath });
     }
 
-    // Send the product's photo as a response
     res.sendFile(absoluteImagePath);
   } catch (err) {
-    // Log the error including the error message and stack trace
     console.error('Error retrieving userID photo:', err);
 
-    // Respond with a more detailed error message
     res.status(500).json({ error: 'Internal Server Error', errorMessage: err.message });
   }
 };
@@ -116,7 +103,6 @@ const registerUser = asyncHandler(async (req, res) => {
       return;
     }
 
-    // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
     const username = firstname + " " + lastname;
 
@@ -145,7 +131,6 @@ const registerUser = asyncHandler(async (req, res) => {
       return;
     }
 
-    // Create the verification token
     const token = await Token.create({
       userID: user._id,
       token: crypto.randomBytes(32).toString("hex"),
@@ -156,7 +141,6 @@ const registerUser = asyncHandler(async (req, res) => {
       return;
     }
 
-    // Generate the verification URL and send the email
     const url = `${process.env.BASE_URL}users/${user._id}/verify/${token.token}`;
     await emailVerification(user.email, "Verify Email", url);
 
@@ -171,13 +155,11 @@ const registerUser = asyncHandler(async (req, res) => {
 
 
 
-// update profile
 const updateProfile = asyncHandler(async (req, res) => {
   const {  location, bio } = req.body;
   const userId = req.params.id; 
 
-  // Check if profilePicture is provided
-  let profilePictureFilename = null; // Default value if not provided
+  let profilePictureFilename = null; 
   if (req.file) {
     profilePictureFilename = req.file.filename;
   }
@@ -216,19 +198,18 @@ const verifyEmail = async (req, res) => {
     const userId = req.params.id;
     const tokenValue = req.params.token;
 
-    // Find the user by ID
+    
     const user = await User.findOne({ _id: userId });
     if (!user) {
       return res.status(400).json({ message: "Invalid link: User not found" });
     }
 
-    // Find the corresponding token and delete it
+    
     await Token.deleteOne({
       userID: user._id,
       token: tokenValue,
     });
 
-    // Update the user's verification status
     await User.updateOne({ _id: user._id }, { verified: true });
 
     res.status(200).json({ message: "Email verified" });
@@ -357,10 +338,10 @@ const getcertificaterequestoruploaded= asyncHandler(async (req, res) => {
   const userId = req.user.user.id;
 
   try {
-    // Fetch requested certificates for the user
+    
     const requestedCertificates = await CertificateRequest.find({ studentID: userId }).populate('certificateID').populate('institutionID');
 
-    // Fetch uploaded certificates for the user
+    
     const uploadedCertificates = await CertificateUpload.find({ studentID: userId }).populate('institutionID');
 
     res.json({ requestedCertificates, uploadedCertificates });
@@ -371,7 +352,7 @@ const getcertificaterequestoruploaded= asyncHandler(async (req, res) => {
   
 const getTotalUserCount = asyncHandler(async (req, res) => {
   try {
-    // Count the total number of users in the User collection
+    
     const totalUsers = await User.countDocuments();
 
     res.status(200).json({ totalUsers });
@@ -381,7 +362,7 @@ const getTotalUserCount = asyncHandler(async (req, res) => {
   }
 });
 
-//get user
+
 const getUser = async (req, res) => {
   const userID = req.params.id;
   try {
@@ -451,7 +432,7 @@ const BlockUser= async (req, res) => {
   }
 };
 
-// Route to unblock a user
+
 const UnblockUser= async (req, res) => {
   const userId = req.params.userId;
 

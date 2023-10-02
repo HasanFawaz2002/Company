@@ -37,12 +37,12 @@ const storeFormValues = asyncHandler(async (req, res) => {
 });
 
 
-/// Define a new route to get form values by studentID and certificateID
+
 const getFormValuesByStudentAndCertificateID = asyncHandler(async (req, res) => {
   try {
-    const studentID = req.params.studentID; // Get studentID from URL parameters
-    const certificateID = req.params.certificateID; // Get certificateID from URL parameters
-    const certificateRequestID = req.params.certificateRequestID; // Get certificateRequestID from URL
+    const studentID = req.params.studentID; 
+    const certificateID = req.params.certificateID;
+    const certificateRequestID = req.params.certificateRequestID; 
 
     const formValues = await FormValues.findOne({
       studentID,
@@ -50,7 +50,7 @@ const getFormValuesByStudentAndCertificateID = asyncHandler(async (req, res) => 
       certificateRequestID,
     });
 
-    res.status(200).json(formValues); // Return the form values as JSON
+    res.status(200).json(formValues);
   } catch (error) {
     console.error("Error fetching form values by studentID and certificateID:", error);
     res.status(500).json({ error: "An error occurred while fetching form values" });
